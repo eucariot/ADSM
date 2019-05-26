@@ -3,3 +3,5 @@
 
 .. toctree::
    :maxdepth: 2
+   
+   0_planning/index.rst
