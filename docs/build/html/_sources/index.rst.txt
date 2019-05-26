@@ -7,9 +7,10 @@ Welcome to ADSM's documentation!
 ================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
+   0_planning/index.rst
 
 
 Indices and tables
