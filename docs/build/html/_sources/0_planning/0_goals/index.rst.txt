@@ -4,4 +4,4 @@
 .. toctree::
    :maxdepth: 1
 
-   goals.md
+   goals.rst
