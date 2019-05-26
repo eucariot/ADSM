@@ -10,7 +10,7 @@ Welcome to ADSM's documentation!
    :maxdepth: 3
    :caption: Contents:
 
-   0_planning
+   0_goals
 
 
 Indices and tables
