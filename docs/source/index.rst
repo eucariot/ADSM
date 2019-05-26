@@ -6,7 +6,3 @@
    :caption: Содержание:
 
    0_planning/index.rst
-
-
-test
-====
