@@ -2,6 +2,7 @@
 =================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    
    0_planning/index.rst
+   1_virtual_network/index.rst

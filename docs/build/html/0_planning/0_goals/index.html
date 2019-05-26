@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>0. Цели &mdash; Документация ADSM 0.1.0</title>
+  <title>Цели &mdash; Документация ADSM 0.1.0</title>
   
 
   
@@ -83,18 +83,22 @@
             
               <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Часть 0. Планирование</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">0. Цели</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">Сеть - как единый организм</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="network_as_a_being.html">Сеть — как единый организм</a></li>
-<li class="toctree-l4"><a class="reference internal" href="testing.html">Тестирование конфигурации</a></li>
-<li class="toctree-l4"><a class="reference internal" href="versioning.html">Версионирование</a></li>
-<li class="toctree-l4"><a class="reference internal" href="monitoring.html">Мониторинг и самовосстановление сервисов</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Цели</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Сеть - как единый организм</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">Тестирование конфигурации</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">Версионирование</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">Мониторинг и самовосстановление сервисов</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="network_as_a_being.html">Сеть — как единый организм</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.html">Тестирование конфигурации</a></li>
+<li class="toctree-l3"><a class="reference internal" href="versioning.html">Версионирование</a></li>
+<li class="toctree-l3"><a class="reference internal" href="monitoring.html">Мониторинг и самовосстановление сервисов</a></li>
 </ul>
 </li>
 </ul>
 </li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../1_virtual_network/index.html">Часть 1. Виртуальная сеть</a></li>
 </ul>
 
             
@@ -142,7 +146,7 @@
         
           <li><a href="../index.html">Часть 0. Планирование</a> &raquo;</li>
         
-      <li>0. Цели</li>
+      <li>Цели</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -162,7 +166,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="id1">
-<h1>0. Цели<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
+<h1>Цели<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
 <p>Сейчас мы поставим максимально абстрактные цели:</p>
 <ul class="simple">
 <li>Сеть - как единый организм</li>
@@ -191,6 +195,62 @@
 </ol>
 <p>При этом руками мы вносим изменения только на первом шаге.</p>
 </div></blockquote>
+</div>
+</div>
+<div class="section" id="id3">
+<h1>Тестирование конфигурации<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h1>
+<p>&lt;a href=»<a class="reference external" href="http://www.wikisummaries.org/wiki/Visible_Ops">http://www.wikisummaries.org/wiki/Visible_Ops</a>» target=»blank»&gt;Известно&lt;/a&gt;, что 80% проблем случаются во время изменения конфигурации - косвенное тому свидетельство - то, что в период новогодних каникул обычно всё спокойно.
+Я лично был свидетелем десятков глобальных даунтаймов из-за ошибки человека: неправильная команда, не в той ветке конфигурации выполнили, забыли комьюнити, снесли MPLS глобально на маршрутизаторе, настроили пять железок, а на шестой ошибку не заметили, закоммитили старые изменения, сделанные другим человеком. Сценариев тьма тьмущая.</p>
+<p>Автоматика нам позволит совершать меньше ошибок, но в большем масштабе. Так можно окирпичить не одно устройство, а всю сеть разом.</p>
+<p>Испокон веков наши деды проверяли правильность вносимых изменений острым глазом, стальными яйцами и работоспособностью сети после их выкатки.
+Те деды, чьи работы приводили к простою и катастрофическим убыткам, оставляли меньше потомства и должны со временем вымереть, но эволюция процесс медленный, и поэтому до сих пор не все предварительно проверяют изменения в лаборатории.
+Однако на острие прогресса те, кто автоматизировал процесс тестирования конфигурации, и дальнейшего её применения на сеть. Иными словами - позаимствовал процедуру CI/CD (&lt;a href=»<a class="reference external" href="https://img.devrant.com/devrant/rant/r_1535091_ErSUL.jpg">https://img.devrant.com/devrant/rant/r_1535091_ErSUL.jpg</a>»&gt;Continuous Integration, Continuous Deployment&lt;/a&gt;) у разработчиков.
+В одной из частей мы рассмотрим как реализовать это с помощью системы контроля версий, вероятно, гитхаба.</p>
+<blockquote>
+<div>Как только вы свыкнитесь с мыслью о сетевом CI/CD, в одночасье метод проверки конфигурации путём её применения на рабочую сеть покажется вам раннесредневековым невежеством. Примерно как стучать молотком по боеголовке.</div></blockquote>
+<p>Органическим продолжением идей о <strong>системе</strong> управления сетью и CI/CD становится полноценное версионирование конфигурации.</p>
+</div>
+<div class="section" id="id4">
+<h1>Версионирование<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Мы будем считать, что при любых изменениях, даже самых незначительных, даже на одном незаметном устройстве, вся сеть переходит из одного состояния в другое.
+И мы всегда не выполняем команду на устройстве, мы меняем состояние сети.
+Вот давайте эти состояния и будем называть версиями?</p>
+<p>Допустим, текущая версия - 1.0.0.
+Поменялся IP-адрес Loopback-интерфейса на одном из ToR’ов? Это минорная версия - получит номер 1.0.1.
+Пересмотрели политики импорта маршрутов в BGP - чуть посерьёзнее - уже 1.1.0
+Решили избавиться от IGP и перейти только на BGP - это уже радикальное изменение дизайна - 2.0.0.</p>
+<p>При этом разные ДЦ могут иметь разные версии - сеть развивается, ставится новое оборудование, где-то добавляются новые уровни спайнов, где-то - нет, итд.</p>
+<p>Про &lt;a href=»<a class="reference external" href="https://semver.org">https://semver.org</a>»&gt;семантическое версионирование&lt;/a&gt; мы поговорим в отдельной статье.</p>
+<p>Повторюсь - любое изменение (кроме отладочных команд) - это обновление версии. О любых отклонениях от актуальной версии должны оповещаться администраторы.</p>
+<p>То же самое касается отката изменений - это не отмена последних команд, это не rollback силами операционной системы устройства - это приведение всей сети к новой (старой) версии.</p>
+</div>
+<div class="section" id="id5">
+<h1>Мониторинг и самовосстановление сервисов<a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Это самоочевидная задача в современных сетях выходит на новый уровень.
+Зачастую у больших сервис-провайдеров практикуется подход, что упавший сервис надо очень быстро добить и поднять новый, вместо того, чтобы разбираться, что произошло.
+«Очень» означает, что со всех сторон нужно обильно обмазаться мониторингами, которые в течение секунд обнаружат малейшие отклонения  от нормы.
+И здесь уже не достаточно привычных метрик, вроде загрузки интерфейса или доступности узла. Недостаточно и ручного слежения дежурного за ними.
+Для многих вещей вообще должен быть &lt;a href=»<a class="reference external" href="https://www.irisns.com/self-healing-network-tomorrow-look-like/">https://www.irisns.com/self-healing-network-tomorrow-look-like/</a>»&gt;Self-Healing&lt;/a&gt; - мониторинги зажглись красным и пошли сами подорожник приложили, где болит.</p>
+<p>И здесь мы тоже мониторим не только отдельные устройства, но и здоровье сети целиком, причём как вайтбокс, что сравнительно понятно, так и блэкбокс, что уже сложнее.</p>
+<hr class="docutils" />
+<dl class="docutils">
+<dt>Что нам понадобится для реализации таких амбициозных планов?</dt>
+<dd><ul class="first simple">
+<li>Иметь список всех устройств в сети, их расположение, роли, модели, версии ПО.</li>
+</ul>
+<p class="last"><em>kazan-leaf-1.lmu.net, Kazan, leaf, Juniper QFX 5120, R18.3</em>
+* Иметь систему описания сетевых сервисов.
+<em>IGP, BGP, L2/3VPN, Policy, ACL, NTP, SSH</em>
+* Уметь инициализировать устройство.
+<em>Hostname, Mgmt IP, Mgmt Route, Users, RSA-Keys, LLDP, NETCONF</em>
+* Настраивать устройство и приводить конфигурацию к нужной (в том числе старой) версии.
+* Тестировать конфигурацию
+* Периодически проверять состояние всех устройств на предмет отхождения от актуального и сообщать кому следует.
+<em>ночью кто-то тихонько добавил правило в ACL</em>
+* Следить за работоспособностью.</p>
+</dd>
+</dl>
+<hr class="docutils" />
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="network_as_a_being.html">Сеть — как единый организм</a></li>
@@ -198,7 +258,6 @@
 <li class="toctree-l1"><a class="reference internal" href="versioning.html">Версионирование</a></li>
 <li class="toctree-l1"><a class="reference internal" href="monitoring.html">Мониторинг и самовосстановление сервисов</a></li>
 </ul>
-</div>
 </div>
 </div>
 
