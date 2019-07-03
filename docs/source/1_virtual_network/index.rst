@@ -24,6 +24,7 @@
    :maxdepth: 2
    :caption: Содержание:
 
+   motivation.rst
    terminology.rst
    underlay.rst
    overlay.rst
