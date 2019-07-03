@@ -37,9 +37,9 @@ Overlay может начинаться на коммутаторе доступ
            :width: 800 px
            :align: center
 
-Тут я отошлю читателя к статье о <a href="https://habr.com/ru/post/344326/" target="_blank">VxLAN на хабре</a> нашего старого друга <a href="https://habr.com/ru/users/bormoglotx/" target="_blank">@bormoglotx</a>.
-В этой <a href="https://www.enog.org/wp-content/uploads/presentations/enog-16/18-Scaleway-P14-fabric-ENOG16.pdf">презентации с ENOG</a> подробно описаны подходы к строительству сети ДЦ с EVPN VXLAN-фабрикой. 
-А для более полного погружения в реалии, можно почитать цискину книгу <a href="https://www.cisco.com/c/dam/en/us/td/docs/switches/datacenter/nexus9000/sw/vxlan_evpn/VXLAN_EVPN.pdf" target="_blank">A Modern, Open, and Scalable Fabric: VXLAN EVPN</a>.
+Тут я отошлю читателя к статье о `VxLAN на хабре <https://habr.com/ru/post/344326/>`_ нашего старого друга `bormoglotx <https://habr.com/ru/users/bormoglotx/>`_.
+В этой `презентации с ENOG <https://www.enog.org/wp-content/uploads/presentations/enog-16/18-Scaleway-P14-fabric-ENOG16.pdf>`_ подробно описаны подходы к строительству сети ДЦ с EVPN VXLAN-фабрикой. 
+А для более полного погружения в реалии, можно почитать цискину книгу `A Modern, Open, and Scalable Fabric: VXLAN EVPN <https://www.cisco.com/c/dam/en/us/td/docs/switches/datacenter/nexus9000/sw/vxlan_evpn/VXLAN_EVPN.pdf>`_.
 
     Замечу, что VXLAN - это только метод инкапсуляции и терминация туннелей может происходить не на ToR'е, а на хосте, как это происходит в случае OpenStack'а, например.
     Однако, VXLAN-фабрика, где overlay начинается на ToR'е является одним из устоявшихся дизайнов оверлейной сети.
@@ -66,7 +66,7 @@ Overlay с хоста
 
 ----
 
-Проще всего рассмотреть на примерах. И в качестве подопытного мы возьмём OpenSource'ную SDN платформу OpenContrail, ныне известную как <a href="https://tungsten.io" target="_blank">Tungsten Fabric</a>.
+Проще всего рассмотреть на примерах. И в качестве подопытного мы возьмём OpenSource'ную SDN платформу OpenContrail, ныне известную как `Tungsten Fabric <https://tungsten.io>`_.
 
     В <a href="#VSWITCH">конце статьи</a> я приведу некоторые размышления на тему аналогии с OpenFlow и OpenvSwitch.
 
@@ -76,7 +76,7 @@ Overlay с хоста
 
 На каждой физической машине есть **vRouter** - виртуальный маршрутизатор, который знает о подключенных к нему сетях и каким клиентам они принадлежат - по сути - PE-маршрутизатор. Для каждого клиента он поддерживает изолированную таблицу маршрутизации (читай VRF). И собственно vRouter делает Overlay'ное туннелирование.
 Чуть подробнее про vRouter - в конце статьи.
-Каждая ВМ, расположенная на гипервизоре, соединяется с vRouter'ом этой машины через <a href="https://en.wikipedia.org/wiki/TUN/TAP">TAP-интерфейс</a>.
+Каждая ВМ, расположенная на гипервизоре, соединяется с vRouter'ом этой машины через `TAP-интерфейс <https://en.wikipedia.org/wiki/TUN/TAP>`_.
 **TAP** - Terminal Access Point - виртуальный интерфейс в ядре linux, которые позволяет осуществлять сетевое взаимодействие.
 
     .. figure:: https://fs.linkmeup.ru/images/adsm/1/tf-host.png
@@ -210,7 +210,7 @@ Control Plane
 
 Overlay может меняться хоть каждую минуту. Примерно так это и происходит в публичных облаках, когда клиенты регулярно запускают и выключают свои виртуальные машины.
 Центральный контроллер берёт на себя все сложности с поддержанием конфигурации и контролем таблиц коммутации/маршрутизации на vRouter.
-Если говорить грубо, то контроллер запиривается со всеми vRouter'ами по BGP (или похожему на него протоколу) и просто передаёт маршрутную информацию. BGP, например, уже имеет Address-Family для передачи метода инкапсуляции <a href="https://tools.ietf.org/html/rfc4023">MPLS-in-GRE</a> или <a href="https://tools.ietf.org/html/rfc7510">MPLS-in-UDP</a>.
+Если говорить грубо, то контроллер запиривается со всеми vRouter'ами по BGP (или похожему на него протоколу) и просто передаёт маршрутную информацию. BGP, например, уже имеет Address-Family для передачи метода инкапсуляции `MPLS-in-GRE <https://tools.ietf.org/html/rfc4023>`_ или `MPLS-in-UDP <https://tools.ietf.org/html/rfc7510>`_.
 
 При этом не меняется никоим образом конфигурация Underlay-сети, которую кстати, автоматизировать на порядок сложнее, а сломать неловким движением проще.
 
