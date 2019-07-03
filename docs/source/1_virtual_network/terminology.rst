@@ -32,7 +32,6 @@
 
 **VNF** - Virtual Network Function. Конкретное виртуальное устройство: маршрутизатор, коммутатор, файрвол, NAT, IPS/IDS итд.
 
-
 .. figure:: https://fs.linkmeup.ru/images/adsm/1/terminology.png
        :width: 800 px
        :align: center
