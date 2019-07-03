@@ -68,7 +68,7 @@ Overlay с хоста
 
 Проще всего рассмотреть на примерах. И в качестве подопытного мы возьмём OpenSource'ную SDN платформу OpenContrail, ныне известную как `Tungsten Fabric <https://tungsten.io>`_.
 
-    В <a href="#VSWITCH">конце статьи</a> я приведу некоторые размышления на тему аналогии с OpenFlow и OpenvSwitch.
+    В конце статьи я приведу некоторые размышления на тему аналогии с OpenFlow и OpenvSwitch.
 
 
 На примере Tungsten Fabric
@@ -166,17 +166,17 @@ Data Plane
 #. vRouter его получает и на этот раз видит, что адресат находится на другой машине и доступен через туннель Tunnel0.
 #. Сначала он вешает метку MPLS, идентифицирующую удалённый интерфейс, чтобы на обратной стороне vRouter мог определить куда этот пакет поместить причём без дополнительных лукапов.
     
-    .. figure:: https://fs.linkmeup.ru/images/adsm/1/inter-hv-dp.png
-       :width: 800 px
-       :align: center
+        .. figure:: https://fs.linkmeup.ru/images/adsm/1/inter-hv-dp.png
+           :width: 800 px
+           :align: center
 
 #. У Tunnel0 источник 10.0.0.2, получатель: 10.0.1.2.
 vRouter добавляет заголовки GRE (или UDP) и новый IP к исходному пакету.
 #. В таблице маршрутизации vRouter есть маршрут по умолчанию через адрес ToR1 10.0.0.1. Туда и отправляет.
     
-    .. figure:: https://fs.linkmeup.ru/images/adsm/1/headers.png
-       :width: 800 px
-       :align: center
+        .. figure:: https://fs.linkmeup.ru/images/adsm/1/headers.png
+           :width: 800 px
+           :align: center
     
 #. ToR1 как участник Underlay сети знает (например, по OSPF), как добраться до 10.0.1.2, и отправляет пакет по маршруту. Обратите внимание, что здесь включается ECMP. На иллюстрации два некстхопа, и разные потоки будут раскладываться в них по хэшу. В случае настоящей фабрики тут будет скорее 4 некстхопа.
 При этом знать, что находится под внешним заголовком IP ему не нужно. То есть фактически под IP может быть бутерброд из IPv6 over MPLS over Ethernet over MPLS over GRE over over over GREка.
