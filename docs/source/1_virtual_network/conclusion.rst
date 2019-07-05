@@ -42,6 +42,6 @@
 * `Роману Горге <https://www.linkedin.com/in/roman-gorge-2b15896b/?originalSubdomain=se>`_ - бывшему ведущему подкаста linkmeup, а ныне эксперту в области облачных платформ. За комментарии и правки. Ну и ждём в скором будущем его более глубокой статьи о виртуализации.
 * `Александру Шалимову <www.alexander-shalimov.com>`_ - моему коллеге и эксперту в области разработки виртуальных сетей. За комментарии и правки.
 * `Валентину Синицыну <https://www.linkedin.com/in/valentine-sinitsyn-b8b3a23a/>`_- моему коллеге и эксперту в области Tungsten Fabric . За комментарии и правки.
-* <a href="http://illustrators.ru/users/rabbits_manufactory">Артёму Чернобаю</a> - иллюстратору linkmeup. За КДПВ.
+* `Артёму Чернобаю <http://illustrators.ru/users/rabbits_manufactory>`_ - иллюстратору linkmeup. За КДПВ.
 * Александру Лимонову. За мем "automato".
 
