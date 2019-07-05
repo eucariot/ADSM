@@ -30,4 +30,3 @@
    overlay.rst
    faq.rst
    conclusion.rst
-   links.rst
