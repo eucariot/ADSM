@@ -33,7 +33,7 @@
 * `What Is Open vSwitch? <https://docs.openvswitch.org/en/latest/intro/what-is-ovs/>`_
 * `Введение в VxLAN <https://habr.com/ru/post/344326/>`_.
 * `RFC 7348. Virtual eXtensible Local Area Network (VXLAN): A Framework for Overlaying Virtualized Layer 2 Networks over Layer 3 Networks <https://tools.ietf.org/html/rfc7348>`_
-* `Scaleway approach to VXLAN EVPN Fabric <https://www.enog.org/wp-content/uploads/presentations/enog-16/18-Scaleway-P14-fabric-ENOG16.pdf>`_<a href=""></a>. Тут рассказывается про всю сеть ДЦ, включая Underlay, Overlay, подходы к мульти-хоумингу и управлению.
+* `Scaleway approach to VXLAN EVPN Fabric <https://www.enog.org/wp-content/uploads/presentations/enog-16/18-Scaleway-P14-fabric-ENOG16.pdf>`_. Тут рассказывается про всю сеть ДЦ, включая Underlay, Overlay, подходы к мульти-хоумингу и управлению.
 
 
 Спасибы
