@@ -32,7 +32,7 @@
 * `6 часов про Яндекс.Облако, где в том числе затрагивается виртуальная сеть на TF <https://youtu.be/Kr6WIYPts8I?t=3157>`_.
 * `What Is Open vSwitch? <https://docs.openvswitch.org/en/latest/intro/what-is-ovs/>`_
 * `Введение в VxLAN <https://habr.com/ru/post/344326/>`_.
-* `RFC 7348. Virtual eXtensible Local Area Network (VXLAN): A Framework for Overlaying Virtualized Layer 2 Networks over Layer 3 Networks <https://tools.ietf.org/html/rfc7348>`_
+* `RFC 7348. Virtual eXtensible Local Area Network (VXLAN): A Framework for Overlaying Virtualized Layer 2 Networks over Layer 3 Networks <https://tools.ietf.org/html/rfc7348>`_.
 * `Scaleway approach to VXLAN EVPN Fabric <https://www.enog.org/wp-content/uploads/presentations/enog-16/18-Scaleway-P14-fabric-ENOG16.pdf>`_. Тут рассказывается про всю сеть ДЦ, включая Underlay, Overlay, подходы к мульти-хоумингу и управлению.
 
 
@@ -40,7 +40,7 @@
 -------
 
 * `Роману Горге <https://www.linkedin.com/in/roman-gorge-2b15896b/?originalSubdomain=se>`_ - бывшему ведущему подкаста linkmeup, а ныне эксперту в области облачных платформ. За комментарии и правки. Ну и ждём в скором будущем его более глубокой статьи о виртуализации.
-* `Александру Шалимову <www.alexander-shalimov.com>`_ - моему коллеге и эксперту в области разработки виртуальных сетей. За комментарии и правки.
+* `Александру Шалимову <https://www.alexander-shalimov.com>`_ - моему коллеге и эксперту в области разработки виртуальных сетей. За комментарии и правки.
 * `Валентину Синицыну <https://www.linkedin.com/in/valentine-sinitsyn-b8b3a23a/>`_- моему коллеге и эксперту в области Tungsten Fabric . За комментарии и правки.
 * `Артёму Чернобаю <http://illustrators.ru/users/rabbits_manufactory>`_ - иллюстратору linkmeup. За КДПВ.
 * Александру Лимонову. За мем "automato".
