@@ -16,6 +16,7 @@ Underlay может быть например таким:
 
 * IPv4+OSPF
 * IPv6+ISIS+BGP+L3VPN
+* IP+EBGP
 * L2+TRILL
 * L2+STP
 
