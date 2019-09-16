@@ -6,4 +6,4 @@
    :caption: Содержание:
 
    0_planning/planning.rst
-   1_virtual_network/index.rst
+   1_virtualization/index.rst
