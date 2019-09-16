@@ -35,7 +35,8 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
-    <link rel="search" title="Поиск" href="../../search.html" /> 
+    <link rel="search" title="Поиск" href="../../search.html" />
+    <link rel="prev" title="Инструменты виртуализации - libvirt, virsh и прочее" href="tools.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -79,8 +80,24 @@
               
             
             
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../0_planning/planning.html">Часть 0. Планирование</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Часть 1. Виртуализация</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../0_virtual_network/index.html">Виртуализация сети</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Основы виртуализации</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="history.html">Введение и краткая история виртуализации</a></li>
+<li class="toctree-l3"><a class="reference internal" href="resource_types.html">Типы виртуальных ресурсов - compute, storage, network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vitual_switching.html">Виртуальная коммутация</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html">Инструменты виртуализации - libvirt, virsh и прочее</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Заключение</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Полезные ссылки</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Спасибы</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
             
@@ -126,6 +143,10 @@
     
       <li><a href="../../contents.html">Docs</a> &raquo;</li>
         
+          <li><a href="../index.html">Часть 1. Виртуализация</a> &raquo;</li>
+        
+          <li><a href="index.html">Основы виртуализации</a> &raquo;</li>
+        
       <li>Заключение</li>
     
     
@@ -148,13 +169,20 @@
   <div class="section" id="id1">
 <h1>Заключение<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
 <p>В данной статье мы рассмотрели минимальный набор теоретических знаний, который необходим для работы с виртуальными машинами. Я намеренно не приводил практических примеров и выводов команд, поскольку таких примеров можно найти сколько угодно в Сети, и я не ставил перед собой задачу написать «step-by-step guide». Если вас заинтересовала какая-то конкретная тема или технология, оставляйте свои комментарии и пишите вопросы.</p>
-</div>
 <div class="section" id="id2">
-<h1>Полезные ссылки<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h1>
+<h2>Полезные ссылки<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
 <ul class="simple">
 <li><a class="reference external" href="https://www.qemu.org/2018/02/09/understanding-qemu-devices/">Undertanding QEMU Devices</a></li>
 <li><a class="reference external" href="https://www.juniper.net/documentation/en_US/vsrx/topics/concept/security-vsrx-kvm-sr-iov.html">KVM/SR-IOV</a>.</li>
 </ul>
+</div>
+<div class="section" id="id3">
+<h2>Спасибы<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://www.alexander-shalimov.com">Александру Шалимову</a> - моему коллеге и эксперту в области разработки виртуальных сетей. За комментарии и правки.</li>
+<li>Евгению Яковлеву - моему коллеге и эксперту в области виртуализации за комментарии и правки.</li>
+</ul>
+</div>
 </div>
 
 
@@ -162,6 +190,13 @@
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="tools.html" class="btn btn-neutral float-left" title="Инструменты виртуализации - libvirt, virsh и прочее" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
