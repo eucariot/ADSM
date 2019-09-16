@@ -35,7 +35,9 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
-    <link rel="search" title="Поиск" href="../../search.html" /> 
+    <link rel="search" title="Поиск" href="../../search.html" />
+    <link rel="next" title="Введение и краткая история виртуализации" href="history.html" />
+    <link rel="prev" title="Заключение" href="../0_virtual_network/conclusion.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -79,8 +81,21 @@
               
             
             
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../0_planning/planning.html">Часть 0. Планирование</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Часть 1. Виртуализация</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../0_virtual_network/index.html">Виртуализация сети</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Основы виртуализации</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="history.html">Введение и краткая история виртуализации</a></li>
+<li class="toctree-l3"><a class="reference internal" href="resource_types.html">Типы виртуальных ресурсов - compute, storage, network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vitual_switching.html">Виртуальная коммутация</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html">Инструменты виртуализации - libvirt, virsh и прочее</a></li>
+<li class="toctree-l3"><a class="reference internal" href="conclusion.html">Заключение</a></li>
+<li class="toctree-l3"><a class="reference internal" href="conclusion.html#id2">Полезные ссылки</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
             
@@ -126,6 +141,8 @@
     
       <li><a href="../../contents.html">Docs</a> &raquo;</li>
         
+          <li><a href="../index.html">Часть 1. Виртуализация</a> &raquo;</li>
+        
       <li>Основы виртуализации</li>
     
     
@@ -147,9 +164,7 @@
             
   <div class="section" id="id1">
 <h1>Основы виртуализации<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
-<ul class="simple">
-<li><a class="reference external" href="https://linkmeup.ru/blog/449.html">Предыдущая статья</a> рассматривала архитектуру виртуализированной сети, underlay-overlay, путь пакета между VM и прочее. В данной статье мы затронем (или попытаемся затронуть) вопросы а как собственно происходит виртуализация сетевых функций, как реализован backend основных продуктов, обеспечивающих запуск и управление VM, а также как работает виртуальный свитчинг (OVS и Linux bridge).</li>
-</ul>
+<p><a class="reference external" href="https://linkmeup.ru/blog/449.html">Предыдущая статья</a> рассматривала архитектуру виртуализированной сети, underlay-overlay, путь пакета между VM и прочее. В данной статье мы затронем (или попытаемся затронуть) вопросы а как собственно происходит виртуализация сетевых функций, как реализован backend основных продуктов, обеспечивающих запуск и управление VM, а также как работает виртуальный свитчинг (OVS и Linux bridge).</p>
 <p>Тема виртуализации широка и глубока, объяснить все детали работы гипервизора невозможно (да и не нужно). Мы ограничимся минимальным набором знаний необходимым для понимания работы любого виртуализированного решения, не обязательно Telco.</p>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Содержание:</span></p>
@@ -179,6 +194,15 @@
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="history.html" class="btn btn-neutral float-right" title="Введение и краткая история виртуализации" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../0_virtual_network/conclusion.html" class="btn btn-neutral float-left" title="Заключение" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
