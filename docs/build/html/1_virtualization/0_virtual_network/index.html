@@ -1,0 +1,224 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ru" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Часть 1. Виртуализация сети &mdash; Документация ADSM 0.1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
+    <link rel="search" title="Поиск" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../contents.html" class="icon icon-home"> ADSM
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../0_planning/planning.html">Часть 0. Планирование</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../contents.html">ADSM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../contents.html">Docs</a> &raquo;</li>
+        
+      <li>Часть 1. Виртуализация сети</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/1_virtualization/0_virtual_network/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>Часть 1. Виртуализация сети<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
+<p>В <a class="reference external" href="https://linkmeup.ru/blog/424.html">предыдущем выпуске</a> я описал фреймворк сетевой автоматизации. По отзывам у некоторых людей даже этот первый подход к проблеме уже разложил некоторые вопросы по полочкам. И это очень меня радует, потому что наша цель в цикле - не обмазать питоновскими скриптами анзибль, а выстроить систему.</p>
+<p>Этот же фреймворк задаёт порядок, в котором мы будем разбираться с вопросом.
+И виртуализация сети, которой посвящён этот выпуск, не особо укладывается в тематику АДСМ, где мы разбираем автоматику.</p>
+<p>Но давайте взглянем на неё под другим углом.
+Уже давно одной сетью пользуются многие сервисы. В случае оператора связи это 2G, 3G, LTE, ШПД и B2B, например. В случае ДЦ: связность для разных клиентов, Интернет, блочное хранилище, объектное хранилище.
+И все сервисы требуют изоляции друг от друга. Так появились оверлейные сети.
+И все сервисы не хотят ждать, когда человек настроит их вручную. Так появились оркестраторы и SDN.</p>
+<p>Первый подход к систематической автоматизации сети, точнее её части, давно предпринят и много где внедрён в жизнь: VMWare, OpenStack, Google Compute Cloud, AWS, Facebook.</p>
+<p>Вот с ним сегодня и поразбираемся.</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/1/kdpv.jpg"><img alt="https://fs.linkmeup.ru/images/adsm/1/kdpv.jpg" src="https://fs.linkmeup.ru/images/adsm/1/kdpv.jpg" style="width: 800px;" /></a>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="motivation.html">Причины</a></li>
+<li class="toctree-l1"><a class="reference internal" href="terminology.html">Терминология</a></li>
+<li class="toctree-l1"><a class="reference internal" href="underlay.html">Underlay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overlay.html">Overlay</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overlay.html#overlay-tor-a">Overlay с ToR’a</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overlay.html#id1">Overlay с хоста</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overlay.html#id2">На примере Tungsten Fabric</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conclusion.html">Заключение</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.html#id2">Полезные ссылки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.html#id3">Спасибы</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, eucariot
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,220 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ru" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Часть 1. Виртуализация &mdash; Документация ADSM 0.1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
+    <link rel="search" title="Поиск" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../contents.html" class="icon icon-home"> ADSM
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../contents.html">ADSM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../contents.html">Docs</a> &raquo;</li>
+        
+      <li>Часть 1. Виртуализация</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/1_virtualization/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>Часть 1. Виртуализация<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Эту часть мы разбили на две:
+* <strong>Виртуализация сети</strong>, которая рассказывает, как и зачем она появилась в виде SDN и NFV. И почему вообще мы рассматриваем её в серии статей про автоматизацию.</p>
+<ul class="simple">
+<li><strong>Основы виртуализации</strong>, которая охватывает более общие вопросы о виртуальных хранилищах, процессорах, памяти и сети. Автор этой части - Роман Горге - бывший ведущий подкаста linkmeup.</li>
+</ul>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Виртуализация:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="0_virtual_network/index.html">Часть 1. Виртуализация сети</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="0_virtual_network/motivation.html">Причины</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0_virtual_network/terminology.html">Терминология</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0_virtual_network/underlay.html">Underlay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0_virtual_network/overlay.html">Overlay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0_virtual_network/faq.html">FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0_virtual_network/conclusion.html">Заключение</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="1_virtualization_basics/index.html">Основы виртуализации</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="1_virtualization_basics/history.html">Введение и краткая история виртуализации</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1_virtualization_basics/resource_types.html">Типы виртуальных ресурсов - compute, storage, network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1_virtualization_basics/vitual_switching.html">Виртуальная коммутация</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1_virtualization_basics/tools.html">Инструменты виртуализации - libvirt, virsh и прочее</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1_virtualization_basics/conclusion.html">Заключение</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1_virtualization_basics/conclusion.html#id2">Полезные ссылки</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, eucariot
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

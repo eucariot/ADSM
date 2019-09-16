@@ -1,0 +1,240 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ru" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Введение и краткая история виртуализации &mdash; Документация ADSM 0.1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
+    <link rel="search" title="Поиск" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../contents.html" class="icon icon-home"> ADSM
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../0_planning/planning.html">Часть 0. Планирование</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../contents.html">ADSM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../contents.html">Docs</a> &raquo;</li>
+        
+      <li>Введение и краткая история виртуализации</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/1_virtualization/1_virtualization_basics/history.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>Введение и краткая история виртуализации<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
+<p>История современных технологий виртуализации берет свое начало в 1999 году, когда молодая компания VMWare выпустила продукт под названием VMWare Workstation. Это был продукт обеспечивающий виртуализацию desktop/client приложений. Виртуализация серверной части пришла несколько позднее в виде продукта ESX Server, который в дальнейшем эволюционировал в ESXi (i означает integrated) - это тот самый продукт, который используется повсеместно, как в IT так и в Telco, как гипервизор серверных приложений.</p>
+<p>На стороне Opensource два основных проекта принесли виртуализацию в Linux:</p>
+<ul>
+<li><p class="first">KVM (Kernel-based Virtual Machine) - модуль ядра Linux, который позволяет kernel работать как гипервизор (создает необходимую инфраструктуру для запуска и управления VM). Был добавлен в версии ядра 2.6.20 в 2007 году.</p>
+</li>
+<li><p class="first">QEMU (Quick EMUlator - отсюда и страус на лого) - непосредственно эмулирует железо для виртуальной машины (CPU, Disk, RAM, что угодно, включая USB порт) и используется совместно с KVM для достижения почти «native» производительности.</p>
+<blockquote>
+<div><p>На самом деле на сегодняшний момент вся функциональность KVM доступна в QEMU, но это не принципиально, так как бо́льшая часть пользователей виртуализации на Linux не использует напрямую KVM/QEMU, а обращается к ним как минимум через один уровень абстракции, но об этом позже.</p>
+</div></blockquote>
+</li>
+</ul>
+<p>Сегодня VMWare ESXi и Linux QEMU/KVM это два основных гипервизора, которые доминируют на рынке. Они же являются представителями двух разных типов гипервизоров:</p>
+<ul class="simple">
+<li>Type 1 - гипервизор запускается непосредственно на железе (bare-metal). Таковым является VMWare ESXi.</li>
+<li>Type 2 - гипервизор запускается внутри Host OS (операционной системы). Таковым является Linux KVM.</li>
+</ul>
+<p>Обсуждение что лучше, а что хуже выходит за рамки данной статьи.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/1/1/hypervisors_types.gif"><img alt="https://fs.linkmeup.ru/images/adsm/1/1/hypervisors_types.gif" src="https://fs.linkmeup.ru/images/adsm/1/1/hypervisors_types.gif" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<p>Производители железа также должны были сделать свою часть работы, дабы обеспечить приемлемую производительность.</p>
+<p>Пожалуй, наиболее важной и самой широко используемой является технология Intel VT (Virtualization Technology) - набор расширений, разработанных Intel для своих x86 процессоров, которые используются для эффективной работы гипервизора (а в некоторых случаях необходимы, так, например, KVM не заработает без включенного VT-x и без него гипервизор вынужден заниматься чисто софтверной эмуляцией, без аппаратного ускорения).
+Наиболее известны два из этих расширений - VT-x и VT-d. Первое важно для улучшения производительности CPU при виртуализации, так как обеспечивает аппаратную поддержку некоторых ее функций (с VT-x 99.9% Gust OS кода выполняется  прямо на физическом процессоре, делая выходы для эмуляции только в самых необходимых случаях)
+), второе для подключения физических устройств напрямую в виртуальную машину (для проброса виртуальных функций (VF) SRIOV, например, VT-d <a class="reference external" href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/virtualization_host_configuration_and_guest_installation_guide/sect-virtualization_host_configuration_and_guest_installation_guide-sr_iov-how_sr_iov_libvirt_works">должен быть включен</a>).</p>
+<div class="line-block">
+<div class="line">Следующей важной концепцией является отличие полной виртуализации (full virtualization) от пара-виртуализации (para-virtualization).</div>
+<div class="line">Полная виртуализация - это хорошо, это позволяет запускать какую угодно операционную систему на каком угодно процессоре, однако, это крайне неэффективно и абсолютно не подходит для высоконагруженных систем.</div>
+<div class="line">Пара-виртуализация, если коротко, это когда Guest OS понимает что она запущена в виртуальной среде и кооперируется с гипервизором для достижения большей эффективности. То есть появляется guest-hypervisor интерфейс.</div>
+<div class="line">Подавляющее большинство используемых операционных систем сегодня имеют поддержку пара-виртуализации - в Linux kernel это появилось начиная с ядра версии 2.6.20.</div>
+</div>
+<div class="line-block">
+<div class="line">Для работы виртуальной машины нужны не только виртуальный процессор (vCPU) и виртуальная память (RAM), требуется также эмуляция PCI-устройств. То, есть по сути, требуется набор драйверов для управления виртуальными сетевыми интерфейсами, дисками и тд.</div>
+<div class="line">В гипервизоре Linux KVM данная задача была решена посредством внедрения <strong>virtio</strong> - фреймворка для разработки и использования виртуализированных устройств ввода/вывода.</div>
+<div class="line">Virtio представляет из себя дополнительный уровень абстракции, который позволяет эмулировать различные I/O устройства в пара-виртуализированном гипервизоре, предоставляя в сторону виртуальной машины единый и стандартизированный интерфейс. Это позволяет переиспользовать код virtio-драйвера для различных по своей сути устройств. Virtio состоит из:</div>
+</div>
+<ul class="simple">
+<li>Front-end driver - то что находится в виртуальной машине</li>
+<li>Back-end driver - то что находится в гипервизоре</li>
+<li>Transport driver - то что связывает backend и frontend</li>
+</ul>
+<div class="line-block">
+<div class="line">Эта модульность позволяет изменять технологии, применяемые в гипервизоре, не затрагивая драйверы в виртуальной машине (этот момент очень важен для технологий сетевой акселерации и Cloud-решений в целом, но об этом позже).</div>
+<div class="line">То есть существует связь guest-hypervisor, когда Guest OS «знает» о том, что запущена в виртуальной среде.</div>
+</div>
+<blockquote>
+<div>Если вы хоть раз писали вопрос в RFP или отвечали на вопрос в RFP «Поддерживается ли в вашем продукте virtio?» Это как раз было о поддержке front-end virtio драйвера.</div></blockquote>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, eucariot
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

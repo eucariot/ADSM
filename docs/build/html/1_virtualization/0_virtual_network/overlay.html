@@ -1,0 +1,526 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ru" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Overlay &mdash; Документация ADSM 0.1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
+    <link rel="search" title="Поиск" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../contents.html" class="icon icon-home"> ADSM
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../0_planning/planning.html">Часть 0. Планирование</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../contents.html">ADSM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../contents.html">Docs</a> &raquo;</li>
+        
+      <li>Overlay</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/1_virtualization/0_virtual_network/overlay.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="overlay">
+<h1>Overlay<a class="headerlink" href="#overlay" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="line-block">
+<div class="line">Overlay - виртуальная сеть туннелей, натянутая поверх Underlay, она позволяет ВМ одного клиента общаться друг с другом, при этом обеспечивая изоляцию от других клиентов.</div>
+<div class="line">Данные клиента инкапсулируются в какие-либо туннелирующие заголовки для передачи через общую сеть.</div>
+</div>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/1/overlay.png"><img alt="https://fs.linkmeup.ru/images/adsm/1/overlay.png" src="https://fs.linkmeup.ru/images/adsm/1/overlay.png" style="width: 800px;" /></a>
+</div>
+<p>Так ВМ одного клиента (одного сервиса) могут общаться друг с другом через Overlay, даже не подозревая какой на самом деле путь проходит пакет.
+Overlay может быть например таким, как уже я упоминал выше:</p>
+<ul class="simple">
+<li>GRE-туннель</li>
+<li>VXLAN</li>
+<li>EVPN</li>
+<li>L3VPN</li>
+<li>GENEVE</li>
+</ul>
+<p>Overlay’ная сеть обычно настраивается и поддерживается через центральный контроллер. С него конфигурация, Control Plane и Data Plane доставляются на устройства, которые занимаются маршрутизацией и инкапсуляцией клиентского трафика. Чуть ниже разберём это на примерах.
+<strong>Да, это SDN в чистом виде.</strong></p>
+<p>Существует два принципиально различающихся подхода к организации Overlay-сети:</p>
+<ol class="arabic simple">
+<li>Overlay с ToR’a</li>
+<li>Overlay с хоста</li>
+</ol>
+<div class="section" id="overlay-tor-a">
+<h2>Overlay с ToR’a<a class="headerlink" href="#overlay-tor-a" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="line-block">
+<div class="line">Overlay может начинаться на коммутаторе доступа (ToR), стоящем в стойке, как это происходит, например, в случае VXLAN-фабрики.</div>
+<div class="line">Это проверенный временем на сетях ISP механизм и все вендоры сетевого оборудования его поддерживают.</div>
+<div class="line">Однако в этом случае ToR-коммутатор должен уметь разделять различные сервисы, соответственно, а сетевой администратор должен в известной степени сотрудничать с администраторами виртуальных машин и вносить изменения (пусть и автоматически) в конфигурацию устройств.</div>
+</div>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/1/vxlan-fabric.png"><img alt="https://fs.linkmeup.ru/images/adsm/1/vxlan-fabric.png" src="https://fs.linkmeup.ru/images/adsm/1/vxlan-fabric.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Тут я отошлю читателя к статье о <a class="reference external" href="https://habr.com/ru/post/344326/">VxLAN на хабре</a> нашего старого друга <a class="reference external" href="https://habr.com/ru/users/bormoglotx/">bormoglotx</a>.</div>
+<div class="line">В этой <a class="reference external" href="https://www.enog.org/wp-content/uploads/presentations/enog-16/18-Scaleway-P14-fabric-ENOG16.pdf">презентации с ENOG</a> подробно описаны подходы к строительству сети ДЦ с EVPN VXLAN-фабрикой.</div>
+<div class="line">А для более полного погружения в реалии, можно почитать цискину книгу <a class="reference external" href="https://www.cisco.com/c/dam/en/us/td/docs/switches/datacenter/nexus9000/sw/vxlan_evpn/VXLAN_EVPN.pdf">A Modern, Open, and Scalable Fabric: VXLAN EVPN</a>.</div>
+</div>
+<blockquote>
+<div><div class="line-block">
+<div class="line">Замечу, что VXLAN - это только метод инкапсуляции и терминация туннелей может происходить не на ToR’е, а на хосте, как это происходит в случае OpenStack’а, например.</div>
+<div class="line">Однако, VXLAN-фабрика, где overlay начинается на ToR’е является одним из устоявшихся дизайнов оверлейной сети.</div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="id1">
+<h2>Overlay с хоста<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="line-block">
+<div class="line">Другой подход - начинать и терминировать туннели на конечных хостах.</div>
+<div class="line">В этом случае сеть (Underlay) остаётся максимально простой и статичной.</div>
+<div class="line">А хост сам делает все необходимые инкапсуляции.</div>
+</div>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/1/ip-fabric.png"><img alt="https://fs.linkmeup.ru/images/adsm/1/ip-fabric.png" src="https://fs.linkmeup.ru/images/adsm/1/ip-fabric.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Для этого потребуется, безусловно, запускать специальное приложение на хостах, но оно того стоит.</div>
+<div class="line">Во-первых, запустить клиент на linux-машине проще или, скажем так, - вообще возможно - в то время как на коммутаторе, скорее всего, придётся пока обращаться к проприетарным SDN-решениям, что убивает идею мультивендорности.</div>
+<div class="line">Во-вторых, ToR-коммутатор в этом случае можно оставить максимально простым, как с точки зрения Control Plane’а, так и Data Plane’а. Действительно - с SDN-контроллером ему тогда общаться не нужно, и хранить сети/ARP’ы всех подключенных клиентов - тоже - достаточно знать IP-адрес физической машины, что кратно облегчает таблицы коммутации/маршрутизации.</div>
+</div>
+<hr class="docutils" />
+<p>В серии АДСМ я выбираю подход оверлея с хоста - далее мы говорим только о нём и возвращаться к VXLAN-фабрике мы уже не будем.</p>
+<hr class="docutils" />
+<p>Проще всего рассмотреть на примерах. И в качестве подопытного мы возьмём OpenSource’ную SDN платформу OpenContrail, ныне известную как <a class="reference external" href="https://tungsten.io">Tungsten Fabric</a>.</p>
+<blockquote>
+<div>В конце статьи я приведу некоторые размышления на тему аналогии с OpenFlow и OpenvSwitch.</div></blockquote>
+</div>
+<div class="section" id="id2">
+<h2>На примере Tungsten Fabric<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="line-block">
+<div class="line">На каждой физической машине есть <strong>vRouter</strong> - виртуальный маршрутизатор, который знает о подключенных к нему сетях и каким клиентам они принадлежат - по сути - PE-маршрутизатор. Для каждого клиента он поддерживает изолированную таблицу маршрутизации (читай VRF). И собственно vRouter делает Overlay’ное туннелирование.</div>
+<div class="line">Чуть подробнее про vRouter - в конце статьи.</div>
+<div class="line">Каждая ВМ, расположенная на гипервизоре, соединяется с vRouter’ом этой машины через <a class="reference external" href="https://en.wikipedia.org/wiki/TUN/TAP">TAP-интерфейс</a>.</div>
+</div>
+<p><strong>TAP</strong> - Terminal Access Point - виртуальный интерфейс в ядре linux, которые позволяет осуществлять сетевое взаимодействие.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/1/tf-host.png"><img alt="https://fs.linkmeup.ru/images/adsm/1/tf-host.png" src="https://fs.linkmeup.ru/images/adsm/1/tf-host.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Если за vRouter’ом находится несколько сетей, то для каждой из них создаётся виртуальный интерфейс, на который назначается IP-адрес - он будет адресом шлюза по умолчанию.</div>
+<div class="line">Все сети одного клиента помещаются в один <strong>VRF</strong> (одну таблицу), разных - в разные.</div>
+</div>
+<p><em>Сделаю тут оговорку, что не всё так просто, и отправлю любознательного читателя в конец статьи</em>.</p>
+<p>Чтобы vRouter’ы могли общаться друг с другом, а соответственно и ВМ, находящиеся за ними, они обмениваются маршрутной информацией через <strong>SDN-контроллер</strong>.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/1/sdn-controller.png"><img alt="https://fs.linkmeup.ru/images/adsm/1/sdn-controller.png" src="https://fs.linkmeup.ru/images/adsm/1/sdn-controller.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<p>Чтобы выбраться во внешний мир, существует точка выхода из матрицы - шлюз виртуальной сети <strong>VNGW</strong> - Virtual Network GateWay (<em>термин мой</em>).</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/1/vngw.png"><img alt="https://fs.linkmeup.ru/images/adsm/1/vngw.png" src="https://fs.linkmeup.ru/images/adsm/1/vngw.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<hr class="docutils" />
+<p>Теперь рассмотрим примеры коммуникаций - и будет ясность.</p>
+<div class="section" id="id3">
+<h3>Коммуникация внутри одной физической машины<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h3>
+<p>VM0 хочет отправить пакет на VM2. Предположим пока, что это ВМ одного клиента.</p>
+<div class="section" id="data-plane">
+<h4>Data Plane<a class="headerlink" href="#data-plane" title="Ссылка на этот заголовок">¶</a></h4>
+<ol class="arabic">
+<li><p class="first">У VM-0 есть маршрут по умолчанию в его интерфейс eth0. Пакет отправляется туда. Этот интерфейс eth0 на самом деле виртуально соединён с виртуальным маршрутизатором vRouter через TAP-интерфейс tap0.</p>
+</li>
+<li><p class="first">vRouter анализирует на какой интерфейс пришёл пакет, то есть к какому клиенту (VRF) он относится, сверяет адрес получателя с таблицей маршрутизации этого клиента.</p>
+</li>
+<li><p class="first">Обнаружив, что получатель на этой же машине за другим портом, vRouter просто отправляет пакет в него без каких-либо дополнительных заголовков - на этот случай на vRouter’е уже есть ARP-запись.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/1/intra-hv-dp.png"><img alt="https://fs.linkmeup.ru/images/adsm/1/intra-hv-dp.png" src="https://fs.linkmeup.ru/images/adsm/1/intra-hv-dp.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p>Пакет в этом случае не попадает в физическую сеть - он смаршрутизировался внутри vRouter’а.</p>
+</div>
+<div class="section" id="control-plane">
+<h4>Control Plane<a class="headerlink" href="#control-plane" title="Ссылка на этот заголовок">¶</a></h4>
+<p>Гипервизор при запуске виртуальной машины сообщает ей:</p>
+<ul class="simple">
+<li>Её собственный IP-адрес.</li>
+<li>Маршрут по умолчанию - через IP-адрес vRouter’а в этой сети.</li>
+</ul>
+<p>vRouter’у через специальный API гипервизор сообщает:</p>
+<ul>
+<li><p class="first">Что нужно создать виртуальный интерфейс.</p>
+</li>
+<li><p class="first">Какой ей (ВМ) нужно создать Virtual Network.</p>
+</li>
+<li><p class="first">К какому VRF его (VN) привязать.</p>
+</li>
+<li><p class="first">Статическую ARP-запись для этой VM - за каким интерфейсом находится её IP-адрес и к какому MAC-адресу он привязан.</p>
+<blockquote>
+<div><p>И снова, реальная процедура взаимодействия упрощена в угоду понимания концепции.</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/1/intra-hv-cp.png"><img alt="https://fs.linkmeup.ru/images/adsm/1/intra-hv-cp.png" src="https://fs.linkmeup.ru/images/adsm/1/intra-hv-cp.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<p>Таким образом все ВМ одного клиента на данной машине vRouter видит как непосредственно подключенные сети и может сам между ними маршрутизировать.</p>
+<hr class="docutils" />
+<div class="line-block">
+<div class="line">А вот VM0 и VM1 принадлежат разным клиентам, соответственно, находятся  в разных таблицах vRouter’а.</div>
+<div class="line">Смогут ли они друг с другом общаться напрямую, зависит от настроек vRouter и дизайна сети.</div>
+<div class="line">Например, если ВМ обоих клиентов используют публичные адреса, или NAT происходит на самом vRouter’е, то можно сделать и прямую маршрутизацию на vRouter.</div>
+</div>
+<p>В противной же ситуации возможно пересечение адресных пространств - нужно ходить через NAT-сервер, чтобы получить публичный адрес - это похоже на выход во внешние сети, о которых ниже.</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="id4">
+<h3>Коммуникация между ВМ, расположенными на разных физических машинах<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="section" id="id5">
+<h4>Data Plane<a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h4>
+<ol class="arabic">
+<li><p class="first">Начало точно такое же: VM-0 посылает пакет с адресатом VM-7 (172.17.3.2) по своему дефолту.</p>
+</li>
+<li><p class="first">vRouter его получает и на этот раз видит, что адресат находится на другой машине и доступен через туннель Tunnel0.</p>
+</li>
+<li><p class="first">Сначала он вешает метку MPLS, идентифицирующую удалённый интерфейс, чтобы на обратной стороне vRouter мог определить куда этот пакет поместить причём без дополнительных лукапов.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/1/inter-hv-dp.png"><img alt="https://fs.linkmeup.ru/images/adsm/1/inter-hv-dp.png" src="https://fs.linkmeup.ru/images/adsm/1/inter-hv-dp.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+</li>
+<li><div class="first line-block">
+<div class="line">У Tunnel0 источник 10.0.0.2, получатель: 10.0.1.2.</div>
+<div class="line">vRouter добавляет заголовки GRE (или UDP) и новый IP к исходному пакету.</div>
+</div>
+</li>
+<li><p class="first">В таблице маршрутизации vRouter есть маршрут по умолчанию через адрес ToR1 10.0.0.1. Туда и отправляет.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/1/headers.png"><img alt="https://fs.linkmeup.ru/images/adsm/1/headers.png" src="https://fs.linkmeup.ru/images/adsm/1/headers.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+</li>
+<li><div class="first line-block">
+<div class="line">ToR1 как участник Underlay сети знает (например, по OSPF), как добраться до 10.0.1.2, и отправляет пакет по маршруту. Обратите внимание, что здесь включается ECMP. На иллюстрации два некстхопа, и разные потоки будут раскладываться в них по хэшу. В случае настоящей фабрики тут будет скорее 4 некстхопа.</div>
+<div class="line">При этом знать, что находится под внешним заголовком IP ему не нужно. То есть фактически под IP может быть бутерброд из IPv6 over MPLS over Ethernet over MPLS over GRE over over over GREка.</div>
+</div>
+</li>
+<li><p class="first">Соответственно на принимающей стороне vRouter снимает GRE и по MPLS-метке понимает, в какой интерфейс этот пакет надо передать, раздевает его и отправляет в первоначальном виде получателю.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="id6">
+<h4>Control Plane<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h4>
+<p>При запуске машины происходит всё то же, что было описано выше.
+И плюс ещё следующее:</p>
+<ul>
+<li><div class="first line-block">
+<div class="line">Для каждого клиента vRouter выделяет MPLS-метку. Это сервисная метка L3VPN, по которой клиенты будут разделяться в пределах одной физической машины.</div>
+<div class="line">На самом деле MPLS-метка выделяется vRouter’ом безусловно всегда - ведь неизвестно заранее, что машина будет взаимодействовать только с другими машинам за тем же vRouter’ом и это скорее всего даже не так.</div>
+</div>
+</li>
+<li><p class="first">vRouter устанавливает соединение с SDN-контроллером по протоколу BGP (или похожему на него - в случае TF -это XMPP 0_o).</p>
+</li>
+<li><p class="first">Через эту сессию vRouter сообщает SDN-контроллеру маршруты до подключенных сетей:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Адрес сети</li>
+<li>Метод инкапсуляции (MPLSoGRE, MPLSoUDP, VXLAN)</li>
+<li>MPLS-метку клиента</li>
+<li>Свой IP-адрес в качестве nexthop</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">SDN-контроллер получает такие маршруты ото всех подключенных vRouter’ов, и отражает их другим. То есть он выступает Route Reflector’ом.</p>
+</li>
+</ul>
+<p>То же самое происходит и в обратную сторону.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/1/inter-hv-cp.png"><img alt="https://fs.linkmeup.ru/images/adsm/1/inter-hv-cp.png" src="https://fs.linkmeup.ru/images/adsm/1/inter-hv-cp.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Overlay может меняться хоть каждую минуту. Примерно так это и происходит в публичных облаках, когда клиенты регулярно запускают и выключают свои виртуальные машины.</div>
+<div class="line">Центральный контроллер берёт на себя все сложности с поддержанием конфигурации и контролем таблиц коммутации/маршрутизации на vRouter.</div>
+<div class="line">Если говорить грубо, то контроллер запиривается со всеми vRouter’ами по BGP (или похожему на него протоколу) и просто передаёт маршрутную информацию. BGP, например, уже имеет Address-Family для передачи метода инкапсуляции <a class="reference external" href="https://tools.ietf.org/html/rfc4023">MPLS-in-GRE</a> или <a class="reference external" href="https://tools.ietf.org/html/rfc7510">MPLS-in-UDP</a>.</div>
+</div>
+<p>При этом не меняется никоим образом конфигурация Underlay-сети, которую кстати, автоматизировать на порядок сложнее, а сломать неловким движением проще.</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="id7">
+<h3>Выход во внешний мир<a class="headerlink" href="#id7" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Где-то симуляция должна закончиться, и из виртуального мира нужно выйти в реальный. И нужен таксофон^W шлюз.</p>
+<p>Практикуют два подхода:</p>
+<ol class="arabic">
+<li><p class="first">Ставится аппаратный маршрутизатор.</p>
+</li>
+<li><p class="first">Запускается какой-либо appliance, реализующий функции маршрутизатора (да-да, вслед за SDN мы и с VNF столкнулись). Назовём его виртуальный шлюз.</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">Преимущество второго подхода в дешёвой горизонтальной масштабируемости - не хватает мощности - запустили ещё одну виртуалку со шлюзом. На любой физической машине, без необходимости искать свободные стойки, юниты, вывода питания, покупать саму железку, везти её, устанавливать, коммутировать, настраивать, а потом ещё и менять в ней сбойные компоненты.</div>
+<div class="line">Минусы же у виртуального шлюза в том, что единица физического маршрутизатора всё же на порядки мощнее многоядерной виртуалки, а его софт, подогнанный под его же аппаратную основу, работает значительно стабильнее (<em>нет</em>). Сложно отрицать и тот факт, что программно-аппаратный комплекс просто работает, требуя только настройки, в то время как запуск и обслуживание виртуального шлюза - занятие для сильных инженеров.</div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p>Одной своей ногой шлюз смотрит в виртуальную сеть Overlay, как обычная Виртуальная Машина, и может взаимодействовать со всеми другими ВМ. При этом она может терминировать на себе сети всех клиентов и, соответственно, осуществлять и маршрутизацию между ними.</p>
+<p>Другой ногой шлюз смотрит уже в магистральную сеть и знает о том, как выбраться в Интернет.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/1/two_legs.png"><img alt="https://fs.linkmeup.ru/images/adsm/1/two_legs.png" src="https://fs.linkmeup.ru/images/adsm/1/two_legs.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<div class="section" id="id8">
+<h4>Data Plane<a class="headerlink" href="#id8" title="Ссылка на этот заголовок">¶</a></h4>
+<p>То есть процесс выглядит так:</p>
+<ol class="arabic">
+<li><p class="first">VM-0, имея дефолт всё в тот же vRouter, отправляет пакет с адресатом во внешнем мире (185.147.83.177) в интерфейс eth0.</p>
+</li>
+<li><div class="first line-block">
+<div class="line">vRouter получает этот пакет и делает лукап адреса назначения в таблице маршрутизации - находит маршрут по умолчанию через шлюз VNGW1 через Tunnel 1.</div>
+<div class="line">Также он видит, что это туннель GRE с SIP 10.0.0.2 и DIP 10.0.255.2, а ещё нужно сначала повесить MPLS-метку данного клиента, которую ожидает VNGW1.</div>
+</div>
+</li>
+<li><p class="first">vRouter упаковывает первоначальный пакет в заголовки MPLS, GRE и новый IP и отправляет на адрес ToR1 10.0.0.1 по дефолту.</p>
+</li>
+<li><p class="first">Андерлейная сеть доставляет пакет до шлюза VNGW1.</p>
+</li>
+<li><p class="first">Шлюз VNGW1 снимает туннелирующие заголовки GRE и MPLS, видит адрес назначения, консультируется со своей таблицей маршрутизации и понимает, что он направлен в Интернет - значит через Full View или Default. При необходимости производит NAT-трансляцию.</p>
+</li>
+<li><div class="first line-block">
+<div class="line">От VNGW до бордера может быть обычная IP-сеть, что вряд ли.</div>
+<div class="line">Может быть классическая MPLS сеть (IGP+LDP/RSVP TE), может быть обратно фабрика с BGP LU или GRE-туннель от VNGW до бордера через IP-сеть.</div>
+<div class="line">Как бы то ни было VNGW1 совершает необходимые инкапсуляции и отправляет первоначальный пакет в сторону бордера.</div>
+</div>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/1/outside-dp.png"><img alt="https://fs.linkmeup.ru/images/adsm/1/outside-dp.png" src="https://fs.linkmeup.ru/images/adsm/1/outside-dp.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Трафик в обратную сторону проходит те же шаги в противоположном порядке.</div>
+</div>
+</li>
+<li><p class="first">Бордер добрасывает пакет до VNGW1</p>
+</li>
+<li><p class="first">Тот его раздевает, смотрит на адрес получателя и видит, что тот доступен через туннель Tunnel1 (MPLSoGRE или MPLSoUDP).</p>
+</li>
+<li><div class="first line-block">
+<div class="line">Соответственно, вешает метку MPLS, заголовок GRE/UDP и новый IP и отправляет на свой ToR3 10.0.255.1.</div>
+<div class="line">Адрес назначения туннеля - IP-адрес vRouter’а, за которым стоит целевая ВМ - 10.0.0.2.</div>
+</div>
+</li>
+<li><p class="first">Андерлейная сеть доставляет пакет до нужного vRouter’а.</p>
+</li>
+<li><p class="first">Целевой vRouter снимает GRE/UDP, по MPLS-метке определяет интерфейс и шлёт голый IP-пакет в свой TAP-интерфейс, связанный с eth0 ВМ.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/1/outside-dp-reverse.png"><img alt="https://fs.linkmeup.ru/images/adsm/1/outside-dp-reverse.png" src="https://fs.linkmeup.ru/images/adsm/1/outside-dp-reverse.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</div>
+<div class="section" id="id9">
+<h4>Control Plane<a class="headerlink" href="#id9" title="Ссылка на этот заголовок">¶</a></h4>
+<p>VNGW1 устанавливает BGP-соседство с SDN-контроллером, от которого он получает всю маршрутную информацию о клиентах: за каким IP-адресом (vRouter’ом) находится какой клиент, и какой MPLS-меткой он идентифицируется.
+Аналогично он сам SDN-контроллеру сообщает дефолтный маршрут с меткой этого клиента, указывая себя в качестве nexthop’а. А дальше этот дефолт приезжает на vRouter’ы.</p>
+<div class="line-block">
+<div class="line">На VNGW обычно происходит агрегация маршрутов или NAT-трансляция.</div>
+<div class="line">И в другую сторону в сессию с бордерами или Route Reflector’ами он отдаёт именно этот агрегированный маршрут. А от них получает маршрут по умолчанию или Full-View, или что-то ещё.</div>
+</div>
+<div class="line-block">
+<div class="line">В плане инкапсуляции и обмена трафиком VNGW ничем не отличается от vRouter.</div>
+<div class="line">Если немного расширить область, то к VNGW и vRouter’ам можно добавить другие сетевые устройства, такие как файрволы, фермы очистки или обогащения трафика, IPS итд.</div>
+<div class="line">И с помощью последовательного создания VRF и правильного анонса маршрутов, можно заставлять трафик петлять так, как вам хочется, что и называется Service Chaining’ом.</div>
+</div>
+<div class="line-block">
+<div class="line">То есть и тут SDN-контроллер выступает в роли Route-Reflector’а между VNGW, vRouter’ами и другими сетевыми устройствами.</div>
+<div class="line">Но фактически контроллер спускает ещё информацию об ACL и PBR (Policy Based Routing), заставляя отдельные потоки трафика ходить не так, как им велит маршрут.</div>
+</div>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/1/outside-cp.png"><img alt="https://fs.linkmeup.ru/images/adsm/1/outside-cp.png" src="https://fs.linkmeup.ru/images/adsm/1/outside-cp.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, eucariot
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

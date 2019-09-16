@@ -1,0 +1,252 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ru" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Типы виртуальных ресурсов - compute, storage, network &mdash; Документация ADSM 0.1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
+    <link rel="search" title="Поиск" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../contents.html" class="icon icon-home"> ADSM
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../0_planning/planning.html">Часть 0. Планирование</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../contents.html">ADSM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../contents.html">Docs</a> &raquo;</li>
+        
+      <li>Типы виртуальных ресурсов - compute, storage, network</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/1_virtualization/1_virtualization_basics/resource_types.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="compute-storage-network">
+<h1>Типы виртуальных ресурсов - compute, storage, network<a class="headerlink" href="#compute-storage-network" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Из чего же состоит виртуальная машина?
+Выделяют три основных вида виртуальных ресурсов:</p>
+<ul class="simple">
+<li>compute - процессор и оперативная память</li>
+<li>storage - системный диск виртуальной машины и блочные хранилища</li>
+<li>network - сетевые карты и устройства ввода/вывода</li>
+</ul>
+<div class="section" id="compute">
+<h2>Compute<a class="headerlink" href="#compute" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="cpu">
+<h3>CPU<a class="headerlink" href="#cpu" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Теоретически QEMU способен эмулировать любой тип процессора и соотвествующие ему флаги и функциональность, на практике используют либо host-model и точечно выключают флаги перед передачей в Guest OS либо берут named-model и точечно включаютвыключают флаги.</p>
+<p>По умолчанию QEMU будет эмулировать процессор, который будет распознан Guest OS как QEMU Virtual CPU. Это не самый оптимальный тип процессора, особенно если приложение, работающее в виртуальной машине, использует CPU-флаги для своей работы. <a class="reference external" href="https://wiki.qemu.org/Features/CPUModels">Подробнее о разных моделях CPU в QEMU</a>.</p>
+<p>QEMU/KVM также позволяет контролировать топологию процессора, количество тредов, размер кэша, привязывать vCPU к физическому ядру и много чего еще.</p>
+<p>Нужно ли это для виртуальной машины или нет, зависит от типа приложения, работающего в Guest OS. Например, известный факт, что для приложений, выполняющих обработку пакетов с высоким PPS, важно делать <strong>CPU pinning</strong>, то есть не позволять передавать физический процессор другим виртуальным машинам.</p>
+</div>
+<div class="section" id="memory">
+<h3>Memory<a class="headerlink" href="#memory" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Далее на очереди оперативная память - RAM. С точки зрения Host OS запущенная с помощью QEMU/KVM виртуальная машина ничем не отличается от любого другого процесса, работающего в user-space операционной системы. Соотвественно и процесс выделения памяти виртуальной машине выполняется теми же вызовами в kernel Host OS, как если бы вы запустили, например, Chrome браузер.</p>
+<blockquote>
+<div><p>Перед тем как продолжить повествование об оперативной памяти в виртуальных машинах, необходимо сделать отступление и объяснить термин <strong>`NUMA &lt;https://ru.wikipedia.org/wiki/Non-Uniform_Memory_Access&gt;`</strong> - Non-Uniform Memory Access.</p>
+<p>Архитектура современных физических серверов предполагает наличие двух или более процессоров (CPU) и ассоциированной с ней оперативной памятью (RAM). Такая связка процессор + память называется узел или нода (node). Связь между различными NUMA nodes осуществляется посредством специальной шины - <strong>QPI</strong> (QuickPath Interconnect)</p>
+<p>Выделяют локальную NUMA node - когда процесс, запущенный в операционной системе, использует процессор и оперативную память, находящуюся в одной NUMA node, и удаленную NUMA node - когда процесс, запущенный в операционной системе, использует процессор и оперативную память, находящиеся в разных NUMA nodes, то есть для взаимодействия процессора и памяти требуется передача данных через QPI шину.</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/1/1/numa.png"><img alt="https://fs.linkmeup.ru/images/adsm/1/1/numa.png" src="https://fs.linkmeup.ru/images/adsm/1/1/numa.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<p>С точки зрения виртуальной машины память ей уже выделена на момент ее запуска, однако в реальности это не так, и kernel Host OS выделяет процессу QEMU/KVM новые участки памяти по мере того как приложение в Guest OS запрашивает дополнительную память (хотя тут тоже может быть исключение, если прямо указать QEMU/KVM выделить всю память виртуальной машине непосредственно при запуске).</p>
+<p>Память выделяется не байт за байтом, а определенным размером - <strong>page</strong>. Размер page конфигурируем и теоретически может быть любым, но на практике используется размер 4kB (по умолчанию), 2MB и 1GB. Два последних размера называются <strong>HugePages</strong> и часто используются для выделения памяти для memory intensive виртуальных машин. Причина использования HugePages в процессе поиска соответствия между виртуальным адресом page и физической памятью в <strong>Translation Lookaside Buffer</strong> (<strong>`TLB &lt;https://en.wikipedia.org/wiki/Translation_lookaside_buffer&gt;`_</strong>), который в свою очередь ограничен и хранит информацию только о последних использованных pages. Если информации о нужной page в TLB нет, происходит процесс, называемый <strong>TLB miss</strong>, и требуется задействовать процессор Host OS для поиска ячейки физической памяти, соответствующей нужной page.</p>
+<p>Данный процесс неэффективен и медлителен, поэтому и используется меньшее количество pages бо́льшего размера.
+QEMU/KVM также позволяет эмулировать различные NUMA-топологии для Guest OS, брать память для виртуальной машины только из определенной NUMA node Host OS и так далее. Наиболее распространенная практика - брать память для виртуальной машины из NUMA node локальной по отношению к процессорам, выделенным для виртуальной машины. Причина - желание избежать лишней нагрузки на <strong>QPI</strong> шину, соединяющую CPU sockets физического сервера (само собой, это логично если в вашем сервере 2 и более sockets).</p>
+</div>
+</div>
+<div class="section" id="storage">
+<h2>Storage<a class="headerlink" href="#storage" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Как известно, оперативная память потому и называется оперативной, что ее содержимое исчезает при отключении питания или перезагрузке операционной системы. Чтобы хранить информацию, требуется постоянное запоминающее устройство (ПЗУ) или <strong>persistent storage</strong>.
+Существует два основных вида persistent storage:</p>
+<ul class="simple">
+<li>Block storage (блоковое хранилище) - блок дискового пространства, который может быть использован для установки файловой системы и создания партиций. Если грубо, то можно воспринимать это как обычный диск.</li>
+<li>Object storage (объектное хранилище) - информация может быть сохранена только в виде объекта (файла), доступного по HTTP/HTTPS. Типичными примерами объектного хранилища являются AWS S3 или Dropbox.</li>
+</ul>
+<p>Виртуальная машина нуждается в <strong>persistent storage</strong>, однако, как это сделать, если виртуальная машина «живет» в оперативной памяти Host OS? (кстати, именно поэтому невозможно запустить виртуальную машину с оперативной памятью меньше, чем размер ее qcow2 образа). Если вкратце, то любое обращение Guest OS к контроллеру виртуального диска перехватывается QEMU/KVM и трансформируется в запись на физический диск Host OS. Этот метод неэффективен, и поэтому здесь так же как и для сетевых устройств используется virtio-драйвер вместо полной эмуляции IDE или iSCSI-устройства. Подробнее об этом можно почитать <a class="reference external" href="https://www.qemu.org/2018/02/09/understanding-qemu-devices/">здесь</a>. Таким образом виртуальная машина обращается к своему виртуальному диску через virtio-драйвер, а далее QEMU/KVM делает так, чтобы переданная информация записалась на физический диск. Важно понимать, что в Host OS дисковый backend может быть реализован в виде CEPH, NFS или iSCSI-полки.</p>
+<p>Наиболее простым способом эмулировать persistent storage является использование файла в какой-либо директории Host OS как дискового пространства виртуальной машины. QEMU/KVM поддерживает множество различных форматов такого рода файлов - raw, vdi, vmdk и прочие. Однако наибольшее распространение получил формат <strong>qcow2</strong> (QEMU copy-on-write version 2). В общем случае, qcow2 представляет собой определенным образом структурированный файл без какой-либо операционной системы. Большое количество виртуальных машин распространяется именно в виде qcow2-образов (images) и являются копией системного диска виртуальной машины, упакованной в qcow2-формат. Это имеет ряд преимуществ - qcow2-кодирование занимает гораздо меньше места, чем raw копия диска байт в байт, QEMU/KVM умеет изменять размер qcow2-файла (resizing), а значит имеется возможность изменить размер системного диска виртуальной машины, также поддерживается AES шифрование qcow2 (это имеет смысл, так как образ виртуальной машины может содержать интеллектуальную собственность).</p>
+<p>Далее, когда происходит запуск виртуальной машины, QEMU/KVM использует qcow2-файл как системный диск (процесс загрузки виртуальной машины я опускаю здесь, хотя это тоже является интересной задачей), а виртуальная машина имеет возможность считать/записать данные в qcow2-файл через virtio-драйвер. Таким образом и работает процесс снятия образов виртуальных машин, поскольку в любой момент времени qcow2-файл содержит полную копию системного диска виртуальной машины, и образ может быть использован для резервного копирования, переноса на другой хост и прочее.</p>
+<p>В общем случае этот qcow2-файл будет определяться в Guest OS как <em>/dev/vda</em>-устройство, и Guest OS произведет разбиение дискового пространства на партиции и установку файловой системы. Аналогично, следующие qcow2-файлы, подключенные QEMU/KVM как <em>/dev/vdX</em> устройства, могут быть использованы как <strong>block storage</strong> в виртуальной машине для хранения информации (именно так и работает компонент Openstack Cinder).</p>
+</div>
+<div class="section" id="network">
+<h2>Network<a class="headerlink" href="#network" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Последним в нашем списке виртуальных ресурсов идут сетевые карты и устройства ввода/вывода. Виртуальная машина, как и физический хост, нуждается в <strong>PCI/PCIe-шине</strong> для подключения устройств ввода/вывода. QEMU/KVM способен эмулировать разные типы чипсетов - q35 или i440fx (первый поддерживает - PCIe, второй - legacy PCI ), а также различные PCI-топологии, например, создавать отдельные PCI-шины (PCI expander bus) для NUMA nodes Guest OS.</p>
+<p>После создания PCI/PCIe шины необходимо подключить к ней устройство ввода/вывода. В общем случае это может быть что угодно - от сетевой карты до физического GPU. И, конечно же, сетевая карта, как полностью виртуализированная (полностью виртуализированный интерфейс e1000, например), так и пара-виртуализированная (virtio, например) или физическая NIC. Последняя опция используется для data-plane виртуальных машин, где требуется получить line-rate скорости передачи пакетов - маршрутизаторов, файрволов и тд.</p>
+<p>Здесь существует два основных подхода - <strong>PCI passthrough</strong> и <strong>SR-IOV</strong>. Основное отличие между ними - для PCI-PT используется драйвер только внутри Guest OS, а для SRIOV  используется драйвер Host OS (для создания <strong>VF - Virtual Functions</strong>) и драйвер Guest OS для управления SR-IOV VF. Более подробно об PCI-PT и SRIOV отлично <a class="reference external" href="https://www.juniper.net/documentation/en_US/vsrx/topics/concept/security-vsrx-kvm-sr-iov.html">написал Juniper</a>.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/1/1/sriov.png"><img alt="https://fs.linkmeup.ru/images/adsm/1/1/sriov.png" src="https://fs.linkmeup.ru/images/adsm/1/1/sriov.png" style="width: 800px;" /></a>
+</div>
+<p>Для уточнения стоит отметить что, PCI passthrough  и SR-IOV  это дополняющие друг друга технологии. SR-IOV это нарезка физической функции на виртуальные функции. Это выполняется на уровне Host OS. При этом Host OS видит виртуальные функции как еще одно PCI/PCIe устройство. Что он дальше с ними делает - не важно.</p>
+<p>А PCI-PT это механизм проброса любого Host OS PCI устройства в Guest OS, в том числе виртуальной функции, созданной SR-IOV устройством</p>
+</div></blockquote>
+<p>Таким образом мы рассмотрели основные виды виртуальных ресурсов и следующим шагом необходимо понять как виртуальная машина общается с внешним миром через сеть.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, eucariot
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,478 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ru" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Средства &mdash; Документация ADSM 0.1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
+    <link rel="search" title="Поиск" href="../search.html" />
+    <link rel="next" title="Заключение" href="conclusion.html" />
+    <link rel="prev" title="Цели" href="goals.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../contents.html" class="icon icon-home"> ADSM
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="planning.html">Часть 0. Планирование</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="goals.html">Цели</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Средства</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Компонент 1. Инвентарная система</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ip">Компонент 2. Система управления IP-пространством</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Компонент 3. Система описания сетевых сервисов</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Компонент 4. Механизм инициализации устройства</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Компонент 5. Вендор-агностик конфигурационная модель</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Компонент 6. Вендор-интерфейс специфичный драйвер</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Компонент 7. Механизм доставки конфигурации на устройство</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ci-cd">Компонент 8. CI/CD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Компонент 9. Система резервного копирования и поиска отклонений</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">Компонент 10. Система мониторинга</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.html">Заключение</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../contents.html">ADSM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../contents.html">Docs</a> &raquo;</li>
+        
+          <li><a href="planning.html">Часть 0. Планирование</a> &raquo;</li>
+        
+      <li>Средства</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/0_planning/tools.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>Средства<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Звучит достаточно сложно для того, чтобы начать декомпозировать проект на компоненты.</p>
+<p>И будет их десять:</p>
+<ol class="arabic">
+<li><p class="first">Инвентарная система</p>
+</li>
+<li><p class="first">Система управления IP-пространством</p>
+</li>
+<li><p class="first">Система описания сетевых сервисов</p>
+</li>
+<li><p class="first">Механизм инициализации устройств</p>
+</li>
+<li><p class="first">Вендор-агностик конфигурационная модель</p>
+</li>
+<li><p class="first">Вендор-интерфейс специфичный драйвер</p>
+</li>
+<li><p class="first">Механизм доставки конфигурации на устройство</p>
+</li>
+<li><p class="first">CI/CD</p>
+</li>
+<li><p class="first">Механизм резервного копирования и поиска отклонений</p>
+</li>
+<li><p class="first">Система мониторинга</p>
+<blockquote>
+<div><p>Это, кстати, пример того, как менялся взгляд на цели цикла - в черновике компонентов было 4.</p>
+</div></blockquote>
+</li>
+</ol>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/0/facilities.png"><img alt="https://fs.linkmeup.ru/images/adsm/0/facilities.png" src="https://fs.linkmeup.ru/images/adsm/0/facilities.png" style="width: 800px;" /></a>
+</div>
+<div class="line-block">
+<div class="line">На иллюстрации я изобразил все компоненты и собственно устройство.</div>
+<div class="line">Пересекающиеся компоненты взаимодействуют другу с другом.</div>
+<div class="line">Чем больше блок, тем больше внимания нужно уделить этому компоненту.</div>
+</div>
+<div class="section" id="id2">
+<h2>Компонент 1. Инвентарная система<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="line-block">
+<div class="line">Очевидно, мы хотим знать, какое оборудование, где стоит, к чему подключено.</div>
+<div class="line">Инвентарная система - неотъемлемая часть любого предприятия.</div>
+<div class="line">Чаще всего для сетевых устройств предприятие имеет отдельную инвентарную систему, которая решает более специфичные задачи.</div>
+<div class="line">В рамках цикла статей мы будем называть это DCIM - Data Center Infrastructure Management. Хотя сам термин DCIM, строго говоря, включает в себя гораздо больше.</div>
+</div>
+<p>Для наших задач в ней мы будем хранить следующую информацию про устройство:</p>
+<ul class="simple">
+<li>Инвентарный номер</li>
+<li>Название/описание</li>
+<li>Модель (<em>Huawei CE12800, Juniper QFX5120 итд</em>)</li>
+<li>Характерные параметры (<em>платы, интерфейсы итд</em>)</li>
+<li>Роль (<em>Leaf, Spine, Border Router итд</em>)</li>
+<li>Локацию (<em>регион, город, дата-центр, стойка, юнит</em>)</li>
+<li>Интерконнекты между устройствами</li>
+<li>Топологию сети</li>
+</ul>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/0/dcim.png"><img alt="https://fs.linkmeup.ru/images/adsm/0/dcim.png" src="https://fs.linkmeup.ru/images/adsm/0/dcim.png" style="width: 400px;" /></a>
+</div>
+<div class="line-block">
+<div class="line">Прекрасно понятно, что нам самим хочется знать всё это.</div>
+<div class="line">Но поможет ли это в целях автоматизации?</div>
+<div class="line">Безусловно.</div>
+<div class="line">Например, мы знаем, что в данном дата-центре на Leaf-коммутаторах, если это Huawei, ACL для фильтрации определённого трафика должны применяться на VLAN, а если это Juniper - то на unit 0 физического интерфейса.</div>
+<div class="line">Или нужно раскатить новый Syslog-сервер на все бордеры региона.</div>
+</div>
+<p>В ней же мы будем хранить виртуальные сетевые устройства, например виртуальные маршрутизаторы или рут-рефлекторы. Можем добавить DNS-сервера, NTP, Syslog и вообще всё, что так или иначе относится к сети.</p>
+</div>
+<div class="section" id="ip">
+<h2>Компонент 2. Система управления IP-пространством<a class="headerlink" href="#ip" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="line-block">
+<div class="line">Да, и в наше время находятся коллективы людей, которые ведут учёт префиксов и IP-адресов в Excel-файле. Но современный подход - это всё-таки база данных, с фронтендом на nginx/apache, API и широкими функциями по учёту IP-адресов и сетей с разделением на VRF.</div>
+<div class="line">IPAM - IP Address Management.</div>
+</div>
+<p>Для наших задач в ней мы будем хранить следующую информацию:</p>
+<ul class="simple">
+<li>VLAN</li>
+<li>VRF</li>
+<li>Сети/Подсети</li>
+<li>IP-адреса</li>
+<li>Привязка адресов к устройствам, сетей к локациям и номерам VLAN</li>
+</ul>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/0/ipam.png"><img alt="https://fs.linkmeup.ru/images/adsm/0/ipam.png" src="https://fs.linkmeup.ru/images/adsm/0/ipam.png" style="width: 400px;" /></a>
+</div>
+<p>Опять же понятно, что мы хотим быть уверены, что, выделяя новый IP-адрес для лупбэка ToR’а, мы не споткнёмся о то, что он уже был кому-то назначен. Или что один и тот же префикс мы использовали дважды в разных концах сети.</p>
+<p>Но как это поможет в автоматизации?</p>
+<p>Легко.</p>
+<div class="line-block">
+<div class="line">Запрашиваем в системе префикс с ролью Loopbacks, в котором есть доступные для выделения IP-адреса - если находится, выделяем адрес, если нет, запрашиваем создание нового префикса.</div>
+<div class="line">Или при создании конфигурации устройства мы из этой же системы можем узнать, в каком VRF должен находиться интерфейс.</div>
+<div class="line">А при запуске нового сервера скрипт сходит в систему, узнает в каком сервер свитче, в каком порту и какая подсеть назначена на интерфейс - из него и будет выделять адрес сервера.</div>
+</div>
+<hr class="docutils" />
+<div class="line-block">
+<div class="line">Напрашивается желание DCIM и IPAM объединить в одну систему, чтобы не дублировать функции и не обслуживать две похожие сущности.</div>
+<div class="line">Так мы и сделаем.</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="id3">
+<h2>Компонент 3. Система описания сетевых сервисов<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Если первые две системы хранят переменные, которые ещё нужно как-то использовать, то третья описывает для каждой роли устройства, как оно должно быть настроено.</p>
+<p>Стоит выделить два разных типа сетевых сервисов:</p>
+<ul class="simple">
+<li>Инфраструктурные</li>
+<li>Клиентские</li>
+</ul>
+<div class="line-block">
+<div class="line">Первые призваны обеспечить базовую связность и управление устройством. Сюда можно отнести VTY, SNMP, NTP, Syslog, AAA, протоколы маршрутизации, CoPP итд.</div>
+<div class="line">Вторые организуют услугу для клиента: MPLS L2/L3VPN, GRE, VXLAN, VLAN, L2TP итд.</div>
+<div class="line">Разумеется, есть и пограничные случаи - куда отнести MPLS LDP, BGP? Да и протоколы маршрутизации могут использоваться для клиентов. Но это не принципиально.</div>
+<div class="line">Оба типа сервисов раскладываются на конфигурационные примитивы:</div>
+</div>
+<ul class="simple">
+<li>физические и логические интерфейсы (тег/антег, mtu)</li>
+<li>IP-адреса и VRF (IP, IPv6, VRF)</li>
+<li>ACL и политики обработки трафика</li>
+<li>Протоколы (IGP, BGP, MPLS)</li>
+<li>Политики маршрутизации (префикс-листы, коммьюнити, ASN-фильтры).</li>
+<li>Служебные сервисы (SSH, NTP, LLDP, Syslog…)</li>
+<li>Итд.</li>
+</ul>
+<p>Как именно мы это будем делать, я пока ума не приложу. Разберёмся в отдельной статье.</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/0/sds.png"><img alt="https://fs.linkmeup.ru/images/adsm/0/sds.png" src="https://fs.linkmeup.ru/images/adsm/0/sds.png" style="width: 400px;" /></a>
+</div>
+<p>Если чуть ближе к жизни, то мы могли бы описать, что Leaf-коммутатор должен иметь BGP-сессии со всем подключенными Spine-коммутаторами, импортировать в процесс подключенные сети, принимать от Spine-коммутаторов только сети из определённого префикса. Ограничивать CoPP  IPv6 ND до 10 pps итд.
+В свою очередь спайны держат сессии со всеми подключенными лифами, выступая в качестве рут-рефлекторов, и принимают от них только маршруты определённой длины и с определённым коммунити.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="id4">
+<h2>Компонент 4. Механизм инициализации устройства<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Под этим заголовком я объединяю множество действий, которые должны произойти, чтобы устройство появилось на радарах и на него можно было попасть удалённо.</p>
+<ul class="simple">
+<li>Завести устройство в инвентарной системе.</li>
+<li>Выделить IP-адрес управления.</li>
+<li>Настроить базовый доступ на него: Hostname, IP-адрес управления, маршрут в сеть управления, пользователи, SSH-ключи, протоколы - telnet/SSH/NETCONF</li>
+</ul>
+<p>Тут существует три подхода:</p>
+<ul class="simple">
+<li>Полностью всё вручную. Устройство привозят на стенд, где обычный органический человек, заведёт его в системы, подключится консолью и настроит. Может сработать на небольших статических сетях.</li>
+<li>ZTP - Zero Touch Provisioning. Железо приехало, встало, по DHCP получило себе адрес, сходило на специальный сервер, самонастроилось.</li>
+<li>Инфраструктура консольных серверов, где первичная настройка происходит через консольный порт в автоматическом режиме.</li>
+</ul>
+<p>Про все три поговорим в отдельной статье.</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/0/init.png"><img alt="https://fs.linkmeup.ru/images/adsm/0/init.png" src="https://fs.linkmeup.ru/images/adsm/0/init.png" style="width: 400px;" /></a>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="id5">
+<h2>Компонент 5. Вендор-агностик конфигурационная модель<a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h2>
+<p>До сих пор все системы были разрозненными лоскутами, дающими переменные и декларативное описание того, что мы хотели бы видеть на сети. Но рано или поздно, придётся иметь дело с конкретикой.</p>
+<p>На этом этапе для каждого конкретного устройства примитивы, сервисы и переменные комбинируются в конфигурационную модель, фактически описывающую полную конфигурацию конкретного устройства, только в вендоронезависимой манере.</p>
+<p>Что даёт этот шаг? Почему бы сразу не формировать конфигурацию устройства, которую можно просто залить?</p>
+<p>На самом деле это позволяет решить три задачи:</p>
+<ol class="arabic simple">
+<li>Не подстраиваться под конкретный интерфейс взаимодействия с устройством. Будь то CLI, NETCONF, RESTCONF, SNMP - модель будет одинаковой.</li>
+<li>Не держать количество шаблонов/скриптов по числу вендоров в сети, и в случае изменения дизайна, менять одно и то же в нескольких местах.</li>
+<li>Загружать конфигурацию с устройства (бэкапа), раскладывать её в точно такую же модель и непосредственно сравнивать между собой целевую конфигурацию и имеющуюся для вычисления дельты и подготовки конфигурационного патча, который изменит только те части, которые необходимо или для выявления отклонений.</li>
+</ol>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/0/va-model.png"><img alt="https://fs.linkmeup.ru/images/adsm/0/va-model.png" src="https://fs.linkmeup.ru/images/adsm/0/va-model.png" style="width: 400px;" /></a>
+</div>
+<p>В результате этого этапа мы получаем вендоронезависимую конфигурацию.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="id6">
+<h2>Компонент 6. Вендор-интерфейс специфичный драйвер<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Не стоит тешить себя надеждами на то, что когда-то настраивать циску можно будет точно так же, как джунипер, просто отправив на них абсолютно одинаковые вызовы. Несмотря на набирающие популярность whitebox’ы и на появление поддержки NETCONF, RESTCONF, OpenConfig, конкретный контент, который этими протоколами доставляется, отличается от вендора к вендору, и это одно из их конкурентных отличий, которое они так просто не сдадут.</p>
+<p>Это примерно точно так же, как OpenContrail и OpenStack, имеющие RestAPI в качестве своего NorthBound-интерфейса, ожидают совершенно разные вызовы.</p>
+<p>Итак, на пятом шаге вендоронезависимая модель должна принять ту форму, в которой она поедет на железо.</p>
+<p>И здесь все средства хороши (нет): CLI, NETCONF, RESTCONF, SNMP простихоспаде.</p>
+<p>Поэтому нам понадобится драйвер, который результат предыдущего шага переложит в нужный формат конкретного вендора: набор CLI команд, структуру XML.</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/0/driver.png"><img alt="https://fs.linkmeup.ru/images/adsm/0/driver.png" src="https://fs.linkmeup.ru/images/adsm/0/driver.png" style="width: 400px;" /></a>
+</div>
+<hr class="docutils" />
+</div>
+<div class="section" id="id7">
+<h2>Компонент 7. Механизм доставки конфигурации на устройство<a class="headerlink" href="#id7" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Конфигурацию-то мы сгенерировали, но её ещё нужно доставить на устройства - и, очевидно, не руками.</p>
+<p><strong>Во-первых</strong>, перед нами тут встаёт вопрос, какой транспорт будем использовать? А выбор на сегодняшний день уже не маленький:</p>
+<ul class="simple">
+<li>CLI (telnet, ssh)</li>
+<li><strike> SNMP </strike></li>
+<li>NETCONF</li>
+<li>RESTCONF</li>
+<li>REST API</li>
+<li>OpenFlow (хотя он из списка и выбивается, поскольку это способ доставить FIB, а не настройки)</li>
+</ul>
+<p>Давайте тут расставим точки над ё. CLI - это легаси. SNMP… кхе-кхе.</p>
+<p>RESTCONF - ещё пока неведомая зверушка, REST API поддерживается почти никем. Поэтому мы в цикле сосредоточимся на NETCONF.</p>
+<p>На самом деле, как уже понял читатель, с интерфейсом мы к этому моменту уже определились - результат предыдущего шага уже представлен в формате того интерфейса, который был выбран.</p>
+<p><strong>Во-вторых</strong>, а какими инструментами мы будем это делать?</p>
+<p>Тут выбор тоже большой:</p>
+<ul class="simple">
+<li>Самописный скрипт или платформа. Вооружимся ncclient и asyncIO и сами всё сделаем. Что нам стоит, систему деплоймента с нуля построить?</li>
+<li>Ansible с его богатой библиотекой сетевых модулей.</li>
+<li>Salt с его скудной работой с сетью и связкой с Napalm.</li>
+<li>Собственно Napalm, который знает пару вендоров и всё, до свиданья.</li>
+<li>Nornir - ещё один зверёк, которого мы препарируем в будущем.</li>
+</ul>
+<p>Здесь ещё фаворит не выбран - будем шупать.</p>
+<p>Что здесь ещё важно? Последствия применения конфигурации.</p>
+<p>Успешно или нет. Остался доступ на железку или нет.</p>
+<p>Кажется, тут поможет commit с подтверждением и валидацией того, что в устройство сгрузили.
+Это в совокупности с правильной реализацией NETCONF значительно сужает круг подходящих устройств - нормальные коммиты поддерживают не так много производителей. Но это просто одно из обязательных условий в <a class="reference external" href="https://ru.wikipedia.org/wiki/Запрос_предложения/">RFP</a>. В конце концов никто не переживает, что ни один российский вендор не пройдёт под условие 32*100GE интерфейса. Или переживает?</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/0/deploy.png"><img alt="https://fs.linkmeup.ru/images/adsm/0/deploy.png" src="https://fs.linkmeup.ru/images/adsm/0/deploy.png" style="width: 400px;" /></a>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="ci-cd">
+<h2>Компонент 8. CI/CD<a class="headerlink" href="#ci-cd" title="Ссылка на этот заголовок">¶</a></h2>
+<p>К этому моменту у нас уже готова конфигурация на все устройства сети.</p>
+<p>Я пишу «на все», потому что мы говорим о версионировании состояния сети. И даже если нужно поменять настройки всего лишь одного свитча, просчитываются изменения для всей сети. Очевидно, они могут быть при этом нулевыми для большинства узлов.</p>
+<p>Но, как уже было сказано, выше, мы же не варвары какие-то, чтобы катить всё сразу в прод.</p>
+<p>Сгенерированная конфигурация должна сначала пройти через Pipeline CI/CD.</p>
+<blockquote>
+<div>CI/CD означает Continuous Integration, Continuous Deployment. Это подход, при котором команда не раз в полгода выкладывает новый мажорный релиз, полностью заменяя старый, а регулярно инкрементально внедряет (Deployment) новую функциональность небольшими порциями, каждую из которых всесторонне тестирует на совместимость, безопасность и работоспособность (Integration).</div></blockquote>
+<p>Для этого у нас есть система контроля версий, следящая за изменениями конфигурации, лаборатория, на которой проверяется не ломается ли клиентский сервис, система мониторинга, проверяющая этот факт, и последний шаг - выкатка изменений в рабочую сеть.</p>
+<p>За исключением отладочных команд, абсолютно все изменения на сети должны пройти через CI/CD Pipeline - это наш залог спокойной жизни и длинной счастливой карьеры.</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/0/cicd.png"><img alt="https://fs.linkmeup.ru/images/adsm/0/cicd.png" src="https://fs.linkmeup.ru/images/adsm/0/cicd.png" style="width: 400px;" /></a>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="id8">
+<h2>Компонент 9. Система резервного копирования и поиска отклонений<a class="headerlink" href="#id8" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Ну про бэкапы лишний раз говорить не приходится.</p>
+<p>Будем просто их по крону или по факту изменения конфигурации в гит складывать.</p>
+<p>А вот вторая часть поинтереснее - за этими бэкапами кто-то должен приглядывать. И в одних случаях этот кто-то должен пойти и вертать всё как было, а в других, мяукнуть кому-нибудь, о том, что непорядок.</p>
+<p>Например, если появился какой-то новый пользователь, который не прописан в переменных, нужно от хака подальше его удалить. А если новое  файрвольное правило - лучше не трогать, возможно кто-то просто отладку включил, а может новый сервис, растяпа, не по регламенту прописал, а в него уже люди пошли.</p>
+<p>От некой небольшой дельты в масштабах всей сети мы всё равно не уйдём, несмотря на любые системы автоматизации и стальную руку руководства. Для отладки проблем всё равно никто конфигурацию не будет вносить в системы. Тем более, что их может даже не предусматривать модель конфигурации.</p>
+<blockquote>
+<div>Например, файрвольное правило для подсчёта числа пакетов на определённый IP, для локализации проблемы - вполне рядовая временная конфигурация.</div></blockquote>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/0/backup.png"><img alt="https://fs.linkmeup.ru/images/adsm/0/backup.png" src="https://fs.linkmeup.ru/images/adsm/0/backup.png" style="width: 400px;" /></a>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="id9">
+<h2>Компонент 10. Система мониторинга<a class="headerlink" href="#id9" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Сначала я не собирался освещать тему мониторинга - всё же объёмная, спорная и сложная тема. Но по ходу дела оказалось, что это неотъемлемая часть автоматизации. И обойти её стороной хотя бы даже без практики нельзя.</p>
+<p>Развивая мысль - это органическая часть процесса CI/CD. После выкатки конфигурации на сеть, нам нужно уметь определить, а всё ли с ней теперь в порядке.</p>
+<p>И речь не только и не столько о графиках использования интерфейсов или доступности узлов, сколько о более тонких вещах - наличии нужных маршрутов, атрибутов на них, количестве BGP-сессий, OSPF-соседей, End-to-End работоспособности вышележащих сервисов.</p>
+<p>А не перестали ли складываться сислоги на внешний сервер, а не сломался ли SFlow-агент, а не начали ли расти дропы в очередях, а не нарушилась ли связность между какой-нибудь парой префиксов?</p>
+<p>В отдельной статье мы поразмышляем и над этим.</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/0/monitoring.png"><img alt="https://fs.linkmeup.ru/images/adsm/0/monitoring.png" src="https://fs.linkmeup.ru/images/adsm/0/monitoring.png" style="width: 400px;" /></a>
+</div>
+<hr class="docutils" />
+<div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/0/overall.png"><img alt="https://fs.linkmeup.ru/images/adsm/0/overall.png" src="https://fs.linkmeup.ru/images/adsm/0/overall.png" style="width: 800px;" /></a>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="conclusion.html" class="btn btn-neutral float-right" title="Заключение" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="goals.html" class="btn btn-neutral float-left" title="Цели" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, eucariot
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

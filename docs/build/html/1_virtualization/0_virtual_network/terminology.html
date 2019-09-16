@@ -1,0 +1,228 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ru" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Терминология &mdash; Документация ADSM 0.1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
+    <link rel="search" title="Поиск" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../contents.html" class="icon icon-home"> ADSM
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../0_planning/planning.html">Часть 0. Планирование</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../contents.html">ADSM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../contents.html">Docs</a> &raquo;</li>
+        
+      <li>Терминология</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/1_virtualization/0_virtual_network/terminology.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>Терминология<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="line-block">
+<div class="line">В цикле <strong>сервером</strong> я буду называть программу, которая реализует серверную сторону клиент-серверной коммуникации.</div>
+<div class="line">Физические машины в стойках называть серверами <strong>не</strong> будем.</div>
+</div>
+<p><strong>Физическая машина</strong> - x86-компьютер, установленный в стойке. Наиболее часто употребим термин <strong>хост</strong>. Так и будем называть её «<strong>машина</strong>» или <strong>хост</strong>.</p>
+<p><strong>Гипервизор</strong> - приложение, запущенное на физической машине, эмулирующее физические ресурсы, на которых запускаются Виртуальные Машины. Иногда в литературе и сети слово «гипервизор» используют как синоним «хост».</p>
+<p><strong>Виртуальная машина</strong> - операционная система, запущенная на физической машине поверх гипервизора. Для нас в рамках данного цикла не так уж важно, на самом ли деле это виртуальная машина или просто контейнер. Будем называть это «<strong>ВМ</strong>»</p>
+<p><strong>Тенант</strong> - широкое понятие, которое я в этой статье определю как отдельный сервис или отдельный клиент.</p>
+<p><strong>Мульти-тенантность</strong> или мультиарендность - использование одного и того же приложения разными клиентами/сервисами. При этом изоляция клиентов друг от друга достигается благодаря архитектуре приложения, а не отдельно-запущенным экземплярам.</p>
+<p><strong>ToR - Top of the Rack switch</strong> - коммутатор, установленный в стойке, к которому подключены все физические машины.</p>
+<blockquote>
+<div>Кроме топологии ToR, разные провайдеры практикуют End of Row (EoR) или Middle of Row (хотя последнее - пренебрежительная редкость и аббревиатуры MoR я не встречал).</div></blockquote>
+<p><strong>Underlay network</strong> или подлежащая сеть или андэрлей - физическая сетевая инфраструктура: коммутаторы, маршрутизаторы, кабели.</p>
+<p><strong>Overlay network</strong> или наложенная сеть или оверлей - виртуальная сеть туннелей, работающая поверх физической.</p>
+<p><strong>L3-фабрика или IP-фабрика</strong> - потрясающее изобретение человечества, позволяющее к собеседованиям не повторять STP и не учить TRILL. Концепция, в которой вся сеть вплоть до уровня доступа исключительно L3, без VLAN и соответственно огромных растянутых широковещательных доменов. Откуда тут слово «фабрика» разберёмся в следующей части.</p>
+<p><strong>SDN</strong> - Software Defined Network. Едва ли нуждается в представлении. Подход к управлению сетью, когда изменения на сети выполняются не человеком, а программой. Обычно означает вынесение Control Plane за пределы конечных сетевых устройств на контроллер.</p>
+<p><strong>NFV</strong> - Network Function Virtualization - виртуализация сетевых устройств, предполагающая, что часть функций сети можно запускать в виде виртуальных машин или контейнеров для ускорения внедрения новых сервисов, организации Service Chaining и более простой горизонтальной масштабируемости.</p>
+<p><strong>VNF</strong> - Virtual Network Function. Конкретное виртуальное устройство: маршрутизатор, коммутатор, файрвол, NAT, IPS/IDS итд. Хотя понятие функция более широкое, чем устройство. Так некоторые функции (например, v`IMS &lt;<a class="reference external" href="https://ru.wikipedia.org/wiki">https://ru.wikipedia.org/wiki</a>/IMS_(электросвязь)&gt;`_ - это система виртуальных машин/контейнеров/ПО, реализующая определённую функцию.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/1/terminology.png"><img alt="https://fs.linkmeup.ru/images/adsm/1/terminology.png" src="https://fs.linkmeup.ru/images/adsm/1/terminology.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<hr class="docutils" />
+<div class="line-block">
+<div class="line">Большинство сетей сегодня можно явно разбить на две части:</div>
+<div class="line"><strong>Underlay</strong> - физическая сеть со стабильной конфигурацией.</div>
+<div class="line"><strong>Overlay</strong> - абстракция над Underlay для изоляции тенантов.</div>
+</div>
+<p>Это верно, как для случая ДЦ (который мы разберём в этой статьей), так и для ISP (который мы разбирать не будем, потому что уже было в <a class="reference external" href="https://linkmeup.ru/sdsm">СДСМ</a>. С энтерпрайзными сетями, конечно, ситуация несколько иная.</p>
+<p>Картинка с фокусом на сеть:</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/1/fabric.png"><img alt="https://fs.linkmeup.ru/images/adsm/1/fabric.png" src="https://fs.linkmeup.ru/images/adsm/1/fabric.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, eucariot
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
