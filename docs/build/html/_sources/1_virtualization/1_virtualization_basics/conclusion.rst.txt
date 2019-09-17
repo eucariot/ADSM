@@ -6,8 +6,8 @@
 Полезные ссылки
 ---------------
 
-* `Undertanding QEMU Devices <https://www.qemu.org/2018/02/09/understanding-qemu-devices/>`_
-* `KVM/SR-IOV <https://www.juniper.net/documentation/en_US/vsrx/topics/concept/security-vsrx-kvm-sr-iov.html>`_.
+* `Understanding QEMU Devices <https://www.qemu.org/2018/02/09/understanding-qemu-devices/>`_
+* `KVM/SR-IOV <https://www.juniper.net/documentation/en_US/vsrx/topics/concept/security-vsrx-kvm-sr-iov.html>`_
 
 Спасибы
 -------

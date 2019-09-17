@@ -167,6 +167,11 @@
 <div>Автор этой статьи - <a class="reference external" href="https://www.linkedin.com/in/roman-gorge-2b15896b/?originalSubdomain=se">Роман Горге</a> - бывший ведущий linkmeup.</div></blockquote>
 <p><a class="reference external" href="https://linkmeup.ru/blog/449.html">Предыдущая статья</a> рассматривала архитектуру виртуализированной сети, underlay-overlay, путь пакета между VM и прочее. В данной статье мы затронем (или попытаемся затронуть) вопросы а как собственно происходит виртуализация сетевых функций, как реализован backend основных продуктов, обеспечивающих запуск и управление VM, а также как работает виртуальный свитчинг (OVS и Linux bridge).</p>
 <p>Тема виртуализации широка и глубока, объяснить все детали работы гипервизора невозможно (да и не нужно). Мы ограничимся минимальным набором знаний необходимым для понимания работы любого виртуализированного решения, не обязательно Telco.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/1/1/kdpv.png"><img alt="https://fs.linkmeup.ru/images/adsm/1/1/kdpv.png" src="https://fs.linkmeup.ru/images/adsm/1/1/kdpv.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Содержание:</span></p>
 <ul>
