@@ -70,8 +70,7 @@ REST - не протокол, а, так называемый, стиль арх
 
 <blockquote>
     Для этой серии статей на linkmeup развёрнута read-only (для вас, дорогие, читатели) инсталляция <a href="http://netbox.linkmeup.ru:45127" target="_blank">NetBox</a>: http://netbox.linkmeup.ru:45127.
-    Login/passowrd: guest/Dpz-7yT-qFL-U9a
-    API Token: 90a22967d0bc4bdcd8ca47ec490bbf0b0cb2d9c8
+    На чтение права не требуются, но если хочется попробовать читать с токеном, то можно воспользоваться этим: API Token: 90a22967d0bc4bdcd8ca47ec490bbf0b0cb2d9c8
 </blockquote>
 
 
@@ -168,14 +167,13 @@ http://netbox.linkmeup.ru:45127/api/dcim/devices/1/</code>
     GET /api/dcim/devices/1/ HTTP/1.1
     Host: netbox.linkmeup.ru:45127
     User-Agent: curl/7.54.0
-    Authorization: TOKEN 90a22967d0bc4bdcd8ca47ec490bbf0b0cb2d9c8
     Accept: application/json; indent=4</code>
 
 Так будет выглядеть ответ:
 <code>
     HTTP/1.1 200 OK
     Server: nginx/1.14.0 (Ubuntu)
-    Date: Sat, 18 Jan 2020 09:35:29 GMT
+    Date: Tue, 21 Jan 2020 15:14:22 GMT
     Content-Type: application/json
     Content-Length: 1638
     Connection: keep-alive
@@ -235,7 +233,6 @@ HTTP/1.1 200 OK</code>
 <code>
     Host: netbox.linkmeup.ru:45127
     User-Agent: curl/7.54.0
-    Authorization: TOKEN 90a22967d0bc4bdcd8ca47ec490bbf0b0cb2d9c8
     Accept: application/json; indent=4</code>
 
 В них указано, что
@@ -249,7 +246,7 @@ HTTP/1.1 200 OK</code>
 А вот какие заголовки были в HTTP-ответе:
 <code>
     Server: nginx/1.14.0 (Ubuntu)
-    Date: Sat, 18 Jan 2020 09:35:29 GMT
+    Date: Tue, 21 Jan 2020 15:14:22 GMT
     Content-Type: application/json
     Content-Length: 1638
     Connection: keep-alive</code>
@@ -322,8 +319,7 @@ http://netbox.linkmeup.ru:45127/api/dcim/devices/ </code>
 
 Давайте ещё пару примеров. Теперь мы запросим информацию по конкретному устройству по его имени.
 <code>
-curl -X GET -H "Authorization: TOKEN 90a22967d0bc4bdcd8ca47ec490bbf0b0cb2d9c8" \
--H "Accept: application/json; indent=4" \
+curl -X GET -H "Accept: application/json; indent=4" \
 "http://netbox.linkmeup.ru:45127/api/dcim/devices/?name=mlg-leaf-0"</code>
 Здесь, чтобы задать условия поиска в URI я ещё указал атритбут объекта (параметр <b>name</b> и его значение <b>mlg-leaf-0</b>). Как вы можете видеть, перед условием и после слэша идёт знак "?", а имя и значение разделяются знаком "=".
 
@@ -332,7 +328,6 @@ curl -X GET -H "Authorization: TOKEN 90a22967d0bc4bdcd8ca47ec490bbf0b0cb2d9c8" \
     GET /api/dcim/devices/?name=mlg-leaf-0 HTTP/1.1
     Host: netbox.linkmeup.ru:45127
     User-Agent: curl/7.54.0
-    Authorization: TOKEN 90a22967d0bc4bdcd8ca47ec490bbf0b0cb2d9c8
     Accept: application/json; indent=4</code>
 
 <a href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_device_by_name.pcapng" target="_blank">Дамп транзакции</a>.
@@ -340,8 +335,7 @@ curl -X GET -H "Authorization: TOKEN 90a22967d0bc4bdcd8ca47ec490bbf0b0cb2d9c8" \
 
 Если нужно задать пару условий, то запрос будет выглядеть так:
 <code>
-curl -X GET -H "Authorization: TOKEN 90a22967d0bc4bdcd8ca47ec490bbf0b0cb2d9c8" \
--H "Accept: application/json; indent=4" \
+curl -X GET -H "Accept: application/json; indent=4" \
 "http://netbox.linkmeup.ru:45127/api/dcim/devices/?role=leaf&site=mlg"</code>
 Здесь мы запросили все устройства с ролью <b>leaf</b>, расположенные на сайте <b>mlg</b>.
 То есть два условия отделяются друг от друга знаком "&".
@@ -351,8 +345,7 @@ curl -X GET -H "Authorization: TOKEN 90a22967d0bc4bdcd8ca47ec490bbf0b0cb2d9c8" \
 Из любопытного и приятного - если через "&" задать два условия с одним значением, то между ними будет на самом деле не логическое "И", а логическое "ИЛИ".
 То есть вот такой запрос и в самом деле вернёт два объекта: mlg-leaf-0 и mlg-spine-0
 <code>
-curl -X GET -H "Authorization: TOKEN 90a22967d0bc4bdcd8ca47ec490bbf0b0cb2d9c8" -H \
-"Accept: application/json; indent=4" \
+curl -X GET -H "Accept: application/json; indent=4" \
 "http://netbox.linkmeup.ru:45127/api/dcim/devices/?name=mlg-leaf-0&name=mlg-spine-0"</code>
 <a href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_device_with_or_operand.pcapng" target="_blank">Дамп транзакции</a>.
 
@@ -360,8 +353,7 @@ curl -X GET -H "Authorization: TOKEN 90a22967d0bc4bdcd8ca47ec490bbf0b0cb2d9c8" -
 Попробуем обратиться к несуществующему URL.
 
 <code>
-curl -X GET -H "Authorization: TOKEN 90a22967d0bc4bdcd8ca47ec490bbf0b0cb2d9c8" \
--H "Accept: application/json; indent=4" \
+curl -X GET -H "Accept: application/json; indent=4" \
 "http://netbox.linkmeup.ru:45127/api/dcim/IDGAF/"</code>
 <a href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_not_found.pcapng" target="_blank">Дамп транзакции</a>.
 
@@ -378,7 +370,7 @@ curl -X POST "http://netbox.linkmeup.ru:45127/api/dcim/devices/" \
 -H "Content-Type: application/json" \
 -H "Authorization: TOKEN a9aae70d65c928a554f9a038b9d4703a1583594f" \
 -d "{ \"name\": \"just a simple russian girl\", \"device_type\": 1, \"device_role\": 1, \"site\": 3, \"rack\": 3, \"position\": 5, \"face\": \"front\"}"</code>
-Здесь, после директивы -d расположен JSON с параметрами создаваемого устройства:
+Здесь уже появляется Token, который авторизует запрос на запись, а после директивы <b>-d</b> расположен JSON с параметрами создаваемого устройства:
 <code>
 {
     "name": "just a simple russian girl",
@@ -388,6 +380,10 @@ curl -X POST "http://netbox.linkmeup.ru:45127/api/dcim/devices/" \
     "rack": 3,
     "position": 5,
     "face": "front"}</code>
+
+<blockquote>
+    Запрос у вас не сработает, потому что Токен уже не валиден - не пытайтесь записать в мой NetBox!
+</blockquote>
 
 В ответ приходит HTTP-ответ с кодом 201 (CREATED) и JSON'ом в теле сообщения, где сервер возвращает все параметры о созданном устройстве.
 <code>
@@ -403,8 +399,7 @@ curl -X POST "http://netbox.linkmeup.ru:45127/api/dcim/devices/" \
 
 Теперь новым запросом с методом GET можно его увидеть в выдаче:
 <code>
-curl -X GET -H "Authorization: TOKEN 90a22967d0bc4bdcd8ca47ec490bbf0b0cb2d9c8" \
--H "Accept: application/json; indent=4" \
+curl -X GET -H "Accept: application/json; indent=4" \
 "http://netbox.linkmeup.ru:45127/api/dcim/devices/?q=russian"</code>
 <blockquote>
     "q" в NetBox'е позволяет найти все объекты, содержание в своём названии строку, идущую дальше.
@@ -497,7 +492,7 @@ Postman позволяет в графическом интерфейсе фор
 
 Так мы можем сделать GET:
 <img src="https://fs.linkmeup.ru/images/adsm/3/postman_get.png" width="800">
-
+<i>Здесь указан Token в GET только для примера</i>
 
 А так POST:
 <img src="https://fs.linkmeup.ru/images/adsm/3/postman_post.png" width="800">
@@ -521,11 +516,11 @@ Postman служит только для работы с RESTful API.
 Например, система генерации конфигурации захочет забрать список IP-интерфейсов из NetBox. 
 В Python есть чудесная библиотека requests, которая реализует работу через HTTP.
 Пример запроса списка всех устройств:
+
 <code>
 import requests
 
-API_TOKEN = "a9aae70d65c928a554f9a038b9d4703a1583594f"
-HEADERS = {'Authorization': f'Token {API_TOKEN}', 'Content-Type': 'application/json', 'Accept': 'application/json'}
+HEADERS = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 NB_URL = "http://netbox.linkmeup.ru:45127"
 
 request_url = f"{NB_URL}/api/dcim/devices/"
@@ -534,8 +529,6 @@ print(devices.json())</code>
 
 Снова добавим новое устройство:
 <code>
-#!/usr/bin/env python3
-
 import requests
 
 API_TOKEN = "a9aae70d65c928a554f9a038b9d4703a1583594f"
@@ -562,12 +555,10 @@ print(new_device.json())</code>
 <code>
 import pynetbox
 
-API_TOKEN = "a9aae70d65c928a554f9a038b9d4703a1583594f"
 NB_URL = "http://netbox.linkmeup.ru:45127"
 
 nb = pynetbox.api(
-        NB_URL,
-        token = API_TOKEN
+        NB_URL
     )
 
 devices = nb.dcim.devices.all()
@@ -642,7 +633,6 @@ Swagger - это фреймворк и язык спецификации (кот
 <hr>
 <blockquote>
     <b>Важно</b>
-    Токен 90a22967d0bc4bdcd8ca47ec490bbf0b0cb2d9c8 имеет RO доступ. Его вы можете использовать.
     Токен a9aae70d65c928a554f9a038b9d4703a1583594f был использован только в демонстрационных целях и больше не работает.
     Прямое указание токенов в коде программы недопустимо и сделано здесь мной только в интересах упрощения примеров.
 </blockquote>
