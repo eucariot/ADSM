@@ -1,0 +1,297 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ru" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Физическая Топология &mdash; Документация ADSM 0.1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
+    <link rel="search" title="Поиск" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../contents.html" class="icon icon-home"> ADSM
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../contents.html">ADSM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../contents.html">Docs</a> &raquo;</li>
+        
+      <li>Физическая Топология</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/2_network_design/topology.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>Физическая Топология<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="section" id="id2">
+<h2>Локации<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<p>У LAN_DC будет 6 ДЦ:</p>
+<ul>
+<li><dl class="first docutils">
+<dt>Россия (<strong>RU</strong>):</dt>
+<dd><ul class="first last simple">
+<li>Москва (<strong>msk</strong>)</li>
+<li>Казань (<strong>kzn</strong>)</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Испания (<strong>*SP*</strong>):</dt>
+<dd><ul class="first last simple">
+<li>Барселона (<strong>bcn</strong>)</li>
+<li>Малага (<strong>mlg</strong>)</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Китай (<strong>CN</strong>):</dt>
+<dd><ul class="first simple">
+<li>Шанхай (<strong>sha</strong>)</li>
+<li>Сиань (<strong>sia</strong>)</li>
+</ul>
+<div class="last figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/2/locations.png"><img alt="https://fs.linkmeup.ru/images/adsm/2/locations.png" src="https://fs.linkmeup.ru/images/adsm/2/locations.png" style="width: 800px;" /></a>
+</div>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="intra-dc">
+<h2>Внутри ДЦ (Intra-DC)<a class="headerlink" href="#intra-dc" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Во всех ДЦ идентичные сети внутренней связности, основанные на топологии Клоза.
+Что за сети Клоза и почему именно они - в отдельной <a class="reference external" href="https://linkmeup.ru/blog/480.html">статье</a>.</p>
+<p>В каждом ДЦ по 10 стоек с машинами, они будут нумероваться как <strong>A</strong>, <strong>B</strong>, <strong>C</strong> итд.
+В каждой стойке по 30 машин. Они нас интересовать не будут.
+Также в каждой стойке стоит коммутатор, к которому подключены все машины - это <strong>Top of the Rack switch - ToR</strong> или иначе в терминах фабрики Клоза будем называть его <strong>Leaf</strong>.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru//images/adsm/2/3stage_clos.png"><img alt="https://fs.linkmeup.ru//images/adsm/2/3stage_clos.png" src="https://fs.linkmeup.ru//images/adsm/2/3stage_clos.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<p><em>Общая схема фабрики</em></p>
+<p>Именовать их будем <em>XXX-leafY</em>, где <strong>XXX</strong> - трёхбуквенное сокращение ДЦ, а <strong>Y</strong> - порядковый номер. Например, <em>kzn-leaf11</em>.</p>
+<blockquote>
+<div>Я в статьях позволю себе достаточно фривольно обращаться терминами Leaf и ToR, как синонимами. Однако нужно помнить, что это не так.
+ToR - это коммутатор, установленный в стойке, к которому подключаются машины.
+Leaf - это роль устройства в физической сети или свитч первого уровня в терминах топологии Клоза.
+То есть Leaf != ToR.
+Так Leaf’ом может быть End Of Raw-коммутатор, например.
+Однако в рамках этой статьи будем всё же обращаться ими как синонимами.</div></blockquote>
+<p>Каждый ToR-коммутатор в свою очередь соединён с четырьмя вышестоящими агрегирующими коммутаторами - <strong>Spine</strong>. Под Spine’ы выделено по одной стойке в ДЦ. Именовать будем аналогично: <em>XXX-spineY</em>.</p>
+<p>В этой же стойке будет стоять сетевое оборудование для связности между ДЦ - 2 маршрутизатора с MPLS на борту. Но по большому счёту - это те же самые ToR’ы. То есть с точки зрения Spine-коммутаторов не имеет никакого значения обычный там ToR с подключенными машинами или маршрутизатор для DCI - один чёрт форвардить.
+Такие специальные ToR’ы называются <strong>Edge-leaf</strong>. Мы их будем именовать <em>XXX-edgeY</em>.</p>
+<p>Выглядеть это будет так.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru//images/adsm/2/3stage_clos_w_edge.png"><img alt="https://fs.linkmeup.ru//images/adsm/2/3stage_clos_w_edge.png" src="https://fs.linkmeup.ru//images/adsm/2/3stage_clos_w_edge.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<p>На схеме выше edge и leaf я действительно разместил на одном уровне. <a class="reference external" href="https://linkmeup.ru/blog/480.html">Классические трёхуровневые сети</a> приучили нас рассматривать, аплинк (собственно отсюда и термин), как линки вверх. А тут получается «аплинк» DCI идёт обратно вниз, что некоторым немного ломает привычную логику. В случае крупных сетей, когда датацентры делятся ещё на более мелкие единицы - <strong>POD</strong>’ы (Point Of Delivery), выделяют отдельные <strong>Edge-POD</strong>’ы для DCI и выхода во внешние сети.</p>
+<p>Для удобства восприятия в дальнейшем я буду всё же рисовать Edge над Spine, при этом мы будем держать в уме, что никакого интеллекта на Spine и отличий при работе с обычными Leaf и с Edge-leaf нет (хотя тут могут быть нюансы, но в целом это так).</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/2/fabric.png"><img alt="https://fs.linkmeup.ru/images/adsm/2/fabric.png" src="https://fs.linkmeup.ru/images/adsm/2/fabric.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<p><em>Схема фабрики с Edge-leaf’ами.</em></p>
+<p>Троица Leaf, Spine и Edge образуют Underlay-сеть или фабрику.</p>
+<p>Задача сетевой фабрики (читай Underlay), как мы уже определились в <a class="reference external" href="https://linkmeup.ru/blog/449.html">прошлом выпуске</a>, очень и очень простая - обеспечить IP-связность между машинами как в пределах одного ДЦ, так и между.
+Оттого-то сеть и называется фабрикой, так же, например, как фабрика коммутации внутри модульных сетевых коробок, о чём подробнее можно почитать в <a class="reference external" href="https://linkmeup.ru/blog/312.html">СДСМ14</a>.</p>
+<blockquote>
+<div><p>А вообще такая топология называется фабрикой, потому что fabric в переводе - это ткань. И сложно не согласиться:</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/2/8_ports_5_stages.png"><img alt="https://fs.linkmeup.ru/images/adsm/2/8_ports_5_stages.png" src="https://fs.linkmeup.ru/images/adsm/2/8_ports_5_stages.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+</div></blockquote>
+<p>Фабрика полностью L3. Никаких VLAN, никаких Broadcast - вот такие у нас в LAN_DC замечательные программисты, умеют писать приложения, живущие в парадигме L3, а виртуальные машины не требуют Live Migration c сохранением IP-адреса.</p>
+<p>И ещё раз: ответ на вопрос почему фабрика и почему L3 - в отдельной <a class="reference external" href="https://linkmeup.ru/blog/480.html">статье</a>.</p>
+</div>
+<div class="section" id="dci-data-center-interconnect-inter-dc">
+<h2>DCI - Data Center Interconnect (Inter-DC)<a class="headerlink" href="#dci-data-center-interconnect-inter-dc" title="Ссылка на этот заголовок">¶</a></h2>
+<p>DCI будет организован с помощью Edge-Leaf, то есть они - наша точка выхода в магистраль.
+Для простоты предположим, что ДЦ связаны между собой прямыми линками.
+Исключим из рассмотрения внешнюю связность.</p>
+<blockquote>
+<div>Я отдаю себе отчёт в том, что каждый раз, как я убираю какой-либо компонент, я значительно упрощаю сеть. И при автоматизации нашей абстрактной сети всё будет хорошо, а на реальной возникнут костыли.
+Это так. И всё же задача этой серии - подумать и поработать над подходами, а не героически решать выдуманные проблемы.</div></blockquote>
+<p>На Edge-Leaf’ах  underlay помещается в VPN и передаётся через MPLS-магистраль (тот самый прямой линк).</p>
+<p>Вот такая верхнеуровневая схема получается.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/2/network.png"><img alt="https://fs.linkmeup.ru/images/adsm/2/network.png" src="https://fs.linkmeup.ru/images/adsm/2/network.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, eucariot
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

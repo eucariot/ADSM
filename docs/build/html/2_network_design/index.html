@@ -1,0 +1,617 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ru" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Часть 2. Дизайн сети &mdash; Документация ADSM 0.1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
+    <link rel="search" title="Поиск" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../contents.html" class="icon icon-home"> ADSM
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../contents.html">ADSM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../contents.html">Docs</a> &raquo;</li>
+        
+      <li>Часть 2. Дизайн сети</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/2_network_design/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>Часть 2. Дизайн сети<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
+<p>В первых двух статьях я поднял вопрос автоматизации и набросал её фреймворк, во второй сделал отступление в виртуализацию сети, как первый подход к автоматизации настройки сервисов.
+А теперь пришло время нарисовать схему физической сети.</p>
+<p>Если вы не на короткой ноге с устройством сетей датацентров, то я настоятельно рекомендую начать со &lt;a href=»<a class="reference external" href="https://linkmeup.ru/blog/480.html">https://linkmeup.ru/blog/480.html</a>» target=»_blank»&gt;статьи о них&lt;/a&gt;.</p>
+<p>Описанные в этой серии практики должны быть применимы к сети любого типа, любого масштаба с любым многообразием вендоров (нет). Однако нельзя описать универсальный пример применения этих подходов. Поэтому я остановлюсь на современной архитектуре сети ДЦ: &lt;a href=»<a class="reference external" href="https://linkmeup.ru/blog/480.html">https://linkmeup.ru/blog/480.html</a>» target=»_blank»&gt;Фабрике Клоза&lt;/a&gt;.
+DCI сделаем на  MPLS L3VPN.
+Поверх физической сети работает Overlay-сеть с хоста (это может быть VXLAN OpenStack’а или Tungsten Fabric или что угодно другое, что требует от сети только базовой IP-связности).</p>
+<p>&lt;a href=»<a class="reference external" href="https://fs.linkmeup.ru/images/adsm/2/kdpv.jpg">https://fs.linkmeup.ru/images/adsm/2/kdpv.jpg</a>» target=»_blank»&gt;&lt;img src=»<a class="reference external" href="https://fs.linkmeup.ru/images/adsm/2/kdpv_small.jpg">https://fs.linkmeup.ru/images/adsm/2/kdpv_small.jpg</a>» width=»600»&gt;&lt;/a&gt;</p>
+<p>В этом случае получится сравнительно простой сценарий для автоматизации, потому что имеем много оборудования, настраивающегося одинаковым образом.
+Мы выберем сферический ДЦ в вакууме:
+* Одна версия дизайна везде
+* Два вендора, образующих две плоскости сети
+* Один ДЦ похож на другой как две капли воды</p>
+<p>Пусть наш Сервис-Провайдер LAN_DC будет, например, хостить обучающие видео о выживании в застрявших лифтах.
+В мегаполисах это пользуется бешенной популярностью, поэтому физических машин надо много.</p>
+<p>Сначала я опишу сеть приблизительно такой, какой бы её хотелось видеть. А потом упрощу для лабы.</p>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Дизайн сети:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="topology.html">Физическая Топология</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="topology.html#id2">Локации</a></li>
+<li class="toctree-l2"><a class="reference internal" href="topology.html#intra-dc">Внутри ДЦ (Intra-DC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="topology.html#dci-data-center-interconnect-inter-dc">DCI - Data Center Interconnect (Inter-DC)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="routing.html">Маршрутизация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ip_plan.html">IP-план</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab.html">Лаба</a></li>
+</ul>
+</div>
+<p>&lt;a name=»ROUTING»&gt;&lt;/a&gt;
+&lt;h1&gt;Маршрутизация&lt;/h1&gt;</p>
+<p>Для маршрутизации внутри ДЦ будем использовать BGP.
+На MPLS-магистрали OSPF+LDP.
+Для DCI, то есть организации связности в андерлее - BGP L3VPN over MPLS.</p>
+<p>&lt;img src=»<a class="reference external" href="https://fs.linkmeup.ru/images/adsm/2/bird_view.png">https://fs.linkmeup.ru/images/adsm/2/bird_view.png</a>» width=»800»&gt;
+&lt;i&gt;Общая схема маршрутизации&lt;/i&gt;</p>
+<p>На фабрике никаких OSPF и ISIS (запрещённый в Российской Федерации протокол маршрутизации).
+А это значит, что не будет Auto-discovery и вычисления кратчайших путей - только ручная (на самом деле автоматическая - мы же здесь про автоматизацию) настройка протокола, соседства и политик.</p>
+<p>&lt;img src=»<a class="reference external" href="https://fs.linkmeup.ru/images/adsm/2/bgp_in_dc.png">https://fs.linkmeup.ru/images/adsm/2/bgp_in_dc.png</a>» width=»600»&gt;
+&lt;i&gt;Схема маршрутизации BGP внутри ДЦ&lt;/i&gt;</p>
+<p>&lt;b&gt;Почему BGP?&lt;/b&gt;
+На эту тему есть &lt;a href=»<a class="reference external" href="https://tools.ietf.org/html/rfc7938">https://tools.ietf.org/html/rfc7938</a>» target=»_blank»&gt;целый RFC&lt;/a&gt; имени Facebook’a и Arista, где рассказывается, как строить &lt;b&gt;очень крупные&lt;/b&gt; сети датацентров, используя BGP. Читается почти как художественный, очень рекомендую для томного вечера.</p>
+<p>А ещё целый раздел в моей статье посвящён этому. Куда я вас и &lt;a href=»<a class="reference external" href="https://linkmeup.ru/blog/480.html#ROUTING">https://linkmeup.ru/blog/480.html#ROUTING</a>» target=»_blank»&gt;отсылаю&lt;/a&gt;.</p>
+<p>Но всё же если коротко, то никакие IGP не подходят для сетей крупных датацентров, где счёт сетевым устройствами идёт на тысячи.
+Кроме того использование BGP везде позволит не распыляться на поддержку нескольких разных протоколов и синхронизацию между ними.</p>
+<dl class="docutils">
+<dt>&lt;blockquote&gt;</dt>
+<dd>Положа руку на сердце, на нашей фабрике, которая с большой долей вероятности не будет стремительно расти, за глаза хватило бы и OSPF. Это на самом деле проблемы мегаскейлеров и клауд-титанов. Но пофантазируем всего лишь на несколько выпусков, что нам это нужно, и будем использовать BGP, как завещал Пётр Лапухов.</dd>
+</dl>
+<p>&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;a name=»SESSIONS»&gt;&lt;/a&gt;
+&lt;h2&gt;Политики маршрутизации&lt;/h2&gt;
+На Leaf-коммутаторах мы импортируем в BGP префиксы с Underlay’ных интерфейсов с сетями.
+У нас будет BGP-сессия между &lt;b&gt;каждой&lt;/b&gt; парой Leaf-Spine, в которой эти Underlay’ные префиксы будут анонсироваться по сети тудыть-сюдыть.</p>
+<p>&lt;img src=»<a class="reference external" href="https://fs.linkmeup.ru//images/adsm/2/bgp_sessions.png">https://fs.linkmeup.ru//images/adsm/2/bgp_sessions.png</a>» width=»800»&gt;</p>
+<p>Внутри одного датацентра мы будем распространять специфики, которые импортировали на ТоРе. На Edge-Leaf’ах будем их агрегировать и анонсировать в удалённые ДЦ и спускать до ТоРов. То есть каждый ТоР будет знать точно, как добраться до другого ТоРа в этом же ДЦ и где точка входа, чтобы добраться до ТоРа в другом ДЦ.
+В DCI маршруты будут передаваться, как VPNv4. Для этого на Edge-Leaf интерфейс в сторону фабрики будет помещаться в VRF, назовём его UNDERLAY, и соседство со Spine на Edge-Leaf будет подниматься внутри VRF, а между Edge-Leaf’ами в VPNv4-family.</p>
+<p>&lt;img src=»<a class="reference external" href="https://fs.linkmeup.ru/images/adsm/2/routing.png">https://fs.linkmeup.ru/images/adsm/2/routing.png</a>» width=»800»&gt;</p>
+<p>А ещё мы запретим реанонсировать маршруты полученные от спайнов, обратно на них же.</p>
+<p>&lt;img src=»<a class="reference external" href="https://fs.linkmeup.ru/images/adsm/2/no_reannounce.png">https://fs.linkmeup.ru/images/adsm/2/no_reannounce.png</a>» width=»500»&gt;</p>
+<p>На Leaf и Spine мы не будем импортировать Loopback’и. Они нам понадобятся только для того, чтобы определить Router ID.
+А вот на Edge-Leaf’ах импортируем его в Global BGP. Между Loopback-адресами Edge-Leaf’ы будут устанавливать BGP-сессию в IPv4 VPN-family друг с другом.</p>
+<p>Между EDGE-устройствами у нас будет растянута магистраль на OSPF+LDP.  Всё в одной зоне. Предельно простая конфигурация.</p>
+<p>Вот такая картина с маршрутизацией.
+&lt;hr&gt;
+&lt;a name=»ASNS»&gt;&lt;/a&gt;
+&lt;h2&gt;BGP ASN&lt;/h2&gt;
+&lt;h3&gt;Edge-Leaf ASN&lt;/h3&gt;
+На Edge-Leaf’ах будет один ASN во всех ДЦ. Это важно, чтобы между Edge-Leaf’ами был iBGP, и мы не накололись на нюансы eBGP. Пусть это будет 65535. В реальности это мог бы быть номер публичной AS.</p>
+<p>&lt;h3&gt;Spine ASN&lt;/h3&gt;
+На Spine у нас будет один ASN на ДЦ. Начнём здесь с самого первого номера из диапазона приватных AS - 64512, 64513 итд.
+Почему ASN на ДЦ?
+Декомпозируем этот вопрос на два:
+&lt;ul&gt;</p>
+<blockquote>
+<div>&lt;li&gt;Почему одинаковые ASN на всех спайнах одного ДЦ?&lt;/li&gt;
+&lt;li&gt;Почему разные в разных ДЦ?&lt;/li&gt;</div></blockquote>
+<p>&lt;/ul&gt;</p>
+<p>&lt;b&gt;Почему одинаковые ASN на всех спайнах одного ДЦ&lt;/b&gt;
+Вот как будет выглядеть AS-Path Андерлейного маршрута на Edge-Leaf:
+&lt;code&gt;[leafX_ASN, &lt;b&gt;spine_ASN&lt;/b&gt;, edge_ASN]&lt;/code&gt;
+При попытке заанонсировать его обратно на Спайн, тот его отбросит потому что его AS (Spine_AS) уже есть в списке.</p>
+<p>Однако в пределах ДЦ нас совершенно устраивает, что маршруты Underlay, поднявшиеся до Edge не смогут спуститься вниз. Вся коммуникация между хостами внутри ДЦ должна происходить в пределах уровня спайнов.
+&lt;img src=»<a class="reference external" href="https://fs.linkmeup.ru/images/adsm/2/as_path_intra_dc.png">https://fs.linkmeup.ru/images/adsm/2/as_path_intra_dc.png</a>» width=»800»&gt;</p>
+<p>При этом агрегированные маршруты других ДЦ в любом случае беспрепятственно будут доходить до ТоРов - в их AS-Path будет только ASN 65535 - номер AS Edge-Leaf’ов, потому что именно на них они были созданы.</p>
+<p>&lt;b&gt;Почему разные в разных ДЦ&lt;/b&gt;
+Теоретически нам может потребоваться протащить Loopback’и каких-нибудь сервисных виртуальных машин между ДЦ.
+Например, на хосте у нас запустится Route Reflector или &lt;a href=»<a class="reference external" href="https://linkmeup.ru/blog/449.html#EXTERNAL">https://linkmeup.ru/blog/449.html#EXTERNAL</a>» target=»_blank»&gt; тот самый VNGW&lt;/a&gt; (Virtual Network Gateway), который по BGP запирится с ТоРом и проанонсирует свой лупбэк, который должен быть доступен из всех ДЦ.
+Так вот как будет выглядеть его AS-Path:
+&lt;code&gt;[VNF_ASN, leafX_DC1_ASN, &lt;b&gt;spine_DC1_ASN&lt;/b&gt;, edge_ASN, &lt;b&gt;spine_DC2_ASN&lt;/b&gt;, leafY_DC2_ASN]&lt;/code&gt;
+И здесь нигде не должно быть повторяющихся ASN.</p>
+<p>&lt;img src=»<a class="reference external" href="https://fs.linkmeup.ru/images/adsm/2/as_path_inter_dc.png">https://fs.linkmeup.ru/images/adsm/2/as_path_inter_dc.png</a>» width=»800»&gt;</p>
+<p>То есть Spine_DC1 и Spine_DC2 должны быть разными, ровно как и leafX_DC1 и leafY_DC2, к чему мы как раз и подходим.
+&lt;blockquote&gt;</p>
+<blockquote>
+<div>Как вы, наверно, знаете, существуют хаки, позволяющие принимать маршруты с повторяющимися ASN вопреки механизму предотвращения петель (allowas-in на Cisco). И у этого есть даже вполне законные применения. Но это потенциальная брешь в устойчивости сети. И я лично в неё пару раз проваливался.
+И если у нас есть возможность не использовать опасные вещи, мы ей воспользуемся.</div></blockquote>
+<p>&lt;/blockquote&gt;</p>
+<p>&lt;h3&gt;Leaf ASN&lt;/h3&gt;
+У нас будет индивидуальный ASN на каждом Leaf-коммутаторе в пределах всей сети.
+Делаем мы так из соображений, приведённых выше: AS-Path без петель, конфигурация BGP без закладок.
+Чтобы маршруты между Leaf’ами беспрепятственно проходили, AS-Path должен выглядеть так:
+&lt;code&gt;[leafX_ASN, spine_ASN, leafY_ASN]&lt;/code&gt;
+где leafX_ASN и leafY_ASN хорошо бы, чтобы отличались.
+Требуется это и для ситуации с анонсом лупбэка VNF между ДЦ:
+&lt;code&gt;[VNF_ASN, &lt;b&gt;leafX_DC1_ASN&lt;/b&gt;, spine_DC1_ASN, edge_ASN, spine_DC2_ASN, &lt;b&gt;leafY_DC2_ASN&lt;/b&gt;]&lt;/code&gt;</p>
+<p>Будем использовать 4-байтовый ASN и генерировать его на основе ASN Spine’а и номера Leaf-коммутатора, а именно, вот так: &lt;i&gt;Spine_ASN.0000X&lt;/i&gt;.
+&lt;hr&gt;</p>
+<p>Вот такая картина с ASN.
+&lt;img src=»<a class="reference external" href="https://fs.linkmeup.ru/images/adsm/2/asns.png">https://fs.linkmeup.ru/images/adsm/2/asns.png</a>» width=»800»&gt;
+&lt;hr&gt;
+&lt;a name=»IP_PLAN»&gt;&lt;/a&gt;
+&lt;h1&gt;IP-план&lt;/h1&gt;</p>
+<p>Принципиально, нам нужно выделить адреса для следующих подключений:
+&lt;ol&gt;</p>
+<blockquote>
+<div><p>&lt;li&gt;Адреса сети Underlay между ToR и машиной. Они должны быть уникальны в пределах всей сети, чтобы любая машина могла связаться с любой другой. Отлично подходит &lt;b&gt;10/8&lt;/b&gt;. На каждую стойку по /26 с запасом. Будем выделять по /19 на ДЦ и /17 на регион.
+&lt;/li&gt;
+&lt;li&gt;Линковые адреса между Leaf/Tor и Spine.
+Их хотелось бы назначать алгоритмически, то есть вычислять из имён устройств, которые нужно подключить.
+Пусть это будет… 169.254.0.0/16.
+А именно &lt;b&gt;169.254.00X.Y/31&lt;/b&gt;, где &lt;b&gt;X&lt;/b&gt; - номер Spine, &lt;b&gt;Y&lt;/b&gt; - P2P-сеть /31.
+Это позволит запускать до 128 стоек, и до 10 Spine в ДЦ. Линковые адреса могут (и будут) повторяться из ДЦ в ДЦ.&lt;/li&gt;
+&lt;li&gt;Cтык Spine - Edge-Leaf организуем на подсетях &lt;b&gt;169.254.10X.Y/31&lt;/b&gt;, где точно так же &lt;b&gt;X&lt;/b&gt; - номер Spine, &lt;b&gt;Y&lt;/b&gt; - P2P-сеть /31.&lt;/li&gt;
+&lt;li&gt;Линковые адреса из Edge-Leaf в MPLS-магистраль. Здесь ситуация несколько иная - место соединения всех кусков в один пирог, поэтому переиспользовать те же самые адреса  не получится - нужно выбирать следующую свободную подсеть. Поэтому за основу возьмём &lt;b&gt;192.168.0.0/16&lt;/b&gt; и будем из неё выгребать свободные.&lt;/li&gt;
+&lt;li&gt;Адреса Loopback.  Отдадим под них весь диапазон &lt;b&gt;172.16.0.0/12&lt;/b&gt;.
+&lt;ul&gt;</p>
+<blockquote>
+<div>&lt;li&gt;Leaf - по /25 на ДЦ - те же 128 стоек. Выделим по /23 на регион.&lt;/li&gt;
+&lt;li&gt;Spine - по /28 на ДЦ - до 16 Spine. Выделим по /26 на регион.&lt;/li&gt;
+&lt;li&gt;Edge-Leaf - по /29 на ДЦ - до 8 коробок.  Выделим по /27 на регион.&lt;/li&gt;</div></blockquote>
+<p>&lt;/ul&gt;
+&lt;/li&gt;</p>
+</div></blockquote>
+<p>&lt;/ol&gt;
+Если в ДЦ нам не будет хватать выделенных диапазонов (а их не будут - мы же претендуем на гиперскейлероство), просто выделяем следующий блок.</p>
+<p>Вот такая картина с IP-адресацией.
+&lt;img src=»<a class="reference external" href="https://fs.linkmeup.ru/images/adsm/2/ip_plan.png">https://fs.linkmeup.ru/images/adsm/2/ip_plan.png</a>» width=»800»&gt;</p>
+<p>Loopback’и:
+&lt;table border=»2»&gt;</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>&lt;tr&gt;</dt>
+<dd>&lt;td&gt;&lt;b&gt;Префикс&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;&lt;b&gt;Роль устройства&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;&lt;b&gt;Регион&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;&lt;b&gt;ДЦ&lt;/b&gt;&lt;/td&gt;</dd>
+</dl>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.0.0/23&lt;/td&gt;
+&lt;td rowspan=»10»&gt;edge&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.0.0/27&lt;/td&gt;
+&lt;td rowspan=»3»&gt;ru&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.0.0/29&lt;/td&gt;
+&lt;td&gt;msk&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.0.8/29&lt;/td&gt;
+&lt;td&gt;kzn&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.0.32/27&lt;/td&gt;
+&lt;td rowspan=»3»&gt;sp&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.0.32/29&lt;/td&gt;
+&lt;td&gt;bcn&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.0.40/29&lt;/td&gt;
+&lt;td&gt;mlg&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.0.64/27&lt;/td&gt;
+&lt;td rowspan=»3»&gt;cn&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.0.64/29&lt;/td&gt;
+&lt;td&gt;sha&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.0.72/29&lt;/td&gt;
+&lt;td&gt;sia&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.2.0/23&lt;/td&gt;
+&lt;td rowspan=»10»&gt;spine&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.2.0/26&lt;/td&gt;
+&lt;td rowspan=»3»&gt;ru&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.2.0/28&lt;/td&gt;
+&lt;td&gt;msk&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.2.16/28&lt;/td&gt;
+&lt;td&gt;kzn&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.2.64/26&lt;/td&gt;
+&lt;td rowspan=»3»&gt;sp&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.2.64/28&lt;/td&gt;
+&lt;td&gt;bcn&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.2.80/28&lt;/td&gt;
+&lt;td&gt;mlg&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.2.128/26&lt;/td&gt;
+&lt;td rowspan=»3»&gt;cn&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.2.128/28&lt;/td&gt;
+&lt;td&gt;sha&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.2.144/28&lt;/td&gt;
+&lt;td&gt;sia&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.8.0/21&lt;/td&gt;
+&lt;td rowspan=»10»&gt;leaf&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.8.0/23&lt;/td&gt;
+&lt;td rowspan=»3»&gt;ru&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.8.0/25&lt;/td&gt;
+&lt;td&gt;msk&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.8.128/25&lt;/td&gt;
+&lt;td&gt;kzn&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.10.0/23&lt;/td&gt;
+&lt;td rowspan=»3»&gt;sp&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.10.0/25&lt;/td&gt;
+&lt;td&gt;bcn&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.10.128/25&lt;/td&gt;
+&lt;td&gt;mlg&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.12.0/23&lt;/td&gt;
+&lt;td rowspan=»3»&gt;cn&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.12.0/25&lt;/td&gt;
+&lt;td&gt;sha&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;172.16.12.128/25&lt;/td&gt;
+&lt;td&gt;sia&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;</p>
+</div></blockquote>
+<p>&lt;/table&gt;</p>
+<p>Underlay:
+&lt;table border=»2»&gt;</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>&lt;tr&gt;</dt>
+<dd>&lt;td&gt;&lt;b&gt;Префикс&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;&lt;b&gt;Регион&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;&lt;b&gt;ДЦ&lt;/b&gt;&lt;/td&gt;</dd>
+</dl>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;10.0.0.0/17&lt;/td&gt;
+&lt;td rowspan=»3»&gt;ru&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;10.0.0.0/19&lt;/td&gt;
+&lt;td&gt;msk&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;10.0.32.0/19&lt;/td&gt;
+&lt;td&gt;kzn&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;10.0.128.0/17&lt;/td&gt;
+&lt;td rowspan=»3»&gt;sp&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;10.0.128.0/19&lt;/td&gt;
+&lt;td&gt;bcn&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;10.0.160.0/19&lt;/td&gt;
+&lt;td&gt;mlg&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;10.1.0.0/17&lt;/td&gt;
+&lt;td rowspan=»3»&gt;cn&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;10.1.0.0/19&lt;/td&gt;
+&lt;td&gt;sha&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div>&lt;td&gt;10.1.32.0/19&lt;/td&gt;
+&lt;td&gt;sia&lt;/td&gt;</div></blockquote>
+<p>&lt;/tr&gt;</p>
+</div></blockquote>
+<p>&lt;/table&gt;
+&lt;hr&gt;
+&lt;a name=»REALITY»&gt;&lt;/a&gt;
+&lt;h1&gt;Лаба&lt;/h1&gt;
+Два вендора. Одна сеть. АДСМ.</p>
+<p>Juniper + Arista. Ubuntu. Старая добрая Ева.</p>
+<p>Количество ресурсов на нашей виртуалочке в Миране всё же ограничено, поэтому для практики мы будем использовать вот такую упрощённую до предела сеть.</p>
+<p>&lt;img src=»<a class="reference external" href="https://fs.linkmeup.ru/images/adsm/2/lab.png">https://fs.linkmeup.ru/images/adsm/2/lab.png</a>» width=»800»&gt;</p>
+<p>Два датацентра: Казань и Барселона.
+&lt;ul&gt;</p>
+<blockquote>
+<div>&lt;li&gt;По два спайна в каждом: Juniper и Arista.&lt;/li&gt;
+&lt;li&gt;По одному тору (Leaf’у) в каждом - Juniper и Arista, с одним подключенным хостом (возьмём легковесный Cisco IOL для этого).&lt;/li&gt;
+&lt;li&gt;По одной ноде Edge-Leaf (пока только Juniper).&lt;/li&gt;
+&lt;li&gt;One Cisco switch to rule them all.&lt;/li&gt;
+&lt;li&gt;Помимо сетевых коробок запущена виртуальная машина-управляка. Под управлением Ubuntu.
+Она имеет доступ ко всем устройствам, на ней будут крутиться IPAM/DCIM-системы, букет питоновских скриптов, анзибль и что угодно ещё, что нам может понадобиться.&lt;/li&gt;</div></blockquote>
+<p>&lt;/ul&gt;</p>
+<p>&lt;a href=»<a class="reference external" href="https://github.com/eucariot/ADSM/tree/master/docs/source/2_network_design/target_configs">https://github.com/eucariot/ADSM/tree/master/docs/source/2_network_design/target_configs</a>»&gt;Полная конфигурация&lt;/a&gt; всех сетевых устройств, которую мы будем пробовать воспроизвести с помощью автоматики.
+&lt;hr&gt;
+&lt;a name=»THEEND»&gt;&lt;/a&gt;
+&lt;h1&gt;Заключение&lt;/h1&gt;
+Так же принято? Под каждой статьёй делать короткий вывод?
+Итак мы выбрали &lt;a href=»<a class="reference external" href="https://linkmeup.ru/blog/480.html">https://linkmeup.ru/blog/480.html</a>»&gt;трёхуровневую&lt;/a&gt; сеть Клоза внутри ДЦ, поскольку ожидаем много East-West трафика и хотим ECMP.
+Разделили сеть на физическую (андерлей) и виртуальную (оверлей). При этом оверлей начинается с хоста - тем самым упростили требования к андерлею.
+Выбрали BGP в качестве протокола маршрутизации анедрелейных сетей за его масштабируемость и гибкость политик.
+У нас будут отдельные узлы для организации DCI - Edge-leaf.
+На магистрали будет OSPF+LDP.
+DCI будет реализован на основе MPLS L3VPN.
+Для P2P-линков IP-адреса мы будем вычислять алгоритмически на основе  имён устройств.
+Лупбэки будем назначать по роли устройств и их расположению последовательно.
+Андерлейные префиксы - только на Leaf-коммутаторы последовательно на основе их расположения.</p>
+<p>Предположим, что прямо сейчас у нас ещё не установлено оборудование.
+Поэтому наши следующие шаги будут - завести их в системах (IPAM, инвентарная), организовать доступ, сгенерировать конфигурацию и задеплоить её.</p>
+<p>В следующей статье разберёмся с Netbox - системой инвентаризации и управления IP-пространством в ДЦ.
+&lt;hr&gt;</p>
+<p>&lt;h1&gt;Спасибы&lt;/h1&gt;
+&lt;ul&gt;</p>
+<blockquote>
+<div>&lt;li&gt;Андрею Глазкову aka &#64;glazgoo за вычитку и правки&lt;/li&gt;
+&lt;li&gt;Александру Клименко aka &#64;v00lk за вычитку и правки&lt;/li&gt;
+&lt;li&gt;Артёму Чернобаю за КДПВ&lt;/li&gt;</div></blockquote>
+<p>&lt;/ul&gt;
+&lt;hr&gt;</p>
+<p>&lt;blockquote&gt;&lt;h5&gt;Оставайтесь на связи&lt;/h5&gt;
+&lt;a href=»<a class="reference external" href="https://linkmeup.ru/rss">https://linkmeup.ru/rss</a>»&gt;&lt;img src=»<a class="reference external" href="https://linkmeup.ru/templates/skin/synio/images/RSS.png">https://linkmeup.ru/templates/skin/synio/images/RSS.png</a>» title=»RSS сайта»&gt;&lt;/a&gt;&lt;a href=»<a class="reference external" href="mailto:info&#37;&#52;&#48;linkmeup&#46;ru">mailto:info<span>&#64;</span>linkmeup<span>&#46;</span>ru</a>»&gt;&lt;img src=»<a class="reference external" href="https://linkmeup.ru/templates/skin/synio/images/Email.png">https://linkmeup.ru/templates/skin/synio/images/Email.png</a>» title=»Написать авторам»&gt;&lt;/a&gt;&lt;a href=»<a class="reference external" href="https://vk.com/linkmeup">https://vk.com/linkmeup</a>»&gt;&lt;img src=»<a class="reference external" href="https://linkmeup.ru/templates/skin/synio/images/vk1.png">https://linkmeup.ru/templates/skin/synio/images/vk1.png</a>» title=»linkmeup вконтакте»&gt;&lt;/a&gt;&lt;a href=»<a class="reference external" href="https://www.facebook.com/linkmeup.sdsm">https://www.facebook.com/linkmeup.sdsm</a>»&gt;&lt;img src=»<a class="reference external" href="https://linkmeup.ru/templates/skin/synio/images/Facebook.png">https://linkmeup.ru/templates/skin/synio/images/Facebook.png</a>» title=»linkmeup на Фейсбуке»&gt;&lt;/a&gt;&lt;a href=»<a class="reference external" href="https://www.patreon.com/linkmeup">https://www.patreon.com/linkmeup</a>»&gt;&lt;img src=»<a class="reference external" href="https://linkmeup.ru/templates/skin/synio/images/patreon.png">https://linkmeup.ru/templates/skin/synio/images/patreon.png</a>» width=»25» title=» Поддержать linkmeup на Patreon»&gt;&lt;/a&gt;</p>
+<p>Особо благодарных просим задержаться и пройти на Патреон.
+&lt;a href=»<a class="reference external" href="https://www.patreon.com/linkmeup?ty=h">https://www.patreon.com/linkmeup?ty=h</a>» target=»_blank»&gt;&lt;img src=»<a class="reference external" href="https://fs.linkmeup.ru/images/patreon.jpg">https://fs.linkmeup.ru/images/patreon.jpg</a>» width=»400»&gt;&lt;/a&gt;&lt;/blockquote&gt;</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, eucariot
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
