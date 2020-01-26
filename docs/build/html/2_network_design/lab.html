@@ -36,6 +36,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
     <link rel="search" title="Поиск" href="../search.html" />
+    <link rel="next" title="Заключение" href="conclusion.html" />
     <link rel="prev" title="IP-план" href="ip_plan.html" /> 
 </head>
 
@@ -88,6 +89,7 @@
 <li class="toctree-l2"><a class="reference internal" href="routing.html">Маршрутизация</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ip_plan.html">IP-план</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Лаба</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.html">Заключение</a></li>
 </ul>
 </li>
 </ul>
@@ -166,14 +168,18 @@
 <a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/2/lab.png"><img alt="https://fs.linkmeup.ru/images/adsm/2/lab.png" src="https://fs.linkmeup.ru/images/adsm/2/lab.png" style="width: 800px;" /></a>
 </div>
 </div></blockquote>
-<p>Два датацентра: Казань и Барселона.
-* По два спайна в каждом: Juniper и Arista.
-* По одному тору (Leaf’у) в каждом - Juniper и Arista, с одним подключенным хостом (возьмём легковесный Cisco IOL для этого).
-* По одной ноде Edge-Leaf (пока только Juniper).
-* One Cisco switch to rule them all.
-* Помимо сетевых коробок запущена виртуальная машина-управляка. Под управлением Ubuntu.</p>
-<blockquote>
-<div>Она имеет доступ ко всем устройствам, на ней будут крутиться IPAM/DCIM-системы, букет питоновских скриптов, анзибль и что угодно ещё, что нам может понадобиться.</div></blockquote>
+<ul class="simple">
+<li>Два датацентра: Казань и Барселона.</li>
+<li>По два спайна в каждом: Juniper и Arista.</li>
+<li>По одному тору (Leaf’у) в каждом - Juniper и Arista, с одним подключенным хостом (возьмём легковесный Cisco IOL для этого).</li>
+<li>По одной ноде Edge-Leaf (пока только Juniper).</li>
+<li>One Cisco switch to rule them all.</li>
+<li><dl class="first docutils">
+<dt>Помимо сетевых коробок запущена виртуальная машина-управляка. Под управлением Ubuntu.</dt>
+<dd>Она имеет доступ ко всем устройствам, на ней будут крутиться IPAM/DCIM-системы, букет питоновских скриптов, анзибль и что угодно ещё, что нам может понадобиться.</dd>
+</dl>
+</li>
+</ul>
 <p><a class="reference external" href="https://github.com/eucariot/ADSM/tree/master/docs/source/2_network_design/target_configs">Полная конфигурация</a> всех сетевых устройств, которую мы будем пробовать воспроизвести с помощью автоматики.</p>
 </div>
 
@@ -184,6 +190,8 @@
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="conclusion.html" class="btn btn-neutral float-right" title="Заключение" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="ip_plan.html" class="btn btn-neutral float-left" title="IP-план" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
