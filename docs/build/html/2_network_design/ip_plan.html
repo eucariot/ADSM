@@ -89,6 +89,7 @@
 <li class="toctree-l2"><a class="reference internal" href="routing.html">Маршрутизация</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">IP-план</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lab.html">Лаба</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.html">Заключение</a></li>
 </ul>
 </li>
 </ul>
@@ -159,20 +160,28 @@
             
   <div class="section" id="ip">
 <h1>IP-план<a class="headerlink" href="#ip" title="Ссылка на этот заголовок">¶</a></h1>
-<p>Принципиально, нам нужно выделить адреса для следующих подключений:
-#. Адреса сети Underlay между ToR и машиной. Они должны быть уникальны в пределах всей сети, чтобы любая машина могла связаться с любой другой. Отлично подходит <strong>10/8</strong>. На каждую стойку по /26 с запасом. Будем выделять по /19 на ДЦ и /17 на регион.
-#. Линковые адреса между Leaf/Tor и Spine.</p>
-<blockquote>
-<div>Их хотелось бы назначать алгоритмически, то есть вычислять из имён устройств, которые нужно подключить.
-Пусть это будет… 169.254.0.0/16.
-А именно <strong>169.254.00X.Y/31</strong>, где <strong>X</strong> - номер Spine, <strong>Y</strong> - P2P-сеть /31.
-Это позволит запускать до 128 стоек, и до 10 Spine в ДЦ. Линковые адреса могут (и будут) повторяться из ДЦ в ДЦ.</div></blockquote>
-<ol class="arabic simple">
-<li>Cтык Spine - Edge-Leaf организуем на подсетях <strong>169.254.10X.Y/31</strong>, где точно так же <strong>X</strong> - номер Spine, <strong>Y</strong> - P2P-сеть /31.</li>
-<li>Линковые адреса из Edge-Leaf в MPLS-магистраль. Здесь ситуация несколько иная - место соединения всех кусков в один пирог, поэтому переиспользовать те же самые адреса  не получится - нужно выбирать следующую свободную подсеть. Поэтому за основу возьмём <strong>192.168.0.0/16</strong> и будем из неё выгребать свободные.</li>
+<p>Принципиально, нам нужно выделить адреса для следующих подключений:</p>
+<ol class="arabic">
+<li><p class="first">Адреса сети Underlay между ToR и машиной. Они должны быть уникальны в пределах всей сети, чтобы любая машина могла связаться с любой другой. Отлично подходит <strong>10/8</strong>. На каждую стойку по /26 с запасом. Будем выделять по /19 на ДЦ и /17 на регион.</p>
+</li>
+<li><dl class="first docutils">
+<dt>Линковые адреса между Leaf/Tor и Spine.</dt>
+<dd><div class="first last line-block">
+<div class="line">Их хотелось бы назначать алгоритмически, то есть вычислять из имён устройств, которые нужно подключить.</div>
+<div class="line">Пусть это будет… 169.254.0.0/16.</div>
+<div class="line">А именно <strong>169.254.00X.Y/31</strong>, где <strong>X</strong> - номер Spine, <strong>Y</strong> - P2P-сеть /31.</div>
+<div class="line">Это позволит запускать до 128 стоек, и до 10 Spine в ДЦ. Линковые адреса могут (и будут) повторяться из ДЦ в ДЦ.</div>
+</div>
+</dd>
+</dl>
+</li>
+<li><p class="first">Cтык Spine - Edge-Leaf организуем на подсетях <strong>169.254.10X.Y/31</strong>, где точно так же <strong>X</strong> - номер Spine, <strong>Y</strong> - P2P-сеть /31.</p>
+</li>
+<li><p class="first">Линковые адреса из Edge-Leaf в MPLS-магистраль. Здесь ситуация несколько иная - место соединения всех кусков в один пирог, поэтому переиспользовать те же самые адреса  не получится - нужно выбирать следующую свободную подсеть. Поэтому за основу возьмём <strong>192.168.0.0/16</strong> и будем из неё выгребать свободные.</p>
+</li>
 <li><dl class="first docutils">
 <dt>Адреса Loopback.  Отдадим под них весь диапазон <strong>172.16.0.0/12</strong>.</dt>
-<dd><ul class="first last">
+<dd><ul class="first last simple">
 <li>Leaf - по /25 на ДЦ - те же 128 стоек. Выделим по /23 на регион.</li>
 <li>Spine - по /28 на ДЦ - до 16 Spine. Выделим по /26 на регион.</li>
 <li>Edge-Leaf - по /29 на ДЦ - до 8 коробок.  Выделим по /27 на регион.</li>
@@ -188,68 +197,76 @@
 <a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/2/ip_plan.png"><img alt="https://fs.linkmeup.ru/images/adsm/2/ip_plan.png" src="https://fs.linkmeup.ru/images/adsm/2/ip_plan.png" style="width: 600px;" /></a>
 </div>
 </div></blockquote>
-<p>Loopback’и:
-+——————+——-+——–+—–+
-| Префикс          | Роль  | Регион | ДЦ  |
-+==================+=======+========+=====+
-| 172.16.0.0/23    |       |        |     |
-+——————+       +——–+—–+
-| 172.16.0.0/27    |       |        | ru  |
-| 172.16.0.0/29    |       |   ru   | msk |
-| 172.16.0.8/29    |       |        | kzn |
-+——————+       +——–+—–+
-| 172.16.0.32/27   | edge  |        | sp  |
-| 172.16.0.32/29   |       |   sp   | bcn |
-| 172.16.0.40/29   |       |        | mlg |
-+——————+       +——–+—–+
-| 172.16.0.64/27   |       |        | cn  |
-| 172.16.0.64/29   |       |   cn   | sha |
-| 172.16.0.72/29   |       |        | sia |
-+——————+——-+——–+—–+
-| 172.16.2.0/23    |       |        |     |
-+——————+       +——–+—–+
-| 172.16.2.0/26    |       |        |     |
-| 172.16.2.0/28    |       |   ru   | msk |
-| 172.16.2.16/28   |       |        | kzn |
-+——————+       +——–+—–+
-| 172.16.2.64/26   | spine |        |     |
-| 172.16.2.64/28   |       |   sp   | bcn |
-| 172.16.2.80/28   |       |        | kzn |
-+——————+       +——–+—–+
-| 172.16.2.128/26  |       |        |     |
-| 172.16.2.128/28  |       |   cn   | sha |
-| 172.16.2.144/28  |       |        | sia |
-+——————+——-+——–+—–+
-| 172.16.8.0/21    |       |        |     |
-+——————+       +——–+—–+
-| 172.16.8.0/23    |       |        |     |
-| 172.16.8.0/25    |       |   ru   | msk |
-| 172.16.8.128/25  |       |        | kzn |
-+——————+       +——–+—–+
-| 172.16.10.0/23   | leaf  |        |     |
-| 172.16.10.0/25   |       |   sp   | bcn |
-| 172.16.10.128/25 |       |        | mlg |
-+——————+       +——–+—–+
-| 172.16.12.0/23   |       |        |     |
-| 172.16.12.0/25   |       |   cn   | sha |
-| 172.16.12.128/25 |       |        | sia |
-+——————+——-+——–+—–+</p>
-<p>Underlay:
-+——————+——–+—–+
-| Префикс          | Регион | ДЦ  |
-+==================+========+=====+
-| 10.0.0.0/17      |        |     |
-| 10.0.0.0/19      |   ru   | msk |
-| 10.0.32.0/19     |        | kzn |
-+——————+——–+—–+
-| 10.0.128.0/17    |        |     |
-| 10.0.128.0/19    |   sp   | bcn |
-| 10.0.160.0/19    |        | mlg |
-+——————+——–+—–+
-| 10.1.0.0/17      |        |     |
-| 10.1.0.0/19      |   cn   | sha |
-| 10.1.32.0/19     |        | sia |
-+——————+——–+—–+</p>
+<dl class="docutils">
+<dt>Loopback’и:</dt>
+<dd><div class="first last highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="hll"> +------------------+-------+--------+-----+
+</span> <span class="p">|</span> Префикс          <span class="p">|</span> Роль  <span class="p">|</span> Регион <span class="p">|</span> ДЦ  <span class="p">|</span>
+ +<span class="o">==================</span>+<span class="o">=======</span>+<span class="o">========</span>+<span class="o">=====</span>+
+ <span class="p">|</span> <span class="m">172</span>.16.0.0/23    <span class="p">|</span>       <span class="p">|</span>        <span class="p">|</span>     <span class="p">|</span>
+ +------------------+       +--------+-----+
+ <span class="p">|</span> <span class="m">172</span>.16.0.0/27    <span class="p">|</span>       <span class="p">|</span>        <span class="p">|</span> ru  <span class="p">|</span>
+ <span class="p">|</span> <span class="m">172</span>.16.0.0/29    <span class="p">|</span>       <span class="p">|</span>   ru   <span class="p">|</span> msk <span class="p">|</span>
+ <span class="p">|</span> <span class="m">172</span>.16.0.8/29    <span class="p">|</span>       <span class="p">|</span>        <span class="p">|</span> kzn <span class="p">|</span>
+ +------------------+       +--------+-----+
+ <span class="p">|</span> <span class="m">172</span>.16.0.32/27   <span class="p">|</span> edge  <span class="p">|</span>        <span class="p">|</span> sp  <span class="p">|</span>
+ <span class="p">|</span> <span class="m">172</span>.16.0.32/29   <span class="p">|</span>       <span class="p">|</span>   sp   <span class="p">|</span> bcn <span class="p">|</span>
+ <span class="p">|</span> <span class="m">172</span>.16.0.40/29   <span class="p">|</span>       <span class="p">|</span>        <span class="p">|</span> mlg <span class="p">|</span>
+ +------------------+       +--------+-----+
+ <span class="p">|</span> <span class="m">172</span>.16.0.64/27   <span class="p">|</span>       <span class="p">|</span>        <span class="p">|</span> cn  <span class="p">|</span>
+ <span class="p">|</span> <span class="m">172</span>.16.0.64/29   <span class="p">|</span>       <span class="p">|</span>   cn   <span class="p">|</span> sha <span class="p">|</span>
+ <span class="p">|</span> <span class="m">172</span>.16.0.72/29   <span class="p">|</span>       <span class="p">|</span>        <span class="p">|</span> sia <span class="p">|</span>
+ +------------------+-------+--------+-----+
+ <span class="p">|</span> <span class="m">172</span>.16.2.0/23    <span class="p">|</span>       <span class="p">|</span>        <span class="p">|</span>     <span class="p">|</span>
+ +------------------+       +--------+-----+
+ <span class="p">|</span> <span class="m">172</span>.16.2.0/26    <span class="p">|</span>       <span class="p">|</span>        <span class="p">|</span>     <span class="p">|</span>
+ <span class="p">|</span> <span class="m">172</span>.16.2.0/28    <span class="p">|</span>       <span class="p">|</span>   ru   <span class="p">|</span> msk <span class="p">|</span>
+ <span class="p">|</span> <span class="m">172</span>.16.2.16/28   <span class="p">|</span>       <span class="p">|</span>        <span class="p">|</span> kzn <span class="p">|</span>
+ +------------------+       +--------+-----+
+ <span class="p">|</span> <span class="m">172</span>.16.2.64/26   <span class="p">|</span> spine <span class="p">|</span>        <span class="p">|</span>     <span class="p">|</span>
+ <span class="p">|</span> <span class="m">172</span>.16.2.64/28   <span class="p">|</span>       <span class="p">|</span>   sp   <span class="p">|</span> bcn <span class="p">|</span>
+ <span class="p">|</span> <span class="m">172</span>.16.2.80/28   <span class="p">|</span>       <span class="p">|</span>        <span class="p">|</span> kzn <span class="p">|</span>
+ +------------------+       +--------+-----+
+ <span class="p">|</span> <span class="m">172</span>.16.2.128/26  <span class="p">|</span>       <span class="p">|</span>        <span class="p">|</span>     <span class="p">|</span>
+ <span class="p">|</span> <span class="m">172</span>.16.2.128/28  <span class="p">|</span>       <span class="p">|</span>   cn   <span class="p">|</span> sha <span class="p">|</span>
+ <span class="p">|</span> <span class="m">172</span>.16.2.144/28  <span class="p">|</span>       <span class="p">|</span>        <span class="p">|</span> sia <span class="p">|</span>
+ +------------------+-------+--------+-----+
+ <span class="p">|</span> <span class="m">172</span>.16.8.0/21    <span class="p">|</span>       <span class="p">|</span>        <span class="p">|</span>     <span class="p">|</span>
+ +------------------+       +--------+-----+
+ <span class="p">|</span> <span class="m">172</span>.16.8.0/23    <span class="p">|</span>       <span class="p">|</span>        <span class="p">|</span>     <span class="p">|</span>
+ <span class="p">|</span> <span class="m">172</span>.16.8.0/25    <span class="p">|</span>       <span class="p">|</span>   ru   <span class="p">|</span> msk <span class="p">|</span>
+ <span class="p">|</span> <span class="m">172</span>.16.8.128/25  <span class="p">|</span>       <span class="p">|</span>        <span class="p">|</span> kzn <span class="p">|</span>
+ +------------------+       +--------+-----+
+ <span class="p">|</span> <span class="m">172</span>.16.10.0/23   <span class="p">|</span> leaf  <span class="p">|</span>        <span class="p">|</span>     <span class="p">|</span>
+ <span class="p">|</span> <span class="m">172</span>.16.10.0/25   <span class="p">|</span>       <span class="p">|</span>   sp   <span class="p">|</span> bcn <span class="p">|</span>
+ <span class="p">|</span> <span class="m">172</span>.16.10.128/25 <span class="p">|</span>       <span class="p">|</span>        <span class="p">|</span> mlg <span class="p">|</span>
+ +------------------+       +--------+-----+
+ <span class="p">|</span> <span class="m">172</span>.16.12.0/23   <span class="p">|</span>       <span class="p">|</span>        <span class="p">|</span>     <span class="p">|</span>
+ <span class="p">|</span> <span class="m">172</span>.16.12.0/25   <span class="p">|</span>       <span class="p">|</span>   cn   <span class="p">|</span> sha <span class="p">|</span>
+ <span class="p">|</span> <span class="m">172</span>.16.12.128/25 <span class="p">|</span>       <span class="p">|</span>        <span class="p">|</span> sia <span class="p">|</span>
+ +------------------+-------+--------+-----+
+</pre></div>
+</div>
+</dd>
+<dt>Underlay:</dt>
+<dd><div class="first last highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="hll"> +------------------+--------+-----+
+</span> <span class="p">|</span> Префикс          <span class="p">|</span> Регион <span class="p">|</span> ДЦ  <span class="p">|</span>
+ +<span class="o">==================</span>+<span class="o">========</span>+<span class="o">=====</span>+
+ <span class="p">|</span> <span class="m">10</span>.0.0.0/17      <span class="p">|</span>        <span class="p">|</span>     <span class="p">|</span>
+ <span class="p">|</span> <span class="m">10</span>.0.0.0/19      <span class="p">|</span>   ru   <span class="p">|</span> msk <span class="p">|</span>
+ <span class="p">|</span> <span class="m">10</span>.0.32.0/19     <span class="p">|</span>        <span class="p">|</span> kzn <span class="p">|</span>
+ +------------------+--------+-----+
+ <span class="p">|</span> <span class="m">10</span>.0.128.0/17    <span class="p">|</span>        <span class="p">|</span>     <span class="p">|</span>
+ <span class="p">|</span> <span class="m">10</span>.0.128.0/19    <span class="p">|</span>   sp   <span class="p">|</span> bcn <span class="p">|</span>
+ <span class="p">|</span> <span class="m">10</span>.0.160.0/19    <span class="p">|</span>        <span class="p">|</span> mlg <span class="p">|</span>
+ +------------------+--------+-----+
+ <span class="p">|</span> <span class="m">10</span>.1.0.0/17      <span class="p">|</span>        <span class="p">|</span>     <span class="p">|</span>
+ <span class="p">|</span> <span class="m">10</span>.1.0.0/19      <span class="p">|</span>   cn   <span class="p">|</span> sha <span class="p">|</span>
+ <span class="p">|</span> <span class="m">10</span>.1.32.0/19     <span class="p">|</span>        <span class="p">|</span> sia <span class="p">|</span>
+ +------------------+--------+-----+
+</pre></div>
+</div>
+</dd>
+</dl>
 </div>
 
 
