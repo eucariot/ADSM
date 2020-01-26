@@ -1,0 +1,1013 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ru" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Схема данных NetBox &mdash; Документация ADSM 0.1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
+    <link rel="search" title="Поиск" href="../search.html" />
+    <link rel="next" title="Заключение" href="conclusion.html" />
+    <link rel="prev" title="Архитектура системы" href="architecture.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../contents.html" class="icon icon-home"> ADSM
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Часть 3. IPAM/DCIM-системы</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="restful/index.html">RESTful API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html">Архитектура системы</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Схема данных NetBox</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dcim">DCIM</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#regions-sites">Регионы и сайты (regions/sites)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">Устройства</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id15">Интерфейсы</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id17">Консольные порты</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ipam">IPAM</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#vlan-vrf">VLAN и VRF</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ip">IP-префиксы</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id18">IP-адреса</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id19">Виртуализация</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id20">Дополнительные приятные вещи</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#custom-fields">Custom fields</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#config-context">Config Context</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id23">Теги</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#webhooks">Webhooks</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.html">Заключение</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html">Некоторые нюансы установки NetBox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="postgresql.html">Немного о PostgreSQL</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../contents.html">ADSM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../contents.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Часть 3. IPAM/DCIM-системы</a> &raquo;</li>
+        
+      <li>Схема данных NetBox</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/3_ipam_dcim/scheme.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="netbox">
+<h1>Схема данных NetBox<a class="headerlink" href="#netbox" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Две главные задачи, которые решает NetBox: управление адресным пространством и инвентаризация.
+NetBox едва ли станет единственной системой инвентаризации в компании, скорее, это будет специфическая дополнительная система для инвентаризации именно сети, забирающая данные из основной.
+Очевидно, в нашем случае для целей АДСМ будет только NetBox.</p>
+<blockquote>
+<div>К данному моменту бо́льшая часть начальных данных в NetBox уже внесена.
+На этих данных я буду демонстрировать различные примеры работы через API.
+Вы можете просто полазить и посмотреть: <a class="reference external" href="http://netbox.linkmeup.ru:45127">http://netbox.linkmeup.ru:45127</a>
+И эти же данные понадобятся в дальнейшем, когда мы перейдём к автоматизации.</div></blockquote>
+<p>В общих чертах схему данных можно увидеть по схеме БД в Postgres’е</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="0%" />
+<col width="62%" />
+<col width="12%" />
+<col width="14%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head" colspan="2">Schema</th>
+<th class="head"><dl class="first last docutils">
+<dt>List of relations</dt>
+<dd>Name</dd>
+</dl>
+</th>
+<th class="head">Type</th>
+<th class="head">Owner</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td colspan="3">public | auth_group
+public | auth_group_permissions
+public | auth_permission
+public | auth_user
+public | auth_user_groups
+public | auth_user_user_permissions
+public | circuits_circuit
+public | circuits_circuittermination
+public | circuits_circuittype
+public | circuits_provider
+public | dcim_cable
+public | dcim_consoleport
+public | dcim_consoleporttemplate
+public | dcim_consoleserverport
+public | dcim_consoleserverporttemplate
+public | dcim_device
+public | dcim_devicebay
+public | dcim_devicebaytemplate
+public | dcim_devicerole
+public | dcim_devicetype
+public | dcim_frontport
+public | dcim_frontporttemplate
+public | dcim_interface
+public | dcim_interface_tagged_vlans
+public | dcim_interfacetemplate
+public | dcim_inventoryitem
+public | dcim_manufacturer
+public | dcim_platform
+public | dcim_powerfeed
+public | dcim_poweroutlet
+public | dcim_poweroutlettemplate
+public | dcim_powerpanel
+public | dcim_powerport
+public | dcim_powerporttemplate
+public | dcim_rack
+public | dcim_rackgroup
+public | dcim_rackreservation
+public | dcim_rackrole
+public | dcim_rearport
+public | dcim_rearporttemplate
+public | dcim_region
+public | dcim_site
+public | dcim_virtualchassis
+public | django_admin_log
+public | django_content_type
+public | django_migrations
+public | django_session
+public | extras_configcontext
+public | extras_configcontext_platforms
+public | extras_configcontext_regions
+public | extras_configcontext_roles
+public | extras_configcontext_sites
+public | extras_configcontext_tags
+public | extras_configcontext_tenant_groups
+public | extras_configcontext_tenants
+public | extras_customfield
+public | extras_customfield_obj_type
+public | extras_customfieldchoice
+public | extras_customfieldvalue
+public | extras_customlink
+public | extras_exporttemplate
+public | extras_graph
+public | extras_imageattachment
+public | extras_objectchange
+public | extras_reportresult
+public | extras_tag
+public | extras_taggeditem
+public | extras_webhook
+public | extras_webhook_obj_type
+public | ipam_aggregate
+public | ipam_ipaddress
+public | ipam_prefix
+public | ipam_rir
+public | ipam_role
+public | ipam_service
+public | ipam_service_ipaddresses
+public | ipam_vlan
+public | ipam_vlangroup
+public | ipam_vrf
+public | secrets_secret
+public | secrets_secretrole
+public | secrets_secretrole_groups
+public | secrets_secretrole_users
+public | secrets_sessionkey
+public | secrets_userkey
+public | taggit_tag
+public | taggit_taggeditem
+public | tenancy_tenant
+public | tenancy_tenantgroup
+public | users_token
+public | virtualization_cluster
+public | virtualization_clustergroup
+public | virtualization_clustertype
+public | virtualization_virtualmachine</td>
+<td>table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table
+table</td>
+<td>netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox
+netbox</td>
+</tr>
+</tbody>
+</table>
+<p><a class="reference external" href="https://netbox.readthedocs.io/en/stable/#what-is-netbox">Функции NetBox</a>:</p>
+<ul class="simple">
+<li><strong>IP address management (IPAM)</strong> - IP-префиксы, адреса, VRF’ы и VLAN’ы</li>
+<li><strong>Equipment racks</strong> - Стойки для оборудования, организованные по сайтам, группам и ролям</li>
+<li><strong>Devices</strong> - Устройства, их модели, роли, комплектующие и расопложение</li>
+<li><strong>Connections</strong> - Сетевые, консольные и силовые соединения между устройствами</li>
+<li><strong>Virtualization</strong> - Виртуальные машины и вычислительные кластера</li>
+<li><strong>Data circuits</strong> - Подключения к провайдерам</li>
+<li><strong>Secrets</strong> - Защифрованное хранилизе учётных данных пользователей</li>
+</ul>
+<p>В этой статье я коснусь следующих вещей: DCIM - Data&nbsp;Center Infrastructure Management, IPAM - IP Address Management, Виртуализация, дополнительные приятные вещи.
+Обо всём по порядку.</p>
+<div class="section" id="dcim">
+<h2>DCIM<a class="headerlink" href="#dcim" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Самая важная часть - это, несомненно, какое оборудование у нас стоит и как оно друг к другу подключено. Но начинается всё с того, <strong>где</strong> оно стоит.</p>
+<div class="section" id="regions-sites">
+<h3>Регионы и сайты (regions/sites)<a class="headerlink" href="#regions-sites" title="Ссылка на этот заголовок">¶</a></h3>
+<p>В парадигме NetBox устройство устанавливается на сайт, сайт принадлежит региону, регионы могут быть вложены. При этом устройство не может быть установлено просто в регионе. Если такая необходимость есть, должен быть заведён отдельный сайт.</p>
+<p>Для нашего случая это может (и будет) выглядеть так:</p>
+<ul>
+<li><p class="first"><a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/?region=ru">Россия</a>: <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/msk/">Москва</a>, <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/kzn/">Казань</a></p>
+</li>
+<li><p class="first"><a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/?region=sp">Испания</a>: <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/bcn/">Барселона</a>, <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/mlg/">Малага</a></p>
+</li>
+<li><p class="first"><a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/?region=cn">Китай</a>: <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/sia/">123 &lt;http://netbox.linkmeup.ru:45127/dcim/sites/sha/&gt;`_Шанхай, `Сиань</a>.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/sites.png"><img alt="https://fs.linkmeup.ru/images/adsm/3/sites.png" src="https://fs.linkmeup.ru/images/adsm/3/sites.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<p>Напоминаю где и как мы планировали нашу сеть: <a class="reference external" href="https://linkmeup.ru/blog/479.html">АДСМ2. Дизайн сети</a></p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/2/locations.png"><img alt="https://fs.linkmeup.ru/images/adsm/2/locations.png" src="https://fs.linkmeup.ru/images/adsm/2/locations.png" style="width: 700px;" /></a>
+</div>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/sites_mlg.png"><img alt="https://fs.linkmeup.ru/images/adsm/3/sites_mlg.png" src="https://fs.linkmeup.ru/images/adsm/3/sites_mlg.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<p>Давайте посмотрим, что позволяет API.
+Вот так можно вывести список всех регионов:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/regions/&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.dcim.regions.all<span class="o">()</span>
+</pre></div>
+</div>
+<p>Здесь и далее я буду приводить примеры curl и pynetbox без вывода результата.
+<strong>Не забудьте</strong> слэш в конце URL - без него не заработает.
+Как использовать pynetbox я рассказывал в статье про <a class="reference external" href="https://linkmeup.ru/blog/530.html#PYNETBOX">RESTful API</a>.</p>
+</div></blockquote>
+<p>Получить список сайтов:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/sites/&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.dcim.sites.all<span class="o">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Список сайтов конкретного региона:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/sites/?region=ru&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.dcim.sites.filter<span class="o">(</span><span class="nv">region</span><span class="o">=</span><span class="s2">&quot;ru&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+<p>Обратите внимание, что поиск идёт не по полному имени, а по так называемому <a class="reference external" href="https://qna.habr.com/q/375615">slug</a>.
+<strong>Slug</strong> - это идентификатор, содержащий только безопасные символы: [0-9A-Za-z-_], который можно использовать в URL. Задаётся он при создании объекта, например, «bcn» вместо «Барселона».</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/nb_slug.pngwidth=&quot;400&quot;&gt;"><img alt="https://fs.linkmeup.ru/images/adsm/3/nb_slug.pngwidth=&quot;400&quot;&gt;" src="https://fs.linkmeup.ru/images/adsm/3/nb_slug.pngwidth=&quot;400&quot;&gt;" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="id10">
+<h3>Устройства<a class="headerlink" href="#id10" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Само устройство обладает какой-то <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/device-roles/">ролью</a>, например, leaf, spine, edge, border.
+Оно, очевидно, является какой-то <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/device-types/">моделью</a> какого-то <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/manufacturers/">вендора</a>.
+Например, <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/device-types/?manufacturer=arista">Arista</a>.
+Таким образом, сначала создаётся вендор, далее внутри него модели.
+<a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/device-types/2/">Модель</a> характеризуется именем, набором сервисных интерфейсов, интерфейсом удалённого управления, консольным портом и набором модулей питания.</p>
+<p>Помимо коммутаторов, маршрутизаторов и хостов, обладающих Ethernet-интерфейсами, можно создавать консольные сервера.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/devices.png"><img alt="https://fs.linkmeup.ru/images/adsm/3/devices.png" src="https://fs.linkmeup.ru/images/adsm/3/devices.png" style="width: 800px;" /></a>
+</div>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/device_mlg.png"><img alt="https://fs.linkmeup.ru/images/adsm/3/device_mlg.png" src="https://fs.linkmeup.ru/images/adsm/3/device_mlg.png" style="width: 500px;" /></a>
+</div>
+</div></blockquote>
+<p>Получить список всех устройств:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.dcim.devices.all<span class="o">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Всех устройств конкретного сайта:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/?site=mlg&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.dcim.devices.filter<span class="o">(</span><span class="nv">site</span><span class="o">=</span><span class="s2">&quot;mlg&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Всех устройств определённой модели</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/?model=veos&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.dcim.devices.filter<span class="o">(</span><span class="nv">device_type_id</span><span class="o">=</span><span class="m">2</span><span class="o">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Всех устройств определённой роли:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/?role=leaf&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.dcim.devices.filter<span class="o">(</span><span class="nv">role</span><span class="o">=</span><span class="s2">&quot;leaf&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Устройство может быть в разных статусах: Active, Offline, Planned итд.
+Все активные устройства:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/?status=active&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.dcim.devices.filter<span class="o">(</span><span class="nv">status</span><span class="o">=</span><span class="s2">&quot;active&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="id15">
+<h3>Интерфейсы<a class="headerlink" href="#id15" title="Ссылка на этот заголовок">¶</a></h3>
+<p>NetBox поддерживает множество типов физических <a class="reference external" href="http://netbox.linkmeup.ru:45127/api/dcim/_choices/">интерфейсов</a> и LAG, однако все виртуальные, такие как Vlan/IRB и loopback объединены под одним типом - Virtual.
+Каждый интерфейс привязан к какому-либо устройству.</p>
+<p>Интерфейсы устройств могут быть подключены друг к другу. Это будет отображаться как в интерфейсе, так и в ответах API (атрибут connected_endpoint).</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/interfaces.png"><img alt="https://fs.linkmeup.ru/images/adsm/3/interfaces.png" src="https://fs.linkmeup.ru/images/adsm/3/interfaces.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<p>Интерфейс может быть в различных режимах: Tagged или Access.
+Соответственно, в него могут быть спущены с тегом или без VLAN’ы - данного сайта или глобальные.</p>
+<p>Получить список всех интерфейсов устройства:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/interfaces/?device=mlg-leaf-0&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.dcim.interfaces.filter<span class="o">(</span><span class="nv">device</span><span class="o">=</span><span class="s2">&quot;mlg-leaf-0&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Получить список VLAN’ов конкретного интерфейса.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/interfaces/?device=mlg-leaf-0&amp;name=Ethernet7&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.dcim.interfaces.get<span class="o">(</span><span class="nv">device</span><span class="o">=</span><span class="s2">&quot;mlg-leaf-0&quot;</span>, <span class="nv">name</span><span class="o">=</span><span class="s2">&quot;Ethernet7&quot;</span><span class="o">)</span>.untagged_vlan.vid
+</pre></div>
+</div>
+<p>Обратите внимание, что тут я уже использую метод <strong>get</strong> вместо <strong>filter</strong>. Filter возвращает список, даже если результат - один единственный объект. Get - возвращает один объект или падает с ошибкой, если результатом запроса является список объектов.
+Поэтому get следует использовать только тогда, когда вы абсолютно уверены, что результат будет в единственном экземпляре.
+Ещё здесь же прямо после запроса я обращаюсь к атрибутам объекта. Строго говоря, это неправильно: если по запросу ничего не найдено, то pynetbox вернёт None, а у него нет атрибута «untagged_vlan».
+И ещё обратите внимание, что не везде pynetbox ожидает slug, где-то и name.</p>
+</div></blockquote>
+<p>Выяснить к какому интерфейсу какого устройства подключен определённый интерфейс:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/interfaces/?device=mlg-leaf-0&amp;name=Ethernet1&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">iface</span> <span class="o">=</span> nb.dcim.interfaces.get<span class="o">(</span><span class="nv">device</span><span class="o">=</span><span class="s2">&quot;mlg-leaf-0&quot;</span>, <span class="nv">name</span><span class="o">=</span><span class="s2">&quot;Ethernet1&quot;</span><span class="o">)</span>
+iface.connected_endpoint.device
+iface.connected_endpoint.name
+</pre></div>
+</div>
+</div></blockquote>
+<p>Узнать имя интерфейса управления:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/interfaces/?device=mlg-leaf-0&amp;mgmt_only=true&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.dcim.interfaces.get<span class="o">(</span><span class="nv">device</span><span class="o">=</span><span class="s2">&quot;mlg-leaf-0&quot;</span>, <span class="nv">mgmt_only</span><span class="o">=</span>True<span class="o">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="id17">
+<h3>Консольные порты<a class="headerlink" href="#id17" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Консольные порты не являются интерфейсами, поэтому вынесены как отдельные эндпоинты.
+Порты устройства можно связать с портами консольного сервера.</p>
+<p>Выяснить к какому порту какого консольного сервера подключено конкретное устройство.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/console-ports/?device=mlg-leaf-0&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.dcim.console_ports.get<span class="o">(</span><span class="nv">device</span><span class="o">=</span><span class="s2">&quot;mlg-leaf-0&quot;</span><span class="o">)</span>.serialize<span class="o">()</span>
+</pre></div>
+</div>
+<p>Метод <strong>serialize</strong> в pynetbox позволяет преобразовать атрибуты экземпляра класса в словарь.</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="ipam">
+<h2>IPAM<a class="headerlink" href="#ipam" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="vlan-vrf">
+<h3>VLAN и VRF<a class="headerlink" href="#vlan-vrf" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Могут быть привязаны к локации - полезно для VLAN.
+При создании VRF можно указать, допускается ли пересечение адресного пространства с другими VRF.</p>
+<p>Получить список всех VLAN:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/ipam/vlans/&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.ipam.vlans.all<span class="o">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Получить список всех VRF:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/ipam/vrfs/&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.ipam.vrfs.all<span class="o">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="ip">
+<h3>IP-префиксы<a class="headerlink" href="#ip" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Имеют иерархическую структуру. Может принадлежать какому-либо VRF (если не принадлежит - то Global).</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/prefixes.png"><img alt="https://fs.linkmeup.ru/images/adsm/3/prefixes.png" src="https://fs.linkmeup.ru/images/adsm/3/prefixes.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<p>В NetBox очень удобное визуальное представление свободных префиксов:</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/available_prefixes.png"><img alt="https://fs.linkmeup.ru/images/adsm/3/available_prefixes.png" src="https://fs.linkmeup.ru/images/adsm/3/available_prefixes.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<p>Выделить можно просто кликом на зелёную строчку.</p>
+<p>Может быть привязан к локации. Можно через API выделить следующий свободный под-префикс нужного размера или следующий свободный IP-адрес.
+Галочка/параметр «Is a pool» определяет, будет ли при автоматическом выделении выделяться 0-й адрес из этого префикса, или начнётся с 1-го.</p>
+<p>Получить список IP-префиксов сайта Малага c ролью Underlay и длиной 19:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/ipam/prefixes/?site=mlg&amp;role=underlay&amp;mask_length=19&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">prefix</span> <span class="o">=</span> nb.ipam.prefixes.get<span class="o">(</span><span class="nv">site</span><span class="o">=</span><span class="s2">&quot;mlg&quot;</span>, <span class="nv">role</span><span class="o">=</span><span class="s2">&quot;underlay&quot;</span>, <span class="nv">mask_length</span><span class="o">=</span><span class="s2">&quot;19&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Получить список свободных префиксов в регионе Россия c ролью Underlay:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/ipam/prefixes/40/available-prefixes/&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>prefix.available_prefixes.list<span class="o">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Выделить следующий свободный префикс длиной в 24:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X POST <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/ipam/prefixes/40/available-prefixes/&quot;</span> <span class="se">\</span>
+-H <span class="s2">&quot;accept: application/json&quot;</span> <span class="se">\</span>
+-H <span class="s2">&quot;Content-Type: application/json&quot;</span> <span class="se">\</span>
+-H <span class="s2">&quot;Authorization: TOKEN a9aae70d65c928a554f9a038b9d4703a1583594f&quot;</span> <span class="se">\</span>
+-d <span class="s2">&quot;{\&quot;prefix_length\&quot;: 24}&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>prefix.available_prefixes.create<span class="o">({</span><span class="s2">&quot;prefix_length&quot;</span>:24<span class="o">})</span>
+</pre></div>
+</div>
+<p>Когда внутри одного объекта нам нужно выделить какой-то дочерний, используется метод POST и нужно указать ID родительского объекта - в данном случае - <strong>40</strong>. Его мы выяснили вызовом из предыдущего примера.
+В случае pynetbox мы сначала (в предыдущем примере) сохранили результат в переменную <strong>prefix</strong>, а далее обратились к его атрибуту <strong>available_prefixes</strong> и методу <strong>create</strong>.
+Этот пример у вас <strong>не сработает</strong>, поскольку токен с правом записи уже недействителен.</p>
+</div></blockquote>
+</div>
+<div class="section" id="id18">
+<h3>IP-адреса<a class="headerlink" href="#id18" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Если есть включающий этот адрес префикс, то будут его частью. Могут быть и сами по себе.
+Могут принадлежать какому-либо VRF или быть в Global.
+Могут быть привязаны к интерфейсу, а могут висеть в воздухе.
+Можно выделить следующий свободный IP-адрес в префиксе.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/ip_addresses.png"><img alt="https://fs.linkmeup.ru/images/adsm/3/ip_addresses.png" src="https://fs.linkmeup.ru/images/adsm/3/ip_addresses.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<p>Чтобы сделать это, просто нужно кликнуть по зелёной строчке.</p>
+<p>Получить список IP-адресов конкретного интерфейса:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/ipam/ip-addresses/?interface_id=8&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.ipam.ip_addresses.filter<span class="o">(</span><span class="nv">interface_id</span><span class="o">=</span><span class="m">8</span><span class="o">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Или:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/ipam/ip-addresses/?device=mlg-leaf-0&amp;interface=Ethernet1&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.ipam.ip_addresses.filter<span class="o">(</span><span class="nv">device</span><span class="o">=</span><span class="s2">&quot;mlg-leaf-0&quot;</span>, <span class="nv">interface</span><span class="o">=</span><span class="s2">&quot;Ethernet1&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Получить список всех IP-адресов устройства:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/ipam/ip-addresses/?device=mlg-leaf-0&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.ipam.ip_addresses.filter<span class="o">(</span><span class="nv">device</span><span class="o">=</span><span class="s2">&quot;mlg-leaf-0&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Получить список доступных IP-адресов префикса:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/ipam/prefixes/28/available-ips/&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">prefix</span> <span class="o">=</span> nb.ipam.prefixes.get<span class="o">(</span><span class="nv">site</span><span class="o">=</span><span class="s2">&quot;mlg&quot;</span>, <span class="nv">role</span><span class="o">=</span><span class="s2">&quot;leaf-loopbacks&quot;</span><span class="o">)</span>
+prefix.available_ips.list<span class="o">()</span>
+</pre></div>
+</div>
+<p>Здесь снова нужно в URL указать ID префикса, из которого выделяем адрес - на сей раз это 28.</p>
+</div></blockquote>
+<p>Выделить следующий свободный IP-адрес в префиксе:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X POST <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/ipam/prefixes/28/available-ips/&quot;</span> <span class="se">\</span>
+-H <span class="s2">&quot;accept: application/json&quot;</span> <span class="se">\</span>
+-H <span class="s2">&quot;Content-Type: application/json&quot;</span> <span class="se">\</span>
+-H <span class="s2">&quot;Authorization: TOKEN a9aae70d65c928a554f9a038b9d4703a1583594f&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>prefix.available_ips.create<span class="o">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="id19">
+<h2>Виртуализация<a class="headerlink" href="#id19" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Мы же всё-таки боремся за звание современного ДЦ. Куда же без виртуализации.
+NetBox не выглядит и не является местом, где стоит хранить информацию о виртуальных машинах (даже о необходимости хранения в нём физических машин можно порассуждать). Однако нам это может оказаться полезным, например, можно занести информация о Route Reflector’ах, о служебных машинах, таких как NTP, Syslog, S-Flow-серверах, о машинах-управляках.
+ВМ обладает своим списком интерфейсов - они отличны от интерфейсов физических устройств и имеют свой отдельный Endpoint.</p>
+<p>Так можно вывести список всех виртуальных машин:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/virtualization/virtual-machines/&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.virtualization.virtual_machines.all<span class="o">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Так - всех интерфейсов всех ВМ:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/virtualization/interfaces/&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.virtualization.interfaces.all<span class="o">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Для ВМ нельзя указать конкретный гипервизор/физическую машину, на котором она запущена, но можно указать кластер. Хотя не всё так безнадёжно. Читаем дальше.</p>
+</div>
+<div class="section" id="id20">
+<h2>Дополнительные приятные вещи<a class="headerlink" href="#id20" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Основная функциональность NetBox закрывает большинство задач многих пользователей, но не все. Всё-таки изначально продукт написан для решения задач конкретной компании. Однако он активно развивается и новые релизы выходят довольно <a class="reference external" href="https://github.com/netbox-community/netbox/releases">часто</a>. Соответственно появляются и новые функции.
+Так, например, с моей первой установки NetBox пару лет назад в нём появились теги, config contexts, webhooks, кэширование, supervisord сменился на systemd, внешние хранилища для файлов.</p>
+<div class="section" id="custom-fields">
+<h3>Custom fields<a class="headerlink" href="#custom-fields" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Иногда хочется к какой-либо сущности добавить поле, в которое можно было бы поместить произвольные данные.
+Например, указать номер договора поставки, по которому был приобретён коммутатор или имя физической машины, на которой запущена ВМ.
+Тут на помощь и приходит custom fields - как раз такое поле с текстовым значением, которое можно добавить почти к любой сущности в NetBox.</p>
+<p>Создаётся Custom fields в админской панели</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/nb_custom_fields.png"><img alt="https://fs.linkmeup.ru/images/adsm/3/nb_custom_fields.png" src="https://fs.linkmeup.ru/images/adsm/3/nb_custom_fields.png" style="width: 600px;" /></a>
+</div>
+</div></blockquote>
+<p>Вот так это выглядит при редактировании устройства, для которого был создан custom field:</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/nb_custom_field_edit.png"><img alt="https://fs.linkmeup.ru/images/adsm/3/nb_custom_field_edit.png" src="https://fs.linkmeup.ru/images/adsm/3/nb_custom_field_edit.png" style="width: 450px;" /></a>
+</div>
+</div></blockquote>
+<p>Запросить список устройств по значению custom_field</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/?cf_contract_number=0123456789&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.dcim.devices.filter<span class="o">(</span><span class="nv">cf_contract_number</span><span class="o">=</span><span class="s2">&quot;0123456789&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="config-context">
+<h3>Config Context<a class="headerlink" href="#config-context" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Иногда хочется чего-то большего, чем неструктурированный текст. Тогда на помощь приходит <a class="reference external" href="http://netbox.linkmeup.ru:45127/extras/config-contexts/1/">Config Context</a>.
+Это возможность ввести набор структурированных данных в формате JSON, который больше некуда поместить.
+Это может быть, например, набор BGP communities или список Syslog-серверов.
+Config Context может быть локальным - настроенным для конкретного объекта - или глобальным, когда он настраивается однажды, а затем распространяется на все объекты, удовлетворяющие определённым условиям (например, расположенные на одном сайте, или запущенные на одной платформе).</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/config_context.png"><img alt="https://fs.linkmeup.ru/images/adsm/3/config_context.png" src="https://fs.linkmeup.ru/images/adsm/3/config_context.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<p>Config Context автоматически добавляется к результатам запроса. При этом локальные и глобальные контексты сливаются в один.</p>
+<p>Например, для устройства just a simple russian girl, для которого есть локальный контекст, в выводе будет ключ «config_context»:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/?q=russian&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/config_context_result.png"><img alt="https://fs.linkmeup.ru/images/adsm/3/config_context_result.png" src="https://fs.linkmeup.ru/images/adsm/3/config_context_result.png" style="width: 204px;" /></a>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;config_context&quot;</span>: <span class="o">{</span>
+    <span class="s2">&quot;syslog_servers&quot;</span>: <span class="o">[</span>
+        <span class="o">{</span>
+            <span class="s2">&quot;ip&quot;</span>: <span class="s2">&quot;1.1.1.1&quot;</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+            <span class="s2">&quot;ip&quot;</span>: <span class="s2">&quot;2.2.2.2&quot;</span>
+        <span class="o">}</span>
+    <span class="o">]</span>,
+    <span class="s2">&quot;ntp_servers&quot;</span>: <span class="o">[</span>
+        <span class="o">{</span>
+            <span class="s2">&quot;ip&quot;</span>: <span class="s2">&quot;3.3.3.3&quot;</span>
+        <span class="o">}</span>
+    <span class="o">]</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="id23">
+<h3>Теги<a class="headerlink" href="#id23" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Про теги сложно сказать что-то новое. Они есть. Они удобны для добавления какого-либо признака. К примеру, можно пометить тегом «бяда» коммутаторы из партии, в которой сбоит память.</p>
+</div>
+<div class="section" id="webhooks">
+<h3>Webhooks<a class="headerlink" href="#webhooks" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Незаменимая вещь, когда нужно, чтобы об изменениях в NetBox’е узнавали другие сервисы.
+Например, при заведении нового коммутатора отправляется хука в систему автоматизации, которая запускает процесс настройки устройства и ввода в эксплуатацию.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="conclusion.html" class="btn btn-neutral float-right" title="Заключение" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="architecture.html" class="btn btn-neutral float-left" title="Архитектура системы" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, eucariot
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

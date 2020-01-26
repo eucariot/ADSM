@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
     <link rel="search" title="Поиск" href="../../search.html" />
-    <link rel="next" title="Способы" href="ways.html" />
+    <link rel="next" title="Способы работы с RESTful API" href="ways.html" />
     <link rel="prev" title="Структура сообщений HTTP" href="messages.html" /> 
 </head>
 
@@ -97,10 +97,16 @@
 <li class="toctree-l4"><a class="reference internal" href="#http-delete">HTTP DELETE</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="ways.html">Способы</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ways.html">Способы работы с RESTful API</a></li>
 <li class="toctree-l3"><a class="reference internal" href="other.html">Критика RESTful API и альтернативы</a></li>
+<li class="toctree-l3"><a class="reference internal" href="conclusion.html">Заключение</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html">Архитектура системы</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scheme.html">Схема данных NetBox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conclusion.html">Заключение</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html">Некоторые нюансы установки NetBox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../postgresql.html">Немного о PostgreSQL</a></li>
 </ul>
 </li>
 </ul>
@@ -204,13 +210,12 @@
 <a class="reference external" href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">Все возможные коды ответов</a>.</p>
 <p>Тело возвращается в формате JSON или XML.
 <a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_all_devices.pcapng">Дамп транзакции</a>.</p>
-<dl class="docutils">
-<dt>Давайте ещё пару примеров. Теперь мы запросим информацию по конкретному устройству по его имени.</dt>
-<dd><div class="first last highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/?name=mlg-leaf-0&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+<p>Давайте ещё пару примеров. Теперь мы запросим информацию по конкретному устройству по его имени.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/?name=mlg-leaf-0&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
 </pre></div>
 </div>
-</dd>
-</dl>
+</div></blockquote>
 <p>Здесь, чтобы задать условия поиска в URI я ещё указал атритбут объекта (параметр <strong>name</strong> и его значение <strong>mlg-leaf-0</strong>). Как вы можете видеть, перед условием и после слэша идёт знак <strong>«?»</strong>, а имя и значение разделяются знаком <strong>«=»</strong>.</p>
 <p>Так выглядит запрос.</p>
 <blockquote>
@@ -271,9 +276,10 @@ Accept: application/json<span class="p">;</span> <span class="nv">indent</span><
     <span class="s2">&quot;rack&quot;</span>: <span class="m">3</span>,
     <span class="s2">&quot;position&quot;</span>: <span class="m">5</span>,
     <span class="s2">&quot;face&quot;</span>: <span class="s2">&quot;front&quot;</span><span class="o">}</span>
-
-    .. figure:: https://fs.linkmeup.ru/images/adsm/3/post_result.png&gt;<span class="sb">`</span>_
 </pre></div>
+</div>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/post_result.png"><img alt="https://fs.linkmeup.ru/images/adsm/3/post_result.png" src="https://fs.linkmeup.ru/images/adsm/3/post_result.png" style="width: 400px;" /></a>
 </div>
 <p>Запрос у вас <strong>не сработает</strong>, потому что токен уже не валиден - не пытайтесь записать в мой NetBox.</p>
 </div></blockquote>
@@ -388,7 +394,7 @@ WAT? Спросите вы, а как же PUT?</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="ways.html" class="btn btn-neutral float-right" title="Способы" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="ways.html" class="btn btn-neutral float-right" title="Способы работы с RESTful API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="messages.html" class="btn btn-neutral float-left" title="Структура сообщений HTTP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -64,8 +64,8 @@ HTTP-Ответ
 * А принимаем данные в формате **JSON** с отступом **4**.
 
 А вот какие заголовки были в HTTP-ответе:
-    .. code-block:: bash
 
+    .. code-block:: bash
        
        Server: nginx/1.14.0 (Ubuntu)
        Date: Tue, 21 Jan 2020 15:14:22 GMT
