@@ -35,7 +35,9 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
-    <link rel="search" title="Поиск" href="../search.html" /> 
+    <link rel="search" title="Поиск" href="../search.html" />
+    <link rel="next" title="Лаба" href="lab.html" />
+    <link rel="prev" title="Маршрутизация" href="routing.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -79,9 +81,16 @@
               
             
             
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Часть 2. Дизайн сети</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="topology.html">Физическая Топология</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routing.html">Маршрутизация</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">IP-план</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lab.html">Лаба</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -127,6 +136,8 @@
     
       <li><a href="../contents.html">Docs</a> &raquo;</li>
         
+          <li><a href="index.html">Часть 2. Дизайн сети</a> &raquo;</li>
+        
       <li>IP-план</li>
     
     
@@ -148,6 +159,97 @@
             
   <div class="section" id="ip">
 <h1>IP-план<a class="headerlink" href="#ip" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Принципиально, нам нужно выделить адреса для следующих подключений:
+#. Адреса сети Underlay между ToR и машиной. Они должны быть уникальны в пределах всей сети, чтобы любая машина могла связаться с любой другой. Отлично подходит <strong>10/8</strong>. На каждую стойку по /26 с запасом. Будем выделять по /19 на ДЦ и /17 на регион.
+#. Линковые адреса между Leaf/Tor и Spine.</p>
+<blockquote>
+<div>Их хотелось бы назначать алгоритмически, то есть вычислять из имён устройств, которые нужно подключить.
+Пусть это будет… 169.254.0.0/16.
+А именно <strong>169.254.00X.Y/31</strong>, где <strong>X</strong> - номер Spine, <strong>Y</strong> - P2P-сеть /31.
+Это позволит запускать до 128 стоек, и до 10 Spine в ДЦ. Линковые адреса могут (и будут) повторяться из ДЦ в ДЦ.</div></blockquote>
+<ol class="arabic simple">
+<li>Cтык Spine - Edge-Leaf организуем на подсетях <strong>169.254.10X.Y/31</strong>, где точно так же <strong>X</strong> - номер Spine, <strong>Y</strong> - P2P-сеть /31.</li>
+<li>Линковые адреса из Edge-Leaf в MPLS-магистраль. Здесь ситуация несколько иная - место соединения всех кусков в один пирог, поэтому переиспользовать те же самые адреса  не получится - нужно выбирать следующую свободную подсеть. Поэтому за основу возьмём <strong>192.168.0.0/16</strong> и будем из неё выгребать свободные.</li>
+<li><dl class="first docutils">
+<dt>Адреса Loopback.  Отдадим под них весь диапазон <strong>172.16.0.0/12</strong>.</dt>
+<dd><ul class="first last">
+<li>Leaf - по /25 на ДЦ - те же 128 стоек. Выделим по /23 на регион.</li>
+<li>Spine - по /28 на ДЦ - до 16 Spine. Выделим по /26 на регион.</li>
+<li>Edge-Leaf - по /29 на ДЦ - до 8 коробок.  Выделим по /27 на регион.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+<p>Если в ДЦ нам не будет хватать выделенных диапазонов (а их не будет - мы же претендуем на гиперскейлероство), просто выделяем следующий блок.</p>
+<p>Вот такая картина с IP-адресацией.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/2/ip_plan.png"><img alt="https://fs.linkmeup.ru/images/adsm/2/ip_plan.png" src="https://fs.linkmeup.ru/images/adsm/2/ip_plan.png" style="width: 600px;" /></a>
+</div>
+</div></blockquote>
+<p>Loopback’и:
++——————+——-+——–+—–+
+| Префикс          | Роль  | Регион | ДЦ  |
++==================+=======+========+=====+
+| 172.16.0.0/23    |       |        |     |
++——————+       +——–+—–+
+| 172.16.0.0/27    |       |        | ru  |
+| 172.16.0.0/29    |       |   ru   | msk |
+| 172.16.0.8/29    |       |        | kzn |
++——————+       +——–+—–+
+| 172.16.0.32/27   | edge  |        | sp  |
+| 172.16.0.32/29   |       |   sp   | bcn |
+| 172.16.0.40/29   |       |        | mlg |
++——————+       +——–+—–+
+| 172.16.0.64/27   |       |        | cn  |
+| 172.16.0.64/29   |       |   cn   | sha |
+| 172.16.0.72/29   |       |        | sia |
++——————+——-+——–+—–+
+| 172.16.2.0/23    |       |        |     |
++——————+       +——–+—–+
+| 172.16.2.0/26    |       |        |     |
+| 172.16.2.0/28    |       |   ru   | msk |
+| 172.16.2.16/28   |       |        | kzn |
++——————+       +——–+—–+
+| 172.16.2.64/26   | spine |        |     |
+| 172.16.2.64/28   |       |   sp   | bcn |
+| 172.16.2.80/28   |       |        | kzn |
++——————+       +——–+—–+
+| 172.16.2.128/26  |       |        |     |
+| 172.16.2.128/28  |       |   cn   | sha |
+| 172.16.2.144/28  |       |        | sia |
++——————+——-+——–+—–+
+| 172.16.8.0/21    |       |        |     |
++——————+       +——–+—–+
+| 172.16.8.0/23    |       |        |     |
+| 172.16.8.0/25    |       |   ru   | msk |
+| 172.16.8.128/25  |       |        | kzn |
++——————+       +——–+—–+
+| 172.16.10.0/23   | leaf  |        |     |
+| 172.16.10.0/25   |       |   sp   | bcn |
+| 172.16.10.128/25 |       |        | mlg |
++——————+       +——–+—–+
+| 172.16.12.0/23   |       |        |     |
+| 172.16.12.0/25   |       |   cn   | sha |
+| 172.16.12.128/25 |       |        | sia |
++——————+——-+——–+—–+</p>
+<p>Underlay:
++——————+——–+—–+
+| Префикс          | Регион | ДЦ  |
++==================+========+=====+
+| 10.0.0.0/17      |        |     |
+| 10.0.0.0/19      |   ru   | msk |
+| 10.0.32.0/19     |        | kzn |
++——————+——–+—–+
+| 10.0.128.0/17    |        |     |
+| 10.0.128.0/19    |   sp   | bcn |
+| 10.0.160.0/19    |        | mlg |
++——————+——–+—–+
+| 10.1.0.0/17      |        |     |
+| 10.1.0.0/19      |   cn   | sha |
+| 10.1.32.0/19     |        | sia |
++——————+——–+—–+</p>
 </div>
 
 
@@ -155,6 +257,15 @@
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="lab.html" class="btn btn-neutral float-right" title="Лаба" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="routing.html" class="btn btn-neutral float-left" title="Маршрутизация" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
