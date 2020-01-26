@@ -35,7 +35,9 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
-    <link rel="search" title="Поиск" href="../search.html" /> 
+    <link rel="search" title="Поиск" href="../search.html" />
+    <link rel="next" title="IP-план" href="ip_plan.html" />
+    <link rel="prev" title="Физическая Топология" href="topology.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -79,9 +81,25 @@
               
             
             
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Часть 2. Дизайн сети</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="topology.html">Физическая Топология</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Маршрутизация</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Политики маршрутизации</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bgp-asn">BGP ASN</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#edge-leaf-asn">Edge-Leaf ASN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spine-asn">Spine ASN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#leaf-asn">Leaf ASN</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ip_plan.html">IP-план</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lab.html">Лаба</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -127,6 +145,8 @@
     
       <li><a href="../contents.html">Docs</a> &raquo;</li>
         
+          <li><a href="index.html">Часть 2. Дизайн сети</a> &raquo;</li>
+        
       <li>Маршрутизация</li>
     
     
@@ -148,6 +168,134 @@
             
   <div class="section" id="id1">
 <h1>Маршрутизация<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Для маршрутизации внутри ДЦ будем использовать BGP.
+На MPLS-магистрали OSPF+LDP.
+Для DCI, то есть организации связности в андерлее - BGP L3VPN over MPLS.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/2/bird_view.png"><img alt="https://fs.linkmeup.ru/images/adsm/2/bird_view.png" src="https://fs.linkmeup.ru/images/adsm/2/bird_view.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<p><em>Общая схема маршрутизации</em></p>
+<p>На фабрике никаких OSPF и ISIS (запрещённый в Российской Федерации протокол маршрутизации).
+А это значит, что не будет Auto-discovery и вычисления кратчайших путей - только ручная (на самом деле автоматическая - мы же здесь про автоматизацию) настройка протокола, соседства и политик.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/2/bgp_in_dc.png"><img alt="https://fs.linkmeup.ru/images/adsm/2/bgp_in_dc.png" src="https://fs.linkmeup.ru/images/adsm/2/bgp_in_dc.png" style="width: 600px;" /></a>
+</div>
+</div></blockquote>
+<p><em>Схема маршрутизации BGP внутри ДЦ</em></p>
+<p><strong>Почему BGP?</strong>
+На эту тему есть <a class="reference external" href="https://tools.ietf.org/html/rfc7938">целый RFC</a> имени Facebook’a и Arista, где рассказывается, как строить <strong>очень крупные</strong> сети датацентров, используя BGP. Читается почти как художественный, очень рекомендую для томного вечера.</p>
+<p>А ещё целый раздел в моей статье посвящён этому. Куда я вас и <a class="reference external" href="https://linkmeup.ru/blog/480.html">отсылаю</a>.</p>
+<p>Но всё же если коротко, то никакие IGP не подходят для сетей крупных датацентров, где счёт сетевым устройствами идёт на тысячи.
+Кроме того использование BGP везде позволит не распыляться на поддержку нескольких разных протоколов и синхронизацию между ними.</p>
+<blockquote>
+<div>Положа руку на сердце, на нашей фабрике, которая с большой долей вероятности не будет стремительно расти, за глаза хватило бы и OSPF. Это на самом деле проблемы мегаскейлеров и клауд-титанов. Но пофантазируем всего лишь на несколько выпусков, что нам это нужно, и будем использовать BGP, как завещал Пётр Лапухов.</div></blockquote>
+<div class="section" id="id3">
+<h2>Политики маршрутизации<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<p>На Leaf-коммутаторах мы импортируем в BGP префиксы с Underlay’ных интерфейсов с сетями.
+У нас будет BGP-сессия между <strong>каждой</strong> парой Leaf-Spine, в которой эти Underlay’ные префиксы будут анонсироваться по сети тудыть-сюдыть.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru//images/adsm/2/bgp_sessions.png"><img alt="https://fs.linkmeup.ru//images/adsm/2/bgp_sessions.png" src="https://fs.linkmeup.ru//images/adsm/2/bgp_sessions.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<p>Внутри одного датацентра мы будем распространять специфики, которые импортировали на ТоРе. На Edge-Leaf’ах будем их агрегировать и анонсировать в удалённые ДЦ и спускать до ТоРов. То есть каждый ТоР будет знать точно, как добраться до другого ТоРа в этом же ДЦ и где точка входа, чтобы добраться до ТоРа в другом ДЦ.
+В DCI маршруты будут передаваться, как VPNv4. Для этого на Edge-Leaf интерфейс в сторону фабрики будет помещаться в VRF, назовём его UNDERLAY, и соседство со Spine на Edge-Leaf будет подниматься внутри VRF, а между Edge-Leaf’ами в VPNv4-family.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/2/routing.png"><img alt="https://fs.linkmeup.ru/images/adsm/2/routing.png" src="https://fs.linkmeup.ru/images/adsm/2/routing.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<p>А ещё мы запретим реанонсировать маршруты полученные от спайнов, обратно на них же.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/2/no_reannounce.png"><img alt="https://fs.linkmeup.ru/images/adsm/2/no_reannounce.png" src="https://fs.linkmeup.ru/images/adsm/2/no_reannounce.png" style="width: 500px;" /></a>
+</div>
+</div></blockquote>
+<p>На Leaf и Spine мы не будем импортировать Loopback’и. Они нам понадобятся только для того, чтобы определить Router ID.
+А вот на Edge-Leaf’ах импортируем его в Global BGP. Между Loopback-адресами Edge-Leaf’ы будут устанавливать BGP-сессию в IPv4 VPN-family друг с другом.</p>
+<p>Между EDGE-устройствами у нас будет растянута магистраль на OSPF+LDP.  Всё в одной зоне. Предельно простая конфигурация.</p>
+<p>Вот такая картина с маршрутизацией.</p>
+</div>
+<div class="section" id="bgp-asn">
+<h2>BGP ASN<a class="headerlink" href="#bgp-asn" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="edge-leaf-asn">
+<h3>Edge-Leaf ASN<a class="headerlink" href="#edge-leaf-asn" title="Ссылка на этот заголовок">¶</a></h3>
+<p>На Edge-Leaf’ах будет один ASN во всех ДЦ. Это важно, чтобы между Edge-Leaf’ами был iBGP, и мы не накололись на нюансы eBGP. Пусть это будет 65535. В реальности это мог бы быть номер публичной AS.</p>
+</div>
+<div class="section" id="spine-asn">
+<h3>Spine ASN<a class="headerlink" href="#spine-asn" title="Ссылка на этот заголовок">¶</a></h3>
+<p>На Spine у нас будет один ASN на ДЦ. Начнём здесь с самого первого номера из диапазона приватных AS - 64512, 64513 итд.
+Почему ASN на ДЦ?
+Декомпозируем этот вопрос на два:</p>
+<ul class="simple">
+<li>Почему одинаковые ASN на всех спайнах одного ДЦ?</li>
+<li>Почему разные в разных ДЦ?</li>
+</ul>
+<p><strong>Почему одинаковые ASN на всех спайнах одного ДЦ</strong>
+Вот как будет выглядеть AS-Path Андерлейного маршрута на Edge-Leaf:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="hll"> <span class="o">[</span>leafX_ASN, **spine_ASN**, edge_ASN<span class="o">]</span>
+</span></pre></div>
+</div>
+</div></blockquote>
+<p>При попытке заанонсировать его обратно на Спайн, тот его отбросит потому что его AS (Spine_AS) уже есть в списке.</p>
+<p>Однако в пределах ДЦ нас совершенно устраивает, что маршруты Underlay, поднявшиеся до Edge не смогут спуститься вниз. Вся коммуникация между хостами внутри ДЦ должна происходить в пределах уровня спайнов.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/2/as_path_intra_dc.png"><img alt="https://fs.linkmeup.ru/images/adsm/2/as_path_intra_dc.png" src="https://fs.linkmeup.ru/images/adsm/2/as_path_intra_dc.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<p>При этом агрегированные маршруты других ДЦ в любом случае беспрепятственно будут доходить до ТоРов - в их AS-Path будет только ASN 65535 - номер AS Edge-Leaf’ов, потому что именно на них они были созданы.</p>
+<p><strong>Почему разные в разных ДЦ</strong>
+Теоретически нам может потребоваться протащить Loopback’и каких-нибудь сервисных виртуальных машин между ДЦ.
+Например, на хосте у нас запустится Route Reflector или <a href="#id4"><span class="problematic" id="id5">`</span></a>тот самый VNGW &lt;<a class="reference external" href="https://linkmeup.ru/blog/449.html#EXTERNAL">https://linkmeup.ru/blog/449.html#EXTERNAL</a>&gt;`_(Virtual Network Gateway), который по BGP запирится с ТоРом и проанонсирует свой лупбэк, который должен быть доступен из всех ДЦ.
+Так вот как будет выглядеть его AS-Path:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="hll"> <span class="o">[</span>VNF_ASN, leafX_DC1_ASN, **spine_DC1_ASN**, edge_ASN, **spine_DC2_ASN**, leafY_DC2_ASN<span class="o">]</span>
+</span></pre></div>
+</div>
+</div></blockquote>
+<p>И здесь нигде не должно быть повторяющихся ASN.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/2/as_path_inter_dc.png"><img alt="https://fs.linkmeup.ru/images/adsm/2/as_path_inter_dc.png" src="https://fs.linkmeup.ru/images/adsm/2/as_path_inter_dc.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt>То есть Spine_DC1 и Spine_DC2 должны быть разными, ровно как и leafX_DC1 и leafY_DC2, к чему мы как раз и подходим.</dt>
+<dd>Как вы, наверно, знаете, существуют хаки, позволяющие принимать маршруты с повторяющимися ASN вопреки механизму предотвращения петель (allowas-in на Cisco). И у этого есть даже вполне законные применения. Но это потенциальная брешь в устойчивости сети. И я лично в неё пару раз проваливался.
+И если у нас есть возможность не использовать опасные вещи, мы ей воспользуемся.</dd>
+</dl>
+</div>
+<div class="section" id="leaf-asn">
+<h3>Leaf ASN<a class="headerlink" href="#leaf-asn" title="Ссылка на этот заголовок">¶</a></h3>
+<p>У нас будет индивидуальный ASN на каждом Leaf-коммутаторе в пределах всей сети.
+Делаем мы так из соображений, приведённых выше: AS-Path без петель, конфигурация BGP без закладок.
+Чтобы маршруты между Leaf’ами беспрепятственно проходили, AS-Path должен выглядеть так:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="hll"> <span class="o">[</span>leafX_ASN, spine_ASN, leafY_ASN<span class="o">]</span>
+</span></pre></div>
+</div>
+</div></blockquote>
+<p>где leafX_ASN и leafY_ASN хорошо бы, чтобы отличались.
+Требуется это и для ситуации с анонсом лупбэка VNF между ДЦ:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="hll"> <span class="o">[</span>VNF_ASN, **leafX_DC1_ASN**, spine_DC1_ASN, edge_ASN, spine_DC2_ASN, **leafY_DC2_ASN**<span class="o">]</span>
+</span></pre></div>
+</div>
+</div></blockquote>
+<p>Будем использовать 4-байтовый ASN и генерировать его на основе ASN Spine’а и номера Leaf-коммутатора, а именно, вот так: <em>Spine_ASN.0000X</em>.</p>
+<p>Вот такая картина с ASN.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/2/asns.png"><img alt="https://fs.linkmeup.ru/images/adsm/2/asns.png" src="https://fs.linkmeup.ru/images/adsm/2/asns.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+</div>
+</div>
 </div>
 
 
@@ -155,6 +303,15 @@
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ip_plan.html" class="btn btn-neutral float-right" title="IP-план" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="topology.html" class="btn btn-neutral float-left" title="Физическая Топология" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
