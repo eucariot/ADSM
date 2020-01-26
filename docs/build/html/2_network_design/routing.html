@@ -255,7 +255,7 @@
 Например, на хосте у нас запустится Route Reflector или <a class="reference external" href="https://linkmeup.ru/blog/449.html#EXTERNAL">тот самый VNGW</a> (Virtual Network Gateway), который по BGP запирится с ТоРом и проанонсирует свой лупбэк, который должен быть доступен из всех ДЦ.
 Так вот как будет выглядеть его AS-Path:</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="o">[</span>VNF_ASN, leafX_DC1_ASN, **spine_DC1_ASN**, edge_ASN, **spine_DC2_ASN**, leafY_DC2_ASN<span class="o">]</span>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="o">[</span>VNF_ASN, leafX_DC1_ASN, spine_DC1_ASN, edge_ASN, spine_DC2_ASN, leafY_DC2_ASN<span class="o">]</span>
 </span></pre></div>
 </div>
 </div></blockquote>

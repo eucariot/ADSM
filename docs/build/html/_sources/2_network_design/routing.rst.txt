@@ -106,7 +106,7 @@ Spine ASN
     .. code-block:: bash
        :emphasize-lines: 1
 
-       [VNF_ASN, leafX_DC1_ASN, **spine_DC1_ASN**, edge_ASN, **spine_DC2_ASN**, leafY_DC2_ASN]
+       [VNF_ASN, leafX_DC1_ASN, spine_DC1_ASN, edge_ASN, spine_DC2_ASN, leafY_DC2_ASN]
 
 И здесь нигде не должно быть повторяющихся ASN. 
 
