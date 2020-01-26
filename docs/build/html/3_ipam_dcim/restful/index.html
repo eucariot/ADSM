@@ -1,0 +1,619 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ru" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Часть 3. RESTful API &mdash; Документация ADSM 0.1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
+    <link rel="search" title="Поиск" href="../../search.html" />
+    <link rel="next" title="REST, RESTful, API" href="rest.html" />
+    <link rel="prev" title="Часть 3. IPAM/DCIM-системы" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../contents.html" class="icon icon-home"> ADSM
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../0_planning/planning.html">Часть 0. Планирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Часть 3. IPAM/DCIM-системы</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Часть 3. RESTful API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rest.html">REST, RESTful, API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="messages.html">Структура сообщений</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods.html">Методы</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ways.html">Способы</a></li>
+<li class="toctree-l3"><a class="reference internal" href="other.html">Критика RESTful API и альтернативы</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../contents.html">ADSM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../contents.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Часть 3. IPAM/DCIM-системы</a> &raquo;</li>
+        
+      <li>Часть 3. RESTful API</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/3_ipam_dcim/restful/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="restful-api">
+<h1>Часть 3. RESTful API<a class="headerlink" href="#restful-api" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Эта статья - одна из обещанных коротких заметок по ходу &lt;a href=»<a class="reference external" href="https://linkmeup.ru/adsm/">https://linkmeup.ru/adsm/</a>»&gt;АДСМ&lt;/a&gt;.
+Поскольку основным способом взаимодействия с NetBox будет RESTful API, я решил рассказать о нём отдельно.</p>
+<p>Воздаю хвалы архитекторам современного мира - у нас есть стандартизированные интерфейсы. Да их много - это минус, но они есть - это плюс.</p>
+<p>Эти интерфейсы взаимодействия обрели имя <strong>API - Application Programming Interface</strong>.</p>
+<p>Одним из таких интерфейсов является RESTful API, который мы будем использовать для работы с нашей IPAM/DCIM-системой в будущем.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/kdpv_rest.svg"><img alt="https://fs.linkmeup.ru/images/adsm/3/kdpv_rest.svg" src="https://fs.linkmeup.ru/images/adsm/3/kdpv_rest.svg" width="800" /></a>
+</div>
+</div></blockquote>
+<p>Если очень просто, то API даёт клиенту набор инструментов, через которые тот может управлять сервером. А клиентом может выступать по сути что угодно: веб-браузер, командная консоль, разработанное производителем приложение, или вообще любое другое приложение, у которого есть доступ к API.</p>
+<p>Например, в случае NetBox, добавить новое устройство в него можно следующими способами: через веб-браузер, отправив &lt;a href=»#CURL»&gt;curl’ом&lt;/a&gt; запрос в консоли, использовать &lt;a href=»#POSTMAN»&gt;Postman&lt;/a&gt;, обратиться к &lt;a href=»#REQUESTS»&gt;библиотеке requests&lt;/a&gt; в питоне, воспользоваться &lt;a href=»#PYNETBOX»&gt;SDK pynetbox&lt;/a&gt; или перейти в &lt;a href=»#SWAGGER»&gt;Swagger&lt;/a&gt;.</p>
+<p>Таким образом, один раз написав единый интерфейс, производитель навсегда освобождает себя от необходимости с каждым новым клиентом договариваться как его подключать (хотя, это самую малость лукавство).</p>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Дизайн сети:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="rest.html">REST, RESTful, API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="messages.html">Структура сообщений</a></li>
+<li class="toctree-l1"><a class="reference internal" href="methods.html">Методы</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ways.html">Способы</a></li>
+<li class="toctree-l1"><a class="reference internal" href="other.html">Критика RESTful API и альтернативы</a></li>
+</ul>
+</div>
+<p>Структура сообщений HTTP&lt;/h1&gt;
+HTTP-сообщение состоит из трёх частей, только первая из которых является обязательной.
+&lt;ul&gt;</p>
+<blockquote>
+<div>&lt;li&gt;&lt;a href=»#REQUEST_LINE»&gt;Стартовая строка&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=»#HEADERS»&gt;Заголовки&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=»#BODY»&gt;Тело сообщения&lt;/a&gt;&lt;/li&gt;</div></blockquote>
+<p>&lt;/ul&gt;</p>
+<p>Стартовая строка&lt;/h2&gt;
+Стартовые строки HTTP-запроса и ответа выглядят по-разному.</p>
+<p>HTTP-Запрос&lt;/h4&gt;
+&lt;code&gt;METHOD URI&nbsp;HTTP_VERSION&lt;/code&gt;
+&lt;blockquote&gt;</p>
+<blockquote>
+<div><strong>Метод</strong> определяет, какое действие клиент хочет совершить: получить данные, создать объект, обновить его, удалить.
+<strong>URI</strong> - идентификатор ресурса, куда клиент обращается или иными словами путь к ресурсу/документу.
+<strong>HTTP_VERSION</strong> - соответственно версия HTTP. На сегодняшний день для REST это всегда 1.1.</div></blockquote>
+<p>&lt;/blockquote&gt;</p>
+<p>Пример:
+&lt;code&gt;GET /api/dcim/devices/1/ HTTP/1.1&lt;/code&gt;</p>
+<p>HTTP-Ответ&lt;/h4&gt;
+&lt;code&gt;HTTP_VERSION STATUS_CODE REASON_PHRASE&lt;/code&gt;
+&lt;blockquote&gt;</p>
+<blockquote>
+<div><strong>HTTP_VERSION</strong> - версия HTTP (1.1).
+<strong>STATUS_CODE</strong> - три цифры кода состояния (200, 404, 502 итд)
+<strong>REASON_PHRASE</strong> - Пояснение (OK, NOT FOUND, BAD GATEWAY итд)</div></blockquote>
+<p>&lt;/blockquote&gt;</p>
+<p>Пример:
+&lt;code&gt;HTTP/1.1 200 OK&lt;/code&gt;</p>
+<p>Заголовки&lt;/h2&gt;
+В заголовках передаются параметры данной HTTP-транзакции.</p>
+<p>Например, в примере выше в  HTTP-запросе это были:
+&lt;code&gt;</p>
+<blockquote>
+<div>Host: netbox.linkmeup.ru:45127
+User-Agent: curl/7.54.0
+Accept: application/json; indent=4&lt;/code&gt;</div></blockquote>
+<p>В них указано, что
+&lt;ol&gt;</p>
+<blockquote>
+<div>&lt;li&gt;Обращаемся к хосту <strong>netbox.linkmeup.ru:45127</strong>,&lt;/li&gt;
+&lt;li&gt;Запрос был сгенерирован в <strong>curl</strong>,&lt;/li&gt;
+&lt;li&gt;А принимаем данные в формате <strong>JSON</strong> с отступом <strong>4</strong>.&lt;/li&gt;</div></blockquote>
+<p>&lt;/ol&gt;</p>
+<p>А вот какие заголовки были в HTTP-ответе:
+&lt;code&gt;</p>
+<blockquote>
+<div>Server: nginx/1.14.0 (Ubuntu)
+Date: Tue, 21 Jan 2020 15:14:22 GMT
+Content-Type: application/json
+Content-Length: 1638
+Connection: keep-alive&lt;/code&gt;</div></blockquote>
+<p>В них указано, что
+&lt;ol&gt;</p>
+<blockquote>
+<div>&lt;li&gt;Тип сервера: <strong>nginx на Ubuntu</strong>,&lt;/li&gt;
+&lt;li&gt;Время формирования ответа,&lt;/li&gt;
+&lt;li&gt;Формат данных в ответе: <a href="#id1"><span class="problematic" id="id2">**</span></a>JSON**&lt;/li&gt;
+&lt;li&gt;Длина данных в ответе: <a href="#id3"><span class="problematic" id="id4">**</span></a>1638 байтов**&lt;/li&gt;
+&lt;li&gt;Соединение не нужно закрывать - ещё будут данные.&lt;/li&gt;</div></blockquote>
+<p>&lt;/ol&gt;</p>
+<p>Заголовки, как вы уже заметили, выглядят как пары имя:значение, разделённые знаком «:».</p>
+<p>&lt;a href=»<a class="reference external" href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields">https://en.wikipedia.org/wiki/List_of_HTTP_header_fields</a>» target=»_blank»&gt;Полный список возможных заголовков&lt;/a&gt;.</p>
+<p>Тело HTTP-сообщения&lt;/h2&gt;
+Тело используется для передачи собственно данных.
+В HTTP-ответе это может быть HTML-страничка, или в нашем случае JSON-объект.</p>
+<p>Между заголовками и телом должна быть как минимум одна пустая строка.</p>
+<p>При использовании метода GET в HTTP-запросе обычно никакого тела нет, потому что передавать нечего. Но тело есть в HTTP-ответе.
+А вот например, при POST уже и в запросе будет тело. Давайте о методах и поговорим теперь.</p>
+<p>Методы&lt;/h1&gt;
+Как вы уже поняли, для работы с WEB-сервисами HTTP использует методы. То же самое касается и RESTful API.
+Возможные сценарии описываются термином <strong>CRUD - Create, Read, Update, Delete</strong>.
+Вот список наиболее популярных методов HTTP, реализующих CRUD:</p>
+<dl class="docutils">
+<dt>&lt;ul&gt;</dt>
+<dd>&lt;li&gt;&lt;a href=»#GET»&gt;HTTP GET&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=»#POST»&gt;HTTP POST&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=»#PUT»&gt;HTTP PUT&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=»#DELETE»&gt;HTTP DELETE&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=»#PATCH»&gt;HTTP PATCH&lt;/a&gt;&lt;/li&gt;</dd>
+</dl>
+<p>&lt;/ul&gt;</p>
+<p>Методы также называются <strong>глаголами</strong>, поскольку указывают на то, какое действие производится.</p>
+<p>&lt;a href=»<a class="reference external" href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods">https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods</a>» target=»_blank»&gt;Полный список методов&lt;/a&gt;.</p>
+<p>Давайте на примере NetBox разберёмся с каждым из них.</p>
+<p>HTTP GET&lt;/h2&gt;
+Это метод для получения информации.</p>
+<p>Так, например, мы забираем список устройств:</p>
+<p>&lt;code&gt;curl -X GET «<a class="reference external" href="http://netbox.linkmeup.ru:45127/api/dcim/devices/">http://netbox.linkmeup.ru:45127/api/dcim/devices/</a>» -H «Accept: application/json; indent=4»&lt;/code&gt;</p>
+<p>Метод GET <strong>безопасный</strong> (<strong>safe</strong>), поскольку не меняет данные, а только запрашивает.
+Он <strong>идемпотентный</strong> с той точки зрения, что один и тот же запрос всегда возвращает одинаковый результат (до тех пор, пока сами данные не поменялись).</p>
+<p>На GET сервер возвращает сообщение с HTTP-кодом и телом ответа (<strong>response code</strong> и <strong>response body</strong>).
+То есть если всё OK, то код ответа - 200 (OK).
+Если URL не найден - 404 (NOT FOUND).
+Если что-то не так с самим сервером или компонентами, это может быть 500 (SERVER ERROR) или 502 (BAD GATEWAY).
+&lt;a href=»<a class="reference external" href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">https://en.wikipedia.org/wiki/List_of_HTTP_status_codes</a>» target=»_blank»&gt;Все возможные коды ответов&lt;/a&gt;.</p>
+<p>Тело возвращается в формате JSON или XML.
+&lt;a href=»<a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_all_devices.pcapng">https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_all_devices.pcapng</a>» target=»_blank»&gt;Дамп транзакции&lt;/a&gt;.</p>
+<p>Давайте ещё пару примеров. Теперь мы запросим информацию по конкретному устройству по его имени.
+&lt;code&gt;curl -X GET «<a class="reference external" href="http://netbox.linkmeup.ru:45127/api/dcim/devices/?name=mlg-leaf-0">http://netbox.linkmeup.ru:45127/api/dcim/devices/?name=mlg-leaf-0</a>» -H «Accept: application/json; indent=4»&lt;/code&gt;
+Здесь, чтобы задать условия поиска в URI я ещё указал атритбут объекта (параметр <strong>name</strong> и его значение <strong>mlg-leaf-0</strong>). Как вы можете видеть, перед условием и после слэша идёт знак <strong>«?»</strong>, а имя и значение разделяются знаком <strong>«=»</strong>.</p>
+<p>Так выглядит запрос.
+&lt;code&gt;</p>
+<blockquote>
+<div>GET /api/dcim/devices/?name=mlg-leaf-0 HTTP/1.1
+Host: netbox.linkmeup.ru:45127
+User-Agent: curl/7.54.0
+Accept: application/json; indent=4&lt;/code&gt;</div></blockquote>
+<p>&lt;a href=»<a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_device_by_name.pcapng">https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_device_by_name.pcapng</a>» target=»_blank»&gt;Дамп транзакции&lt;/a&gt;.</p>
+<p>Если нужно задать пару условий, то запрос будет выглядеть так:
+&lt;code&gt;curl -X GET «<a class="reference external" href="http://netbox.linkmeup.ru:45127/api/dcim/devices/?role=leaf&amp;site=mlg">http://netbox.linkmeup.ru:45127/api/dcim/devices/?role=leaf&amp;site=mlg</a>» -H «Accept: application/json; indent=4»&lt;/code&gt;
+Здесь мы запросили все устройства с ролью <strong>leaf</strong>, расположенные на сайте <strong>mlg</strong>.
+То есть два условия отделяются друг от друга знаком <strong>«&amp;»</strong>.</p>
+<p>&lt;a href=»<a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_device_with_double_conditions.pcapng">https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_device_with_double_conditions.pcapng</a>» target=»_blank»&gt;Дамп транзакции&lt;/a&gt;.</p>
+<p>Из любопытного и приятного - если через «&amp;» задать два условия с одним именем, то между ними будет на самом деле не логическое «И», а логическое «ИЛИ».
+То есть вот такой запрос и в самом деле вернёт два объекта: mlg-leaf-0 и mlg-spine-0
+&lt;code&gt;curl -X GET «<a class="reference external" href="http://netbox.linkmeup.ru:45127/api/dcim/devices/?name=mlg-leaf-0&amp;name=mlg-spine-0">http://netbox.linkmeup.ru:45127/api/dcim/devices/?name=mlg-leaf-0&amp;name=mlg-spine-0</a>» -H «Accept: application/json; indent=4»&lt;/code&gt;
+&lt;a href=»<a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_device_with_or_operand.pcapng">https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_device_with_or_operand.pcapng</a>» target=»_blank»&gt;Дамп транзакции&lt;/a&gt;.</p>
+<p>Попробуем обратиться к несуществующему URL.</p>
+<p>&lt;code&gt;curl -X GET «<a class="reference external" href="http://netbox.linkmeup.ru:45127/api/dcim/IDGAF/">http://netbox.linkmeup.ru:45127/api/dcim/IDGAF/</a>» -H «Accept: application/json; indent=4»&lt;/code&gt;
+&lt;a href=»<a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_not_found.pcapng">https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_not_found.pcapng</a>» target=»_blank»&gt;Дамп транзакции&lt;/a&gt;.</p>
+<p>HTTP POST&lt;/h2&gt;
+POST используется для создания нового объекта в наборе объектов. Или более сложным языком: для создания нового подчинённого ресурса.
+То есть, если есть набор devices, то POST позволяет создать новый объект device внутри devices.</p>
+<p>Выберем тот же Endpoint и с помощью POST создадим новое устройство.</p>
+<p>&lt;code&gt;
+curl -X POST «<a class="reference external" href="http://netbox.linkmeup.ru:45127/api/dcim/devices/">http://netbox.linkmeup.ru:45127/api/dcim/devices/</a>» -H «accept: application/json»-H «Content-Type: application/json» -H «Authorization: TOKEN a9aae70d65c928a554f9a038b9d4703a1583594f» -d «{ «name»: «just a simple russian girl», «device_type»: 1, «device_role»: 1, «site»: 3, «rack»: 3, «position»: 5, «face»: «front»}»&lt;/code&gt;
+Здесь уже появляется заголовок <strong>Authorization</strong>, содержащий токен, который авторизует запрос на запись, а после директивы <strong>-d</strong> расположен JSON с параметрами создаваемого устройства:
+&lt;code&gt;
+{</p>
+<blockquote>
+<div>«name»: «just a simple russian girl»,
+«device_type»: 1,
+«device_role»: 1,
+«site»: 3,
+«rack»: 3,
+«position»: 5,
+«face»: «front»}&lt;/code&gt;
+.. figure:: <a class="reference external" href="https://fs.linkmeup.ru/images/adsm/3/post_result.png">https://fs.linkmeup.ru/images/adsm/3/post_result.png</a>» width=»400»&gt;</div></blockquote>
+<dl class="docutils">
+<dt>&lt;blockquote&gt;</dt>
+<dd>Запрос у вас <strong>не сработает</strong>, потому что токен уже не валиден - не пытайтесь записать в мой NetBox.</dd>
+</dl>
+<p>&lt;/blockquote&gt;</p>
+<p>В ответ приходит HTTP-ответ с кодом 201 (CREATED) и JSON’ом в теле сообщения, где сервер возвращает все параметры о созданном устройстве.
+&lt;code&gt;</p>
+<blockquote>
+<div><p>HTTP/1.1 201 Created
+Server: nginx/1.14.0 (Ubuntu)
+Date: Sat, 18 Jan 2020 11:00:22 GMT
+Content-Type: application/json
+Content-Length: 1123
+Connection: keep-alive</p>
+<p>JSON&lt;/code&gt;</p>
+</div></blockquote>
+<p>&lt;a href=»<a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_post_new_device.pcapng">https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_post_new_device.pcapng</a>»&gt;Дамп транзакции&lt;/a&gt;.</p>
+<p>Теперь новым запросом с методом GET можно его увидеть в выдаче:
+&lt;code&gt;curl -X GET «<a class="reference external" href="http://netbox.linkmeup.ru:45127/api/dcim/devices/?q=russian">http://netbox.linkmeup.ru:45127/api/dcim/devices/?q=russian</a>» -H «Accept: application/json; indent=4»&lt;/code&gt;
+&lt;blockquote&gt;</p>
+<blockquote>
+<div>«q» в NetBox’е позволяет найти все объекты, содержащие в своём названии строку, идущую дальше.</div></blockquote>
+<p>&lt;/blockquote&gt;</p>
+<p>POST, очевидно, не является <strong>ни безопасным, ни идемпотентным</strong> - он наверняка меняет данные, и дважды выполненный запрос приведёт или к созданию второго такого же объекта, или к ошибке.</p>
+<p>HTTP PUT&lt;/h2&gt;
+Это метод для изменения существующего объекта. Endpoint для PUT выглядит иначе, чем для POST - в нём теперь содержится конкретный объект.
+PUT может возвращать коды 201 или 200.</p>
+<p>Важный момент с этим методом: нужно передавать все обязательные атрибуты, поскольку PUT замещает собой старый объект.
+Поэтому, если например, просто попытаться добавить атрибут asset_tag нашему новому устройству, то получим ошибку:
+&lt;code&gt;
+curl -X PUT «<a class="reference external" href="http://netbox.linkmeup.ru:45127/api/dcim/devices/18/">http://netbox.linkmeup.ru:45127/api/dcim/devices/18/</a>» -H «accept: application/json» -H «Content-Type: application/json» -H «Authorization: TOKEN a9aae70d65c928a554f9a038b9d4703a1583594f» -d «{ «asset_tag»: «12345678»}»&lt;/code&gt;
+Вот такую:
+&lt;code&gt;{«device_type»:[«This field is required.»],»device_role»:[«This field is required.»],»site»:[«This field is required.»]}&lt;/code&gt;</p>
+<p>Но если добавить недостающие поля, то всё сработает:
+&lt;code&gt;
+curl -X PUT «<a class="reference external" href="http://netbox.linkmeup.ru:45127/api/dcim/devices/18/">http://netbox.linkmeup.ru:45127/api/dcim/devices/18/</a>» -H «accept: application/json» -H «Content-Type: application/json» -H «Authorization: TOKEN a9aae70d65c928a554f9a038b9d4703a1583594f» -d «{ «name»: «just a simple russian girl», «device_type»: 1, «device_role»: 1, «site»: 3, «rack»: 3, «position»: 5, «face»: «front», «asset_tag»: «12345678»}»&lt;/code&gt;
+&lt;a href=»<a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_put_asset_tag.pcapng">https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_put_asset_tag.pcapng</a>» target=»_blank»&gt;Дамп транзакции&lt;/a&gt;.</p>
+<p>&lt;blockquote&gt;
+Обратите внимание на URL здесь - теперь он включает ID устройства, которое мы хотим менять (<strong>18</strong>).
+&lt;/blockquote&gt;</p>
+<p>HTTP PATCH&lt;/h2&gt;
+Этот метод используется для частичного изменения ресурса.
+WAT? Спросите вы, а как же PUT?</p>
+<p>PUT - изначально существовавший в стандарте метод, предполагающий полную замену изменяемого объекта. Соответственно в методе PUT, как я и писал выше, придётся указать даже те атрибуты объекта, которые не меняются.</p>
+<p>А PATCH был добавлен позже и позволяет указать только те атрибуты, которые действительно меняются.</p>
+<p>Например:
+&lt;code&gt;
+curl -X PATCH «<a class="reference external" href="http://netbox.linkmeup.ru:45127/api/dcim/devices/18/">http://netbox.linkmeup.ru:45127/api/dcim/devices/18/</a>» -H «accept: application/json» -H «Content-Type: application/json» -H «Authorization: TOKEN a9aae70d65c928a554f9a038b9d4703a1583594f» -d «{ «serial»: «BREAKINGBAD»}»&lt;/code&gt;</p>
+<p>Здесь также в URL указан ID устройства, но для изменения только один атрибут <strong>serial</strong>.</p>
+<p>&lt;a href=»<a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_patch_serial.pcapng">https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_patch_serial.pcapng</a>» target=»_blank»&gt;Дамп транзакции&lt;/a&gt;.</p>
+<p>HTTP DELETE&lt;/h2&gt;
+Очевидно, удаляет объект.</p>
+<p>Пример.
+&lt;code&gt;
+curl -X DELETE «<a class="reference external" href="http://netbox.linkmeup.ru:45127/api/dcim/devices/21/">http://netbox.linkmeup.ru:45127/api/dcim/devices/21/</a>» -H «accept: application/json» -H «Content-Type: application/json» -H «Authorization: TOKEN a9aae70d65c928a554f9a038b9d4703a1583594f»&lt;/code&gt;</p>
+<p>Метод DELETE идемпотентен с той точки зрения, что повторно выполненный запрос уже ничего не меняет в списке ресурсов (но вернёт код 404 (NOT FOUND).</p>
+<p>&lt;code&gt;
+curl -X DELETE «<a class="reference external" href="http://netbox.linkmeup.ru:45127/api/dcim/devices/21/">http://netbox.linkmeup.ru:45127/api/dcim/devices/21/</a>» -H «accept: application/json» -H «Content-Type: application/json» -H «Authorization: TOKEN a9aae70d65c928a554f9a038b9d4703a1583594f»&lt;/code&gt;
+&lt;code&gt;
+{«detail»:»Not found.»}&lt;/code&gt;</p>
+<p>Способы работы с RESTful API&lt;/h1&gt;
+Curl - это, конечно, очень удобно для доблестных воинов CLI, но есть инструменты получше:
+&lt;ul&gt;</p>
+<blockquote>
+<div>&lt;li&gt;&lt;a href=»#POSTMAN»&gt;Графическая утилита Postman&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=»#REQUESTS»&gt;Библиотека requests в Python&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=»#PYNETBOX»&gt;Python SDK для NetBox Pynetbox&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=»#SWAGGER»&gt;API-фреймворк Swagger&lt;/a&gt;&lt;/li&gt;</div></blockquote>
+<p>&lt;/ul&gt;</p>
+<p>Postman&lt;/h2&gt;
+Postman позволяет в графическом интерфейсе формировать запросы, выбирая методы, заголовки, тело, и отображает результат в удобочитаемом виде.
+Кроме того запросы и URI можно сохранять и возвращаться к ним позже.</p>
+<p>&lt;a href=»<a class="reference external" href="https://www.getpostman.com/downloads/">https://www.getpostman.com/downloads/</a>» target=»_blank»&gt;Скачать Postman на оф.сайте&lt;/a&gt;.</p>
+<dl class="docutils">
+<dt>Так мы можем сделать GET:</dt>
+<dd><div class="first last figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/postman_get.png"><img alt="https://fs.linkmeup.ru/images/adsm/3/postman_get.png" src="https://fs.linkmeup.ru/images/adsm/3/postman_get.png" style="width: 800px;" /></a>
+</div>
+</dd>
+</dl>
+<p><em>Здесь указан Token в GET только для примера.</em></p>
+<dl class="docutils">
+<dt>А так POST:</dt>
+<dd><div class="first last figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/postman_post.png"><img alt="https://fs.linkmeup.ru/images/adsm/3/postman_post.png" src="https://fs.linkmeup.ru/images/adsm/3/postman_post.png" style="width: 800px;" /></a>
+</div>
+</dd>
+</dl>
+<p>Postman служит только для работы с RESTful API.
+&lt;blockquote&gt;</p>
+<blockquote>
+<div>Например, не пытайтесь через него отправить NETCONF XML, как это делал я на заре своей автоматизационной карьеры.</div></blockquote>
+<p>&lt;/blockquote&gt;</p>
+<p>Один из приятных бонусов &lt;a href=»#SWAGGER»&gt;специфицированного API&lt;/a&gt; в том, что вы можете в Postman импортировать все эндпоинты и их методы как коллекцию.
+Для этого в окне <strong>Import</strong> (File-&gt;Import) выберите <strong>Import From Link</strong> и вставьте в окно URL <a class="reference external" href="http://netbox.linkmeup.ru:45127/api/docs/?format=openapi">http://netbox.linkmeup.ru:45127/api/docs/?format=openapi</a>.</p>
+<blockquote>
+<div><div class="figure">
+<img alt="https://fs.linkmeup.ru/images/adsm/3/postman_import.png&quot;width=&quot;400&quot;&gt;" src="https://fs.linkmeup.ru/images/adsm/3/postman_import.png&quot;width=&quot;400&quot;&gt;" />
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt>Далее, всё, что только можно, вы найдёте в коллекциях.</dt>
+<dd><div class="first last figure">
+<img alt="https://fs.linkmeup.ru/images/adsm/3/postman_collections.png&quot;width=&quot;200&quot;&gt;" src="https://fs.linkmeup.ru/images/adsm/3/postman_collections.png&quot;width=&quot;200&quot;&gt;" />
+</div>
+</dd>
+</dl>
+<p>&lt;a name =»REQUESTS»&gt;&lt;/a&gt;
+Python+requests&lt;/h2&gt;
+Но даже через Postman вы, скорее всего, не будете управлять своими Production-системами. Наверняка, у вас будут внешние приложения, которые захотят без вашего участия взаимодействовать с ними.
+Например, система генерации конфигурации захочет забрать список IP-интерфейсов из NetBox.
+В Python есть чудесная библиотека <strong>requests</strong>, которая реализует работу через HTTP.
+Пример запроса списка всех устройств:</p>
+<p>&lt;code&gt;
+import requests</p>
+<p>HEADERS = {„Content-Type“: „application/json“, „Accept“: „application/json“}
+NB_URL = «<a class="reference external" href="http://netbox.linkmeup.ru:45127">http://netbox.linkmeup.ru:45127</a>»</p>
+<p>request_url = f»{NB_URL}/api/dcim/devices/»
+devices = requests.get(request_url, headers = HEADERS)
+print(devices.json())&lt;/code&gt;</p>
+<p>&lt;a href=»<a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/scripts/requests_get_devices.py">https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/scripts/requests_get_devices.py</a>» target=»_blank»&gt;Код скрипта на github&lt;/a&gt;.</p>
+<p>Снова добавим новое устройство:
+&lt;code&gt;
+import requests</p>
+<p>API_TOKEN = «a9aae70d65c928a554f9a038b9d4703a1583594f»
+HEADERS = {„Authorization“: f’Token {API_TOKEN}“, „Content-Type“: „application/json“, „Accept“: „application/json“}
+NB_URL = «<a class="reference external" href="http://netbox.linkmeup.ru:45127">http://netbox.linkmeup.ru:45127</a>»</p>
+<p>request_url = f»{NB_URL}/api/dcim/devices/»</p>
+<dl class="docutils">
+<dt>device_parameters = {</dt>
+<dd>«name»: «just a simple REQUESTS girl»,
+«device_type»: 1,
+«device_role»: 1,
+«site»: 3,</dd>
+</dl>
+<p>}
+new_device = requests.post(request_url, headers = HEADERS, json=device_parameters)
+print(new_device.json())&lt;/code&gt;
+&lt;a href=»<a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/scripts/requests_post_new_device.py">https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/scripts/requests_post_new_device.py</a>» target=»_blank»&gt;Код скрипта на github&lt;/a&gt;.</p>
+<p>Python+NetBox SDK&lt;/h3&gt;
+В случае NetBox есть также Python SDK - &lt;a href=»<a class="reference external" href="https://github.com/digitalocean/pynetbox">https://github.com/digitalocean/pynetbox</a>» target=»_blank»&gt;Pynetbox&lt;/a&gt;, который представляет все Endpoint’ы NetBox в виде объекта и его атрибутов, делая за вас всю грязную работу по формированию URI и парсингу ответа, хотя и не бесплатно, конечно.</p>
+<p>Например, сделаем то же, что и выше, использую pynetbox.
+Список всех устройств:
+&lt;code&gt;
+import pynetbox</p>
+<p>NB_URL = «<a class="reference external" href="http://netbox.linkmeup.ru:45127">http://netbox.linkmeup.ru:45127</a>»
+nb = pynetbox.api(NB_URL)</p>
+<p>devices = nb.dcim.devices.all()
+print(devices)&lt;/code&gt;
+&lt;a href=»<a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/scripts/pynetbox_get_devices.py">https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/scripts/pynetbox_get_devices.py</a>» target=»_blank»&gt;Код скрипта на github&lt;/a&gt;.</p>
+<p>Добавить новое устройство:
+&lt;code&gt;
+import pynetbox</p>
+<p>API_TOKEN = «a9aae70d65c928a554f9a038b9d4703a1583594f»
+NB_URL = «<a class="reference external" href="http://netbox.linkmeup.ru:45127">http://netbox.linkmeup.ru:45127</a>»
+nb = pynetbox.api(NB_URL, token = API_TOKEN)</p>
+<dl class="docutils">
+<dt>device_parameters = {</dt>
+<dd>«name»: «just a simple PYNETBOX girl»,
+«device_type»: 1,
+«device_role»: 1,
+«site»: 3,</dd>
+</dl>
+<p>}
+new_device = nb.dcim.devices.create(<a href="#id5"><span class="problematic" id="id6">**</span></a>device_parameters)
+print(new_device)&lt;/code&gt;
+&lt;a href=»<a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/scripts/requests_post_new_device.py">https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/scripts/requests_post_new_device.py</a>» target=»_blank»&gt;Код скрипта на github&lt;/a&gt;.</p>
+<p>&lt;a href=»<a class="reference external" href="https://pynetbox.readthedocs.io/en/latest/">https://pynetbox.readthedocs.io/en/latest/</a>» target=»_blank»&gt;Документация по Pynetbox&lt;/a&gt;.</p>
+<p>SWAGGER&lt;/h2&gt;
+За что ещё стоит поблагодарить ушедшее десятилетие, так это за спецификации API. Если вы перейдёте по &lt;a href=»<a class="reference external" href="http://netbox.linkmeup.ru:45127/api/docs/">http://netbox.linkmeup.ru:45127/api/docs/</a>» target=»_blank»&gt;этому пути&lt;/a&gt;, то попадёте в Swagger UI - документацию по API Netbox.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/swagger.png"><img alt="https://fs.linkmeup.ru/images/adsm/3/swagger.png" src="https://fs.linkmeup.ru/images/adsm/3/swagger.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<p>На этой странице перечислены все Endpoint’ы, методы работы с ними, возможные параметры и атрибуты и указано, какие из них обязательны. Кроме того описаны ожидаемые ответы.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/swagger_endpoints_and_methods.png"><img alt="https://fs.linkmeup.ru/images/adsm/3/swagger_endpoints_and_methods.png" src="https://fs.linkmeup.ru/images/adsm/3/swagger_endpoints_and_methods.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<p>На этой же странице можно выполнять интерактивные запросы, кликнув на <strong>Try it out</strong>.</p>
+<p>&lt;blockquote&gt;
+По какой-от причине swagger в качестве Base URL берёт имя сервера без порта, поэтому функция Try it out не работает в моих примерах со Swagger’ом. Но вы можете попробовать это на собственной инсталляции.
+&lt;/blockquote&gt;</p>
+<p>При нажатии на <strong>Execute</strong> Swagger UI сформирует строку curl, с помощью которой можно аналогичный запрос сделать из командной строки.</p>
+<dl class="docutils">
+<dt>В Swagger UI можно даже создать объект:</dt>
+<dd><div class="first last figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/swagger_post.png"><img alt="https://fs.linkmeup.ru/images/adsm/3/swagger_post.png" src="https://fs.linkmeup.ru/images/adsm/3/swagger_post.png" style="width: 800px;" /></a>
+</div>
+</dd>
+</dl>
+<p>Для этого достаточно быть авторизованным пользователем, обладающим нужными правами.</p>
+<p>То, что мы видим на этой странице - это Swagger UI - документация, сгенерированная на основе спецификации API.</p>
+<p>С трендами на микросервисную архитектуру всё более важным становится иметь стандартизированный API для взаимодействия между компонентами, эндпоинты и методы которого легко определить как человеку, так и приложению, не роясь в исходном коде или PDF-документации.
+Поэтому разработчики сегодня всё чаще следуют парадигме &lt;a href=»<a class="reference external" href="https://medium.com/adobetech/three-principles-of-api-first-design-fa6666d9f694">https://medium.com/adobetech/three-principles-of-api-first-design-fa6666d9f694</a>» target=»_blank»&gt;API First&lt;/a&gt;, когда сначала задумываются об API, а уже потом о реализации.
+В этом дизайне сначала специфицируется API, а затем из него <strong>генерируются</strong> документация, клиентское приложение, серверная часть и необходимы тесты.</p>
+<p>Swagger - это фреймворк и язык спецификации (который ныне переименован в OpenAPI 2.0), позволяющие реализовать эту задачу.
+Углубляться в него я не буду.
+За бо́льшими деталями сюда:
+&lt;ul&gt;</p>
+<blockquote>
+<div>&lt;li&gt;&lt;a href=»<a class="reference external" href="https://swagger.io/docs/specification/">https://swagger.io/docs/specification/</a>»&gt;Сайт Swagger&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=»<a class="reference external" href="https://justcodeit.ru/swagger-docs-dlya-api-na-laravel/">https://justcodeit.ru/swagger-docs-dlya-api-na-laravel/</a>»&gt;Пример использования&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=»<a class="reference external" href="https://en.wikipedia.org/wiki/OpenAPI_Specification">https://en.wikipedia.org/wiki/OpenAPI_Specification</a>»&gt;Wiki проOpen API&lt;/a&gt;&lt;/li&gt;</div></blockquote>
+<p>&lt;/ul&gt;</p>
+<p>Критика REST и альтернативы&lt;/h1&gt;
+Существует и такая, да. Не всё в том мире 2000-го года так уже радужно.
+Не являясь экспертом, не берусь предметно раскрывать вопрос, но дам ссылку на небесспорную &lt;a href=»<a class="reference external" href="https://habr.com/ru/post/265845/">https://habr.com/ru/post/265845/</a>» target=»_blank»&gt;статью на хабре&lt;/a&gt;.
+Альтернативным интерфейсом взаимодействия компонентов системы сегодня является gRPC. Ему же пророчат большое будущее на ниве новых подходов к работе с сетевым оборудованием. Но о нём мы поговорим когда-то в будущем, когда придёт его черёд.
+&lt;blockquote&gt;</p>
+<blockquote>
+<div><strong>Важно</strong>
+Токен a9aae70d65c928a554f9a038b9d4703a1583594f был использован только в демонстрационных целях и больше не работает.
+Прямое указание токенов в коде программы недопустимо и сделано здесь мной только в интересах упрощения примеров.</div></blockquote>
+<p>&lt;/blockquote&gt;</p>
+<p>Полезные ссылки&lt;/h1&gt;
+&lt;ul&gt;</p>
+<blockquote>
+<div>&lt;li&gt;&lt;a href=»<a class="reference external" href="https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm">https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm</a>» target=»_blank»&gt;Доклад Роя Филдинга: Representational State Transfer (REST)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=»<a class="reference external" href="https://medium.com/adobetech/three-principles-of-api-first-design-fa6666d9f694">https://medium.com/adobetech/three-principles-of-api-first-design-fa6666d9f694</a>» target=»_blank»&gt;Three Principles of API First Design&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=»<a class="reference external" href="https://restfulapi.net/http-methods/">https://restfulapi.net/http-methods/</a>» target=»_blank»&gt;HTTP-методы&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=»<a class="reference external" href="https://restfulapi.net/rest-architectural-constraints/">https://restfulapi.net/rest-architectural-constraints/</a>» target=»_blank»&gt;REST Architectural Constraints&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=»<a class="reference external" href="https://swagger.io/docs/specification/">https://swagger.io/docs/specification/</a>» target=»_blank»&gt;Сайт Swagger&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=»<a class="reference external" href="https://justcodeit.ru/swagger-docs-dlya-api-na-laravel/">https://justcodeit.ru/swagger-docs-dlya-api-na-laravel/</a>» target=»_blank»&gt;Пример использования Swagger&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=»<a class="reference external" href="https://en.wikipedia.org/wiki/OpenAPI_Specification">https://en.wikipedia.org/wiki/OpenAPI_Specification</a>» target=»_blank»&gt;Wiki про OpenAPI&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=»<a class="reference external" href="https://habr.com/ru/post/265845/">https://habr.com/ru/post/265845/</a>» target=»_blank»&gt;Критика REST&lt;/a&gt;&lt;/li&gt;</div></blockquote>
+<p>&lt;/ul&gt;</p>
+<p>Спасибы&lt;/h1&gt;
+&lt;ul&gt;</p>
+<blockquote>
+<div>&lt;li&gt;Андрею Панфилову за вычитку и правки&lt;/li&gt;</div></blockquote>
+<p>&lt;/ul&gt;</p>
+<p>&lt;blockquote&gt;Оставайтесь на связи&lt;/h5&gt;
+&lt;a href=»<a class="reference external" href="https://linkmeup.ru/rss">https://linkmeup.ru/rss</a>»&gt;    .. figure:: <a class="reference external" href="https://linkmeup.ru/templates/skin/synio/images/RSS.png">https://linkmeup.ru/templates/skin/synio/images/RSS.png</a>» title=»RSS сайта»&gt;&lt;/a&gt;&lt;a href=»<a class="reference external" href="mailto:info&#37;&#52;&#48;linkmeup&#46;ru">mailto:info<span>&#64;</span>linkmeup<span>&#46;</span>ru</a>»&gt;    .. figure:: <a class="reference external" href="https://linkmeup.ru/templates/skin/synio/images/Email.png">https://linkmeup.ru/templates/skin/synio/images/Email.png</a>» title=»Написать авторам»&gt;&lt;/a&gt;&lt;a href=»<a class="reference external" href="https://vk.com/linkmeup">https://vk.com/linkmeup</a>»&gt;    .. figure:: <a class="reference external" href="https://linkmeup.ru/templates/skin/synio/images/vk1.png">https://linkmeup.ru/templates/skin/synio/images/vk1.png</a>» title=»linkmeup вконтакте»&gt;&lt;/a&gt;&lt;a href=»<a class="reference external" href="https://www.facebook.com/linkmeup.sdsm">https://www.facebook.com/linkmeup.sdsm</a>»&gt;    .. figure:: <a class="reference external" href="https://linkmeup.ru/templates/skin/synio/images/Facebook.png">https://linkmeup.ru/templates/skin/synio/images/Facebook.png</a>» title=»linkmeup на Фейсбуке»&gt;&lt;/a&gt;&lt;a href=»<a class="reference external" href="https://www.patreon.com/linkmeup">https://www.patreon.com/linkmeup</a>»&gt;    .. figure:: <a class="reference external" href="https://linkmeup.ru/templates/skin/synio/images/patreon.png">https://linkmeup.ru/templates/skin/synio/images/patreon.png</a>» width=»25» title=» Поддержать linkmeup на Patreon»&gt;&lt;/a&gt;</p>
+<p>Особо благодарных просим задержаться и пройти на Патреон.
+&lt;a href=»<a class="reference external" href="https://www.patreon.com/linkmeup?ty=h">https://www.patreon.com/linkmeup?ty=h</a>» target=»_blank»&gt;    .. figure:: <a class="reference external" href="https://fs.linkmeup.ru/images/patreon.jpg">https://fs.linkmeup.ru/images/patreon.jpg</a>» width=»400»&gt;&lt;/a&gt;&lt;/blockquote&gt;</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="rest.html" class="btn btn-neutral float-right" title="REST, RESTful, API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral float-left" title="Часть 3. IPAM/DCIM-системы" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, eucariot
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

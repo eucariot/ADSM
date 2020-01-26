@@ -1,0 +1,351 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ru" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>REST, RESTful, API &mdash; Документация ADSM 0.1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
+    <link rel="search" title="Поиск" href="../../search.html" />
+    <link rel="next" title="Структура сообщений" href="messages.html" />
+    <link rel="prev" title="Часть 3. RESTful API" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../contents.html" class="icon icon-home"> ADSM
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../0_planning/planning.html">Часть 0. Планирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Часть 3. IPAM/DCIM-системы</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Часть 3. RESTful API</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">REST, RESTful, API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="messages.html">Структура сообщений</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods.html">Методы</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ways.html">Способы</a></li>
+<li class="toctree-l3"><a class="reference internal" href="other.html">Критика RESTful API и альтернативы</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../contents.html">ADSM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../contents.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Часть 3. IPAM/DCIM-системы</a> &raquo;</li>
+        
+          <li><a href="index.html">Часть 3. RESTful API</a> &raquo;</li>
+        
+      <li>REST, RESTful, API</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/3_ipam_dcim/restful/rest.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="rest-restful-api">
+<h1>REST, RESTful, API<a class="headerlink" href="#rest-restful-api" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Ниже я дам очень упрощённое описание того, что такое REST.</p>
+<p>Начнём с того, что <strong>RESTful API</strong> - это именно <strong>интерфейс</strong> взаимодействия, основанный на REST, в то время как сам <strong>REST</strong> (<strong>REpresentational State Transfer</strong>) - это набор ограничений, используемых для создания WEB-сервисов.
+<a class="reference external" href="https://linkmeup.ru/blog/449.html#EXTERNAL">тот самый VNGW</a></p>
+<p>О каких именно ограничениях идёт речь, можно почитать в <a class="reference external" href="https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm">главе 5 диссертации Роя Филдинга Architectural Styles and the Design of Network-based Software Architectures</a>. Мне же позвольте привести только три наиболее значимых (с моей точки зрения) из них:</p>
+<ul class="simple">
+<li>В REST-архитектуре используется модель взаимодействия Клиент-Сервер.</li>
+<li>Каждый REST-запрос содержит всю информацию, необходимую для его выполнения. То есть сервер не должен помнить ничего о предыдущих запросах клиента, что, как известно, характеризуется словом Stateless - не храним информацию о состоянии.</li>
+<li>Единый интерфейс. Реализация приложения отделена от сервиса, который оно предоставляет. То есть пользователь знает, что оно делает и как с ним взаимодействовать, но как именно оно это делает не имеет значения. При изменении приложения, интерфейс остаётся прежним, и клиентам не нужно подстраиваться.</li>
+</ul>
+<p>WEB-сервисы, удовлетворяющие всем принципам REST, называются <strong>RESTful WEB-services</strong>.
+А API, который предоставляют RESTful WEB-сервисы, называется RESTful API.</p>
+<p>REST - не протокол, а, так называемый, стиль архитектуры (один из). Развиваемому вместе с HTTP Роем Филдингом, REST’у было предназначено использовать <strong>HTTP 1.1</strong>, в качестве транспорта.
+Адрес назначения (или иным словом - объект, или ещё иным - эндпоинт) - это привычный нам <a class="reference external" href="https://ru.wikipedia.org/wiki/URI">URI</a>.
+Формат передаваемых данных - <strong>XML</strong> или <strong>JSON</strong>.</p>
+<blockquote>
+<div>Для этой серии статей на linkmeup развёрнута read-only (для вас, дорогие, читатели) инсталляция NetBox: <a class="reference external" href="http://netbox.linkmeup.ru:45127">http://netbox.linkmeup.ru:45127</a>.
+На чтение права не требуются, но если хочется попробовать читать с токеном, то можно воспользоваться этим: <em>API Token: 90a22967d0bc4bdcd8ca47ec490bbf0b0cb2d9c8</em>.</div></blockquote>
+<dl class="docutils">
+<dt>Давайте интереса ради сделаем один запрос:</dt>
+<dd><div class="first last highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="hll">curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/1/&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</span></pre></div>
+</div>
+</dd>
+</dl>
+<p>То есть утилитой <strong>curl</strong> мы делаем <strong>GET</strong> объекта по адресу <strong>http://netbox.linkmeup.ru:45127/api/dcim/devices/1/</strong> с ответом в формате <strong>JSON</strong> и отступом в <strong>4</strong> пробела.
+Или чуть более академически: GET вовзращает типизированный объект <strong>devices</strong>, являющийся параметром объекта <strong>DCIM</strong>.</p>
+<p>Этот запрос можете выполнить и вы - просто скопируйте себе в терминал.</p>
+<blockquote>
+<div>URL, к которому мы обращаемся в запросе, называется <strong>Endpoint</strong>. В некотором смысле это конечный объект, с которым мы будем взаимодействовать.
+Например, в случае netbox’а список всех endpoint’ов можно получить <a class="reference external" href="http://netbox.linkmeup.ru:45127/api/docs/">тут</a>.
+И ещё обратите внимание на знак <strong>/</strong> в конце URL - он <strong>обязателен</strong>.</div></blockquote>
+<dl class="docutils">
+<dt>Вот что мы получим в ответ:…</dt>
+<dd><div class="first highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="o">{</span>
+</span><span class="s2">&quot;id&quot;</span>: <span class="m">1</span>,
+<span class="s2">&quot;name&quot;</span>: <span class="s2">&quot;mlg-host-0&quot;</span>,
+<span class="s2">&quot;display_name&quot;</span>: <span class="s2">&quot;mlg-host-0&quot;</span>,
+<span class="s2">&quot;device_type&quot;</span>: <span class="o">{</span>
+    <span class="s2">&quot;id&quot;</span>: <span class="m">4</span>,
+    <span class="s2">&quot;url&quot;</span>: <span class="s2">&quot;http://netbox.linkmeup.ru/api/dcim/device-types/4/&quot;</span>,
+    <span class="s2">&quot;manufacturer&quot;</span>: <span class="o">{</span>
+        <span class="s2">&quot;id&quot;</span>: <span class="m">4</span>,
+        <span class="s2">&quot;url&quot;</span>: <span class="s2">&quot;http://netbox.linkmeup.ru/api/dcim/manufacturers/4/&quot;</span>,
+        <span class="s2">&quot;name&quot;</span>: <span class="s2">&quot;Hypermacro&quot;</span>,
+        <span class="s2">&quot;slug&quot;</span>: <span class="s2">&quot;hypermacro&quot;</span>
+    <span class="o">}</span>,
+    <span class="s2">&quot;model&quot;</span>: <span class="s2">&quot;Server&quot;</span>,
+    <span class="s2">&quot;slug&quot;</span>: <span class="s2">&quot;server&quot;</span>,
+    <span class="s2">&quot;display_name&quot;</span>: <span class="s2">&quot;Hypermacro Server&quot;</span>
+<span class="o">}</span>,
+<span class="s2">&quot;device_role&quot;</span>: <span class="o">{</span>
+    <span class="s2">&quot;id&quot;</span>: <span class="m">1</span>,
+    <span class="s2">&quot;url&quot;</span>: <span class="s2">&quot;http://netbox.linkmeup.ru/api/dcim/device-roles/1/&quot;</span>,
+    <span class="s2">&quot;name&quot;</span>: <span class="s2">&quot;Server&quot;</span>,
+    <span class="s2">&quot;slug&quot;</span>: <span class="s2">&quot;server&quot;</span>
+<span class="o">}</span>,
+<span class="s2">&quot;tenant&quot;</span>: null,
+<span class="s2">&quot;platform&quot;</span>: null,
+<span class="s2">&quot;serial&quot;</span>: <span class="s2">&quot;&quot;</span>,
+<span class="s2">&quot;asset_tag&quot;</span>: null,
+<span class="s2">&quot;site&quot;</span>: <span class="o">{</span>
+    <span class="s2">&quot;id&quot;</span>: <span class="m">6</span>,
+    <span class="s2">&quot;url&quot;</span>: <span class="s2">&quot;http://netbox.linkmeup.ru/api/dcim/sites/6/&quot;</span>,
+    <span class="s2">&quot;name&quot;</span>: <span class="s2">&quot;Малага&quot;</span>,
+    <span class="s2">&quot;slug&quot;</span>: <span class="s2">&quot;mlg&quot;</span>
+<span class="o">}</span>,
+<span class="s2">&quot;rack&quot;</span>: <span class="o">{</span>
+    <span class="s2">&quot;id&quot;</span>: <span class="m">1</span>,
+    <span class="s2">&quot;url&quot;</span>: <span class="s2">&quot;http://netbox.linkmeup.ru/api/dcim/racks/1/&quot;</span>,
+    <span class="s2">&quot;name&quot;</span>: <span class="s2">&quot;A&quot;</span>,
+    <span class="s2">&quot;display_name&quot;</span>: <span class="s2">&quot;A&quot;</span>
+<span class="o">}</span>,
+<span class="s2">&quot;position&quot;</span>: <span class="m">41</span>,
+<span class="s2">&quot;face&quot;</span>: <span class="o">{</span>
+    <span class="s2">&quot;value&quot;</span>: <span class="s2">&quot;front&quot;</span>,
+    <span class="s2">&quot;label&quot;</span>: <span class="s2">&quot;Front&quot;</span>,
+    <span class="s2">&quot;id&quot;</span>: <span class="m">0</span>
+<span class="o">}</span>,
+<span class="s2">&quot;parent_device&quot;</span>: null,
+<span class="s2">&quot;status&quot;</span>: <span class="o">{</span>
+    <span class="s2">&quot;value&quot;</span>: <span class="s2">&quot;active&quot;</span>,
+    <span class="s2">&quot;label&quot;</span>: <span class="s2">&quot;Active&quot;</span>,
+    <span class="s2">&quot;id&quot;</span>: <span class="m">1</span>
+<span class="o">}</span>,
+<span class="s2">&quot;primary_ip&quot;</span>: null,
+<span class="s2">&quot;primary_ip4&quot;</span>: null,
+<span class="s2">&quot;primary_ip6&quot;</span>: null,
+<span class="s2">&quot;cluster&quot;</span>: null,
+<span class="s2">&quot;virtual_chassis&quot;</span>: null,
+<span class="s2">&quot;vc_position&quot;</span>: null,
+<span class="s2">&quot;vc_priority&quot;</span>: null,
+<span class="s2">&quot;comments&quot;</span>: <span class="s2">&quot;&quot;</span>,
+<span class="s2">&quot;local_context_data&quot;</span>: null,
+<span class="s2">&quot;tags&quot;</span>: <span class="o">[]</span>,
+<span class="s2">&quot;custom_fields&quot;</span>: <span class="o">{}</span>,
+<span class="s2">&quot;config_context&quot;</span>: <span class="o">{}</span>,
+<span class="s2">&quot;created&quot;</span>: <span class="s2">&quot;2020-01-14&quot;</span>,
+<span class="s2">&quot;last_updated&quot;</span>: <span class="s2">&quot;2020-01-14T18:39:01.288081Z&quot;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="last figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/get_result.png"><img alt="https://fs.linkmeup.ru/images/adsm/3/get_result.png" src="https://fs.linkmeup.ru/images/adsm/3/get_result.png" style="width: 400px;" /></a>
+</div>
+</dd>
+</dl>
+<p>Это JSON (как мы и просили), описывающий device с ID 1: как называется, с какой ролью, какой модели, где стоит итд.</p>
+<dl class="docutils">
+<dt>Так будет выглядеть HTTP-запрос:</dt>
+<dd><div class="first last highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="hll">GET /api/dcim/devices/1/ HTTP/1.1
+</span>Host: netbox.linkmeup.ru:45127
+User-Agent: curl/7.54.0
+Accept: application/json<span class="p">;</span> <span class="nv">indent</span><span class="o">=</span><span class="m">4</span>
+</pre></div>
+</div>
+</dd>
+<dt>Так будет выглядеть ответ:</dt>
+<dd><div class="first last highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="hll">HTTP/1.1 <span class="m">200</span> OK
+</span>Server: nginx/1.14.0 <span class="o">(</span>Ubuntu<span class="o">)</span>
+Date: Tue, <span class="m">21</span> Jan <span class="m">2020</span> <span class="m">15</span>:14:22 GMT
+Content-Type: application/json
+Content-Length: <span class="m">1638</span>
+Connection: keep-alive
+
+Data
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_devices.pcapng">Дамп транзакции</a>.</p>
+<p>А теперь разберёмся, что же мы натворили.</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="messages.html" class="btn btn-neutral float-right" title="Структура сообщений" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Часть 3. RESTful API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, eucariot
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
