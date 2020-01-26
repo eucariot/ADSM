@@ -8,9 +8,9 @@
 
 Одним из таких интерфейсов является RESTful API, который и используется для работы с NetBox.
 
-Если очень просто, то API даёт клиенту набор инструментов, через которые тот может управлять сервером. А клиентом может выступать по сути что угодно - веб-браузер, командная консоль, разработанное производителем приложение, или вообще любое другое приложение, у которого есть доступ к API.
+Если очень просто, то API даёт клиенту набор инструментов, через которые тот может управлять сервером. А клиентом может выступать по сути что угодно: веб-браузер, командная консоль, разработанное производителем приложение, или вообще любое другое приложение, у которого есть доступ к API.
 
-Например, в случае NetBox, добавить новое устройство в него можно через веб-браузер, отправив <a href="#CURL">curl'ом</a> запрос в консоли, использовать <a href="#POSTMAN">Postman</a>, обратиться к <a href="#REQUESTS">библиотеке requests</a> в питоне, воспользоваться <a href="#PYNETBOX">SDK pynetbox</a> или перейти в <a href="#SWAGGER">Swagger</a>.
+Например, в случае NetBox, добавить новое устройство в него можно следующими способами: через веб-браузер, отправив <a href="#CURL">curl'ом</a> запрос в консоли, использовать <a href="#POSTMAN">Postman</a>, обратиться к <a href="#REQUESTS">библиотеке requests</a> в питоне, воспользоваться <a href="#PYNETBOX">SDK pynetbox</a> или перейти в <a href="#SWAGGER">Swagger</a>.
 
 Таким образом, один раз написав единый интерфейс, производитель навсегда освобождает себя от необходимости с каждым новым клиентом договариваться как его подключать (хотя, это самую малость лукавство).
 
@@ -55,8 +55,8 @@
 О каких именно ограничениях идёт речь, можно почитать в <a href="https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm" target="_blank">главе 5 диссертации Роя Филдинга Architectural Styles and the Design of Network-based Software Architectures</a>. Мне же позвольте привести только три наиболее значимых (с моей точки зрения) из них:
 
 <ol>
-    <li>Модель взаимодействия Клиент-Сервер. </li>
-    <li>Каждый REST-запрос содержит всю информацию, необходимую для его выполнения. То есть сервер не должен помнить ничего о предыдущих запросах клиента, что, как известно, характеризуется словом Sateless - не храним информацию о состоянии. </li>
+    <li>В REST-архитектуре используется модель взаимодействия Клиент-Сервер. </li>
+    <li>Каждый REST-запрос содержит всю информацию, необходимую для его выполнения. То есть сервер не должен помнить ничего о предыдущих запросах клиента, что, как известно, характеризуется словом Stateless - не храним информацию о состоянии. </li>
     <li>Единый интерфейс. Реализация приложения отделена от сервиса, который оно предоставляет. То есть пользователь знает, что оно делает и как с ним взаимодействовать, но как именно оно это делает не имеет значения. При изменении приложения, интерфейс остаётся прежним, и клиентам не нужно подстраиваться.</li>
 </ol>
 
@@ -65,12 +65,12 @@ WEB-сервисы, удовлетворяющие всем принципам R
 
 
 REST - не протокол, а, так называемый, стиль архитектуры (один из). Развиваемому вместе с HTTP Роем Филдингом, REST'у было предназначено использовать <b>HTTP 1.1</b>, в качестве транспорта.
-Адрес сервера - это привычный нам <b>URI</b>.
+Адрес назначения (или иным словом - объект, или ещё иным - эндпоинт) - это привычный нам <a href="https://ru.wikipedia.org/wiki/URI" target="_blank"><b>URI</b></a>.
 Формат передаваемых данных - <b>XML</b> или <b>JSON</b>.
 
 <blockquote>
-    Для этой серии статей на linkmeup развёрнута read-only (для вас, дорогие, читатели) инсталляция <a href="http://netbox.linkmeup.ru:45127" target="_blank">NetBox</a>: http://netbox.linkmeup.ru:45127.
-    На чтение права не требуются, но если хочется попробовать читать с токеном, то можно воспользоваться этим: API Token: 90a22967d0bc4bdcd8ca47ec490bbf0b0cb2d9c8
+    Для этой серии статей на linkmeup развёрнута read-only (для вас, дорогие, читатели) инсталляция NetBox: http://netbox.linkmeup.ru:45127.
+    На чтение права не требуются, но если хочется попробовать читать с токеном, то можно воспользоваться этим: <i>API Token: 90a22967d0bc4bdcd8ca47ec490bbf0b0cb2d9c8</i>.
 </blockquote>
 
 
@@ -81,11 +81,18 @@ curl -X GET -H "Authorization: TOKEN 90a22967d0bc4bdcd8ca47ec490bbf0b0cb2d9c8" \
 http://netbox.linkmeup.ru:45127/api/dcim/devices/1/</code>
 
 То есть утилитой <b>curl</b> мы делаем <b>GET</b> объекта по адресу <b>http://netbox.linkmeup.ru:45127/api/dcim/devices/1/</b> с ответом в формате <b>JSON</b> и отступом в <b>4</b> пробела.
-Его можете выполнить и вы - просто скопируйте себе в терминал.
+Или чуть более академически: GET вовзращает типизированный объект <b>devices</b>, являющийся параметром объекта <b>DCIM</b>.
+
+Этот запрос можете выполнить и вы - просто скопируйте себе в терминал.
+
 
 <blockquote>
     URL, к которому мы обращаемся в запросе, называется <b>Endpoint</b>. В некотором смысле это конечный объект, с которым мы будем взаимодействовать.
     Например, в случае netbox'а список всех endpoint'ов можно получить <a href="http://netbox.linkmeup.ru:45127/api/docs/" target="_blank">тут</a>.
+</blockquote>
+
+<blockquote>
+    И ещё обратите внимание на знак <b>/</b> в конце URL - он <b>обязателен</b>.
 </blockquote>
 
 
@@ -215,7 +222,7 @@ GET /api/dcim/devices/1/ HTTP/1.1</code>
 <code>
 HTTP_VERSION STATUS_CODE REASON_PHRASE</code>
 <blockquote>
-    <b>HTTP_VERSION</b> - версия HTTP.
+    <b>HTTP_VERSION</b> - версия HTTP (1.1).
     <b>STATUS_CODE</b> - три цифры кода состояния (200, 404, 502 итд)
     <b>REASON_PHRASE</b> - Пояснение (OK, NOT FOUND, BAD GATEWAY итд)
 </blockquote>
@@ -239,7 +246,6 @@ HTTP/1.1 200 OK</code>
 <ol>
     <li>Обращаемся к хосту <b>netbox.linkmeup.ru:45127</b>,</li>
     <li>Запрос был сгенерирован в <b>curl</b>,</li>
-    <li>Для авторизации использован Token <b>90a22967d0bc4bdcd8ca47ec490bbf0b0cb2d9c8</b>,</li>
     <li>А принимаем данные в формате <b>JSON</b> с отступом <b>4</b>.</li>
 </ol>
 
@@ -256,18 +262,18 @@ HTTP/1.1 200 OK</code>
     <li>Тип сервера: <b>nginx на Ubuntu</b>,</li>
     <li>Время формирования ответа,</li>
     <li>Формат данных в ответе: <b>JSON</b></li>
-    <li>Длина ответа: <b>1638 байтов</b></li>
+    <li>Длина данных в ответе: <b>1638 байтов</b></li>
     <li>Соединение не нужно закрывать - ещё будут данные.</li>
 </ol>
 
 Заголовки, как вы уже заметили, выглядят как пары имя:значение, разделённые знаком ":".
 
-<a href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields" target="_blank">Полный список заголовков</a>.
+<a href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields" target="_blank">Полный список возможных заголовков</a>.
 
 <a name="BODY"></a>
 <h2>Тело HTTP-сообщения</h2>
 Тело используется для передачи собственно данных.
-В HTTP-ответе это может быть HTML страничка, или в нашем случае JSON-объект.
+В HTTP-ответе это может быть HTML-страничка, или в нашем случае JSON-объект.
 
 Между заголовками и телом должна быть как минимум одна пустая строка.
 
@@ -277,7 +283,7 @@ HTTP/1.1 200 OK</code>
 <a name="METHODS"></a>
 <h1>Методы</h1>
 Как вы уже поняли, для работы с WEB-сервисами HTTP использует методы. То же самое касается и RESTful API.
-Возможные сценарии описываются термином <b>CRUD - Create, Retrieve, Update, Delete</b>.
+Возможные сценарии описываются термином <b>CRUD - Create, Read, Update, Delete</b>.
 Вот список наиболее популярных методов HTTP, реализующих CRUD:
 
 <ul>
@@ -298,11 +304,10 @@ HTTP/1.1 200 OK</code>
 <h2>HTTP GET</h2>
 Это метод для получения информации.
 
-Так мы забираем список устройств:
+Так, например, мы забираем список устройств:
 
 <code>
-curl -H "Authorization: TOKEN 90a22967d0bc4bdcd8ca47ec490bbf0b0cb2d9c8" \
--H "Accept: application/json; indent=4" \
+curl -H "Accept: application/json; indent=4" \
 http://netbox.linkmeup.ru:45127/api/dcim/devices/ </code>
 
 Метод GET <b>безопасный</b> (<b>safe</b>), поскольку не меняет данные, а только запрашивает.
@@ -312,6 +317,7 @@ http://netbox.linkmeup.ru:45127/api/dcim/devices/ </code>
 То есть если всё OK, то код ответа - 200 (OK).
 Если URL не найден - 404 (NOT FOUND).
 Если что-то не так с самим сервером или компонентами, это может быть 500 (SERVER ERROR) или 502 (BAD GATEWAY).
+<a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes" target="_blank">Все возможные коды ответов</a>.
 
 Тело возвращается в формате JSON или XML.
 <a href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_all_devices.pcapng" target="_blank">Дамп транзакции</a>.
@@ -321,7 +327,7 @@ http://netbox.linkmeup.ru:45127/api/dcim/devices/ </code>
 <code>
 curl -X GET -H "Accept: application/json; indent=4" \
 "http://netbox.linkmeup.ru:45127/api/dcim/devices/?name=mlg-leaf-0"</code>
-Здесь, чтобы задать условия поиска в URI я ещё указал атритбут объекта (параметр <b>name</b> и его значение <b>mlg-leaf-0</b>). Как вы можете видеть, перед условием и после слэша идёт знак "?", а имя и значение разделяются знаком "=".
+Здесь, чтобы задать условия поиска в URI я ещё указал атритбут объекта (параметр <b>name</b> и его значение <b>mlg-leaf-0</b>). Как вы можете видеть, перед условием и после слэша идёт знак <b>"?"</b>, а имя и значение разделяются знаком <b>"="</b>.
 
 Так выглядит запрос.
 <code>
@@ -338,11 +344,11 @@ curl -X GET -H "Accept: application/json; indent=4" \
 curl -X GET -H "Accept: application/json; indent=4" \
 "http://netbox.linkmeup.ru:45127/api/dcim/devices/?role=leaf&site=mlg"</code>
 Здесь мы запросили все устройства с ролью <b>leaf</b>, расположенные на сайте <b>mlg</b>.
-То есть два условия отделяются друг от друга знаком "&".
+То есть два условия отделяются друг от друга знаком <b>"&"</b>.
 
 <a href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_device_with_double_conditions.pcapng" target="_blank">Дамп транзакции</a>.
 
-Из любопытного и приятного - если через "&" задать два условия с одним значением, то между ними будет на самом деле не логическое "И", а логическое "ИЛИ".
+Из любопытного и приятного - если через "&" задать два условия с одним именем, то между ними будет на самом деле не логическое "И", а логическое "ИЛИ".
 То есть вот такой запрос и в самом деле вернёт два объекта: mlg-leaf-0 и mlg-spine-0
 <code>
 curl -X GET -H "Accept: application/json; indent=4" \
@@ -356,13 +362,13 @@ curl -X GET -H "Accept: application/json; indent=4" \
 curl -X GET -H "Accept: application/json; indent=4" \
 "http://netbox.linkmeup.ru:45127/api/dcim/IDGAF/"</code>
 <a href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_not_found.pcapng" target="_blank">Дамп транзакции</a>.
-
+<hr>
 <a name="POST"></a>
 <h2>HTTP POST</h2>
 POST используется для создания нового объекта в наборе объектов. Или более сложным языком: для создания нового подчинённого ресурса.
 То есть, если есть набор devices, то POST позволяет создать новый объект device внутри devices. 
 
-Выберем тот же Endpoint !!! и с помощью POST создадим новое устройство.
+Выберем тот же Endpoint и с помощью POST создадим новое устройство.
 
 <code>
 curl -X POST "http://netbox.linkmeup.ru:45127/api/dcim/devices/" \
@@ -370,7 +376,7 @@ curl -X POST "http://netbox.linkmeup.ru:45127/api/dcim/devices/" \
 -H "Content-Type: application/json" \
 -H "Authorization: TOKEN a9aae70d65c928a554f9a038b9d4703a1583594f" \
 -d "{ \"name\": \"just a simple russian girl\", \"device_type\": 1, \"device_role\": 1, \"site\": 3, \"rack\": 3, \"position\": 5, \"face\": \"front\"}"</code>
-Здесь уже появляется Token, который авторизует запрос на запись, а после директивы <b>-d</b> расположен JSON с параметрами создаваемого устройства:
+Здесь уже появляется заголовок <b>Authorization</b>, содержащий токен, который авторизует запрос на запись, а после директивы <b>-d</b> расположен JSON с параметрами создаваемого устройства:
 <code>
 {
     "name": "just a simple russian girl",
@@ -382,7 +388,7 @@ curl -X POST "http://netbox.linkmeup.ru:45127/api/dcim/devices/" \
     "face": "front"}</code>
 
 <blockquote>
-    Запрос у вас не сработает, потому что Токен уже не валиден - не пытайтесь записать в мой NetBox!
+    Запрос у вас не сработает, потому что Токен уже не валиден - не пытайтесь записать в мой NetBox!!!
 </blockquote>
 
 В ответ приходит HTTP-ответ с кодом 201 (CREATED) и JSON'ом в теле сообщения, где сервер возвращает все параметры о созданном устройстве.
@@ -402,11 +408,11 @@ curl -X POST "http://netbox.linkmeup.ru:45127/api/dcim/devices/" \
 curl -X GET -H "Accept: application/json; indent=4" \
 "http://netbox.linkmeup.ru:45127/api/dcim/devices/?q=russian"</code>
 <blockquote>
-    "q" в NetBox'е позволяет найти все объекты, содержание в своём названии строку, идущую дальше.
+    "q" в NetBox'е позволяет найти все объекты, содержащие в своём названии строку, идущую дальше.
 </blockquote>
 
-POST не является ни безопасным, ни идемпотентным - он наверняка меняет данные, и дважды выполненный запрос приведёт или к созданию второго такого же объекта, или к ошибке.
-
+POST, очевидно, не является <b>ни безопасным, ни идемпотентным</b> - он наверняка меняет данные, и дважды выполненный запрос приведёт или к созданию второго такого же объекта, или к ошибке.
+<hr>
 <a name="PUT"></a>
 <h2>HTTP PUT</h2>
 Это метод для изменения существующего объекта. Endpoint для PUT выглядит иначе, чем для POST - в нём теперь содержится конкретный объект.
@@ -435,8 +441,7 @@ curl -X PUT "http://netbox.linkmeup.ru:45127/api/dcim/devices/18/" \
 <blockquote>
 Обратите внимание на URL здесь - теперь он включает ID устройства, которое мы хотим менять (<b>18</b>).
 </blockquote>
-
-
+<hr>
 <a name="PATCH"></a>
 <h2>HTTP PATCH</h2>
 Этот метод используется для частичного изменения ресурса.
@@ -457,7 +462,7 @@ curl -X PATCH "http://netbox.linkmeup.ru:45127/api/dcim/devices/18/" \
 Здесь также в URL указан ID устройства, но для изменения только один атрибут <b>serial</b>.
 
 <a href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_patch_serial.pcapng" target="_blank">Дамп транзакции</a>.
-
+<hr>
 <a name="DELETE"></a>
 <h2>HTTP DELETE</h2>
 Очевидно, удаляет объект.
@@ -477,7 +482,7 @@ curl -X DELETE "http://netbox.linkmeup.ru:45127/api/dcim/devices/21/" \
 -H "Content-Type: application/json" \
 -H "Authorization: TOKEN a9aae70d65c928a554f9a038b9d4703a1583594f"</code>
 <code>
-{"detail":"Not found."}%</code>
+{"detail":"Not found."}</code>
 <hr>
 <a name="WAYS"></a><a name="CURL"></a>
 <h1>Способы работы с RESTful API</h1>
@@ -492,7 +497,7 @@ Postman позволяет в графическом интерфейсе фор
 
 Так мы можем сделать GET:
 <img src="https://fs.linkmeup.ru/images/adsm/3/postman_get.png" width="800">
-<i>Здесь указан Token в GET только для примера</i>
+<i>Здесь указан Token в GET только для примера.</i>
 
 А так POST:
 <img src="https://fs.linkmeup.ru/images/adsm/3/postman_post.png" width="800">
@@ -508,13 +513,13 @@ Postman служит только для работы с RESTful API.
 <img src="https://fs.linkmeup.ru/images/adsm/3/postman_import.png" width="400">
 
 Далее, всё, что только можно, вы найдёте в коллекциях.
-<img src="https://fs.linkmeup.ru/images/adsm/3/postman_collections.png" width="250">
-
+<img src="https://fs.linkmeup.ru/images/adsm/3/postman_collections.png" width="200">
+<hr>
 <a name ="REQUESTS"></a>
 <h2>Python+requests</h2>
 Но даже через Postman вы, скорее всего, не будете управлять своими Production-системами. Наверняка, у вас будут внешние приложения, которые захотят без вашего участия взаимодействовать с ними.
 Например, система генерации конфигурации захочет забрать список IP-интерфейсов из NetBox. 
-В Python есть чудесная библиотека requests, которая реализует работу через HTTP.
+В Python есть чудесная библиотека <b>requests</b>, которая реализует работу через HTTP.
 Пример запроса списка всех устройств:
 
 <code>
@@ -545,7 +550,7 @@ device_parameters = {
 }
 new_device = requests.post(request_url, headers = HEADERS, json=device_parameters)
 print(new_device.json())</code>
-
+<hr>
 <a name="PYNETBOX"></a>
 <h3>Python+NetBox SDK</h3>
 В случае NetBox есть также Python SDK - <a href="https://github.com/digitalocean/pynetbox" target="_blank">Pynetbox</a>, который представляет все Endpoint'ы NetBox в виде объекта и его атрибутов, делая за вас всю грязную работу по формированию URI и парсингу ответа, хотя и не бесплатно, конечно.
@@ -556,10 +561,7 @@ print(new_device.json())</code>
 import pynetbox
 
 NB_URL = "http://netbox.linkmeup.ru:45127"
-
-nb = pynetbox.api(
-        NB_URL
-    )
+nb = pynetbox.api(NB_URL)
 
 devices = nb.dcim.devices.all()
 print(devices)</code>
@@ -570,11 +572,7 @@ import pynetbox
 
 API_TOKEN = "a9aae70d65c928a554f9a038b9d4703a1583594f"
 NB_URL = "http://netbox.linkmeup.ru:45127"
-
-nb = pynetbox.api(
-        NB_URL,
-        token = API_TOKEN
-    )
+nb = pynetbox.api(NB_URL, token = API_TOKEN)
 
 device_parameters = {
     "name": "just a simple PYNETBOX girl", 
@@ -586,10 +584,10 @@ new_device = nb.dcim.devices.create(**device_parameters)
 print(new_device)</code>
 
 <a href="https://pynetbox.readthedocs.io/en/latest/" target="_blank">Документация по Pynetbox</a>.
-
+<hr>
 <a name="SWAGGER"></a>
 <h2>SWAGGER</h2>
-За что ещё стоит поблагодарить ушедшее десятилетие, так это за спецификации API. Если вы перейдёте по <a href="http://netbox.linkmeup.ru:45127/api/docs/" target="_blank">этому пути</a>, то попадёте в Swagger UI - документацию по API.
+За что ещё стоит поблагодарить ушедшее десятилетие, так это за спецификации API. Если вы перейдёте по <a href="http://netbox.linkmeup.ru:45127/api/docs/" target="_blank">этому пути</a>, то попадёте в Swagger UI - документацию по API Netbox.
 
 <img src="https://fs.linkmeup.ru/images/adsm/3/swagger.png" width="800">
 
@@ -608,7 +606,7 @@ print(new_device)</code>
 В Swagger UI можно даже создать объект:
 <img src="https://fs.linkmeup.ru/images/adsm/3/swagger_post.png" width="800">
 
-Для этого достаточно быть авторизованным под пользователем с нужными правами.
+Для этого достаточно быть авторизованным пользователем, обладающим нужными правами.
 
 То, что мы видим на этой странице - это Swagger UI - документация, сгенерированная на основе спецификации API.
 
@@ -650,3 +648,15 @@ Swagger - это фреймворк и язык спецификации (кот
 
     <li><a href="https://habr.com/ru/post/265845/" target="_blank">Критика REST</a></li>
 </ul>
+
+<h1>Спасибы</h1>
+<ul>
+    <li>Андрею Панфилову за вычитку и правки</li>
+</ul>
+
+<hr>
+<blockquote><h5>Оставайтесь на связи</h5>
+<a href="https://linkmeup.ru/rss"><img src="https://linkmeup.ru/templates/skin/synio/images/RSS.png" title="RSS сайта"></a><a href="mailto:info@linkmeup.ru"><img src="https://linkmeup.ru/templates/skin/synio/images/Email.png" title="Написать авторам"></a><a href="https://vk.com/linkmeup"><img src="https://linkmeup.ru/templates/skin/synio/images/vk1.png" title="linkmeup вконтакте"></a><a href="https://www.facebook.com/linkmeup.sdsm"><img src="https://linkmeup.ru/templates/skin/synio/images/Facebook.png" title="linkmeup на Фейсбуке"></a><a href="https://www.patreon.com/linkmeup"><img src="https://linkmeup.ru/templates/skin/synio/images/patreon.png" width="25" title=" Поддержать linkmeup на Patreon"></a>
+
+Особо благодарных просим задержаться и пройти на Патреон.
+<a href="https://www.patreon.com/linkmeup?ty=h" target="_blank"><img src="https://fs.linkmeup.ru/images/patreon.jpg" width="400"></a></blockquote>
