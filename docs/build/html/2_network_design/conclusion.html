@@ -82,6 +82,7 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Часть 2. Дизайн сети</a></li>
 </ul>
 
             
@@ -148,6 +149,31 @@
             
   <div class="section" id="id1">
 <h1>Заключение<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="line-block">
+<div class="line">Так же принято? Под каждой статьёй делать короткий вывод?</div>
+<div class="line">Итак мы выбрали <a class="reference external" href="https://linkmeup.ru/blog/480.html">трёхуровневую</a> сеть Клоза внутри ДЦ, поскольку ожидаем много East-West трафика и хотим ECMP.</div>
+<div class="line">Разделили сеть на физическую (андерлей) и виртуальную (оверлей). При этом оверлей начинается с хоста - тем самым упростили требования к андерлею.</div>
+<div class="line">Выбрали BGP в качестве протокола маршрутизации анедрелейных сетей за его масштабируемость и гибкость политик.</div>
+<div class="line">У нас будут отдельные узлы для организации DCI - Edge-leaf.</div>
+<div class="line">На магистрали будет OSPF+LDP.</div>
+<div class="line">DCI будет реализован на основе MPLS L3VPN.</div>
+<div class="line">Для P2P-линков IP-адреса мы будем вычислять алгоритмически на основе  имён устройств.</div>
+<div class="line">Лупбэки будем назначать по роли устройств и их расположению последовательно.</div>
+<div class="line">Андерлейные префиксы - только на Leaf-коммутаторы последовательно на основе их расположения.</div>
+</div>
+<div class="line-block">
+<div class="line">Предположим, что прямо сейчас у нас ещё не установлено оборудование.</div>
+<div class="line">Поэтому наши следующие шаги будут - завести их в системах (IPAM, инвентарная), организовать доступ, сгенерировать конфигурацию и задеплоить её.</div>
+</div>
+<p>В следующей статье разберёмся с Netbox - системой инвентаризации и управления IP-пространством в ДЦ.</p>
+<div class="section" id="id3">
+<h2>Спасибы<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<ul class="simple">
+<li>Андрею Глазкову aka &#64;glazgoo за вычитку и правки</li>
+<li>Александру Клименко aka &#64;v00lk за вычитку и правки</li>
+<li>Артёму Чернобаю за КДПВ</li>
+</ul>
+</div>
 </div>
 
 

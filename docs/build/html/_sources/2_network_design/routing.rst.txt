@@ -8,6 +8,7 @@
     .. figure:: https://fs.linkmeup.ru/images/adsm/2/bird_view.png
            :width: 800
            :align: center
+
 *Общая схема маршрутизации*
 
 На фабрике никаких OSPF и ISIS (запрещённый в Российской Федерации протокол маршрутизации).
@@ -16,6 +17,7 @@
     .. figure:: https://fs.linkmeup.ru/images/adsm/2/bgp_in_dc.png
            :width: 600
            :align: center
+
 *Схема маршрутизации BGP внутри ДЦ*
 
 **Почему BGP?**
@@ -80,10 +82,11 @@ Spine ASN
 
 **Почему одинаковые ASN на всех спайнах одного ДЦ**
 Вот как будет выглядеть AS-Path Андерлейного маршрута на Edge-Leaf:
+
     .. code-block:: bash
        :emphasize-lines: 1
 
-        [leafX_ASN, **spine_ASN**, edge_ASN]
+       [leafX_ASN, spine_ASN, edge_ASN]
 
 При попытке заанонсировать его обратно на Спайн, тот его отбросит потому что его AS (Spine_AS) уже есть в списке. 
 
@@ -97,12 +100,13 @@ Spine ASN
 
 **Почему разные в разных ДЦ** 
 Теоретически нам может потребоваться протащить Loopback'и каких-нибудь сервисных виртуальных машин между ДЦ.
-Например, на хосте у нас запустится Route Reflector или `тот самый VNGW <https://linkmeup.ru/blog/449.html#EXTERNAL>`_(Virtual Network Gateway), который по BGP запирится с ТоРом и проанонсирует свой лупбэк, который должен быть доступен из всех ДЦ. 
+Например, на хосте у нас запустится Route Reflector или `тот самый VNGW <https://linkmeup.ru/blog/449.html#EXTERNAL>`_ (Virtual Network Gateway), который по BGP запирится с ТоРом и проанонсирует свой лупбэк, который должен быть доступен из всех ДЦ. 
 Так вот как будет выглядеть его AS-Path:
+
     .. code-block:: bash
        :emphasize-lines: 1
 
-        [VNF_ASN, leafX_DC1_ASN, **spine_DC1_ASN**, edge_ASN, **spine_DC2_ASN**, leafY_DC2_ASN]
+       [VNF_ASN, leafX_DC1_ASN, **spine_DC1_ASN**, edge_ASN, **spine_DC2_ASN**, leafY_DC2_ASN]
 
 И здесь нигде не должно быть повторяющихся ASN. 
 
@@ -132,7 +136,7 @@ Leaf ASN
     .. code-block:: bash
        :emphasize-lines: 1
 
-        [VNF_ASN, **leafX_DC1_ASN**, spine_DC1_ASN, edge_ASN, spine_DC2_ASN, **leafY_DC2_ASN**]
+        [VNF_ASN, leafX_DC1_ASN, spine_DC1_ASN, edge_ASN, spine_DC2_ASN, leafY_DC2_ASN]
 
 Будем использовать 4-байтовый ASN и генерировать его на основе ASN Spine'а и номера Leaf-коммутатора, а именно, вот так: *Spine_ASN.0000X*.
 

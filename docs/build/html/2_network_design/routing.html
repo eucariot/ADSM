@@ -98,6 +98,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ip_plan.html">IP-план</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lab.html">Лаба</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.html">Заключение</a></li>
 </ul>
 </li>
 </ul>
@@ -237,7 +238,7 @@
 <p><strong>Почему одинаковые ASN на всех спайнах одного ДЦ</strong>
 Вот как будет выглядеть AS-Path Андерлейного маршрута на Edge-Leaf:</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="hll"> <span class="o">[</span>leafX_ASN, **spine_ASN**, edge_ASN<span class="o">]</span>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="o">[</span>leafX_ASN, spine_ASN, edge_ASN<span class="o">]</span>
 </span></pre></div>
 </div>
 </div></blockquote>
@@ -251,10 +252,10 @@
 <p>При этом агрегированные маршруты других ДЦ в любом случае беспрепятственно будут доходить до ТоРов - в их AS-Path будет только ASN 65535 - номер AS Edge-Leaf’ов, потому что именно на них они были созданы.</p>
 <p><strong>Почему разные в разных ДЦ</strong>
 Теоретически нам может потребоваться протащить Loopback’и каких-нибудь сервисных виртуальных машин между ДЦ.
-Например, на хосте у нас запустится Route Reflector или <a href="#id4"><span class="problematic" id="id5">`</span></a>тот самый VNGW &lt;<a class="reference external" href="https://linkmeup.ru/blog/449.html#EXTERNAL">https://linkmeup.ru/blog/449.html#EXTERNAL</a>&gt;`_(Virtual Network Gateway), который по BGP запирится с ТоРом и проанонсирует свой лупбэк, который должен быть доступен из всех ДЦ.
+Например, на хосте у нас запустится Route Reflector или <a class="reference external" href="https://linkmeup.ru/blog/449.html#EXTERNAL">тот самый VNGW</a> (Virtual Network Gateway), который по BGP запирится с ТоРом и проанонсирует свой лупбэк, который должен быть доступен из всех ДЦ.
 Так вот как будет выглядеть его AS-Path:</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="hll"> <span class="o">[</span>VNF_ASN, leafX_DC1_ASN, **spine_DC1_ASN**, edge_ASN, **spine_DC2_ASN**, leafY_DC2_ASN<span class="o">]</span>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="o">[</span>VNF_ASN, leafX_DC1_ASN, **spine_DC1_ASN**, edge_ASN, **spine_DC2_ASN**, leafY_DC2_ASN<span class="o">]</span>
 </span></pre></div>
 </div>
 </div></blockquote>
@@ -283,7 +284,7 @@
 <p>где leafX_ASN и leafY_ASN хорошо бы, чтобы отличались.
 Требуется это и для ситуации с анонсом лупбэка VNF между ДЦ:</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="hll"> <span class="o">[</span>VNF_ASN, **leafX_DC1_ASN**, spine_DC1_ASN, edge_ASN, spine_DC2_ASN, **leafY_DC2_ASN**<span class="o">]</span>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="hll"> <span class="o">[</span>VNF_ASN, leafX_DC1_ASN, spine_DC1_ASN, edge_ASN, spine_DC2_ASN, leafY_DC2_ASN<span class="o">]</span>
 </span></pre></div>
 </div>
 </div></blockquote>
