@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
     <link rel="search" title="Поиск" href="../search.html" />
-    <link rel="next" title="RESTful API" href="restful/index.html" />
+    <link rel="next" title="Архитектура системы" href="architecture.html" />
     <link rel="prev" title="Заключение" href="../2_network_design/conclusion.html" /> 
 </head>
 
@@ -86,12 +86,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Часть 3. IPAM/DCIM-системы</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="restful/index.html">RESTful API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture.html">Архитектура системы</a></li>
 <li class="toctree-l2"><a class="reference internal" href="scheme.html">Схема данных NetBox</a></li>
-<li class="toctree-l2"><a class="reference internal" href="conclusion.html">Заключение</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html">Некоторые нюансы установки NetBox</a></li>
 <li class="toctree-l2"><a class="reference internal" href="postgresql.html">Немного о PostgreSQL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restful/index.html">RESTful API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.html">Заключение</a></li>
 </ul>
 </li>
 </ul>
@@ -171,12 +171,12 @@
 </div>
 <blockquote>
 <div><div class="figure align-center">
-<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/kdpv_ipam.svg&quot;"><img alt="https://fs.linkmeup.ru/images/adsm/3/kdpv_ipam.svg&quot;" src="https://fs.linkmeup.ru/images/adsm/3/kdpv_ipam.svg&quot;" style="width: 800px;" /></a>
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/kdpv_ipam.svg"><img alt="https://fs.linkmeup.ru/images/adsm/3/kdpv_ipam.svg" src="https://fs.linkmeup.ru/images/adsm/3/kdpv_ipam.svg" width="800" /></a>
 </div>
 </div></blockquote>
 <div class="line-block">
 <div class="line">Этот выпуск я посвящу неотъемлемым системам в сетевой автоматизации - системе управления адресным пространством и инвентарной системе.</div>
-<div class="line">Мы выберем и установим её, разберёмся с архитектурой, схемой БД, интерфейсами взаимодействия и наполним её. | А в следующих частях начнём писать несложные скрипты, автоматизирующие повторяющиеся операции, такие как добавление новых стоек.</div>
+<div class="line">Мы выберем и установим её, разберёмся с архитектурой, схемой БД, интерфейсами взаимодействия и наполним её. А в следующих частях начнём писать несложные скрипты, автоматизирующие повторяющиеся операции, такие как добавление новых стоек.</div>
 <div class="line">Кроме того, я уже опубликовал отдельную статью о <a class="reference external" href="https://linkmeup.ru/blog/530.html">RESTful API</a>, в которой сделал короткий обзор его принципов и работы, это нам понадобится.</div>
 </div>
 <p>Сегодня рынок предлагает около дюжины инструментов, реализующих эту задачу: как платных, так и Open Source.</p>
@@ -215,31 +215,30 @@
 <li><a class="reference external" href="http://netbox.linkmeup.ru:45127/">Инсталляция NetBox для нужд АДСМ</a></li>
 </ul>
 <div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Дизайн сети:</span></p>
+<p class="caption"><span class="caption-text">Содержание:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Архитектура системы</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scheme.html">Схема данных NetBox</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scheme.html#dcim">DCIM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheme.html#ipam">IPAM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheme.html#id21">Виртуализация</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheme.html#id22">Дополнительные приятные вещи</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Некоторые нюансы установки NetBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgresql.html">Немного о PostgreSQL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="restful/index.html">RESTful API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="restful/rest.html">REST, RESTful, API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="restful/messages.html">Структура сообщений HTTP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="restful/methods.html">Методы</a></li>
 <li class="toctree-l2"><a class="reference internal" href="restful/ways.html">Способы работы с RESTful API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="restful/other.html">Критика RESTful API и альтернативы</a></li>
 <li class="toctree-l2"><a class="reference internal" href="restful/conclusion.html">Заключение</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="architecture.html">Архитектура системы</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scheme.html">Схема данных NetBox</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="scheme.html#dcim">DCIM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scheme.html#ipam">IPAM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scheme.html#id19">Виртуализация</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scheme.html#id20">Дополнительные приятные вещи</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="conclusion.html">Заключение</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="conclusion.html#id3">Полезные ссылки</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Некоторые нюансы установки NetBox</a></li>
-<li class="toctree-l1"><a class="reference internal" href="postgresql.html">Немного о PostgreSQL</a></li>
 </ul>
 </div>
 </div>
@@ -252,7 +251,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="restful/index.html" class="btn btn-neutral float-right" title="RESTful API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="architecture.html" class="btn btn-neutral float-right" title="Архитектура системы" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../2_network_design/conclusion.html" class="btn btn-neutral float-left" title="Заключение" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -86,6 +86,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Часть 3. IPAM/DCIM-системы</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html">Архитектура системы</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scheme.html">Схема данных NetBox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html">Некоторые нюансы установки NetBox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../postgresql.html">Немного о PostgreSQL</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">RESTful API</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="rest.html">REST, RESTful, API</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Структура сообщений HTTP</a><ul>
@@ -96,15 +100,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="methods.html">Методы</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ways.html">Способы работы с RESTful API</a></li>
-<li class="toctree-l3"><a class="reference internal" href="other.html">Критика RESTful API и альтернативы</a></li>
 <li class="toctree-l3"><a class="reference internal" href="conclusion.html">Заключение</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../architecture.html">Архитектура системы</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../scheme.html">Схема данных NetBox</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../conclusion.html">Заключение</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html">Некоторые нюансы установки NetBox</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../postgresql.html">Немного о PostgreSQL</a></li>
 </ul>
 </li>
 </ul>
@@ -210,9 +209,11 @@
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>HTTP_VERSION STATUS_CODE REASON_PHRASE
 </pre></div>
 </div>
-<p><strong>HTTP_VERSION</strong> - версия HTTP (1.1).
-<strong>STATUS_CODE</strong> - три цифры кода состояния (200, 404, 502 итд)
-<strong>REASON_PHRASE</strong> - Пояснение (OK, NOT FOUND, BAD GATEWAY итд)</p>
+<div class="line-block">
+<div class="line"><strong>HTTP_VERSION</strong> - версия HTTP (1.1).</div>
+<div class="line"><strong>STATUS_CODE</strong> - три цифры кода состояния (200, 404, 502 итд)</div>
+<div class="line"><strong>REASON_PHRASE</strong> - Пояснение (OK, NOT FOUND, BAD GATEWAY итд)</div>
+</div>
 </div></blockquote>
 <dl class="docutils">
 <dt>Пример:</dt>
@@ -226,15 +227,14 @@
 <div class="section" id="id4">
 <h2>Заголовки<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
 <p>В заголовках передаются параметры данной HTTP-транзакции.</p>
-<dl class="docutils">
-<dt>Например, в примере выше в  HTTP-запросе это были:</dt>
-<dd><div class="first last highlight-bash notranslate"><div class="highlight"><pre><span></span>Host: netbox.linkmeup.ru:45127
+<p>Например, в примере выше в  HTTP-запросе это были:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Host: netbox.linkmeup.ru:45127
 User-Agent: curl/7.54.0
 Accept: application/json<span class="p">;</span> <span class="nv">indent</span><span class="o">=</span><span class="m">4</span>
 </pre></div>
 </div>
-</dd>
-</dl>
+</div></blockquote>
 <p>В них указано, что</p>
 <ul class="simple">
 <li>Обращаемся к хосту <strong>netbox.linkmeup.ru:45127</strong>,</li>

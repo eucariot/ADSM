@@ -86,6 +86,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Часть 3. IPAM/DCIM-системы</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html">Архитектура системы</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scheme.html">Схема данных NetBox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html">Некоторые нюансы установки NetBox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../postgresql.html">Немного о PostgreSQL</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">RESTful API</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="rest.html">REST, RESTful, API</a></li>
 <li class="toctree-l3"><a class="reference internal" href="messages.html">Структура сообщений HTTP</a></li>
@@ -98,15 +102,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ways.html">Способы работы с RESTful API</a></li>
-<li class="toctree-l3"><a class="reference internal" href="other.html">Критика RESTful API и альтернативы</a></li>
 <li class="toctree-l3"><a class="reference internal" href="conclusion.html">Заключение</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../architecture.html">Архитектура системы</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../scheme.html">Схема данных NetBox</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../conclusion.html">Заключение</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html">Некоторые нюансы установки NetBox</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../postgresql.html">Немного о PostgreSQL</a></li>
 </ul>
 </li>
 </ul>
@@ -203,13 +202,17 @@
 </div></blockquote>
 <p>Метод GET <strong>безопасный</strong> (<strong>safe</strong>), поскольку не меняет данные, а только запрашивает.
 Он <strong>идемпотентный</strong> с той точки зрения, что один и тот же запрос всегда возвращает одинаковый результат (до тех пор, пока сами данные не поменялись).</p>
-<p>На GET сервер возвращает сообщение с HTTP-кодом и телом ответа (<strong>response code</strong> и <strong>response body</strong>).
-То есть если всё OK, то код ответа - 200 (OK).
-Если URL не найден - 404 (NOT FOUND).
-Если что-то не так с самим сервером или компонентами, это может быть 500 (SERVER ERROR) или 502 (BAD GATEWAY).
-<a class="reference external" href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">Все возможные коды ответов</a>.</p>
-<p>Тело возвращается в формате JSON или XML.
-<a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_all_devices.pcapng">Дамп транзакции</a>.</p>
+<div class="line-block">
+<div class="line">На GET сервер возвращает сообщение с HTTP-кодом и телом ответа (<strong>response code</strong> и <strong>response body</strong>).</div>
+<div class="line">То есть если всё OK, то код ответа - 200 (OK).</div>
+<div class="line">Если URL не найден - 404 (NOT FOUND).</div>
+<div class="line">Если что-то не так с самим сервером или компонентами, это может быть 500 (SERVER ERROR) или 502 (BAD GATEWAY).</div>
+<div class="line"><a class="reference external" href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">Все возможные коды ответов</a>.</div>
+</div>
+<div class="line-block">
+<div class="line">Тело возвращается в формате JSON или XML.</div>
+<div class="line"><a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_all_devices.pcapng">Дамп транзакции</a>.</div>
+</div>
 <p>Давайте ещё пару примеров. Теперь мы запросим информацию по конкретному устройству по его имени.</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/?name=mlg-leaf-0&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
@@ -236,8 +239,10 @@ Accept: application/json<span class="p">;</span> <span class="nv">indent</span><
 <p>Здесь мы запросили все устройства с ролью <strong>leaf</strong>, расположенные на сайте <strong>mlg</strong>.
 То есть два условия отделяются друг от друга знаком <strong>«&amp;»</strong>.</p>
 <p><a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_device_with_double_conditions.pcapng">Дамп транзакции</a>.</p>
-<p>Из любопытного и приятного - если через «&amp;» задать два условия с одним именем, то между ними будет на самом деле не логическое «И», а логическое «ИЛИ».
-То есть вот такой запрос и в самом деле вернёт два объекта: mlg-leaf-0 и mlg-spine-0</p>
+<div class="line-block">
+<div class="line">Из любопытного и приятного - если через «&amp;» задать два условия с одним именем, то между ними будет на самом деле не логическое «И», а логическое «ИЛИ».</div>
+<div class="line">То есть вот такой запрос и в самом деле вернёт два объекта: mlg-leaf-0 и mlg-spine-0</div>
+</div>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/?name=mlg-leaf-0&amp;name=mlg-spine-0&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
 </pre></div>
@@ -254,8 +259,10 @@ Accept: application/json<span class="p">;</span> <span class="nv">indent</span><
 </div>
 <div class="section" id="http-post">
 <h2>HTTP POST<a class="headerlink" href="#http-post" title="Ссылка на этот заголовок">¶</a></h2>
-<p>POST используется для создания нового объекта в наборе объектов. Или более сложным языком: для создания нового подчинённого ресурса.
-То есть, если есть набор devices, то POST позволяет создать новый объект device внутри devices.</p>
+<div class="line-block">
+<div class="line">POST используется для создания нового объекта в наборе объектов. Или более сложным языком: для создания нового подчинённого ресурса.</div>
+<div class="line">То есть, если есть набор devices, то POST позволяет создать новый объект device внутри devices.</div>
+</div>
 <p>Выберем тот же Endpoint и с помощью POST создадим новое устройство.</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X POST <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/&quot;</span> <span class="se">\</span>
@@ -277,9 +284,6 @@ Accept: application/json<span class="p">;</span> <span class="nv">indent</span><
     <span class="s2">&quot;position&quot;</span>: <span class="m">5</span>,
     <span class="s2">&quot;face&quot;</span>: <span class="s2">&quot;front&quot;</span><span class="o">}</span>
 </pre></div>
-</div>
-<div class="figure align-center">
-<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/post_result.png"><img alt="https://fs.linkmeup.ru/images/adsm/3/post_result.png" src="https://fs.linkmeup.ru/images/adsm/3/post_result.png" style="width: 400px;" /></a>
 </div>
 <p>Запрос у вас <strong>не сработает</strong>, потому что токен уже не валиден - не пытайтесь записать в мой NetBox.</p>
 </div></blockquote>
@@ -308,10 +312,14 @@ JSON
 </div>
 <div class="section" id="http-put">
 <h2>HTTP PUT<a class="headerlink" href="#http-put" title="Ссылка на этот заголовок">¶</a></h2>
-<p>Это метод для изменения существующего объекта. Endpoint для PUT выглядит иначе, чем для POST - в нём теперь содержится конкретный объект.
-PUT может возвращать коды 201 или 200.</p>
-<p>Важный момент с этим методом: нужно передавать все обязательные атрибуты, поскольку PUT замещает собой старый объект.
-Поэтому, если например, просто попытаться добавить атрибут asset_tag нашему новому устройству, то получим ошибку:</p>
+<div class="line-block">
+<div class="line">Это метод для изменения существующего объекта. Endpoint для PUT выглядит иначе, чем для POST - в нём теперь содержится конкретный объект.</div>
+<div class="line">PUT может возвращать коды 201 или 200.</div>
+</div>
+<div class="line-block">
+<div class="line">Важный момент с этим методом: нужно передавать все обязательные атрибуты, поскольку PUT замещает собой старый объект.</div>
+<div class="line">Поэтому, если например, просто попытаться добавить атрибут asset_tag нашему новому устройству, то получим ошибку:</div>
+</div>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X PUT <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/18/&quot;</span> <span class="se">\</span>
 -H <span class="s2">&quot;accept: application/json&quot;</span> <span class="se">\</span>
@@ -342,8 +350,10 @@ PUT может возвращать коды 201 или 200.</p>
 </div>
 <div class="section" id="http-patch">
 <h2>HTTP PATCH<a class="headerlink" href="#http-patch" title="Ссылка на этот заголовок">¶</a></h2>
-<p>Этот метод используется для частичного изменения ресурса.
-WAT? Спросите вы, а как же PUT?</p>
+<div class="line-block">
+<div class="line">Этот метод используется для частичного изменения ресурса.</div>
+<div class="line">WAT? Спросите вы, а как же PUT?</div>
+</div>
 <p>PUT - изначально существовавший в стандарте метод, предполагающий полную замену изменяемого объекта. Соответственно в методе PUT, как я и писал выше, придётся указать даже те атрибуты объекта, которые не меняются.</p>
 <p>А PATCH был добавлен позже и позволяет указать только те атрибуты, которые действительно меняются.</p>
 <p>Например:</p>

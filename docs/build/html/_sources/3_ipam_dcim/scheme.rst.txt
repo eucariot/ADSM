@@ -11,106 +11,107 @@ NetBox едва ли станет единственной системой ин
     И эти же данные понадобятся в дальнейшем, когда мы перейдём к автоматизации.
 
 В общих чертах схему данных можно увидеть по схеме БД в Postgres'е
-
-+--------+------------------------------------+-------+--------+
-|        |               List of relations    |       |        |
-| Schema |                Name                | Type  | Owner  |
-+========+====================================+=======+========+
-| public | auth_group                         | table | netbox |
-| public | auth_group_permissions             | table | netbox |
-| public | auth_permission                    | table | netbox |
-| public | auth_user                          | table | netbox |
-| public | auth_user_groups                   | table | netbox |
-| public | auth_user_user_permissions         | table | netbox |
-| public | circuits_circuit                   | table | netbox |
-| public | circuits_circuittermination        | table | netbox |
-| public | circuits_circuittype               | table | netbox |
-| public | circuits_provider                  | table | netbox |
-| public | dcim_cable                         | table | netbox |
-| public | dcim_consoleport                   | table | netbox |
-| public | dcim_consoleporttemplate           | table | netbox |
-| public | dcim_consoleserverport             | table | netbox |
-| public | dcim_consoleserverporttemplate     | table | netbox |
-| public | dcim_device                        | table | netbox |
-| public | dcim_devicebay                     | table | netbox |
-| public | dcim_devicebaytemplate             | table | netbox |
-| public | dcim_devicerole                    | table | netbox |
-| public | dcim_devicetype                    | table | netbox |
-| public | dcim_frontport                     | table | netbox |
-| public | dcim_frontporttemplate             | table | netbox |
-| public | dcim_interface                     | table | netbox |
-| public | dcim_interface_tagged_vlans        | table | netbox |
-| public | dcim_interfacetemplate             | table | netbox |
-| public | dcim_inventoryitem                 | table | netbox |
-| public | dcim_manufacturer                  | table | netbox |
-| public | dcim_platform                      | table | netbox |
-| public | dcim_powerfeed                     | table | netbox |
-| public | dcim_poweroutlet                   | table | netbox |
-| public | dcim_poweroutlettemplate           | table | netbox |
-| public | dcim_powerpanel                    | table | netbox |
-| public | dcim_powerport                     | table | netbox |
-| public | dcim_powerporttemplate             | table | netbox |
-| public | dcim_rack                          | table | netbox |
-| public | dcim_rackgroup                     | table | netbox |
-| public | dcim_rackreservation               | table | netbox |
-| public | dcim_rackrole                      | table | netbox |
-| public | dcim_rearport                      | table | netbox |
-| public | dcim_rearporttemplate              | table | netbox |
-| public | dcim_region                        | table | netbox |
-| public | dcim_site                          | table | netbox |
-| public | dcim_virtualchassis                | table | netbox |
-| public | django_admin_log                   | table | netbox |
-| public | django_content_type                | table | netbox |
-| public | django_migrations                  | table | netbox |
-| public | django_session                     | table | netbox |
-| public | extras_configcontext               | table | netbox |
-| public | extras_configcontext_platforms     | table | netbox |
-| public | extras_configcontext_regions       | table | netbox |
-| public | extras_configcontext_roles         | table | netbox |
-| public | extras_configcontext_sites         | table | netbox |
-| public | extras_configcontext_tags          | table | netbox |
-| public | extras_configcontext_tenant_groups | table | netbox |
-| public | extras_configcontext_tenants       | table | netbox |
-| public | extras_customfield                 | table | netbox |
-| public | extras_customfield_obj_type        | table | netbox |
-| public | extras_customfieldchoice           | table | netbox |
-| public | extras_customfieldvalue            | table | netbox |
-| public | extras_customlink                  | table | netbox |
-| public | extras_exporttemplate              | table | netbox |
-| public | extras_graph                       | table | netbox |
-| public | extras_imageattachment             | table | netbox |
-| public | extras_objectchange                | table | netbox |
-| public | extras_reportresult                | table | netbox |
-| public | extras_tag                         | table | netbox |
-| public | extras_taggeditem                  | table | netbox |
-| public | extras_webhook                     | table | netbox |
-| public | extras_webhook_obj_type            | table | netbox |
-| public | ipam_aggregate                     | table | netbox |
-| public | ipam_ipaddress                     | table | netbox |
-| public | ipam_prefix                        | table | netbox |
-| public | ipam_rir                           | table | netbox |
-| public | ipam_role                          | table | netbox |
-| public | ipam_service                       | table | netbox |
-| public | ipam_service_ipaddresses           | table | netbox |
-| public | ipam_vlan                          | table | netbox |
-| public | ipam_vlangroup                     | table | netbox |
-| public | ipam_vrf                           | table | netbox |
-| public | secrets_secret                     | table | netbox |
-| public | secrets_secretrole                 | table | netbox |
-| public | secrets_secretrole_groups          | table | netbox |
-| public | secrets_secretrole_users           | table | netbox |
-| public | secrets_sessionkey                 | table | netbox |
-| public | secrets_userkey                    | table | netbox |
-| public | taggit_tag                         | table | netbox |
-| public | taggit_taggeditem                  | table | netbox |
-| public | tenancy_tenant                     | table | netbox |
-| public | tenancy_tenantgroup                | table | netbox |
-| public | users_token                        | table | netbox |
-| public | virtualization_cluster             | table | netbox |
-| public | virtualization_clustergroup        | table | netbox |
-| public | virtualization_clustertype         | table | netbox |
-| public | virtualization_virtualmachine      | table | netbox |
-+-------+-------------------------------------+-------+--------+
+    .. code-block:: bash
+    
+       +--------+------------------------------------+-------+--------+
+       |        |               List of relations    |       |        |
+       | Schema |                Name                | Type  | Owner  |
+       +========+====================================+=======+========+
+       | public | auth_group                         | table | netbox |
+       | public | auth_group_permissions             | table | netbox |
+       | public | auth_permission                    | table | netbox |
+       | public | auth_user                          | table | netbox |
+       | public | auth_user_groups                   | table | netbox |
+       | public | auth_user_user_permissions         | table | netbox |
+       | public | circuits_circuit                   | table | netbox |
+       | public | circuits_circuittermination        | table | netbox |
+       | public | circuits_circuittype               | table | netbox |
+       | public | circuits_provider                  | table | netbox |
+       | public | dcim_cable                         | table | netbox |
+       | public | dcim_consoleport                   | table | netbox |
+       | public | dcim_consoleporttemplate           | table | netbox |
+       | public | dcim_consoleserverport             | table | netbox |
+       | public | dcim_consoleserverporttemplate     | table | netbox |
+       | public | dcim_device                        | table | netbox |
+       | public | dcim_devicebay                     | table | netbox |
+       | public | dcim_devicebaytemplate             | table | netbox |
+       | public | dcim_devicerole                    | table | netbox |
+       | public | dcim_devicetype                    | table | netbox |
+       | public | dcim_frontport                     | table | netbox |
+       | public | dcim_frontporttemplate             | table | netbox |
+       | public | dcim_interface                     | table | netbox |
+       | public | dcim_interface_tagged_vlans        | table | netbox |
+       | public | dcim_interfacetemplate             | table | netbox |
+       | public | dcim_inventoryitem                 | table | netbox |
+       | public | dcim_manufacturer                  | table | netbox |
+       | public | dcim_platform                      | table | netbox |
+       | public | dcim_powerfeed                     | table | netbox |
+       | public | dcim_poweroutlet                   | table | netbox |
+       | public | dcim_poweroutlettemplate           | table | netbox |
+       | public | dcim_powerpanel                    | table | netbox |
+       | public | dcim_powerport                     | table | netbox |
+       | public | dcim_powerporttemplate             | table | netbox |
+       | public | dcim_rack                          | table | netbox |
+       | public | dcim_rackgroup                     | table | netbox |
+       | public | dcim_rackreservation               | table | netbox |
+       | public | dcim_rackrole                      | table | netbox |
+       | public | dcim_rearport                      | table | netbox |
+       | public | dcim_rearporttemplate              | table | netbox |
+       | public | dcim_region                        | table | netbox |
+       | public | dcim_site                          | table | netbox |
+       | public | dcim_virtualchassis                | table | netbox |
+       | public | django_admin_log                   | table | netbox |
+       | public | django_content_type                | table | netbox |
+       | public | django_migrations                  | table | netbox |
+       | public | django_session                     | table | netbox |
+       | public | extras_configcontext               | table | netbox |
+       | public | extras_configcontext_platforms     | table | netbox |
+       | public | extras_configcontext_regions       | table | netbox |
+       | public | extras_configcontext_roles         | table | netbox |
+       | public | extras_configcontext_sites         | table | netbox |
+       | public | extras_configcontext_tags          | table | netbox |
+       | public | extras_configcontext_tenant_groups | table | netbox |
+       | public | extras_configcontext_tenants       | table | netbox |
+       | public | extras_customfield                 | table | netbox |
+       | public | extras_customfield_obj_type        | table | netbox |
+       | public | extras_customfieldchoice           | table | netbox |
+       | public | extras_customfieldvalue            | table | netbox |
+       | public | extras_customlink                  | table | netbox |
+       | public | extras_exporttemplate              | table | netbox |
+       | public | extras_graph                       | table | netbox |
+       | public | extras_imageattachment             | table | netbox |
+       | public | extras_objectchange                | table | netbox |
+       | public | extras_reportresult                | table | netbox |
+       | public | extras_tag                         | table | netbox |
+       | public | extras_taggeditem                  | table | netbox |
+       | public | extras_webhook                     | table | netbox |
+       | public | extras_webhook_obj_type            | table | netbox |
+       | public | ipam_aggregate                     | table | netbox |
+       | public | ipam_ipaddress                     | table | netbox |
+       | public | ipam_prefix                        | table | netbox |
+       | public | ipam_rir                           | table | netbox |
+       | public | ipam_role                          | table | netbox |
+       | public | ipam_service                       | table | netbox |
+       | public | ipam_service_ipaddresses           | table | netbox |
+       | public | ipam_vlan                          | table | netbox |
+       | public | ipam_vlangroup                     | table | netbox |
+       | public | ipam_vrf                           | table | netbox |
+       | public | secrets_secret                     | table | netbox |
+       | public | secrets_secretrole                 | table | netbox |
+       | public | secrets_secretrole_groups          | table | netbox |
+       | public | secrets_secretrole_users           | table | netbox |
+       | public | secrets_sessionkey                 | table | netbox |
+       | public | secrets_userkey                    | table | netbox |
+       | public | taggit_tag                         | table | netbox |
+       | public | taggit_taggeditem                  | table | netbox |
+       | public | tenancy_tenant                     | table | netbox |
+       | public | tenancy_tenantgroup                | table | netbox |
+       | public | users_token                        | table | netbox |
+       | public | virtualization_cluster             | table | netbox |
+       | public | virtualization_clustergroup        | table | netbox |
+       | public | virtualization_clustertype         | table | netbox |
+       | public | virtualization_virtualmachine      | table | netbox |
+       +--------+------------------------------------+-------+--------+
 
 `Функции NetBox <https://netbox.readthedocs.io/en/stable/#what-is-netbox>`_:
 
@@ -139,7 +140,7 @@ DCIM
 
 * `Россия <http://netbox.linkmeup.ru:45127/dcim/sites/?region=ru>`_: `Москва <http://netbox.linkmeup.ru:45127/dcim/sites/msk/>`_, `Казань <http://netbox.linkmeup.ru:45127/dcim/sites/kzn/>`_ 
 * `Испания <http://netbox.linkmeup.ru:45127/dcim/sites/?region=sp>`_: `Барселона <http://netbox.linkmeup.ru:45127/dcim/sites/bcn/>`_, `Малага <http://netbox.linkmeup.ru:45127/dcim/sites/mlg/>`_ 
-* `Китай <http://netbox.linkmeup.ru:45127/dcim/sites/?region=cn>`_: `123 <http://netbox.linkmeup.ru:45127/dcim/sites/sha/>`_Шанхай, `Сиань <http://netbox.linkmeup.ru:45127/dcim/sites/sia/>`_.
+* `Китай <http://netbox.linkmeup.ru:45127/dcim/sites/?region=cn>`_: `Шанхай <http://netbox.linkmeup.ru:45127/dcim/sites/sha/>`_, `Сиань <http://netbox.linkmeup.ru:45127/dcim/sites/sia/>`_.
 
     .. figure:: https://fs.linkmeup.ru/images/adsm/3/sites.png           
            :width: 800
@@ -162,7 +163,7 @@ DCIM
     
        curl -X GET "http://netbox.linkmeup.ru:45127/api/dcim/regions/" -H "Accept: application/json; indent=4"
 
-    .. code-block:: bash
+    .. code-block:: python
     
        nb.dcim.regions.all()
 
@@ -176,7 +177,7 @@ DCIM
     
        curl -X GET "http://netbox.linkmeup.ru:45127/api/dcim/sites/" -H "Accept: application/json; indent=4"
 
-    .. code-block:: bash
+    .. code-block:: python
     
        nb.dcim.sites.all()
 
@@ -186,15 +187,15 @@ DCIM
     
        curl -X GET "http://netbox.linkmeup.ru:45127/api/dcim/sites/?region=ru" -H "Accept: application/json; indent=4"
 
-    .. code-block:: bash
+    .. code-block:: python
     
        nb.dcim.sites.filter(region="ru")
 
     Обратите внимание, что поиск идёт не по полному имени, а по так называемому `slug <https://qna.habr.com/q/375615>`_.
     **Slug** - это идентификатор, содержащий только безопасные символы: [0-9A-Za-z-_], который можно использовать в URL. Задаётся он при создании объекта, например, "bcn" вместо "Барселона".
 
-        .. figure:: https://fs.linkmeup.ru/images/adsm/3/nb_slug.png width="400">
-           :width: 800
+        .. figure:: https://fs.linkmeup.ru/images/adsm/3/nb_slug.png
+           :width: 400
            :align: center
 
 Устройства
@@ -223,7 +224,7 @@ DCIM
     
        curl -X GET "http://netbox.linkmeup.ru:45127/api/dcim/devices/" -H "Accept: application/json; indent=4"
 
-    .. code-block:: bash
+    .. code-block:: python
     
        nb.dcim.devices.all()
 
@@ -243,7 +244,7 @@ DCIM
     
        curl -X GET "http://netbox.linkmeup.ru:45127/api/dcim/devices/?model=veos" -H "Accept: application/json; indent=4"
 
-    .. code-block:: bash
+    .. code-block:: python
     
        nb.dcim.devices.filter(device_type_id=2)
 
@@ -253,7 +254,7 @@ DCIM
     
        curl -X GET "http://netbox.linkmeup.ru:45127/api/dcim/devices/?role=leaf" -H "Accept: application/json; indent=4"
 
-    .. code-block:: bash
+    .. code-block:: python
     
        nb.dcim.devices.filter(role="leaf")
 
@@ -264,7 +265,7 @@ DCIM
     
        curl -X GET "http://netbox.linkmeup.ru:45127/api/dcim/devices/?status=active" -H "Accept: application/json; indent=4"
 
-    .. code-block:: bash
+    .. code-block:: python
     
        nb.dcim.devices.filter(status="active")
 
@@ -289,7 +290,7 @@ NetBox поддерживает множество типов физически
     
        curl -X GET "http://netbox.linkmeup.ru:45127/api/dcim/interfaces/?device=mlg-leaf-0" -H "Accept: application/json; indent=4"
 
-    .. code-block:: bash
+    .. code-block:: python
     
        nb.dcim.interfaces.filter(device="mlg-leaf-0")
 
@@ -300,7 +301,7 @@ NetBox поддерживает множество типов физически
     
        curl -X GET "http://netbox.linkmeup.ru:45127/api/dcim/interfaces/?device=mlg-leaf-0&name=Ethernet7" -H "Accept: application/json; indent=4"
 
-    .. code-block:: bash
+    .. code-block:: python
     
        nb.dcim.interfaces.get(device="mlg-leaf-0", name="Ethernet7").untagged_vlan.vid
 
@@ -316,7 +317,7 @@ NetBox поддерживает множество типов физически
     
        curl -X GET "http://netbox.linkmeup.ru:45127/api/dcim/interfaces/?device=mlg-leaf-0&name=Ethernet1" -H "Accept: application/json; indent=4" 
 
-    .. code-block:: bash
+    .. code-block:: python
        
        iface = nb.dcim.interfaces.get(device="mlg-leaf-0", name="Ethernet1")
        iface.connected_endpoint.device
@@ -328,7 +329,7 @@ NetBox поддерживает множество типов физически
     
        curl -X GET "http://netbox.linkmeup.ru:45127/api/dcim/interfaces/?device=mlg-leaf-0&mgmt_only=true" -H "Accept: application/json; indent=4" 
 
-    .. code-block:: bash
+    .. code-block:: python
     
        nb.dcim.interfaces.get(device="mlg-leaf-0", mgmt_only=True)
 
@@ -344,11 +345,12 @@ NetBox поддерживает множество типов физически
     
        curl -X GET "http://netbox.linkmeup.ru:45127/api/dcim/console-ports/?device=mlg-leaf-0" -H "Accept: application/json; indent=4"
 
-    .. code-block:: bash
+    .. code-block:: python
     
        nb.dcim.console_ports.get(device="mlg-leaf-0").serialize()
 
     Метод **serialize** в pynetbox позволяет преобразовать атрибуты экземпляра класса в словарь.
+
 
 IPAM
 ----
@@ -366,7 +368,7 @@ VLAN и VRF
     
        curl -X GET "http://netbox.linkmeup.ru:45127/api/ipam/vlans/" -H "Accept: application/json; indent=4" 
 
-    .. code-block:: bash
+    .. code-block:: python
     
        nb.ipam.vlans.all()
 
@@ -376,7 +378,7 @@ VLAN и VRF
     
        curl -X GET "http://netbox.linkmeup.ru:45127/api/ipam/vrfs/" -H "Accept: application/json; indent=4" 
 
-    .. code-block:: bash
+    .. code-block:: python
     
        nb.ipam.vrfs.all()
 
@@ -406,7 +408,7 @@ IP-префиксы
     
        curl -X GET "http://netbox.linkmeup.ru:45127/api/ipam/prefixes/?site=mlg&role=underlay&mask_length=19" -H "Accept: application/json; indent=4" 
 
-    .. code-block:: bash
+    .. code-block:: python
     
        prefix = nb.ipam.prefixes.get(site="mlg", role="underlay", mask_length="19")
 
@@ -416,7 +418,7 @@ IP-префиксы
     
        curl -X GET "http://netbox.linkmeup.ru:45127/api/ipam/prefixes/40/available-prefixes/" -H "Accept: application/json; indent=4"
 
-    .. code-block:: bash
+    .. code-block:: python
     
        prefix.available_prefixes.list()
 
@@ -430,7 +432,7 @@ IP-префиксы
        -H "Authorization: TOKEN a9aae70d65c928a554f9a038b9d4703a1583594f" \
        -d "{\"prefix_length\": 24}"
 
-    .. code-block:: bash
+    .. code-block:: python
     
        prefix.available_prefixes.create({"prefix_length":24})
 
@@ -459,7 +461,7 @@ IP-адреса
     
        curl -X GET "http://netbox.linkmeup.ru:45127/api/ipam/ip-addresses/?interface_id=8" -H "Accept: application/json; indent=4" 
 
-    .. code-block:: bash
+    .. code-block:: python
     
        nb.ipam.ip_addresses.filter(interface_id=8)
        
@@ -469,7 +471,7 @@ IP-адреса
     
        curl -X GET "http://netbox.linkmeup.ru:45127/api/ipam/ip-addresses/?device=mlg-leaf-0&interface=Ethernet1" -H "Accept: application/json; indent=4"
 
-    .. code-block:: bash
+    .. code-block:: python
     
        nb.ipam.ip_addresses.filter(device="mlg-leaf-0", interface="Ethernet1")
 
@@ -479,7 +481,7 @@ IP-адреса
     
        curl -X GET "http://netbox.linkmeup.ru:45127/api/ipam/ip-addresses/?device=mlg-leaf-0" -H "Accept: application/json; indent=4"
 
-    .. code-block:: bash
+    .. code-block:: python
     
        nb.ipam.ip_addresses.filter(device="mlg-leaf-0")
 
@@ -489,7 +491,7 @@ IP-адреса
     
        curl -X GET "http://netbox.linkmeup.ru:45127/api/ipam/prefixes/28/available-ips/" -H "Accept: application/json; indent=4"
 
-    .. code-block:: bash
+    .. code-block:: python
     
        prefix = nb.ipam.prefixes.get(site="mlg", role="leaf-loopbacks")
        prefix.available_ips.list()
@@ -505,9 +507,10 @@ IP-адреса
        -H "Content-Type: application/json" \
        -H "Authorization: TOKEN a9aae70d65c928a554f9a038b9d4703a1583594f"
 
-    .. code-block:: bash
+    .. code-block:: python
     
        prefix.available_ips.create()
+
 
 Виртуализация
 -------------
@@ -522,7 +525,7 @@ NetBox не выглядит и не является местом, где ст�
     
        curl -X GET "http://netbox.linkmeup.ru:45127/api/virtualization/virtual-machines/" -H "Accept: application/json; indent=4" 
 
-    .. code-block:: bash
+    .. code-block:: python
     
        nb.virtualization.virtual_machines.all()
 
@@ -532,12 +535,11 @@ NetBox не выглядит и не является местом, где ст�
     
        curl -X GET "http://netbox.linkmeup.ru:45127/api/virtualization/interfaces/" -H "Accept: application/json; indent=4" 
 
-    .. code-block:: bash
+    .. code-block:: python
     
        nb.virtualization.interfaces.all()
 
 Для ВМ нельзя указать конкретный гипервизор/физическую машину, на котором она запущена, но можно указать кластер. Хотя не всё так безнадёжно. Читаем дальше.
-
 
 
 Дополнительные приятные вещи
@@ -571,7 +573,7 @@ Custom fields
     
        curl -X GET "http://netbox.linkmeup.ru:45127/api/dcim/devices/?cf_contract_number=0123456789" -H "Accept: application/json; indent=4"
 
-    .. code-block:: bash
+    .. code-block:: python
     
        nb.dcim.devices.filter(cf_contract_number="0123456789")
 
@@ -595,11 +597,7 @@ Config Context автоматически добавляется к резуль
     
        curl -X GET "http://netbox.linkmeup.ru:45127/api/dcim/devices/?q=russian" -H "Accept: application/json; indent=4"
 
-    .. figure:: https://fs.linkmeup.ru/images/adsm/3/config_context_result.png
-           :width: 204
-           :align: center
-
-    .. code-block:: bash
+    .. code-block:: python
        
        "config_context": {
            "syslog_servers": [

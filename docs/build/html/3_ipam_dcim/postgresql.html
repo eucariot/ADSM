@@ -36,6 +36,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
     <link rel="search" title="Поиск" href="../search.html" />
+    <link rel="next" title="RESTful API" href="restful/index.html" />
     <link rel="prev" title="Некоторые нюансы установки NetBox" href="installation.html" /> 
 </head>
 
@@ -85,12 +86,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Часть 3. IPAM/DCIM-системы</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="restful/index.html">RESTful API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture.html">Архитектура системы</a></li>
 <li class="toctree-l2"><a class="reference internal" href="scheme.html">Схема данных NetBox</a></li>
-<li class="toctree-l2"><a class="reference internal" href="conclusion.html">Заключение</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html">Некоторые нюансы установки NetBox</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Немного о PostgreSQL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restful/index.html">RESTful API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.html">Заключение</a></li>
 </ul>
 </li>
 </ul>
@@ -161,27 +162,59 @@
             
   <div class="section" id="postgresql">
 <h1>Немного о PostgreSQL<a class="headerlink" href="#postgresql" title="Ссылка на этот заголовок">¶</a></h1>
-<div class="line-block">
-<div class="line">Для подключения к серверу: psql -U <em>username</em> -h <em>hostname</em> <em>db_name</em></div>
-<div class="line">Например: psql -U netbox -h localhost netbox</div>
-<div class="line">Для вывода всех таблиц: /dt</div>
-<div class="line">Для выхода: /q</div>
-<div class="line">Для дампа БД: pg_dump -U <em>username</em> -h <em>hostname</em> <em>db_name</em> &gt; netbox.sql</div>
+<p>Для подключения к серверу:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>psql -U *username* -h *hostname* *db_name*
+</pre></div>
 </div>
+</div></blockquote>
+<p>Например:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>psql -U netbox -h localhost netbox
+</pre></div>
+</div>
+</div></blockquote>
+<p>Для вывода всех таблиц:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/dt
+</pre></div>
+</div>
+</div></blockquote>
+<p>Для выхода:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/q
+</pre></div>
+</div>
+</div></blockquote>
+<p>Для дампа БД:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pg_dump -U *username* -h *hostname* *db_name* &gt; netbox.sql
+</pre></div>
+</div>
+</div></blockquote>
 <p>Если не хочется каждый раз вводить пароль:</p>
 <blockquote>
-<div>echo <em>:</em>:<em>:*username</em>:<em>password</em> &gt; ~/.pgpass
-chmod 600 ~/.pgpass</div></blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> *:*:*:*username*:*password* &gt; ~/.pgpass
+chmod <span class="m">600</span> ~/.pgpass
+</pre></div>
+</div>
+</div></blockquote>
 <p>Если у вас есть своя инсталляция и не хочется вносить всё руками, можно просто сделать так, взяв дамп текущей БД NetBox <a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/netbox_initial_db.sql">тут</a>:</p>
 <blockquote>
-<div>psql -U <em>username</em> -h <em>hostname</em> <em>db_name</em> &lt; netbox_initial_db.sql</div></blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>psql -U *username* -h *hostname* *db_name* &lt; netbox_initial_db.sql
+</pre></div>
+</div>
+</div></blockquote>
 <p>Если предварительно нужно дропнуть все таблицы (а сделать это придётся), то можно подготовить заранее файл:</p>
 <blockquote>
-<div>psql -U <em>username</em> -h <em>hostname</em> <em>db_name</em>
-o drop_all_tables.sql
-select „drop table „ || tablename || „ cascade;“ from pg_tables;
-q
-psql -U <em>username</em> -h <em>hostname</em> <em>db_name</em> -f drop_all_tables.sql</div></blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>psql -U *username* -h *hostname* *db_name*
+<span class="se">\o</span> drop_all_tables.sql
+<span class="k">select</span> <span class="s1">&#39;drop table &#39;</span> <span class="o">||</span> tablename <span class="o">||</span> <span class="s1">&#39; cascade;&#39;</span> from pg_tables<span class="p">;</span>
+<span class="se">\q</span>
+psql -U *username* -h *hostname* *db_name* -f drop_all_tables.sql
+</pre></div>
+</div>
+</div></blockquote>
 </div>
 
 
@@ -191,6 +224,8 @@ psql -U <em>username</em> -h <em>hostname</em> <em>db_name</em> -f drop_all_tabl
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="restful/index.html" class="btn btn-neutral float-right" title="RESTful API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="installation.html" class="btn btn-neutral float-left" title="Некоторые нюансы установки NetBox" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

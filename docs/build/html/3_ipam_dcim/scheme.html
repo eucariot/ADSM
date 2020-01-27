@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
     <link rel="search" title="Поиск" href="../search.html" />
-    <link rel="next" title="Заключение" href="conclusion.html" />
+    <link rel="next" title="Некоторые нюансы установки NetBox" href="installation.html" />
     <link rel="prev" title="Архитектура системы" href="architecture.html" /> 
 </head>
 
@@ -86,35 +86,35 @@
 <li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Часть 3. IPAM/DCIM-системы</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="restful/index.html">RESTful API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture.html">Архитектура системы</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Схема данных NetBox</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#dcim">DCIM</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#regions-sites">Регионы и сайты (regions/sites)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id10">Устройства</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id15">Интерфейсы</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id17">Консольные порты</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12">Устройства</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id17">Интерфейсы</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id19">Консольные порты</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#ipam">IPAM</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#vlan-vrf">VLAN и VRF</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ip">IP-префиксы</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id18">IP-адреса</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id20">IP-адреса</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id19">Виртуализация</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id20">Дополнительные приятные вещи</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id21">Виртуализация</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id22">Дополнительные приятные вещи</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#custom-fields">Custom fields</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#config-context">Config Context</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id23">Теги</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id25">Теги</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#webhooks">Webhooks</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="conclusion.html">Заключение</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html">Некоторые нюансы установки NetBox</a></li>
 <li class="toctree-l2"><a class="reference internal" href="postgresql.html">Немного о PostgreSQL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restful/index.html">RESTful API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.html">Заключение</a></li>
 </ul>
 </li>
 </ul>
@@ -193,312 +193,111 @@ NetBox едва ли станет единственной системой ин
 На этих данных я буду демонстрировать различные примеры работы через API.
 Вы можете просто полазить и посмотреть: <a class="reference external" href="http://netbox.linkmeup.ru:45127">http://netbox.linkmeup.ru:45127</a>
 И эти же данные понадобятся в дальнейшем, когда мы перейдём к автоматизации.</div></blockquote>
-<p>В общих чертах схему данных можно увидеть по схеме БД в Postgres’е</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="12%" />
-<col width="0%" />
-<col width="62%" />
-<col width="12%" />
-<col width="14%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head" colspan="2">Schema</th>
-<th class="head"><dl class="first last docutils">
-<dt>List of relations</dt>
-<dd>Name</dd>
+<dl class="docutils">
+<dt>В общих чертах схему данных можно увидеть по схеме БД в Postgres’е</dt>
+<dd><div class="first last highlight-bash notranslate"><div class="highlight"><pre><span></span>+--------+------------------------------------+-------+--------+
+<span class="p">|</span>        <span class="p">|</span>               List of relations    <span class="p">|</span>       <span class="p">|</span>        <span class="p">|</span>
+<span class="p">|</span> Schema <span class="p">|</span>                Name                <span class="p">|</span> Type  <span class="p">|</span> Owner  <span class="p">|</span>
++<span class="o">========</span>+<span class="o">====================================</span>+<span class="o">=======</span>+<span class="o">========</span>+
+<span class="p">|</span> public <span class="p">|</span> auth_group                         <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> auth_group_permissions             <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> auth_permission                    <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> auth_user                          <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> auth_user_groups                   <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> auth_user_user_permissions         <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> circuits_circuit                   <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> circuits_circuittermination        <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> circuits_circuittype               <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> circuits_provider                  <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_cable                         <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_consoleport                   <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_consoleporttemplate           <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_consoleserverport             <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_consoleserverporttemplate     <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_device                        <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_devicebay                     <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_devicebaytemplate             <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_devicerole                    <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_devicetype                    <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_frontport                     <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_frontporttemplate             <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_interface                     <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_interface_tagged_vlans        <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_interfacetemplate             <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_inventoryitem                 <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_manufacturer                  <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_platform                      <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_powerfeed                     <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_poweroutlet                   <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_poweroutlettemplate           <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_powerpanel                    <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_powerport                     <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_powerporttemplate             <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_rack                          <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_rackgroup                     <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_rackreservation               <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_rackrole                      <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_rearport                      <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_rearporttemplate              <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_region                        <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_site                          <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> dcim_virtualchassis                <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> django_admin_log                   <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> django_content_type                <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> django_migrations                  <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> django_session                     <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> extras_configcontext               <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> extras_configcontext_platforms     <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> extras_configcontext_regions       <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> extras_configcontext_roles         <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> extras_configcontext_sites         <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> extras_configcontext_tags          <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> extras_configcontext_tenant_groups <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> extras_configcontext_tenants       <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> extras_customfield                 <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> extras_customfield_obj_type        <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> extras_customfieldchoice           <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> extras_customfieldvalue            <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> extras_customlink                  <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> extras_exporttemplate              <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> extras_graph                       <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> extras_imageattachment             <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> extras_objectchange                <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> extras_reportresult                <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> extras_tag                         <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> extras_taggeditem                  <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> extras_webhook                     <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> extras_webhook_obj_type            <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> ipam_aggregate                     <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> ipam_ipaddress                     <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> ipam_prefix                        <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> ipam_rir                           <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> ipam_role                          <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> ipam_service                       <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> ipam_service_ipaddresses           <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> ipam_vlan                          <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> ipam_vlangroup                     <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> ipam_vrf                           <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> secrets_secret                     <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> secrets_secretrole                 <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> secrets_secretrole_groups          <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> secrets_secretrole_users           <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> secrets_sessionkey                 <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> secrets_userkey                    <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> taggit_tag                         <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> taggit_taggeditem                  <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> tenancy_tenant                     <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> tenancy_tenantgroup                <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> users_token                        <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> virtualization_cluster             <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> virtualization_clustergroup        <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> virtualization_clustertype         <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
+<span class="p">|</span> public <span class="p">|</span> virtualization_virtualmachine      <span class="p">|</span> table <span class="p">|</span> netbox <span class="p">|</span>
++--------+------------------------------------+-------+--------+
+</pre></div>
+</div>
+</dd>
 </dl>
-</th>
-<th class="head">Type</th>
-<th class="head">Owner</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td colspan="3">public | auth_group
-public | auth_group_permissions
-public | auth_permission
-public | auth_user
-public | auth_user_groups
-public | auth_user_user_permissions
-public | circuits_circuit
-public | circuits_circuittermination
-public | circuits_circuittype
-public | circuits_provider
-public | dcim_cable
-public | dcim_consoleport
-public | dcim_consoleporttemplate
-public | dcim_consoleserverport
-public | dcim_consoleserverporttemplate
-public | dcim_device
-public | dcim_devicebay
-public | dcim_devicebaytemplate
-public | dcim_devicerole
-public | dcim_devicetype
-public | dcim_frontport
-public | dcim_frontporttemplate
-public | dcim_interface
-public | dcim_interface_tagged_vlans
-public | dcim_interfacetemplate
-public | dcim_inventoryitem
-public | dcim_manufacturer
-public | dcim_platform
-public | dcim_powerfeed
-public | dcim_poweroutlet
-public | dcim_poweroutlettemplate
-public | dcim_powerpanel
-public | dcim_powerport
-public | dcim_powerporttemplate
-public | dcim_rack
-public | dcim_rackgroup
-public | dcim_rackreservation
-public | dcim_rackrole
-public | dcim_rearport
-public | dcim_rearporttemplate
-public | dcim_region
-public | dcim_site
-public | dcim_virtualchassis
-public | django_admin_log
-public | django_content_type
-public | django_migrations
-public | django_session
-public | extras_configcontext
-public | extras_configcontext_platforms
-public | extras_configcontext_regions
-public | extras_configcontext_roles
-public | extras_configcontext_sites
-public | extras_configcontext_tags
-public | extras_configcontext_tenant_groups
-public | extras_configcontext_tenants
-public | extras_customfield
-public | extras_customfield_obj_type
-public | extras_customfieldchoice
-public | extras_customfieldvalue
-public | extras_customlink
-public | extras_exporttemplate
-public | extras_graph
-public | extras_imageattachment
-public | extras_objectchange
-public | extras_reportresult
-public | extras_tag
-public | extras_taggeditem
-public | extras_webhook
-public | extras_webhook_obj_type
-public | ipam_aggregate
-public | ipam_ipaddress
-public | ipam_prefix
-public | ipam_rir
-public | ipam_role
-public | ipam_service
-public | ipam_service_ipaddresses
-public | ipam_vlan
-public | ipam_vlangroup
-public | ipam_vrf
-public | secrets_secret
-public | secrets_secretrole
-public | secrets_secretrole_groups
-public | secrets_secretrole_users
-public | secrets_sessionkey
-public | secrets_userkey
-public | taggit_tag
-public | taggit_taggeditem
-public | tenancy_tenant
-public | tenancy_tenantgroup
-public | users_token
-public | virtualization_cluster
-public | virtualization_clustergroup
-public | virtualization_clustertype
-public | virtualization_virtualmachine</td>
-<td>table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table
-table</td>
-<td>netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox
-netbox</td>
-</tr>
-</tbody>
-</table>
 <p><a class="reference external" href="https://netbox.readthedocs.io/en/stable/#what-is-netbox">Функции NetBox</a>:</p>
 <ul class="simple">
 <li><strong>IP address management (IPAM)</strong> - IP-префиксы, адреса, VRF’ы и VLAN’ы</li>
@@ -523,7 +322,7 @@ netbox</td>
 </li>
 <li><p class="first"><a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/?region=sp">Испания</a>: <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/bcn/">Барселона</a>, <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/mlg/">Малага</a></p>
 </li>
-<li><p class="first"><a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/?region=cn">Китай</a>: <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/sia/">123 &lt;http://netbox.linkmeup.ru:45127/dcim/sites/sha/&gt;`_Шанхай, `Сиань</a>.</p>
+<li><p class="first"><a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/?region=cn">Китай</a>: <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/sha/">Шанхай</a>, <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/sia/">Сиань</a>.</p>
 <blockquote>
 <div><div class="figure align-center">
 <a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/sites.png"><img alt="https://fs.linkmeup.ru/images/adsm/3/sites.png" src="https://fs.linkmeup.ru/images/adsm/3/sites.png" style="width: 800px;" /></a>
@@ -546,7 +345,7 @@ netbox</td>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/regions/&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.dcim.regions.all<span class="o">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">regions</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Здесь и далее я буду приводить примеры curl и pynetbox без вывода результата.
@@ -558,7 +357,7 @@ netbox</td>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/sites/&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.dcim.sites.all<span class="o">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">sites</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -567,20 +366,20 @@ netbox</td>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/sites/?region=ru&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.dcim.sites.filter<span class="o">(</span><span class="nv">region</span><span class="o">=</span><span class="s2">&quot;ru&quot;</span><span class="o">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">sites</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="s2">&quot;ru&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Обратите внимание, что поиск идёт не по полному имени, а по так называемому <a class="reference external" href="https://qna.habr.com/q/375615">slug</a>.
 <strong>Slug</strong> - это идентификатор, содержащий только безопасные символы: [0-9A-Za-z-_], который можно использовать в URL. Задаётся он при создании объекта, например, «bcn» вместо «Барселона».</p>
 <blockquote>
 <div><div class="figure align-center">
-<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/nb_slug.pngwidth=&quot;400&quot;&gt;"><img alt="https://fs.linkmeup.ru/images/adsm/3/nb_slug.pngwidth=&quot;400&quot;&gt;" src="https://fs.linkmeup.ru/images/adsm/3/nb_slug.pngwidth=&quot;400&quot;&gt;" style="width: 800px;" /></a>
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/nb_slug.png"><img alt="https://fs.linkmeup.ru/images/adsm/3/nb_slug.png" src="https://fs.linkmeup.ru/images/adsm/3/nb_slug.png" style="width: 400px;" /></a>
 </div>
 </div></blockquote>
 </div></blockquote>
 </div>
-<div class="section" id="id10">
-<h3>Устройства<a class="headerlink" href="#id10" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="section" id="id12">
+<h3>Устройства<a class="headerlink" href="#id12" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Само устройство обладает какой-то <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/device-roles/">ролью</a>, например, leaf, spine, edge, border.
 Оно, очевидно, является какой-то <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/device-types/">моделью</a> какого-то <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/manufacturers/">вендора</a>.
 Например, <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/device-types/?manufacturer=arista">Arista</a>.
@@ -600,7 +399,7 @@ netbox</td>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.dcim.devices.all<span class="o">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -618,7 +417,7 @@ netbox</td>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/?model=veos&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.dcim.devices.filter<span class="o">(</span><span class="nv">device_type_id</span><span class="o">=</span><span class="m">2</span><span class="o">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">device_type_id</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -627,7 +426,7 @@ netbox</td>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/?role=leaf&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.dcim.devices.filter<span class="o">(</span><span class="nv">role</span><span class="o">=</span><span class="s2">&quot;leaf&quot;</span><span class="o">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">role</span><span class="o">=</span><span class="s2">&quot;leaf&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -637,13 +436,13 @@ netbox</td>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/?status=active&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.dcim.devices.filter<span class="o">(</span><span class="nv">status</span><span class="o">=</span><span class="s2">&quot;active&quot;</span><span class="o">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="s2">&quot;active&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div></blockquote>
 </div>
-<div class="section" id="id15">
-<h3>Интерфейсы<a class="headerlink" href="#id15" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="section" id="id17">
+<h3>Интерфейсы<a class="headerlink" href="#id17" title="Ссылка на этот заголовок">¶</a></h3>
 <p>NetBox поддерживает множество типов физических <a class="reference external" href="http://netbox.linkmeup.ru:45127/api/dcim/_choices/">интерфейсов</a> и LAG, однако все виртуальные, такие как Vlan/IRB и loopback объединены под одним типом - Virtual.
 Каждый интерфейс привязан к какому-либо устройству.</p>
 <p>Интерфейсы устройств могут быть подключены друг к другу. Это будет отображаться как в интерфейсе, так и в ответах API (атрибут connected_endpoint).</p>
@@ -659,7 +458,7 @@ netbox</td>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/interfaces/?device=mlg-leaf-0&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.dcim.interfaces.filter<span class="o">(</span><span class="nv">device</span><span class="o">=</span><span class="s2">&quot;mlg-leaf-0&quot;</span><span class="o">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">interfaces</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="s2">&quot;mlg-leaf-0&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -668,7 +467,7 @@ netbox</td>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/interfaces/?device=mlg-leaf-0&amp;name=Ethernet7&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.dcim.interfaces.get<span class="o">(</span><span class="nv">device</span><span class="o">=</span><span class="s2">&quot;mlg-leaf-0&quot;</span>, <span class="nv">name</span><span class="o">=</span><span class="s2">&quot;Ethernet7&quot;</span><span class="o">)</span>.untagged_vlan.vid
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">interfaces</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="s2">&quot;mlg-leaf-0&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ethernet7&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">untagged_vlan</span><span class="o">.</span><span class="n">vid</span>
 </pre></div>
 </div>
 <p>Обратите внимание, что тут я уже использую метод <strong>get</strong> вместо <strong>filter</strong>. Filter возвращает список, даже если результат - один единственный объект. Get - возвращает один объект или падает с ошибкой, если результатом запроса является список объектов.
@@ -681,9 +480,9 @@ netbox</td>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/interfaces/?device=mlg-leaf-0&amp;name=Ethernet1&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">iface</span> <span class="o">=</span> nb.dcim.interfaces.get<span class="o">(</span><span class="nv">device</span><span class="o">=</span><span class="s2">&quot;mlg-leaf-0&quot;</span>, <span class="nv">name</span><span class="o">=</span><span class="s2">&quot;Ethernet1&quot;</span><span class="o">)</span>
-iface.connected_endpoint.device
-iface.connected_endpoint.name
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">iface</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">interfaces</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="s2">&quot;mlg-leaf-0&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ethernet1&quot;</span><span class="p">)</span>
+<span class="n">iface</span><span class="o">.</span><span class="n">connected_endpoint</span><span class="o">.</span><span class="n">device</span>
+<span class="n">iface</span><span class="o">.</span><span class="n">connected_endpoint</span><span class="o">.</span><span class="n">name</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -692,13 +491,13 @@ iface.connected_endpoint.name
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/interfaces/?device=mlg-leaf-0&amp;mgmt_only=true&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.dcim.interfaces.get<span class="o">(</span><span class="nv">device</span><span class="o">=</span><span class="s2">&quot;mlg-leaf-0&quot;</span>, <span class="nv">mgmt_only</span><span class="o">=</span>True<span class="o">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">interfaces</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="s2">&quot;mlg-leaf-0&quot;</span><span class="p">,</span> <span class="n">mgmt_only</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div></blockquote>
 </div>
-<div class="section" id="id17">
-<h3>Консольные порты<a class="headerlink" href="#id17" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="section" id="id19">
+<h3>Консольные порты<a class="headerlink" href="#id19" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Консольные порты не являются интерфейсами, поэтому вынесены как отдельные эндпоинты.
 Порты устройства можно связать с портами консольного сервера.</p>
 <p>Выяснить к какому порту какого консольного сервера подключено конкретное устройство.</p>
@@ -706,7 +505,7 @@ iface.connected_endpoint.name
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/console-ports/?device=mlg-leaf-0&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.dcim.console_ports.get<span class="o">(</span><span class="nv">device</span><span class="o">=</span><span class="s2">&quot;mlg-leaf-0&quot;</span><span class="o">)</span>.serialize<span class="o">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">console_ports</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="s2">&quot;mlg-leaf-0&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">serialize</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Метод <strong>serialize</strong> в pynetbox позволяет преобразовать атрибуты экземпляра класса в словарь.</p>
@@ -724,7 +523,7 @@ iface.connected_endpoint.name
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/ipam/vlans/&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.ipam.vlans.all<span class="o">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nb</span><span class="o">.</span><span class="n">ipam</span><span class="o">.</span><span class="n">vlans</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -733,7 +532,7 @@ iface.connected_endpoint.name
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/ipam/vrfs/&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.ipam.vrfs.all<span class="o">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nb</span><span class="o">.</span><span class="n">ipam</span><span class="o">.</span><span class="n">vrfs</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -760,7 +559,7 @@ iface.connected_endpoint.name
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/ipam/prefixes/?site=mlg&amp;role=underlay&amp;mask_length=19&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">prefix</span> <span class="o">=</span> nb.ipam.prefixes.get<span class="o">(</span><span class="nv">site</span><span class="o">=</span><span class="s2">&quot;mlg&quot;</span>, <span class="nv">role</span><span class="o">=</span><span class="s2">&quot;underlay&quot;</span>, <span class="nv">mask_length</span><span class="o">=</span><span class="s2">&quot;19&quot;</span><span class="o">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">prefix</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">ipam</span><span class="o">.</span><span class="n">prefixes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="s2">&quot;mlg&quot;</span><span class="p">,</span> <span class="n">role</span><span class="o">=</span><span class="s2">&quot;underlay&quot;</span><span class="p">,</span> <span class="n">mask_length</span><span class="o">=</span><span class="s2">&quot;19&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -769,7 +568,7 @@ iface.connected_endpoint.name
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/ipam/prefixes/40/available-prefixes/&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>prefix.available_prefixes.list<span class="o">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">prefix</span><span class="o">.</span><span class="n">available_prefixes</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -782,7 +581,7 @@ iface.connected_endpoint.name
 -d <span class="s2">&quot;{\&quot;prefix_length\&quot;: 24}&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>prefix.available_prefixes.create<span class="o">({</span><span class="s2">&quot;prefix_length&quot;</span>:24<span class="o">})</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">prefix</span><span class="o">.</span><span class="n">available_prefixes</span><span class="o">.</span><span class="n">create</span><span class="p">({</span><span class="s2">&quot;prefix_length&quot;</span><span class="p">:</span><span class="mi">24</span><span class="p">})</span>
 </pre></div>
 </div>
 <p>Когда внутри одного объекта нам нужно выделить какой-то дочерний, используется метод POST и нужно указать ID родительского объекта - в данном случае - <strong>40</strong>. Его мы выяснили вызовом из предыдущего примера.
@@ -790,8 +589,8 @@ iface.connected_endpoint.name
 Этот пример у вас <strong>не сработает</strong>, поскольку токен с правом записи уже недействителен.</p>
 </div></blockquote>
 </div>
-<div class="section" id="id18">
-<h3>IP-адреса<a class="headerlink" href="#id18" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="section" id="id20">
+<h3>IP-адреса<a class="headerlink" href="#id20" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Если есть включающий этот адрес префикс, то будут его частью. Могут быть и сами по себе.
 Могут принадлежать какому-либо VRF или быть в Global.
 Могут быть привязаны к интерфейсу, а могут висеть в воздухе.
@@ -807,7 +606,7 @@ iface.connected_endpoint.name
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/ipam/ip-addresses/?interface_id=8&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.ipam.ip_addresses.filter<span class="o">(</span><span class="nv">interface_id</span><span class="o">=</span><span class="m">8</span><span class="o">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nb</span><span class="o">.</span><span class="n">ipam</span><span class="o">.</span><span class="n">ip_addresses</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">interface_id</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -816,7 +615,7 @@ iface.connected_endpoint.name
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/ipam/ip-addresses/?device=mlg-leaf-0&amp;interface=Ethernet1&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.ipam.ip_addresses.filter<span class="o">(</span><span class="nv">device</span><span class="o">=</span><span class="s2">&quot;mlg-leaf-0&quot;</span>, <span class="nv">interface</span><span class="o">=</span><span class="s2">&quot;Ethernet1&quot;</span><span class="o">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nb</span><span class="o">.</span><span class="n">ipam</span><span class="o">.</span><span class="n">ip_addresses</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="s2">&quot;mlg-leaf-0&quot;</span><span class="p">,</span> <span class="n">interface</span><span class="o">=</span><span class="s2">&quot;Ethernet1&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -825,7 +624,7 @@ iface.connected_endpoint.name
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/ipam/ip-addresses/?device=mlg-leaf-0&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.ipam.ip_addresses.filter<span class="o">(</span><span class="nv">device</span><span class="o">=</span><span class="s2">&quot;mlg-leaf-0&quot;</span><span class="o">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nb</span><span class="o">.</span><span class="n">ipam</span><span class="o">.</span><span class="n">ip_addresses</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="s2">&quot;mlg-leaf-0&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -834,8 +633,8 @@ iface.connected_endpoint.name
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/ipam/prefixes/28/available-ips/&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">prefix</span> <span class="o">=</span> nb.ipam.prefixes.get<span class="o">(</span><span class="nv">site</span><span class="o">=</span><span class="s2">&quot;mlg&quot;</span>, <span class="nv">role</span><span class="o">=</span><span class="s2">&quot;leaf-loopbacks&quot;</span><span class="o">)</span>
-prefix.available_ips.list<span class="o">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">prefix</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">ipam</span><span class="o">.</span><span class="n">prefixes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="s2">&quot;mlg&quot;</span><span class="p">,</span> <span class="n">role</span><span class="o">=</span><span class="s2">&quot;leaf-loopbacks&quot;</span><span class="p">)</span>
+<span class="n">prefix</span><span class="o">.</span><span class="n">available_ips</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Здесь снова нужно в URL указать ID префикса, из которого выделяем адрес - на сей раз это 28.</p>
@@ -848,14 +647,14 @@ prefix.available_ips.list<span class="o">()</span>
 -H <span class="s2">&quot;Authorization: TOKEN a9aae70d65c928a554f9a038b9d4703a1583594f&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>prefix.available_ips.create<span class="o">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">prefix</span><span class="o">.</span><span class="n">available_ips</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
 </pre></div>
 </div>
 </div></blockquote>
 </div>
 </div>
-<div class="section" id="id19">
-<h2>Виртуализация<a class="headerlink" href="#id19" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="id21">
+<h2>Виртуализация<a class="headerlink" href="#id21" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Мы же всё-таки боремся за звание современного ДЦ. Куда же без виртуализации.
 NetBox не выглядит и не является местом, где стоит хранить информацию о виртуальных машинах (даже о необходимости хранения в нём физических машин можно порассуждать). Однако нам это может оказаться полезным, например, можно занести информация о Route Reflector’ах, о служебных машинах, таких как NTP, Syslog, S-Flow-серверах, о машинах-управляках.
 ВМ обладает своим списком интерфейсов - они отличны от интерфейсов физических устройств и имеют свой отдельный Endpoint.</p>
@@ -864,7 +663,7 @@ NetBox не выглядит и не является местом, где ст�
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/virtualization/virtual-machines/&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.virtualization.virtual_machines.all<span class="o">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nb</span><span class="o">.</span><span class="n">virtualization</span><span class="o">.</span><span class="n">virtual_machines</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -873,14 +672,14 @@ NetBox не выглядит и не является местом, где ст�
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/virtualization/interfaces/&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.virtualization.interfaces.all<span class="o">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nb</span><span class="o">.</span><span class="n">virtualization</span><span class="o">.</span><span class="n">interfaces</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 </pre></div>
 </div>
 </div></blockquote>
 <p>Для ВМ нельзя указать конкретный гипервизор/физическую машину, на котором она запущена, но можно указать кластер. Хотя не всё так безнадёжно. Читаем дальше.</p>
 </div>
-<div class="section" id="id20">
-<h2>Дополнительные приятные вещи<a class="headerlink" href="#id20" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="id22">
+<h2>Дополнительные приятные вещи<a class="headerlink" href="#id22" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Основная функциональность NetBox закрывает большинство задач многих пользователей, но не все. Всё-таки изначально продукт написан для решения задач конкретной компании. Однако он активно развивается и новые релизы выходят довольно <a class="reference external" href="https://github.com/netbox-community/netbox/releases">часто</a>. Соответственно появляются и новые функции.
 Так, например, с моей первой установки NetBox пару лет назад в нём появились теги, config contexts, webhooks, кэширование, supervisord сменился на systemd, внешние хранилища для файлов.</p>
 <div class="section" id="custom-fields">
@@ -905,7 +704,7 @@ NetBox не выглядит и не является местом, где ст�
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/?cf_contract_number=0123456789&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nb.dcim.devices.filter<span class="o">(</span><span class="nv">cf_contract_number</span><span class="o">=</span><span class="s2">&quot;0123456789&quot;</span><span class="o">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">cf_contract_number</span><span class="o">=</span><span class="s2">&quot;0123456789&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -927,30 +726,27 @@ Config Context может быть локальным - настроенным �
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/?q=russian&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
 </pre></div>
 </div>
-<div class="figure align-center">
-<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/config_context_result.png"><img alt="https://fs.linkmeup.ru/images/adsm/3/config_context_result.png" src="https://fs.linkmeup.ru/images/adsm/3/config_context_result.png" style="width: 204px;" /></a>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;config_context&quot;</span>: <span class="o">{</span>
-    <span class="s2">&quot;syslog_servers&quot;</span>: <span class="o">[</span>
-        <span class="o">{</span>
-            <span class="s2">&quot;ip&quot;</span>: <span class="s2">&quot;1.1.1.1&quot;</span>
-        <span class="o">}</span>,
-        <span class="o">{</span>
-            <span class="s2">&quot;ip&quot;</span>: <span class="s2">&quot;2.2.2.2&quot;</span>
-        <span class="o">}</span>
-    <span class="o">]</span>,
-    <span class="s2">&quot;ntp_servers&quot;</span>: <span class="o">[</span>
-        <span class="o">{</span>
-            <span class="s2">&quot;ip&quot;</span>: <span class="s2">&quot;3.3.3.3&quot;</span>
-        <span class="o">}</span>
-    <span class="o">]</span>
-<span class="o">}</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;config_context&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;syslog_servers&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;ip&quot;</span><span class="p">:</span> <span class="s2">&quot;1.1.1.1&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;ip&quot;</span><span class="p">:</span> <span class="s2">&quot;2.2.2.2&quot;</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;ntp_servers&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;ip&quot;</span><span class="p">:</span> <span class="s2">&quot;3.3.3.3&quot;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div></blockquote>
 </div>
-<div class="section" id="id23">
-<h3>Теги<a class="headerlink" href="#id23" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="section" id="id25">
+<h3>Теги<a class="headerlink" href="#id25" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Про теги сложно сказать что-то новое. Они есть. Они удобны для добавления какого-либо признака. К примеру, можно пометить тегом «бяда» коммутаторы из партии, в которой сбоит память.</p>
 </div>
 <div class="section" id="webhooks">
@@ -969,7 +765,7 @@ Config Context может быть локальным - настроенным �
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="conclusion.html" class="btn btn-neutral float-right" title="Заключение" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="installation.html" class="btn btn-neutral float-right" title="Некоторые нюансы установки NetBox" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="architecture.html" class="btn btn-neutral float-left" title="Архитектура системы" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

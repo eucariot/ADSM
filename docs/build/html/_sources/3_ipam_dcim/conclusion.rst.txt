@@ -1,7 +1,7 @@
 Заключение
 ==========
 
-В этой статье я не преследую цель рассмотреть все возможности NetBox, поэтому всё остальное отдаю вам на откуп. Разбирайтесь, пробуйте.
+В этой статье я не преследовал цель рассмотреть все возможности NetBox, поэтому всё остальное отдаю вам на откуп. Разбирайтесь, пробуйте.
 
 Далее в рамках построения системы автоматизации я буду касаться только тех частей, которые нам действительно нужны. 
 
@@ -10,15 +10,12 @@
 
 Всё готово к следующему этапу автоматизации: написанию системы (ахаха, просто скриптов) инициализации устройств и управления конфигурацией. 
 
-Но, прежде чем закончить статью я ещё скажу пару слов об установке и работе компонентов NetBox.
-
 Полезные ссылки
 ---------------
 
 * `Сам NetBox на github <https://github.com/netbox-community/netbox>`_
 * `Контейнерная версия <https://github.com/netbox-community/netbox-docker>`_
 * `Полная инструкция по установке и вся документация по продукту <https://netbox.readthedocs.io/en/stable/>`_ 
-
 * `Documenting your network infrastructure in NetBox, integrating with Ansible over REST API <http://karneliuk.com/2019/04/documenting-your-network-infrastructure-in-netbox-integrating-with-ansible-over-rest-api-and-automating-provisioning-of-cumulus-linux-arista-eos-nokia-sr-os-and-cisco-ios-xr/>`_
 * `IPAM NetBox and its API, Docker, Postman <https://www.youtube.com/watch?v=GGXgAlWm9aY&t=9655s>`_
 * `IPAM NetBox and its API, configuration templates with Python <https://www.youtube.com/watch?v=a3yK_WAisPw>`_

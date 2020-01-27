@@ -36,8 +36,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
     <link rel="search" title="Поиск" href="../search.html" />
-    <link rel="next" title="Некоторые нюансы установки NetBox" href="installation.html" />
-    <link rel="prev" title="Схема данных NetBox" href="scheme.html" /> 
+    <link rel="prev" title="Заключение" href="restful/conclusion.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -86,15 +85,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Часть 3. IPAM/DCIM-системы</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="restful/index.html">RESTful API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture.html">Архитектура системы</a></li>
 <li class="toctree-l2"><a class="reference internal" href="scheme.html">Схема данных NetBox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html">Некоторые нюансы установки NetBox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="postgresql.html">Немного о PostgreSQL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restful/index.html">RESTful API</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Заключение</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id3">Полезные ссылки</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html">Некоторые нюансы установки NetBox</a></li>
-<li class="toctree-l2"><a class="reference internal" href="postgresql.html">Немного о PostgreSQL</a></li>
 </ul>
 </li>
 </ul>
@@ -165,12 +164,11 @@
             
   <div class="section" id="id1">
 <h1>Заключение<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
-<p>В этой статье я не преследую цель рассмотреть все возможности NetBox, поэтому всё остальное отдаю вам на откуп. Разбирайтесь, пробуйте.</p>
+<p>В этой статье я не преследовал цель рассмотреть все возможности NetBox, поэтому всё остальное отдаю вам на откуп. Разбирайтесь, пробуйте.</p>
 <p>Далее в рамках построения системы автоматизации я буду касаться только тех частей, которые нам действительно нужны.</p>
 <p>Итак, выше я коротко рассказал о том, что из себя представляет NetBox, и как в нём хранятся данные.
 Повторюсь, что почти все необходимые данные я туда уже внёс, и вы можете утащить себе <a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/netbox_initial_db.sql">дамп БД</a></p>
 <p>Всё готово к следующему этапу автоматизации: написанию системы (ахаха, просто скриптов) инициализации устройств и управления конфигурацией.</p>
-<p>Но, прежде чем закончить статью я ещё скажу пару слов об установке и работе компонентов NetBox.</p>
 <div class="section" id="id3">
 <h2>Полезные ссылки<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
 <ul class="simple">
@@ -198,10 +196,8 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="installation.html" class="btn btn-neutral float-right" title="Некоторые нюансы установки NetBox" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-      
-        <a href="scheme.html" class="btn btn-neutral float-left" title="Схема данных NetBox" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="restful/conclusion.html" class="btn btn-neutral float-left" title="Заключение" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

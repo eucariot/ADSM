@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
     <link rel="search" title="Поиск" href="../../search.html" />
-    <link rel="next" title="Архитектура системы" href="../architecture.html" />
-    <link rel="prev" title="Критика RESTful API и альтернативы" href="other.html" /> 
+    <link rel="next" title="Заключение" href="../conclusion.html" />
+    <link rel="prev" title="Способы работы с RESTful API" href="ways.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -86,24 +86,23 @@
 <li class="toctree-l1"><a class="reference internal" href="../../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Часть 3. IPAM/DCIM-системы</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html">Архитектура системы</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scheme.html">Схема данных NetBox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html">Некоторые нюансы установки NetBox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../postgresql.html">Немного о PostgreSQL</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">RESTful API</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="rest.html">REST, RESTful, API</a></li>
 <li class="toctree-l3"><a class="reference internal" href="messages.html">Структура сообщений HTTP</a></li>
 <li class="toctree-l3"><a class="reference internal" href="methods.html">Методы</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ways.html">Способы работы с RESTful API</a></li>
-<li class="toctree-l3"><a class="reference internal" href="other.html">Критика RESTful API и альтернативы</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Заключение</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id2">Полезные ссылки</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id4">Спасибы</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Полезные ссылки</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">Спасибы</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../architecture.html">Архитектура системы</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../scheme.html">Схема данных NetBox</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../conclusion.html">Заключение</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html">Некоторые нюансы установки NetBox</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../postgresql.html">Немного о PostgreSQL</a></li>
 </ul>
 </li>
 </ul>
@@ -176,8 +175,16 @@
             
   <div class="section" id="id1">
 <h1>Заключение<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
-<div class="section" id="id2">
-<h2>Полезные ссылки<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Не всё в том мире 2000-го года так уже радужно. REST по праву часто критикуют.
+Не являясь экспертом, не берусь предметно раскрывать вопрос, но дам ссылку на небесспорную <a class="reference external" href="ahref=&quot;https://habr.com/ru/post/265845/">статью на хабре</a>.</p>
+<p>Альтернативным интерфейсом взаимодействия компонентов системы сегодня является gRPC. Ему же пророчат большое будущее на ниве новых подходов к работе с сетевым оборудованием. Но о нём мы поговорим когда-то в будущем, когда придёт его черёд.</p>
+<p>Можно также взглянуть на многообещающий <a class="reference external" href="https://habr.com/ru/post/326986/">GraphQL</a>, но нам опять же нет нужды с ним работать пока, поэтому остаётся на самостоятельное изучение.</p>
+<blockquote>
+<div><strong>Важно</strong>
+Токен a9aae70d65c928a554f9a038b9d4703a1583594f был использован только в демонстрационных целях и больше не работает.
+Прямое указание токенов в коде программы недопустимо и сделано здесь мной только в интересах упрощения примеров.</div></blockquote>
+<div class="section" id="id3">
+<h2>Полезные ссылки<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
 <ul class="simple">
 <li><a class="reference external" href="https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm">Доклад Роя Филдинга: Representational State Transfer (REST)</a></li>
 <li><a class="reference external" href="https://medium.com/adobetech/three-principles-of-api-first-design-fa6666d9f694">Three Principles of API First Design</a></li>
@@ -189,8 +196,8 @@
 <li><a class="reference external" href="https://habr.com/ru/post/265845/">Критика REST</a></li>
 </ul>
 </div>
-<div class="section" id="id4">
-<h2>Спасибы<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="id5">
+<h2>Спасибы<a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h2>
 <ul class="simple">
 <li>Андрею Панфилову за вычитку и правки</li>
 <li>Александру Фатину за вычитку и правки</li>
@@ -206,10 +213,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../architecture.html" class="btn btn-neutral float-right" title="Архитектура системы" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../conclusion.html" class="btn btn-neutral float-right" title="Заключение" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="other.html" class="btn btn-neutral float-left" title="Критика RESTful API и альтернативы" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ways.html" class="btn btn-neutral float-left" title="Способы работы с RESTful API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

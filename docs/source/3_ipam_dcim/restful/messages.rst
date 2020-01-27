@@ -36,9 +36,9 @@ HTTP-Ответ
 
        HTTP_VERSION STATUS_CODE REASON_PHRASE
 
-    **HTTP_VERSION** - версия HTTP (1.1).
-    **STATUS_CODE** - три цифры кода состояния (200, 404, 502 итд)
-    **REASON_PHRASE** - Пояснение (OK, NOT FOUND, BAD GATEWAY итд)
+    | **HTTP_VERSION** - версия HTTP (1.1).
+    | **STATUS_CODE** - три цифры кода состояния (200, 404, 502 итд)
+    | **REASON_PHRASE** - Пояснение (OK, NOT FOUND, BAD GATEWAY итд)
 
 Пример:
     .. code-block:: bash
@@ -51,6 +51,7 @@ HTTP-Ответ
 В заголовках передаются параметры данной HTTP-транзакции. 
 
 Например, в примере выше в  HTTP-запросе это были:
+
     .. code-block:: bash
        
        Host: netbox.linkmeup.ru:45127

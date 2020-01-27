@@ -37,7 +37,7 @@
     <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
     <link rel="search" title="Поиск" href="../search.html" />
     <link rel="next" title="Немного о PostgreSQL" href="postgresql.html" />
-    <link rel="prev" title="Заключение" href="conclusion.html" /> 
+    <link rel="prev" title="Схема данных NetBox" href="scheme.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -86,12 +86,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Часть 3. IPAM/DCIM-системы</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="restful/index.html">RESTful API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture.html">Архитектура системы</a></li>
 <li class="toctree-l2"><a class="reference internal" href="scheme.html">Схема данных NetBox</a></li>
-<li class="toctree-l2"><a class="reference internal" href="conclusion.html">Заключение</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Некоторые нюансы установки NetBox</a></li>
 <li class="toctree-l2"><a class="reference internal" href="postgresql.html">Немного о PostgreSQL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restful/index.html">RESTful API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.html">Заключение</a></li>
 </ul>
 </li>
 </ul>
@@ -171,7 +171,13 @@
 <ul>
 <li><div class="first line-block">
 <div class="line">В файле configuration.py должен быть заполнен параметр <a class="reference external" href="https://netbox.readthedocs.io/en/stable/installation/2-netbox/#allowed_hosts">ALLOWED_HOSTS</a>:</div>
-<div class="line">ALLOWED_HOSTS = [„netbox.linkmeup.ru“, „localhost“]</div>
+</div>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">ALLOWED_HOSTS</span> <span class="o">=</span> <span class="o">[</span><span class="s1">&#39;netbox.linkmeup.ru&#39;</span>, <span class="s1">&#39;localhost&#39;</span><span class="o">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="line-block">
 <div class="line">Тут нужно указать все возможные имена  NetBox, к которым вы будете обращаться, например, может быть внешний IP-адрес или 127.0.0.1 или DNS-alias.</div>
 <div class="line">Если этого не будет сделано, сайт NetBox не откроется и будет показывать 400.</div>
 </div>
@@ -183,13 +189,21 @@
 <li><div class="first line-block">
 <div class="line">С <a class="reference external" href="https://github.com/netbox-community/netbox/releases/tag/v2.6.0">некоторых пор</a> NetBox по умолчанию не даёт никаких прав на чтение без авторизации.</div>
 <div class="line">Изменяется это всё в том же configuration.py:</div>
-<div class="line">EXEMPT_VIEW_PERMISSIONS = [„*“]</div>
 </div>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">EXEMPT_VIEW_PERMISSIONS</span> <span class="o">=</span> <span class="o">[</span><span class="s1">&#39;*&#39;</span><span class="o">]</span>
+</pre></div>
+</div>
+</div></blockquote>
 </li>
 <li><div class="first line-block">
 <div class="line">А ещё API запросы будут возвращать 200 и не работать, если в API URL не будет слэша в конце.</div>
-<div class="line">curl -X GET -H «Accept: application/json; indent=4» «<a class="reference external" href="http://netbox.linkmeup.ru:45127/api/dcim/devices">http://netbox.linkmeup.ru:45127/api/dcim/devices</a>»</div>
 </div>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
 </li>
 </ul>
 </div>
@@ -205,7 +219,7 @@
         <a href="postgresql.html" class="btn btn-neutral float-right" title="Немного о PostgreSQL" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="conclusion.html" class="btn btn-neutral float-left" title="Заключение" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="scheme.html" class="btn btn-neutral float-left" title="Схема данных NetBox" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

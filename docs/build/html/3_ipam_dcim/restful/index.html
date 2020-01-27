@@ -37,7 +37,7 @@
     <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
     <link rel="search" title="Поиск" href="../../search.html" />
     <link rel="next" title="REST, RESTful, API" href="rest.html" />
-    <link rel="prev" title="Часть 3. IPAM/DCIM-системы" href="../index.html" /> 
+    <link rel="prev" title="Немного о PostgreSQL" href="../postgresql.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -86,20 +86,19 @@
 <li class="toctree-l1"><a class="reference internal" href="../../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Часть 3. IPAM/DCIM-системы</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html">Архитектура системы</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scheme.html">Схема данных NetBox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html">Некоторые нюансы установки NetBox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../postgresql.html">Немного о PostgreSQL</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">RESTful API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="rest.html">REST, RESTful, API</a></li>
 <li class="toctree-l3"><a class="reference internal" href="messages.html">Структура сообщений HTTP</a></li>
 <li class="toctree-l3"><a class="reference internal" href="methods.html">Методы</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ways.html">Способы работы с RESTful API</a></li>
-<li class="toctree-l3"><a class="reference internal" href="other.html">Критика RESTful API и альтернативы</a></li>
 <li class="toctree-l3"><a class="reference internal" href="conclusion.html">Заключение</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../architecture.html">Архитектура системы</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../scheme.html">Схема данных NetBox</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../conclusion.html">Заключение</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html">Некоторые нюансы установки NetBox</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../postgresql.html">Немного о PostgreSQL</a></li>
 </ul>
 </li>
 </ul>
@@ -170,7 +169,7 @@
             
   <div class="section" id="restful-api">
 <h1>RESTful API<a class="headerlink" href="#restful-api" title="Ссылка на этот заголовок">¶</a></h1>
-<p>Эта статья - одна из обещанных коротких заметок по ходу &lt;a href=»<a class="reference external" href="https://linkmeup.ru/adsm/">https://linkmeup.ru/adsm/</a>»&gt;АДСМ&lt;/a&gt;.
+<p>Эта статья - одна из обещанных коротких заметок по ходу <a class="reference external" href="https://linkmeup.ru/adsm/">АДСМ</a>.
 Поскольку основным способом взаимодействия с NetBox будет RESTful API, я решил рассказать о нём отдельно.</p>
 <p>Воздаю хвалы архитекторам современного мира - у нас есть стандартизированные интерфейсы. Да их много - это минус, но они есть - это плюс.</p>
 <p>Эти интерфейсы взаимодействия обрели имя <strong>API - Application Programming Interface</strong>.</p>
@@ -184,7 +183,7 @@
 <p>Например, в случае NetBox, добавить новое устройство в него можно следующими способами: через веб-браузер, отправив curl’ом запрос в консоли, использовать Postman, обратиться к библиотеке requests в питоне, воспользоваться SDK pynetbox или перейти в Swagger.</p>
 <p>Таким образом, один раз написав единый интерфейс, производитель навсегда освобождает себя от необходимости с каждым новым клиентом договариваться как его подключать (хотя, это самую малость лукавство).</p>
 <div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Дизайн сети:</span></p>
+<p class="caption"><span class="caption-text">Содержание:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="rest.html">REST, RESTful, API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="messages.html">Структура сообщений HTTP</a><ul>
@@ -208,10 +207,9 @@
 <li class="toctree-l2"><a class="reference internal" href="ways.html#swagger">SWAGGER</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="other.html">Критика RESTful API и альтернативы</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conclusion.html">Заключение</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="conclusion.html#id2">Полезные ссылки</a></li>
-<li class="toctree-l2"><a class="reference internal" href="conclusion.html#id4">Спасибы</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.html#id3">Полезные ссылки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.html#id5">Спасибы</a></li>
 </ul>
 </li>
 </ul>
@@ -229,7 +227,7 @@
         <a href="rest.html" class="btn btn-neutral float-right" title="REST, RESTful, API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../index.html" class="btn btn-neutral float-left" title="Часть 3. IPAM/DCIM-системы" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../postgresql.html" class="btn btn-neutral float-left" title="Немного о PostgreSQL" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
