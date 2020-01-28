@@ -148,7 +148,7 @@ DCIM
 
 Напоминаю где и как мы планировали нашу сеть: `АДСМ2. Дизайн сети <https://linkmeup.ru/blog/479.html>`_
 
-    .. figure:: https://fs.linkmeup.ru/images/adsm/2/locations.png
+    .. figure:: https://fs.linkmeup.ru/images/adsm/3/topology.png
            :width: 700
            :align: center
 
