@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Схема данных NetBox &mdash; Документация ADSM 0.1.0</title>
+  <title>Схема данных NetBox &mdash; документация ADSM 0.1.0</title>
   
 
   
@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script type="text/javascript" src="../_static/translations.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -35,9 +35,7 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
-    <link rel="search" title="Поиск" href="../search.html" />
-    <link rel="next" title="Некоторые нюансы установки NetBox" href="installation.html" />
-    <link rel="prev" title="Архитектура системы" href="architecture.html" /> 
+    <link rel="search" title="Поиск" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -51,7 +49,7 @@
           
 
           
-            <a href="../contents.html" class="icon icon-home"> ADSM
+            <a href="../index.html" class="icon icon-home"> ADSM
           
 
           
@@ -81,42 +79,11 @@
               
             
             
-              <ul class="current">
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Часть 3. IPAM/DCIM-системы</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="architecture.html">Архитектура системы</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Схема данных NetBox</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#dcim">DCIM</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#regions-sites">Регионы и сайты (regions/sites)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id12">Устройства</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id17">Интерфейсы</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id19">Консольные порты</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#ipam">IPAM</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#vlan-vrf">VLAN и VRF</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#ip">IP-префиксы</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id20">IP-адреса</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#id21">Виртуализация</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id22">Дополнительные приятные вещи</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#custom-fields">Custom fields</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#config-context">Config Context</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id25">Теги</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#webhooks">Webhooks</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html">Некоторые нюансы установки NetBox</a></li>
-<li class="toctree-l2"><a class="reference internal" href="postgresql.html">Немного о PostgreSQL</a></li>
-<li class="toctree-l2"><a class="reference internal" href="restful/index.html">RESTful API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="conclusion.html">Заключение</a></li>
-</ul>
-</li>
 </ul>
 
             
@@ -131,7 +98,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../contents.html">ADSM</a>
+          <a href="../index.html">ADSM</a>
         
       </nav>
 
@@ -160,9 +127,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../contents.html">Docs</a> &raquo;</li>
-        
-          <li><a href="index.html">Часть 3. IPAM/DCIM-системы</a> &raquo;</li>
+      <li><a href="../index.html">Docs</a> &raquo;</li>
         
       <li>Схема данных NetBox</li>
     
@@ -189,13 +154,13 @@
 NetBox едва ли станет единственной системой инвентаризации в компании, скорее, это будет специфическая дополнительная система для инвентаризации именно сети, забирающая данные из основной.
 Очевидно, в нашем случае для целей АДСМ будет только NetBox.</p>
 <blockquote>
-<div>К данному моменту бо́льшая часть начальных данных в NetBox уже внесена.
+<div><p>К данному моменту бо́льшая часть начальных данных в NetBox уже внесена.
 На этих данных я буду демонстрировать различные примеры работы через API.
 Вы можете просто полазить и посмотреть: <a class="reference external" href="http://netbox.linkmeup.ru:45127">http://netbox.linkmeup.ru:45127</a>
-И эти же данные понадобятся в дальнейшем, когда мы перейдём к автоматизации.</div></blockquote>
-<dl class="docutils">
-<dt>В общих чертах схему данных можно увидеть по схеме БД в Postgres’е</dt>
-<dd><div class="first last highlight-bash notranslate"><div class="highlight"><pre><span></span>+--------+------------------------------------+-------+--------+
+И эти же данные понадобятся в дальнейшем, когда мы перейдём к автоматизации.</p>
+</div></blockquote>
+<dl>
+<dt>В общих чертах схему данных можно увидеть по схеме БД в Postgres’е</dt><dd><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>+--------+------------------------------------+-------+--------+
 <span class="p">|</span>        <span class="p">|</span>               List of relations    <span class="p">|</span>       <span class="p">|</span>        <span class="p">|</span>
 <span class="p">|</span> Schema <span class="p">|</span>                Name                <span class="p">|</span> Type  <span class="p">|</span> Owner  <span class="p">|</span>
 +<span class="o">========</span>+<span class="o">====================================</span>+<span class="o">=======</span>+<span class="o">========</span>+
@@ -300,15 +265,15 @@ NetBox едва ли станет единственной системой ин
 </dl>
 <p><a class="reference external" href="https://netbox.readthedocs.io/en/stable/#what-is-netbox">Функции NetBox</a>:</p>
 <ul class="simple">
-<li><strong>IP address management (IPAM)</strong> - IP-префиксы, адреса, VRF’ы и VLAN’ы</li>
-<li><strong>Equipment racks</strong> - Стойки для оборудования, организованные по сайтам, группам и ролям</li>
-<li><strong>Devices</strong> - Устройства, их модели, роли, комплектующие и расопложение</li>
-<li><strong>Connections</strong> - Сетевые, консольные и силовые соединения между устройствами</li>
-<li><strong>Virtualization</strong> - Виртуальные машины и вычислительные кластера</li>
-<li><strong>Data circuits</strong> - Подключения к провайдерам</li>
-<li><strong>Secrets</strong> - Защифрованное хранилизе учётных данных пользователей</li>
+<li><p><strong>IP address management (IPAM)</strong> - IP-префиксы, адреса, VRF’ы и VLAN’ы</p></li>
+<li><p><strong>Equipment racks</strong> - Стойки для оборудования, организованные по сайтам, группам и ролям</p></li>
+<li><p><strong>Devices</strong> - Устройства, их модели, роли, комплектующие и расопложение</p></li>
+<li><p><strong>Connections</strong> - Сетевые, консольные и силовые соединения между устройствами</p></li>
+<li><p><strong>Virtualization</strong> - Виртуальные машины и вычислительные кластера</p></li>
+<li><p><strong>Data circuits</strong> - Подключения к провайдерам</p></li>
+<li><p><strong>Secrets</strong> - Зашифрованное хранилище учётных данных пользователей</p></li>
 </ul>
-<p>В этой статье я коснусь следующих вещей: DCIM - Data&nbsp;Center Infrastructure Management, IPAM - IP Address Management, Виртуализация, дополнительные приятные вещи.
+<p>В этой статье я коснусь следующих вещей: DCIM - Data Center Infrastructure Management, IPAM - IP Address Management, Виртуализация, дополнительные приятные вещи.
 Обо всём по порядку.</p>
 <div class="section" id="dcim">
 <h2>DCIM<a class="headerlink" href="#dcim" title="Ссылка на этот заголовок">¶</a></h2>
@@ -318,11 +283,9 @@ NetBox едва ли станет единственной системой ин
 <p>В парадигме NetBox устройство устанавливается на сайт, сайт принадлежит региону, регионы могут быть вложены. При этом устройство не может быть установлено просто в регионе. Если такая необходимость есть, должен быть заведён отдельный сайт.</p>
 <p>Для нашего случая это может (и будет) выглядеть так:</p>
 <ul>
-<li><p class="first"><a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/?region=ru">Россия</a>: <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/msk/">Москва</a>, <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/kzn/">Казань</a></p>
-</li>
-<li><p class="first"><a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/?region=sp">Испания</a>: <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/bcn/">Барселона</a>, <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/mlg/">Малага</a></p>
-</li>
-<li><p class="first"><a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/?region=cn">Китай</a>: <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/sha/">Шанхай</a>, <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/sia/">Сиань</a>.</p>
+<li><p><a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/?region=ru">Россия</a>: <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/msk/">Москва</a>, <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/kzn/">Казань</a></p></li>
+<li><p><a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/?region=sp">Испания</a>: <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/bcn/">Барселона</a>, <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/mlg/">Малага</a></p></li>
+<li><p><a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/?region=cn">Китай</a>: <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/sha/">Шанхай</a>, <a class="reference external" href="http://netbox.linkmeup.ru:45127/dcim/sites/sia/">Сиань</a>.</p>
 <blockquote>
 <div><div class="figure align-center">
 <a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/3/sites.png"><img alt="https://fs.linkmeup.ru/images/adsm/3/sites.png" src="https://fs.linkmeup.ru/images/adsm/3/sites.png" style="width: 800px;" /></a>
@@ -491,7 +454,7 @@ NetBox едва ли станет единственной системой ин
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/interfaces/?device=mlg-leaf-0&amp;mgmt_only=true&quot;</span> -H <span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">interfaces</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="s2">&quot;mlg-leaf-0&quot;</span><span class="p">,</span> <span class="n">mgmt_only</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">interfaces</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="s2">&quot;mlg-leaf-0&quot;</span><span class="p">,</span> <span class="n">mgmt_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -762,15 +725,6 @@ Config Context может быть локальным - настроенным �
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="installation.html" class="btn btn-neutral float-right" title="Некоторые нюансы установки NetBox" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="architecture.html" class="btn btn-neutral float-left" title="Архитектура системы" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

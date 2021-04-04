@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Overlay &mdash; Документация ADSM 0.1.0</title>
+  <title>Overlay &mdash; документация ADSM 0.1.0</title>
   
 
   
@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script type="text/javascript" src="../../_static/translations.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/translations.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -35,7 +35,9 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
-    <link rel="search" title="Поиск" href="../../search.html" /> 
+    <link rel="search" title="Поиск" href="../../search.html" />
+    <link rel="next" title="FAQ" href="faq.html" />
+    <link rel="prev" title="Underlay" href="underlay.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -49,7 +51,7 @@
           
 
           
-            <a href="../../contents.html" class="icon icon-home"> ADSM
+            <a href="../../index.html" class="icon icon-home"> ADSM
           
 
           
@@ -79,8 +81,28 @@
               
             
             
-              <ul>
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../0_planning/planning.html">Часть 0. Планирование</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Часть 1. Виртуализация</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Виртуализация сети</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="motivation.html">Причины</a></li>
+<li class="toctree-l3"><a class="reference internal" href="terminology.html">Терминология</a></li>
+<li class="toctree-l3"><a class="reference internal" href="underlay.html">Underlay</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Overlay</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#overlay-tor-a">Overlay с ToR’a</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Overlay с хоста</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">На примере Tungsten Fabric</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="conclusion.html">Заключение</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../1_virtualization_basics/index.html">Основы виртуализации</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
 </ul>
 
             
@@ -95,7 +117,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../contents.html">ADSM</a>
+          <a href="../../index.html">ADSM</a>
         
       </nav>
 
@@ -124,7 +146,11 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../contents.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Часть 1. Виртуализация</a> &raquo;</li>
+        
+          <li><a href="index.html">Виртуализация сети</a> &raquo;</li>
         
       <li>Overlay</li>
     
@@ -157,18 +183,18 @@
 <p>Так ВМ одного клиента (одного сервиса) могут общаться друг с другом через Overlay, даже не подозревая какой на самом деле путь проходит пакет.
 Overlay может быть например таким, как уже я упоминал выше:</p>
 <ul class="simple">
-<li>GRE-туннель</li>
-<li>VXLAN</li>
-<li>EVPN</li>
-<li>L3VPN</li>
-<li>GENEVE</li>
+<li><p>GRE-туннель</p></li>
+<li><p>VXLAN</p></li>
+<li><p>EVPN</p></li>
+<li><p>L3VPN</p></li>
+<li><p>GENEVE</p></li>
 </ul>
 <p>Overlay’ная сеть обычно настраивается и поддерживается через центральный контроллер. С него конфигурация, Control Plane и Data Plane доставляются на устройства, которые занимаются маршрутизацией и инкапсуляцией клиентского трафика. Чуть ниже разберём это на примерах.
 <strong>Да, это SDN в чистом виде.</strong></p>
 <p>Существует два принципиально различающихся подхода к организации Overlay-сети:</p>
 <ol class="arabic simple">
-<li>Overlay с ToR’a</li>
-<li>Overlay с хоста</li>
+<li><p>Overlay с ToR’a</p></li>
+<li><p>Overlay с хоста</p></li>
 </ol>
 <div class="section" id="overlay-tor-a">
 <h2>Overlay с ToR’a<a class="headerlink" href="#overlay-tor-a" title="Ссылка на этот заголовок">¶</a></h2>
@@ -216,7 +242,8 @@ Overlay может быть например таким, как уже я упо
 <hr class="docutils" />
 <p>Проще всего рассмотреть на примерах. И в качестве подопытного мы возьмём OpenSource’ную SDN платформу OpenContrail, ныне известную как <a class="reference external" href="https://tungsten.io">Tungsten Fabric</a>.</p>
 <blockquote>
-<div>В конце статьи я приведу некоторые размышления на тему аналогии с OpenFlow и OpenvSwitch.</div></blockquote>
+<div><p>В конце статьи я приведу некоторые размышления на тему аналогии с OpenFlow и OpenvSwitch.</p>
+</div></blockquote>
 </div>
 <div class="section" id="id2">
 <h2>На примере Tungsten Fabric<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
@@ -256,11 +283,9 @@ Overlay может быть например таким, как уже я упо
 <div class="section" id="data-plane">
 <h4>Data Plane<a class="headerlink" href="#data-plane" title="Ссылка на этот заголовок">¶</a></h4>
 <ol class="arabic">
-<li><p class="first">У VM-0 есть маршрут по умолчанию в его интерфейс eth0. Пакет отправляется туда. Этот интерфейс eth0 на самом деле виртуально соединён с виртуальным маршрутизатором vRouter через TAP-интерфейс tap0.</p>
-</li>
-<li><p class="first">vRouter анализирует на какой интерфейс пришёл пакет, то есть к какому клиенту (VRF) он относится, сверяет адрес получателя с таблицей маршрутизации этого клиента.</p>
-</li>
-<li><p class="first">Обнаружив, что получатель на этой же машине за другим портом, vRouter просто отправляет пакет в него без каких-либо дополнительных заголовков - на этот случай на vRouter’е уже есть ARP-запись.</p>
+<li><p>У VM-0 есть маршрут по умолчанию в его интерфейс eth0. Пакет отправляется туда. Этот интерфейс eth0 на самом деле виртуально соединён с виртуальным маршрутизатором vRouter через TAP-интерфейс tap0.</p></li>
+<li><p>vRouter анализирует на какой интерфейс пришёл пакет, то есть к какому клиенту (VRF) он относится, сверяет адрес получателя с таблицей маршрутизации этого клиента.</p></li>
+<li><p>Обнаружив, что получатель на этой же машине за другим портом, vRouter просто отправляет пакет в него без каких-либо дополнительных заголовков - на этот случай на vRouter’е уже есть ARP-запись.</p>
 <blockquote>
 <div><div class="figure align-center">
 <a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/1/intra-hv-dp.png"><img alt="https://fs.linkmeup.ru/images/adsm/1/intra-hv-dp.png" src="https://fs.linkmeup.ru/images/adsm/1/intra-hv-dp.png" style="width: 800px;" /></a>
@@ -274,18 +299,15 @@ Overlay может быть например таким, как уже я упо
 <h4>Control Plane<a class="headerlink" href="#control-plane" title="Ссылка на этот заголовок">¶</a></h4>
 <p>Гипервизор при запуске виртуальной машины сообщает ей:</p>
 <ul class="simple">
-<li>Её собственный IP-адрес.</li>
-<li>Маршрут по умолчанию - через IP-адрес vRouter’а в этой сети.</li>
+<li><p>Её собственный IP-адрес.</p></li>
+<li><p>Маршрут по умолчанию - через IP-адрес vRouter’а в этой сети.</p></li>
 </ul>
 <p>vRouter’у через специальный API гипервизор сообщает:</p>
 <ul>
-<li><p class="first">Что нужно создать виртуальный интерфейс.</p>
-</li>
-<li><p class="first">Какой ей (ВМ) нужно создать Virtual Network.</p>
-</li>
-<li><p class="first">К какому VRF его (VN) привязать.</p>
-</li>
-<li><p class="first">Статическую ARP-запись для этой VM - за каким интерфейсом находится её IP-адрес и к какому MAC-адресу он привязан.</p>
+<li><p>Что нужно создать виртуальный интерфейс.</p></li>
+<li><p>Какой ей (ВМ) нужно создать Virtual Network.</p></li>
+<li><p>К какому VRF его (VN) привязать.</p></li>
+<li><p>Статическую ARP-запись для этой VM - за каким интерфейсом находится её IP-адрес и к какому MAC-адресу он привязан.</p>
 <blockquote>
 <div><p>И снова, реальная процедура взаимодействия упрощена в угоду понимания концепции.</p>
 <div class="figure align-center">
@@ -310,36 +332,33 @@ Overlay может быть например таким, как уже я упо
 <div class="section" id="id5">
 <h4>Data Plane<a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h4>
 <ol class="arabic">
-<li><p class="first">Начало точно такое же: VM-0 посылает пакет с адресатом VM-7 (172.17.3.2) по своему дефолту.</p>
-</li>
-<li><p class="first">vRouter его получает и на этот раз видит, что адресат находится на другой машине и доступен через туннель Tunnel0.</p>
-</li>
-<li><p class="first">Сначала он вешает метку MPLS, идентифицирующую удалённый интерфейс, чтобы на обратной стороне vRouter мог определить куда этот пакет поместить причём без дополнительных лукапов.</p>
+<li><p>Начало точно такое же: VM-0 посылает пакет с адресатом VM-7 (172.17.3.2) по своему дефолту.</p></li>
+<li><p>vRouter его получает и на этот раз видит, что адресат находится на другой машине и доступен через туннель Tunnel0.</p></li>
+<li><p>Сначала он вешает метку MPLS, идентифицирующую удалённый интерфейс, чтобы на обратной стороне vRouter мог определить куда этот пакет поместить причём без дополнительных лукапов.</p>
 <blockquote>
 <div><div class="figure align-center">
 <a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/1/inter-hv-dp.png"><img alt="https://fs.linkmeup.ru/images/adsm/1/inter-hv-dp.png" src="https://fs.linkmeup.ru/images/adsm/1/inter-hv-dp.png" style="width: 800px;" /></a>
 </div>
 </div></blockquote>
 </li>
-<li><div class="first line-block">
+<li><div class="line-block">
 <div class="line">У Tunnel0 источник 10.0.0.2, получатель: 10.0.1.2.</div>
 <div class="line">vRouter добавляет заголовки GRE (или UDP) и новый IP к исходному пакету.</div>
 </div>
 </li>
-<li><p class="first">В таблице маршрутизации vRouter есть маршрут по умолчанию через адрес ToR1 10.0.0.1. Туда и отправляет.</p>
+<li><p>В таблице маршрутизации vRouter есть маршрут по умолчанию через адрес ToR1 10.0.0.1. Туда и отправляет.</p>
 <blockquote>
 <div><div class="figure align-center">
 <a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/1/headers.png"><img alt="https://fs.linkmeup.ru/images/adsm/1/headers.png" src="https://fs.linkmeup.ru/images/adsm/1/headers.png" style="width: 800px;" /></a>
 </div>
 </div></blockquote>
 </li>
-<li><div class="first line-block">
+<li><div class="line-block">
 <div class="line">ToR1 как участник Underlay сети знает (например, по OSPF), как добраться до 10.0.1.2, и отправляет пакет по маршруту. Обратите внимание, что здесь включается ECMP. На иллюстрации два некстхопа, и разные потоки будут раскладываться в них по хэшу. В случае настоящей фабрики тут будет скорее 4 некстхопа.</div>
 <div class="line">При этом знать, что находится под внешним заголовком IP ему не нужно. То есть фактически под IP может быть бутерброд из IPv6 over MPLS over Ethernet over MPLS over GRE over over over GREка.</div>
 </div>
 </li>
-<li><p class="first">Соответственно на принимающей стороне vRouter снимает GRE и по MPLS-метке понимает, в какой интерфейс этот пакет надо передать, раздевает его и отправляет в первоначальном виде получателю.</p>
-</li>
+<li><p>Соответственно на принимающей стороне vRouter снимает GRE и по MPLS-метке понимает, в какой интерфейс этот пакет надо передать, раздевает его и отправляет в первоначальном виде получателю.</p></li>
 </ol>
 </div>
 <div class="section" id="id6">
@@ -347,25 +366,23 @@ Overlay может быть например таким, как уже я упо
 <p>При запуске машины происходит всё то же, что было описано выше.
 И плюс ещё следующее:</p>
 <ul>
-<li><div class="first line-block">
+<li><div class="line-block">
 <div class="line">Для каждого клиента vRouter выделяет MPLS-метку. Это сервисная метка L3VPN, по которой клиенты будут разделяться в пределах одной физической машины.</div>
 <div class="line">На самом деле MPLS-метка выделяется vRouter’ом безусловно всегда - ведь неизвестно заранее, что машина будет взаимодействовать только с другими машинам за тем же vRouter’ом и это скорее всего даже не так.</div>
 </div>
 </li>
-<li><p class="first">vRouter устанавливает соединение с SDN-контроллером по протоколу BGP (или похожему на него - в случае TF -это XMPP 0_o).</p>
-</li>
-<li><p class="first">Через эту сессию vRouter сообщает SDN-контроллеру маршруты до подключенных сетей:</p>
+<li><p>vRouter устанавливает соединение с SDN-контроллером по протоколу BGP (или похожему на него - в случае TF -это XMPP 0_o).</p></li>
+<li><p>Через эту сессию vRouter сообщает SDN-контроллеру маршруты до подключенных сетей:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Адрес сети</li>
-<li>Метод инкапсуляции (MPLSoGRE, MPLSoUDP, VXLAN)</li>
-<li>MPLS-метку клиента</li>
-<li>Свой IP-адрес в качестве nexthop</li>
+<li><p>Адрес сети</p></li>
+<li><p>Метод инкапсуляции (MPLSoGRE, MPLSoUDP, VXLAN)</p></li>
+<li><p>MPLS-метку клиента</p></li>
+<li><p>Свой IP-адрес в качестве nexthop</p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first">SDN-контроллер получает такие маршруты ото всех подключенных vRouter’ов, и отражает их другим. То есть он выступает Route Reflector’ом.</p>
-</li>
+<li><p>SDN-контроллер получает такие маршруты ото всех подключенных vRouter’ов, и отражает их другим. То есть он выступает Route Reflector’ом.</p></li>
 </ul>
 <p>То же самое происходит и в обратную сторону.</p>
 <blockquote>
@@ -387,9 +404,8 @@ Overlay может быть например таким, как уже я упо
 <p>Где-то симуляция должна закончиться, и из виртуального мира нужно выйти в реальный. И нужен таксофон^W шлюз.</p>
 <p>Практикуют два подхода:</p>
 <ol class="arabic">
-<li><p class="first">Ставится аппаратный маршрутизатор.</p>
-</li>
-<li><p class="first">Запускается какой-либо appliance, реализующий функции маршрутизатора (да-да, вслед за SDN мы и с VNF столкнулись). Назовём его виртуальный шлюз.</p>
+<li><p>Ставится аппаратный маршрутизатор.</p></li>
+<li><p>Запускается какой-либо appliance, реализующий функции маршрутизатора (да-да, вслед за SDN мы и с VNF столкнулись). Назовём его виртуальный шлюз.</p>
 <blockquote>
 <div><div class="line-block">
 <div class="line">Преимущество второго подхода в дешёвой горизонтальной масштабируемости - не хватает мощности - запустили ещё одну виртуалку со шлюзом. На любой физической машине, без необходимости искать свободные стойки, юниты, вывода питания, покупать саму железку, везти её, устанавливать, коммутировать, настраивать, а потом ещё и менять в ней сбойные компоненты.</div>
@@ -409,20 +425,16 @@ Overlay может быть например таким, как уже я упо
 <h4>Data Plane<a class="headerlink" href="#id8" title="Ссылка на этот заголовок">¶</a></h4>
 <p>То есть процесс выглядит так:</p>
 <ol class="arabic">
-<li><p class="first">VM-0, имея дефолт всё в тот же vRouter, отправляет пакет с адресатом во внешнем мире (185.147.83.177) в интерфейс eth0.</p>
-</li>
-<li><div class="first line-block">
+<li><p>VM-0, имея дефолт всё в тот же vRouter, отправляет пакет с адресатом во внешнем мире (185.147.83.177) в интерфейс eth0.</p></li>
+<li><div class="line-block">
 <div class="line">vRouter получает этот пакет и делает лукап адреса назначения в таблице маршрутизации - находит маршрут по умолчанию через шлюз VNGW1 через Tunnel 1.</div>
 <div class="line">Также он видит, что это туннель GRE с SIP 10.0.0.2 и DIP 10.0.255.2, а ещё нужно сначала повесить MPLS-метку данного клиента, которую ожидает VNGW1.</div>
 </div>
 </li>
-<li><p class="first">vRouter упаковывает первоначальный пакет в заголовки MPLS, GRE и новый IP и отправляет на адрес ToR1 10.0.0.1 по дефолту.</p>
-</li>
-<li><p class="first">Андерлейная сеть доставляет пакет до шлюза VNGW1.</p>
-</li>
-<li><p class="first">Шлюз VNGW1 снимает туннелирующие заголовки GRE и MPLS, видит адрес назначения, консультируется со своей таблицей маршрутизации и понимает, что он направлен в Интернет - значит через Full View или Default. При необходимости производит NAT-трансляцию.</p>
-</li>
-<li><div class="first line-block">
+<li><p>vRouter упаковывает первоначальный пакет в заголовки MPLS, GRE и новый IP и отправляет на адрес ToR1 10.0.0.1 по дефолту.</p></li>
+<li><p>Андерлейная сеть доставляет пакет до шлюза VNGW1.</p></li>
+<li><p>Шлюз VNGW1 снимает туннелирующие заголовки GRE и MPLS, видит адрес назначения, консультируется со своей таблицей маршрутизации и понимает, что он направлен в Интернет - значит через Full View или Default. При необходимости производит NAT-трансляцию.</p></li>
+<li><div class="line-block">
 <div class="line">От VNGW до бордера может быть обычная IP-сеть, что вряд ли.</div>
 <div class="line">Может быть классическая MPLS сеть (IGP+LDP/RSVP TE), может быть обратно фабрика с BGP LU или GRE-туннель от VNGW до бордера через IP-сеть.</div>
 <div class="line">Как бы то ни было VNGW1 совершает необходимые инкапсуляции и отправляет первоначальный пакет в сторону бордера.</div>
@@ -436,18 +448,15 @@ Overlay может быть например таким, как уже я упо
 <div class="line">Трафик в обратную сторону проходит те же шаги в противоположном порядке.</div>
 </div>
 </li>
-<li><p class="first">Бордер добрасывает пакет до VNGW1</p>
-</li>
-<li><p class="first">Тот его раздевает, смотрит на адрес получателя и видит, что тот доступен через туннель Tunnel1 (MPLSoGRE или MPLSoUDP).</p>
-</li>
-<li><div class="first line-block">
+<li><p>Бордер добрасывает пакет до VNGW1</p></li>
+<li><p>Тот его раздевает, смотрит на адрес получателя и видит, что тот доступен через туннель Tunnel1 (MPLSoGRE или MPLSoUDP).</p></li>
+<li><div class="line-block">
 <div class="line">Соответственно, вешает метку MPLS, заголовок GRE/UDP и новый IP и отправляет на свой ToR3 10.0.255.1.</div>
 <div class="line">Адрес назначения туннеля - IP-адрес vRouter’а, за которым стоит целевая ВМ - 10.0.0.2.</div>
 </div>
 </li>
-<li><p class="first">Андерлейная сеть доставляет пакет до нужного vRouter’а.</p>
-</li>
-<li><p class="first">Целевой vRouter снимает GRE/UDP, по MPLS-метке определяет интерфейс и шлёт голый IP-пакет в свой TAP-интерфейс, связанный с eth0 ВМ.</p>
+<li><p>Андерлейная сеть доставляет пакет до нужного vRouter’а.</p></li>
+<li><p>Целевой vRouter снимает GRE/UDP, по MPLS-метке определяет интерфейс и шлёт голый IP-пакет в свой TAP-интерфейс, связанный с eth0 ВМ.</p>
 <blockquote>
 <div><div class="figure align-center">
 <a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/1/outside-dp-reverse.png"><img alt="https://fs.linkmeup.ru/images/adsm/1/outside-dp-reverse.png" src="https://fs.linkmeup.ru/images/adsm/1/outside-dp-reverse.png" style="width: 800px;" /></a>
@@ -488,6 +497,15 @@ Overlay может быть например таким, как уже я упо
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="faq.html" class="btn btn-neutral float-right" title="FAQ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="underlay.html" class="btn btn-neutral float-left" title="Underlay" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

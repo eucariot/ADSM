@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Инструменты виртуализации - libvirt, virsh и прочее &mdash; Документация ADSM 0.1.0</title>
+  <title>Инструменты виртуализации - libvirt, virsh и прочее &mdash; документация ADSM 0.1.0</title>
   
 
   
@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script type="text/javascript" src="../../_static/translations.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/translations.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -35,7 +35,9 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
-    <link rel="search" title="Поиск" href="../../search.html" /> 
+    <link rel="search" title="Поиск" href="../../search.html" />
+    <link rel="next" title="Заключение" href="conclusion.html" />
+    <link rel="prev" title="Виртуальная коммутация" href="vitual_switching.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -49,7 +51,7 @@
           
 
           
-            <a href="../../contents.html" class="icon icon-home"> ADSM
+            <a href="../../index.html" class="icon icon-home"> ADSM
           
 
           
@@ -79,8 +81,27 @@
               
             
             
-              <ul>
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../0_planning/planning.html">Часть 0. Планирование</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Часть 1. Виртуализация</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../0_virtual_network/index.html">Виртуализация сети</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Основы виртуализации</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="history.html">Введение и краткая история виртуализации</a></li>
+<li class="toctree-l3"><a class="reference internal" href="resource_types.html">Типы виртуальных ресурсов - compute, storage, network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vitual_switching.html">Виртуальная коммутация</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Инструменты виртуализации - libvirt, virsh и прочее</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#libvirt">libvirt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#virsh-cli">virsh CLI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#virt-install">virt-install</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="conclusion.html">Заключение</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
 </ul>
 
             
@@ -95,7 +116,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../contents.html">ADSM</a>
+          <a href="../../index.html">ADSM</a>
         
       </nav>
 
@@ -124,7 +145,11 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../contents.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Часть 1. Виртуализация</a> &raquo;</li>
+        
+          <li><a href="index.html">Основы виртуализации</a> &raquo;</li>
         
       <li>Инструменты виртуализации - libvirt, virsh и прочее</li>
     
@@ -150,11 +175,9 @@
 <p>В предыдущих главах мы рассматривали теоретические основы виртуализации, в этой главе мы поговорим об инструментах, которые доступны пользователю непосредственно для запуска и изменения виртуальных машин на KVM-гипервизоре.
 Остановимся на трех основных компонентах, которые покрывают 90 процентов всевозможных операций с виртуальными машинами:</p>
 <ul>
-<li><p class="first">libvirt</p>
-</li>
-<li><p class="first">virsh CLI</p>
-</li>
-<li><p class="first">virt-install</p>
+<li><p>libvirt</p></li>
+<li><p>virsh CLI</p></li>
+<li><p>virt-install</p>
 <blockquote>
 <div><p>Конечно, существует множество других утилит и CLI-команд, которые позволяют управлять гипервизором, например, можно напрямую пользоваться командами qemu_system_x86_64 или графическим интерфейсом virt manager, но это скорее исключение. К тому же существующие сегодня Cloud-платформы, Openstack, например, используют как раз libvirt.</p>
 </div></blockquote>
@@ -173,13 +196,14 @@
 <p>Хорошая новость про libvirt - все нужные пакеты уже предустановлены во всех наиболее часто используемых Host OS - Ubuntu, CentOS и RHEL, поэтому, скорее всего, собирать руками нужные пакеты и компилировать libvirt вам не придется. В худшем случае придется воспользоваться соответствующим пакетным инсталлятором (apt, yum и им подобные).</p>
 <p>При первоначальной установке и запуске libvirt по умолчанию создает Linux bridge virbr0 и его минимальную конфигурацию.</p>
 <blockquote>
-<div>Именно поэтому при установке Ubuntu Server, например, вы увидите в выводе команды ifconfig Linux bridge virbr0 - это результат запуска демона libvirtd</div></blockquote>
+<div><p>Именно поэтому при установке Ubuntu Server, например, вы увидите в выводе команды ifconfig Linux bridge virbr0 - это результат запуска демона libvirtd</p>
+</div></blockquote>
 <p>Этот Linux bridge не будет подключен ни к одному физическому интерфейсу, однако, может быть использован для связи виртуальных машин внутри одного гипервизора. Libvirt безусловно может быть использован вместе с OVS, однако, для этого пользователь должен самостоятельно создать OVS bridges с помощью соответствующих OVS-команд.</p>
 <p>Любой виртуальный ресурс, необходимый для создания виртуальной машины (compute, network, storage) представлен в виде объекта в libvirt. За процесс описания и создания этих объектов отвечает набор различных XML-файлов.</p>
 <p>Детально описывать процесс создания виртуальных сетей и виртуальных хранилищ не имеет особого смысла, так как эта прикладная задача хорошо описана в документации libvirt:</p>
 <ul class="simple">
-<li><a class="reference external" href="https://wiki.libvirt.org/page/VirtualNetworking">Networking</a></li>
-<li><a class="reference external" href="https://libvirt.org/storage.html">Storage</a></li>
+<li><p><a class="reference external" href="https://wiki.libvirt.org/page/VirtualNetworking">Networking</a></p></li>
+<li><p><a class="reference external" href="https://libvirt.org/storage.html">Storage</a></p></li>
 </ul>
 <p>Сама виртуальная машина со всеми подключенными PCI-устройствами в терминологии libvirt называется domain. Это тоже <a class="reference external" href="https://libvirt.org/formatdomain.html">объект внутри libvirt</a>, который описывается отдельным XML-файлом.</p>
 <p>Этот XML-файл и является, строго говоря, виртуальной машиной со всеми виртуальными ресурсами - оперативная память, процессор, сетевые устройства, диски и прочее. Часто данный XML-файл называют libvirt XML или dump XML.
@@ -203,6 +227,15 @@
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="conclusion.html" class="btn btn-neutral float-right" title="Заключение" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="vitual_switching.html" class="btn btn-neutral float-left" title="Виртуальная коммутация" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

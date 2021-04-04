@@ -1,0 +1,541 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ru" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Сценарии &mdash; документация ADSM 0.1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
+    <link rel="search" title="Поиск" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ADSM
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ADSM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Сценарии</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/4_lifecycle/scenarios.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>Сценарии<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
+<p>В реальной жизни их, конечно, будет много. Я же опишу самые необходимые:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#id2">1. Ввод нового оборудования</a></p></li>
+<li><p><a class="reference internal" href="#id3">2. Переконфигурация из-за изменений переменных в инвентарной системе</a></p></li>
+<li><p><a class="reference internal" href="#id4">3. Переконфигурация из-за изменения дизайна</a></p></li>
+<li><p><a class="reference internal" href="#id5">4. Сбор информации с устройств</a></p></li>
+<li><p><a class="reference internal" href="#id6">5. Снятие и возврат нагрузки</a></p></li>
+<li><p><a class="reference internal" href="#id7">6. Обновление ПО</a></p></li>
+<li><p><a class="reference internal" href="#id8">7. Удаление устройства</a></p></li>
+<li><p><a class="reference internal" href="#id9">8. Замена устройства</a></p></li>
+</ul>
+<p>Распишем каждый из них детально.</p>
+<div class="section" id="id2">
+<h2>1. Ввод нового оборудования<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<p>В зависимости от скорости роста, возможно, самый важный сценарий - быстро запускать новые узлы (стойки, филиалы, офисы), поскольку обычно занимает больше всего времени.
+#. | Человек или часть системы, реализующей нечто а-ля ZTP, приходит в NetAPI для инициализации устройства.</p>
+<blockquote>
+<div><blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/4/step1.svg"><img alt="https://fs.linkmeup.ru/images/adsm/4/step1.svg" src="https://fs.linkmeup.ru/images/adsm/4/step1.svg" width="600" /></a>
+</div>
+</div></blockquote>
+<ol class="arabic">
+<li><p>Ручка дёргает конкретное приложение, отвечающее за этот шаг</p></li>
+<li><p>Приложение создаёт устройство в NetBox и прописывает его</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Имя</p></li>
+<li><p>Серийник</p></li>
+<li><p>Локацию</p></li>
+<li><p>Вендор/модель</p></li>
+<li><p>Роль в сети</p></li>
+<li><p>Присущие ему свойства: список интерфейсов, консольных портов, комментарии.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Приложение определяет и при необходимости создаёт MGMT-интерфейс</p></li>
+<li><p>Приложение выделяет MGMT IP.</p></li>
+</ol>
+<div class="line-block">
+<div class="line">На данном шаге устройство в минимальном виде заведено в инвентарной системе, и заполнены необходимые для первичной настройки параметры.</div>
+</div>
+<ol class="arabic">
+<li><div class="line-block">
+<div class="line">Далее другая часть процесса, а-ля ZTP, приходит в ручку NetAPI в поисках первоначального конфига</div>
+</div>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/4/step2.svg"><img alt="https://fs.linkmeup.ru/images/adsm/4/step2.svg" src="https://fs.linkmeup.ru/images/adsm/4/step2.svg" width="700" /></a>
+</div>
+<ol class="arabic simple">
+<li><p>Ручка дёргает конкретное приложение</p></li>
+<li><p>Приложение собирает данные из NetBox и, возможно, внешних систем</p></li>
+<li><p>Приложение рендерит конфиг, возвращает его клиенту и заодно складывает его в git-репозиторий.</p></li>
+<li><p>Клиент каким-то образом доставляет конфигурацию до устройства - это может быть ZTP или пропихивание конфига через консольный порт.</p></li>
+</ol>
+</div></blockquote>
+<div class="line-block">
+<div class="line">После этого шага появляется удалённый SSH-доступ на устройство.</div>
+</div>
+<div class="line-block">
+<div class="line">Теперь по какому-то триггеру запускается конвейер ввода устройства в эксплуатацию.</div>
+<div class="line">Триггером может быть:</div>
+</div>
+<blockquote>
+<div><ul class="simple">
+<li><p>Чьё-то ручное действие - например, нажатие кнопки в интерфейсе - и сигнал в NetAPI.</p></li>
+<li><p>Обращение к ручке ввода в NetAPI от системы ZTP после завершения.</p></li>
+<li><p>Факт появления доступа по SSH на устройство - например, кроняка пытается доступиться до железки, которая помечена как «для ввода».</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+</div></blockquote>
+<ol class="arabic">
+<li><p>Заполняются данные в NetBox, которые в дальнейшем будут служить переменными для генерации конфигурации.</p>
+<blockquote>
+<div><blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/4/step3.svg"><img alt="https://fs.linkmeup.ru/images/adsm/4/step3.svg" src="https://fs.linkmeup.ru/images/adsm/4/step3.svg" width="800" /></a>
+</div>
+</div></blockquote>
+<ol class="arabic">
+<li><p>Система посылает в NetGet запрос на сбор данных о LLDP с данного свитча.</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p>Информация о соседях вносится в NetBox, порты связываются друг с другом.</p></li>
+<li><p>При необходимости создаются сабинтерфейсы или интерфейсы добавляются в LAG.</p></li>
+<li><div class="line-block">
+<div class="line">Вычисляются (или выделяются) P2P IP-адреса.</div>
+<div class="line">Необходимые изменения выполняются и на соседнем устройстве.</div>
+<div class="line">Этот шаг позволяет, во-первых, подготовить данные для настройки IP-адресов, во-вторых, визуализировать топологию при необходимости, в-третьих, собрать в будущем информацию о BGP-соседях, если на узле используется BGP.</div>
+</div>
+</li>
+<li><p>Система создаёт набор виртуальных интерфейсов и выделяет IP-адреса. Например, loopback’и и VLAN-интерфейсы.</p></li>
+<li><p>Заполняет другие необходимые данные. Например, ASN, IS-IS Network Entity, настройки l2-интерфейсов.</p></li>
+</ol>
+</div></blockquote>
+</li>
+<li><div class="line-block">
+<div class="line">Обновление данных в NetBox инициирует запрос в NetAPI на запуск конвейера для вычисления и деплоя новой конфигурации. Это может быть, например, Web-hook, отправленный самим Netbox’ом.</div>
+<div class="line">Речь здесь идёт обо всех устройствах, конфигурация которых меняется в результате ввода новых устройств. Добавляется новый Leaf - поменяется конфигурация Spine.</div>
+</div>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/4/step4-7.svg"><img alt="https://fs.linkmeup.ru/images/adsm/4/step4-7.svg" src="https://fs.linkmeup.ru/images/adsm/4/step4-7.svg" width="700" /></a>
+</div>
+</div></blockquote>
+</li>
+<li><div class="line-block">
+<div class="line">NetAPI через Диспетчера адресует задачу на ConfMan, который вычисляет вендор-агностик конфигурацию.</div>
+<div class="line">Для этого система берёт формализованную модель конфигурации данных (питоновские объекты, yaml итд) и подставляет в неё данные из NetBox.</div>
+<div class="line">Результатом может быть словарь, тот же yaml или питоновский объект.</div>
+</div>
+</li>
+</ol>
+</div></blockquote>
+</li>
+<li><p>Система генерит конфиг  для списка устройств. Результатом может быть текст, содержащий последовательность CLI-команд, NETCONF XML, набор объектов для YANG, JSONину для gNMI.</p></li>
+<li><div class="line-block">
+<div class="line">Опционально: только что сгенерированные конфиги сохраняются и коммитятся в git-репозиторий.</div>
+<div class="line">Здесь же могут выполняться лабораторные тесты CI/CD.</div>
+<div class="line">Проходят апрувы.</div>
+</div>
+<blockquote>
+<div><p>Я всё же не верю, что в обозримом будущем на сеть новый конфиг можно катить без человеческого подтверждения, как это давно происходит в мире WEB-приложений.</p>
+</div></blockquote>
+</li>
+<li><p>По факту сгенерированного конфига или полученных апрувов формируется задача в Dispatcher для Carrier’а на доставку и применение конфигурации на сеть.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/4/step8-9.svg"><img alt="https://fs.linkmeup.ru/images/adsm/4/step8-9.svg" src="https://fs.linkmeup.ru/images/adsm/4/step8-9.svg" width="700" /></a>
+</div>
+</div></blockquote>
+</li>
+<li><div class="line-block">
+<div class="line">Диспетчер диспетчеризирует и следит за выполнением каждой конкретной задачи и всей транзакции целиком.</div>
+<div class="line">Он целиком и полностью несёт ответственность за то, когда выполняется задача и с каким статусом она завершается.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">В случае успешной транзакции Диспетчер проводит ряд тестов, проверяющих две вещи:</div>
+</div>
+<blockquote>
+<div><ul>
+<li><p>Новое устройство готово к обслуживанию трафика,</p></li>
+<li><p>Сеть при этом не сломалась.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/4/step10-11.sv"><img alt="https://fs.linkmeup.ru/images/adsm/4/step10-11.sv" src="https://fs.linkmeup.ru/images/adsm/4/step10-11.sv" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Запускаются какие-то пинги. Проверяется маршрутная информация на сети - сравнивается с бейзлайном (например, состояние, как было до деплоя). Последнее предполагает, что мы либо собрали состояние перед обновлением, либо есть некая база данных с временными рядами (TSDB - Time Series Data Base), содержащая срезы исторических данных.</div>
+<div class="line">Есть тесты, падение которых вызовет аварию, но операция будет считаться завершённой. А есть те, после которых произойдёт автоматический откат всей транзакции. Лучше не сделать ничего, чем сделать хорошо, но наполовину.</div>
+</div>
+</li>
+<li><p>В случае успешных тестов в NetBox и/или иных системах проставляются индикаторы успешного ввода, новое устройство заводится в мониторинги и другие системы.</p></li>
+<li><p>С результатами Диспетчер идёт в ручку NetAPI и сообщает, что ввод завершён успешно, либо нет.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/4/step12.svg"><img alt="https://fs.linkmeup.ru/images/adsm/4/step12.svg" src="https://fs.linkmeup.ru/images/adsm/4/step12.svg" width="600" /></a>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<div class="line-block">
+<div class="line">Конвейер завершён.</div>
+<div class="line"><br /></div>
+<div class="line">Это весьма упрощённый конвейер, конечно. Здесь опущены шаги, которые могут быть фактически необходимы в реальной жизни: подавления аварийных сообщений, отписывание комментариев в тикеты, возможные проверки и подтверждения целевой конфигурации живыми людьми, всевозможные валидации на каждом шаге.</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>2. Переконфигурация из-за изменений переменных в инвентарной системе<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="line-block">
+<div class="line">Допустим по какой-то причине данные в нашем SoT поменялись - человек руками дескрипшон на порту изменил или автоматика пересчитала LLDP-соседства или ещё что-то.</div>
+<div class="line">Это изменение, которое должно привести к запуску конвейера по вычислению и выкатке новой конфигурации, описанное выше.</div>
+<div class="line"><br /></div>
+<div class="line">Триггером может быть Web-hook от SoT или опять же кроняка, которая следит за изменениями в этом SoT.</div>
+<div class="line"><br /></div>
+<div class="line">NetAPI получает запрос на запуск конвейера для вычисления и деплоя новой конфигурации, как это уже было в предыдущем сценарии.</div>
+<div class="line">Далее повторяются все те же действия, за исключением специфики, присущей вводу новых стоек. Все те же тесты.</div>
+<div class="line"><br /></div>
+<div class="line">Не забываем про версионирование - изменения переменных в SoT - это изменение версии. Мажорное, минорное или патч - это предмет жарких дискуссий, судьёй которому будет <a class="reference external" href="https://semver.org/">semver</a>.</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>3. Переконфигурация из-за изменения дизайна<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="line-block">
+<div class="line">Это может быть как небольшое изменение политики маршрутизации или ACL, так и сравнительно масштабная вещь, такая как добавление нового типа сервиса на всю сеть.</div>
+<div class="line">В целом, что относить к дизайну, а что к переменным - вопрос не просто дискуссионный, думаю, он на данный момент не имеет точного ответа.</div>
+<div class="line"><br /></div>
+<div class="line">Так же вопрос без ответа, в каком виде дизайн должен храниться - питоновские объекты, словарь, yaml, json? Хотел бы знать.</div>
+<div class="line">Но допустим, что независимо от формы он хранится в гите. И тогда его изменение легко можно использовать как триггер для запуска конвейера для вычисления и деплоя новой конфигурации, который мы дважды уже тронули выше.</div>
+</div>
+<blockquote>
+<div><p>Впрочем, тут возможна специфика: изменения дизайна несут риски, поэтому неплохо бы добавить шаг проведения тестов в лабе с помощью CI/CD.</p>
+</div></blockquote>
+<p>С точки зрения версионирования - инженер, меняющий дизайн и коммитящий изменения в гит, сам определяет насколько это важное обновление.</p>
+</div>
+<div class="section" id="id5">
+<h2>4. Сбор информации с устройств<a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="line-block">
+<div class="line">В целом сбором информации занимается NetGet. Как периодическим, так и разовым по запросу.</div>
+<div class="line">Поэтому, когда нужно собрать, например, MAC’и с конкретного устройства, клиент идёт в ручку NetAPI, а тот в свою очередь дёргает NetGet.</div>
+<div class="line"><br /></div>
+<div class="line">NetGet формирует задачу для Диспетчера, чтобы Carrier сходил на устройство и собрал необходимую информацию.</div>
+<div class="line"><br /></div>
+<div class="line">Учитывая, что для таких запросов клиент ожидает синхронный режим, Диспетчер должен по возможности прогнать его с высоким приоритетом и быстро вернуть ответ NetGet’у.</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>5. Снятие и возврат нагрузки<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="line-block">
+<div class="line">Этот сценарий не является самостоятельным, если мы говорим про окончательное решение вопроса автоматизации - это, скорее, ручка, к которой мы будем обращаться из других сценариев.</div>
+<div class="line"><br /></div>
+<div class="line">С одной стороны это задача, требующая ультра-много операций, занимающая много времени и склонная к человеческим ошибкам. Допустим какой-нибудь бордер вывести из эксплуатации, для замены контрол-бордов. Явно нужно автоматически это делать.</div>
+<div class="line">С другой - зачастую это работа, требующая весьма интеллектуальной деятельности - поди разбери в нужном порядке разные сервисы, линки, клиенты.</div>
+<div class="line"><br /></div>
+<div class="line">Но для сравнительно простых устройств, каковыми являются торы, спайны и суперспайны или один из маршрутизаторов в ISP на резервированном канале, сделать это выглядит несложным.</div>
+<div class="line"><br /></div>
+<div class="line">Это может быть реализовано как две ручки: для снятия нагрузки и для возврата - так и как одна: выполняющая полный цикл.</div>
+</div>
+<ol class="arabic">
+<li><p>Клиент приходит в ручку NetAPI. А тот запускает конвейер увода нагрузки</p></li>
+<li><p>Приложение определяет список сервисов, которые нужно погасить (L2/L3VPN, базовая маршрутизация, MPLS итд)</p></li>
+<li><div class="line-block">
+<div class="line">Приложение формирует список действий, которые нужно совершить.</div>
+<div class="line">Например:</div>
+</div>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Плавно увести трафик с помощью BGP gshut community или ISIS overload bit (или ещё чего-то</p></li>
+<li><p>Убедиться в отсутствии трафика на интерфейсах</p></li>
+<li><p>Выключить BGP-сессии в нужном порядке (сначала сервисные, потом транспортные</p></li>
+<li><p>Выключить интерфейсы</p></li>
+<li><p>Убедиться в отсутствии активных аварий по сервисам</p></li>
+</ol>
+</div></blockquote>
+</li>
+<li><p>Зафиксировать статус задачи.</p></li>
+</ol>
+<div class="line-block">
+<div class="line">Клиент может начинать выполнять запланированные работы. Клиентом может быть другой конвейер.</div>
+<div class="line"><br /></div>
+<div class="line">По завершению клиент дёргает ту же ручку для возврата нагрузки - и тогда в обратном порядке выполняются предыдущие действия.</div>
+<div class="line">Либо же это отдельная ручка, которая независимо описывает, каким образом для данного типа узлов происходит возврат нагрузки.</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>6. Обновление ПО<a class="headerlink" href="#id7" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="line-block">
+<div class="line">Обновление может быть двух видов - требующее прерывания сервисов, и нет.</div>
+</div>
+<div class="line-block">
+<div class="line">Соответственно конвейеры для них будут разные.</div>
+<div class="line">Рассмотрим для сложного случая</div>
+</div>
+<ol class="arabic">
+<li><p>Клиент приходит в ручку NetAPI</p></li>
+<li><p>Запускается конвейер снятия нагрузки</p></li>
+<li><p>Запускается конвейер обновления ПО:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Залить файлы ПО</p></li>
+<li><p>Проверить контрольную сумму</p></li>
+<li><p>Обновить прошивку, указать загрузочные файлы, перезагрузить устройство и провести иные мероприятия</p></li>
+<li><p>После обновления проверить версию ПО</p></li>
+</ol>
+</div></blockquote>
+</li>
+<li><p>Запустить конвейер возврата нагрузки.</p></li>
+</ol>
+</div>
+<div class="section" id="id8">
+<h2>7. Удаление устройства<a class="headerlink" href="#id8" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Это весьма частый сценарий. Особенно если рассматривать переезд старого устройства в новую роль или локацию, как удаление и создание нового.</p>
+<ol class="arabic">
+<li><p>Клиент приходит в NetAPI. Тот дёргает приложение, отвечающее за удаление устройства.</p></li>
+<li><p>Приложение проверяет, что нагрузка на устройстве ниже определённого порога.</p></li>
+<li><p>Приложение обращается в NetAPI в ручку снятия нагрузки.</p></li>
+<li><p>Приложение ищет все зависящие от этого устройства объекты в SoT. Как пример:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Интерфейсы</p></li>
+<li><p>IP-адреса</p></li>
+<li><p>Подсети</p></li>
+<li><p>Интерфейсы соседних устройств</p></li>
+<li><p>P2P-адреса соседних устройств</p></li>
+<li><p>Итд.</p></li>
+</ol>
+</div></blockquote>
+</li>
+<li><p>Приложение удаляет их все.</p></li>
+<li><div class="line-block">
+<div class="line">Изменения в SoT триггерят запуск уже известного нам конвейера. Как вы видите он весьма и весьма универсален.</div>
+<div class="line">Как результат - настройки соседних устройств, относящиеся к удалённому, удаляется в процессе деплоя новой конфигурации.</div>
+<div class="line"><br /></div>
+<div class="line">Само же устройство затирается к заводским настройкам. Кроме того оно удаляется из всех мониторингов и других систем.</div>
+</div>
+</li>
+<li><p>Устройство удаляется из БД или помечается каким-то образом, если нужно сохранить о нём информацию.</p></li>
+</ol>
+</div>
+<div class="section" id="id9">
+<h2>8. Замена устройства<a class="headerlink" href="#id9" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="line-block">
+<div class="line">Случается, что свитч ломается. Или нужно железку проапгрейдить на новую модель. В общем надо её снять, а новую поставить.</div>
+<div class="line">Теоретически это выглядит как два шага:</div>
+</div>
+<ul class="simple">
+<li><p>Удаление текущего устройства</p></li>
+<li><p>Добавление нового</p></li>
+</ul>
+<p>Но нам важны несколько вещей:</p>
+<ul class="simple">
+<li><p>Имя нового устройства должно быть таким же, как и у прежнего</p></li>
+<li><p>Сохранить MGMT IP</p></li>
+<li><p>Сохранить и другие атрибуты: лупбэки, вланы, ASN, итд</p></li>
+<li><p>Скорее всего, и конфигурацию</p></li>
+</ul>
+<div class="line-block">
+<div class="line">Не факт, что это всё необходимо, но, скорее всего, так.</div>
+<div class="line"><br /></div>
+<div class="line">Самым простым выглядит в существующей записи поменять минимум вещей - инвентарник, серийник, модель. Но это лишает гибкости и добавляет несколько щекотливых моментов при выводе старой железки.</div>
+<div class="line">Кроме того, мне импонирует мысль, что девайс в БД собой олицетворяет не место и роль, а вполне конкретное устройство. И при добавлении в сеть нового свитча или роутера, в DCIM появляется новая запись.</div>
+<div class="line"><br /></div>
+<div class="line">Поэтому я бы всё же рассматривал замену устройства на сети как</div>
+</div>
+<ul class="simple">
+<li><p>Удаление старого устройства</p></li>
+<li><p>Добавление нового с определённым набором атрибутов, значение которых хотим зафиксировать, и которые в противном случае определялись/выделялись бы автоматически.</p></li>
+</ul>
+<div class="line-block">
+<div class="line">При этом процедура удаления, определённая шагом выше, берётся как есть: с удалением артефактов на других устройствах (пересоздадим на втором шаге) и вычисткой конфига с устройства (чтобы, например, оно случайно на новом месте неожиданно не запустилось со старыми адресами и не начало всасывать и блэкхолить трафик).</div>
+<div class="line">Естественно, сценарии этим не ограничиваются. Их количество, степень автоматизированности и результаты диктуются бизнес-логикой и рациональностью.</div>
+<div class="line"><br /></div>
+<div class="line">Опять же мы тут опускаем вопросы подавления аварийных сообщений, коммита изменений в репы и подобные.</div>
+<div class="line"><br /></div>
+<div class="line">Но благодаря такому рассуждению мы приходим к пониманию, что здесь важно заложить наиболее общие и переиспользуемые конвейеры, которые станут впоследствии кирпичиками более сложных задач.</div>
+<div class="line">Сами конвейеры при этом декомпозируются на ещё более простые и универсальные атомы.</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, eucariot
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

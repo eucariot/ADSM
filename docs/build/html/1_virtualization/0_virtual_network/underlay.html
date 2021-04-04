@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Underlay &mdash; Документация ADSM 0.1.0</title>
+  <title>Underlay &mdash; документация ADSM 0.1.0</title>
   
 
   
@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script type="text/javascript" src="../../_static/translations.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/translations.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -35,7 +35,9 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
-    <link rel="search" title="Поиск" href="../../search.html" /> 
+    <link rel="search" title="Поиск" href="../../search.html" />
+    <link rel="next" title="Overlay" href="overlay.html" />
+    <link rel="prev" title="Терминология" href="terminology.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -49,7 +51,7 @@
           
 
           
-            <a href="../../contents.html" class="icon icon-home"> ADSM
+            <a href="../../index.html" class="icon icon-home"> ADSM
           
 
           
@@ -79,8 +81,23 @@
               
             
             
-              <ul>
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../0_planning/planning.html">Часть 0. Планирование</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Часть 1. Виртуализация</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Виртуализация сети</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="motivation.html">Причины</a></li>
+<li class="toctree-l3"><a class="reference internal" href="terminology.html">Терминология</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Underlay</a></li>
+<li class="toctree-l3"><a class="reference internal" href="overlay.html">Overlay</a></li>
+<li class="toctree-l3"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="conclusion.html">Заключение</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../1_virtualization_basics/index.html">Основы виртуализации</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
 </ul>
 
             
@@ -95,7 +112,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../contents.html">ADSM</a>
+          <a href="../../index.html">ADSM</a>
         
       </nav>
 
@@ -124,7 +141,11 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../contents.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Часть 1. Виртуализация</a> &raquo;</li>
+        
+          <li><a href="index.html">Виртуализация сети</a> &raquo;</li>
         
       <li>Underlay</li>
     
@@ -153,15 +174,16 @@
 </div>
 <p>Опирается он на стандартные протоколы и технологии. Не в последнюю очередь потому, что аппаратные устройства по сей день работают на проприетарном ПО, не допускающем ни программирование чипа, ни реализацию своих протоколов, соответственно, нужна совместимость с другими вендорами и стандартизация.</p>
 <blockquote>
-<div>А вот кто-нибудь вроде Гугла может себе позволить разработку собственных коммутаторов и отказ от общепринятых протоколов. Но LAN_DC не Гугл.</div></blockquote>
+<div><p>А вот кто-нибудь вроде Гугла может себе позволить разработку собственных коммутаторов и отказ от общепринятых протоколов. Но LAN_DC не Гугл.</p>
+</div></blockquote>
 <p>Underlay сравнительно редко меняется, потому что его задача - базовая IP-связность между физическими машинами. Underlay ничего не знает о запущенных поверх него сервисах, клиентах, тенантах - ему нужно только доставить пакет от одной машины до другой.
 Underlay может быть например таким:</p>
 <ul class="simple">
-<li>IPv4+OSPF</li>
-<li>IPv6+ISIS+BGP+L3VPN</li>
-<li>IP+EBGP</li>
-<li>L2+TRILL</li>
-<li>L2+STP</li>
+<li><p>IPv4+OSPF</p></li>
+<li><p>IPv6+ISIS+BGP+L3VPN</p></li>
+<li><p>IP+EBGP</p></li>
+<li><p>L2+TRILL</p></li>
+<li><p>L2+STP</p></li>
 </ul>
 <p>Настраивается Underlay’ная сеть классическим образом: CLI/GUI/NETCONF.
 Вручную, скриптами, проприетарными утилитами.</p>
@@ -173,6 +195,15 @@ Underlay может быть например таким:</p>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="overlay.html" class="btn btn-neutral float-right" title="Overlay" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="terminology.html" class="btn btn-neutral float-left" title="Терминология" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

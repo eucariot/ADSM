@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Виртуальная коммутация &mdash; Документация ADSM 0.1.0</title>
+  <title>Виртуальная коммутация &mdash; документация ADSM 0.1.0</title>
   
 
   
@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script type="text/javascript" src="../../_static/translations.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/translations.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -35,7 +35,9 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
-    <link rel="search" title="Поиск" href="../../search.html" /> 
+    <link rel="search" title="Поиск" href="../../search.html" />
+    <link rel="next" title="Инструменты виртуализации - libvirt, virsh и прочее" href="tools.html" />
+    <link rel="prev" title="Типы виртуальных ресурсов - compute, storage, network" href="resource_types.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -49,7 +51,7 @@
           
 
           
-            <a href="../../contents.html" class="icon icon-home"> ADSM
+            <a href="../../index.html" class="icon icon-home"> ADSM
           
 
           
@@ -79,8 +81,22 @@
               
             
             
-              <ul>
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../0_planning/planning.html">Часть 0. Планирование</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Часть 1. Виртуализация</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../0_virtual_network/index.html">Виртуализация сети</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Основы виртуализации</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="history.html">Введение и краткая история виртуализации</a></li>
+<li class="toctree-l3"><a class="reference internal" href="resource_types.html">Типы виртуальных ресурсов - compute, storage, network</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Виртуальная коммутация</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html">Инструменты виртуализации - libvirt, virsh и прочее</a></li>
+<li class="toctree-l3"><a class="reference internal" href="conclusion.html">Заключение</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
 </ul>
 
             
@@ -95,7 +111,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../contents.html">ADSM</a>
+          <a href="../../index.html">ADSM</a>
         
       </nav>
 
@@ -124,7 +140,11 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../contents.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Часть 1. Виртуализация</a> &raquo;</li>
+        
+          <li><a href="index.html">Основы виртуализации</a> &raquo;</li>
         
       <li>Виртуальная коммутация</li>
     
@@ -150,10 +170,10 @@
 <p>Если есть виртуальная машина, а в ней есть виртуальный интерфейс, то, очевидно, возникает задача передачи пакета из одной VM в другую. В Linux-based гипервизорах (KVM, например) эта задача может решаться с помощью Linux bridge, однако, большое распространение получил проект <a href="#id2"><span class="problematic" id="id3">`</span></a>Open vSwitch &lt;<a class="reference external" href="https://www.openvswitch.org">https://www.openvswitch.org</a>&gt;`_(OVS).
 Есть несколько основных функциональностей, которые позволили OVS широко распространиться и стать de-facto основным методом коммутации пакетов, который используется во многих платформах облачных вычислений(например, Openstack) и виртуализированных решениях.</p>
 <ul class="simple">
-<li>Передача сетевого состояния - при миграции VM между гипервизорами возникает задача передачи ACL, QoSs, L2/L3 forwarding-таблиц и прочего. И OVS умеет это.</li>
-<li>Реализация механизма передачи пакетов (datapath) как в kernel, так и в user-space</li>
-<li>CUPS (Control/User-plane separation) архитектура - позволяет перенести функциональность обработки пакетов на специализированный chipset (Broadcom и Marvell chipset, например, могут такое), управляя им через control-plane OVS.</li>
-<li>Поддержка методов удаленного управления трафиком - протокол OpenFlow (привет, SDN).</li>
+<li><p>Передача сетевого состояния - при миграции VM между гипервизорами возникает задача передачи ACL, QoSs, L2/L3 forwarding-таблиц и прочего. И OVS умеет это.</p></li>
+<li><p>Реализация механизма передачи пакетов (datapath) как в kernel, так и в user-space</p></li>
+<li><p>CUPS (Control/User-plane separation) архитектура - позволяет перенести функциональность обработки пакетов на специализированный chipset (Broadcom и Marvell chipset, например, могут такое), управляя им через control-plane OVS.</p></li>
+<li><p>Поддержка методов удаленного управления трафиком - протокол OpenFlow (привет, SDN).</p></li>
 </ul>
 <p>Архитектура OVS на первый взгляд выглядит довольно страшно, но это только на первый взгляд.</p>
 <blockquote>
@@ -163,16 +183,16 @@
 </div></blockquote>
 <p>Для работы с OVS нужно понимать следующее:</p>
 <ul class="simple">
-<li><strong>Datapath</strong> - тут обрабатываются пакеты. Аналогия - switch-fabric железного коммутатора. Datapath включает в себя приём пакетов, обработку заголовков, поиск соответствий по таблице flow, который в Datapath уже запрограммирован. Если OVS работает в kernel, то выполнен в виде модуля ядра. Если OVS работает в user-space, то это процесс в user-space Linux.</li>
-<li><strong>vswitchd</strong> и <strong>ovsdb</strong> - демоны в user-space, то что реализует непосредственно сам функциональность коммутатора, хранит конфигурацию, устанавливает flow в datapath и программирует его.</li>
-<li>Набор инструментов для настройки и траблшутинга OVS - <strong>ovs-vsctl, ovs-dpctl, ovs-ofctl, ovs-appctl</strong>. Все то, что нужно, чтобы прописать в ovsdb конфигурацию портов, прописать какой flow куда должен коммутироваться, собрать статистику и прочее. Добрые люди <a class="reference external" href="http://therandomsecurityguy.com/openvswitch-cheat-sheet/">написали статью</a> по этому поводу.</li>
+<li><p><strong>Datapath</strong> - тут обрабатываются пакеты. Аналогия - switch-fabric железного коммутатора. Datapath включает в себя приём пакетов, обработку заголовков, поиск соответствий по таблице flow, который в Datapath уже запрограммирован. Если OVS работает в kernel, то выполнен в виде модуля ядра. Если OVS работает в user-space, то это процесс в user-space Linux.</p></li>
+<li><p><strong>vswitchd</strong> и <strong>ovsdb</strong> - демоны в user-space, то что реализует непосредственно сам функциональность коммутатора, хранит конфигурацию, устанавливает flow в datapath и программирует его.</p></li>
+<li><p>Набор инструментов для настройки и траблшутинга OVS - <strong>ovs-vsctl, ovs-dpctl, ovs-ofctl, ovs-appctl</strong>. Все то, что нужно, чтобы прописать в ovsdb конфигурацию портов, прописать какой flow куда должен коммутироваться, собрать статистику и прочее. Добрые люди <a class="reference external" href="http://therandomsecurityguy.com/openvswitch-cheat-sheet/">написали статью</a> по этому поводу.</p></li>
 </ul>
 <p><strong>Каким же образом сетевое устройство виртуальной машины оказывается в OVS?</strong></p>
 <p>Для решения данной задачи нам необходимо каким-то образом связать между собой виртуальный интерфейс, находящийся в user-space операционной системы с datapath OVS, находящимся в kernel.</p>
 <p>В операционной системе Linux передача пакетов между kernel и user-space-процессами осуществляется посредством двух специальных интерфейсов. Оба интерфейса использует запись/чтение пакета в/из специальный файл для передачи пакетов из user-space-процесса в kernel и обратно - file descriptor (FD) (это одна из причин низкой производительности виртуальной коммутации, если datapath OVS находится в kernel - каждый пакет требуется записать/прочесть через FD)</p>
 <ul class="simple">
-<li><strong>TUN</strong> (tunnel) - устройство, работающее в L3 режиме и позволяющее записывать/считывать только IP пакеты в/из FD.</li>
-<li><strong>TAP</strong> (network tap) - то же самое, что и tun интерфейс + умеет производить операции с Ethernet-фреймами, т.е. работать в режиме L2.</li>
+<li><p><strong>TUN</strong> (tunnel) - устройство, работающее в L3 режиме и позволяющее записывать/считывать только IP пакеты в/из FD.</p></li>
+<li><p><strong>TAP</strong> (network tap) - то же самое, что и tun интерфейс + умеет производить операции с Ethernet-фреймами, т.е. работать в режиме L2.</p></li>
 </ul>
 <p>&lt;/ul&gt;</p>
 <blockquote>
@@ -183,7 +203,8 @@
 <p>Именно поэтому при запущенной виртуальной машине в Host OS можно увидеть созданные TAP-интерфейсы командой <em>ip link</em> или <em>ifconfig</em> - это «ответная» часть virtio, которая «видна» в kernel Host OS. Также стоит обратить внимание, что TAP-интерфейс имеет тот же MAC-адрес что и virtio-интерфейс в виртуальной машине.</p>
 <p>TAP-интерфейс может быть добавлен в OVS с помощью команд <em>ovs-vsctl</em> - тогда любой пакет, скоммутированный OVS в TAP-интерфейс, будет передан в виртуальную машину через file descriptor.</p>
 <blockquote>
-<div>Реальный порядок действий при создании виртуальной машины может быть разным, т.е. сначала можно создать OVS bridge, потом указать виртуальной машине создать интерфейс, соединенный с этим OVS, а можно и наоборот.</div></blockquote>
+<div><p>Реальный порядок действий при создании виртуальной машины может быть разным, т.е. сначала можно создать OVS bridge, потом указать виртуальной машине создать интерфейс, соединенный с этим OVS, а можно и наоборот.</p>
+</div></blockquote>
 <p>Теперь, если нам необходимо получить возможность передачи пакетов между двумя и более виртуальными машинами, которые запущены на одном гипервизоре, нам потребуется лишь создать OVS bridge и добавить в него TAP-интерфейсы с помощью команд ovs-vsctl. Какие именно команды для этого нужны легко гуглится.</p>
 <p>На гипервизоре может быть несколько OVS bridges, например, так работает Openstack Neutron, или же виртуальные машины могут находиться в разных namespace для реализации multi-tenancy.</p>
 <p><strong>А если виртуальные машины находятся в разных OVS bridges?</strong></p>
@@ -195,6 +216,15 @@
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tools.html" class="btn btn-neutral float-right" title="Инструменты виртуализации - libvirt, virsh и прочее" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="resource_types.html" class="btn btn-neutral float-left" title="Типы виртуальных ресурсов - compute, storage, network" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

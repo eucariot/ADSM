@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Архитектура системы &mdash; Документация ADSM 0.1.0</title>
+  <title>Архитектура системы &mdash; документация ADSM 0.1.0</title>
   
 
   
@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script type="text/javascript" src="../_static/translations.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -35,9 +35,7 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
-    <link rel="search" title="Поиск" href="../search.html" />
-    <link rel="next" title="Схема данных NetBox" href="scheme.html" />
-    <link rel="prev" title="Часть 3. IPAM/DCIM-системы" href="index.html" /> 
+    <link rel="search" title="Поиск" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -51,7 +49,7 @@
           
 
           
-            <a href="../contents.html" class="icon icon-home"> ADSM
+            <a href="../index.html" class="icon icon-home"> ADSM
           
 
           
@@ -81,19 +79,11 @@
               
             
             
-              <ul class="current">
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Часть 3. IPAM/DCIM-системы</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Архитектура системы</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scheme.html">Схема данных NetBox</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html">Некоторые нюансы установки NetBox</a></li>
-<li class="toctree-l2"><a class="reference internal" href="postgresql.html">Немного о PostgreSQL</a></li>
-<li class="toctree-l2"><a class="reference internal" href="restful/index.html">RESTful API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="conclusion.html">Заключение</a></li>
-</ul>
-</li>
 </ul>
 
             
@@ -108,7 +98,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../contents.html">ADSM</a>
+          <a href="../index.html">ADSM</a>
         
       </nav>
 
@@ -137,9 +127,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../contents.html">Docs</a> &raquo;</li>
-        
-          <li><a href="index.html">Часть 3. IPAM/DCIM-системы</a> &raquo;</li>
+      <li><a href="../index.html">Docs</a> &raquo;</li>
         
       <li>Архитектура системы</li>
     
@@ -163,19 +151,13 @@
   <div class="section" id="id1">
 <h1>Архитектура системы<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
 <ul>
-<li><p class="first">NetBox написан на Python3. Что хорошо, потому что ряд других решений написан на php и изменять их при необходимости не так уж просто.</p>
-</li>
-<li><p class="first">Фреймворк для самого сайта - Django.</p>
-</li>
-<li><p class="first">В качестве БД используется PostgreSQL.</p>
-</li>
-<li><p class="first">WEB-frontend (HTTP-сревис) - NGINX - он проксирует запросы в Gunicron.</p>
-</li>
-<li><p class="first">WSGI - Gunicorn - интерфейс между Nginx и самим приложением.</p>
-</li>
-<li><p class="first">Фреймворк для документации по API - Swagger.</p>
-</li>
-<li><p class="first">Чтобы демонизировать NetBox - Systemd.</p>
+<li><p>NetBox написан на Python3. Что хорошо, потому что ряд других решений написан на php и изменять их при необходимости не так уж просто.</p></li>
+<li><p>Фреймворк для самого сайта - Django.</p></li>
+<li><p>В качестве БД используется PostgreSQL.</p></li>
+<li><p>WEB-frontend (HTTP-сревис) - NGINX - он проксирует запросы в Gunicron.</p></li>
+<li><p>WSGI - Gunicorn - интерфейс между Nginx и самим приложением.</p></li>
+<li><p>Фреймворк для документации по API - Swagger.</p></li>
+<li><p>Чтобы демонизировать NetBox - Systemd.</p>
 <blockquote>
 <div><p>NetBox - проект молодой и быстро развивающийся. Например, в 2.7 отказались от supervisord и тянущегося за ним Python 2.7 в пользу systemd. Не так давно там не было ни кэширования, ни Webhooks.
 Поэтому меняется всё быстро и информация в статье может устареть к моменту чтения.</p>
@@ -194,15 +176,6 @@
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="scheme.html" class="btn btn-neutral float-right" title="Схема данных NetBox" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="index.html" class="btn btn-neutral float-left" title="Часть 3. IPAM/DCIM-системы" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

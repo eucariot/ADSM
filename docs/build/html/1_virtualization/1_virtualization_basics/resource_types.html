@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Типы виртуальных ресурсов - compute, storage, network &mdash; Документация ADSM 0.1.0</title>
+  <title>Типы виртуальных ресурсов - compute, storage, network &mdash; документация ADSM 0.1.0</title>
   
 
   
@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script type="text/javascript" src="../../_static/translations.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/translations.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -35,7 +35,9 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
-    <link rel="search" title="Поиск" href="../../search.html" /> 
+    <link rel="search" title="Поиск" href="../../search.html" />
+    <link rel="next" title="Виртуальная коммутация" href="vitual_switching.html" />
+    <link rel="prev" title="Введение и краткая история виртуализации" href="history.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -49,7 +51,7 @@
           
 
           
-            <a href="../../contents.html" class="icon icon-home"> ADSM
+            <a href="../../index.html" class="icon icon-home"> ADSM
           
 
           
@@ -79,8 +81,27 @@
               
             
             
-              <ul>
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../0_planning/planning.html">Часть 0. Планирование</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Часть 1. Виртуализация</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../0_virtual_network/index.html">Виртуализация сети</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Основы виртуализации</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="history.html">Введение и краткая история виртуализации</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Типы виртуальных ресурсов - compute, storage, network</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#compute">Compute</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#storage">Storage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#network">Network</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="vitual_switching.html">Виртуальная коммутация</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html">Инструменты виртуализации - libvirt, virsh и прочее</a></li>
+<li class="toctree-l3"><a class="reference internal" href="conclusion.html">Заключение</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
 </ul>
 
             
@@ -95,7 +116,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../contents.html">ADSM</a>
+          <a href="../../index.html">ADSM</a>
         
       </nav>
 
@@ -124,7 +145,11 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../contents.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Часть 1. Виртуализация</a> &raquo;</li>
+        
+          <li><a href="index.html">Основы виртуализации</a> &raquo;</li>
         
       <li>Типы виртуальных ресурсов - compute, storage, network</li>
     
@@ -150,9 +175,9 @@
 <p>Из чего же состоит виртуальная машина?
 Выделяют три основных вида виртуальных ресурсов:</p>
 <ul class="simple">
-<li>compute - процессор и оперативная память</li>
-<li>storage - системный диск виртуальной машины и блочные хранилища</li>
-<li>network - сетевые карты и устройства ввода/вывода</li>
+<li><p>compute - процессор и оперативная память</p></li>
+<li><p>storage - системный диск виртуальной машины и блочные хранилища</p></li>
+<li><p>network - сетевые карты и устройства ввода/вывода</p></li>
 </ul>
 <div class="section" id="compute">
 <h2>Compute<a class="headerlink" href="#compute" title="Ссылка на этот заголовок">¶</a></h2>
@@ -185,8 +210,8 @@ QEMU/KVM также позволяет эмулировать различные
 <p>Как известно, оперативная память потому и называется оперативной, что ее содержимое исчезает при отключении питания или перезагрузке операционной системы. Чтобы хранить информацию, требуется постоянное запоминающее устройство (ПЗУ) или <strong>persistent storage</strong>.
 Существует два основных вида persistent storage:</p>
 <ul class="simple">
-<li>Block storage (блоковое хранилище) - блок дискового пространства, который может быть использован для установки файловой системы и создания партиций. Если грубо, то можно воспринимать это как обычный диск.</li>
-<li>Object storage (объектное хранилище) - информация может быть сохранена только в виде объекта (файла), доступного по HTTP/HTTPS. Типичными примерами объектного хранилища являются AWS S3 или Dropbox.</li>
+<li><p>Block storage (блоковое хранилище) - блок дискового пространства, который может быть использован для установки файловой системы и создания партиций. Если грубо, то можно воспринимать это как обычный диск.</p></li>
+<li><p>Object storage (объектное хранилище) - информация может быть сохранена только в виде объекта (файла), доступного по HTTP/HTTPS. Типичными примерами объектного хранилища являются AWS S3 или Dropbox.</p></li>
 </ul>
 <p>Виртуальная машина нуждается в <strong>persistent storage</strong>, однако, как это сделать, если виртуальная машина «живет» в оперативной памяти Host OS? (кстати, именно поэтому невозможно запустить виртуальную машину с оперативной памятью меньше, чем размер ее qcow2 образа). Если вкратце, то любое обращение Guest OS к контроллеру виртуального диска перехватывается QEMU/KVM и трансформируется в запись на физический диск Host OS. Этот метод неэффективен, и поэтому здесь так же как и для сетевых устройств используется virtio-драйвер вместо полной эмуляции IDE или iSCSI-устройства. Подробнее об этом можно почитать <a class="reference external" href="https://www.qemu.org/2018/02/09/understanding-qemu-devices/">здесь</a>. Таким образом виртуальная машина обращается к своему виртуальному диску через virtio-драйвер, а далее QEMU/KVM делает так, чтобы переданная информация записалась на физический диск. Важно понимать, что в Host OS дисковый backend может быть реализован в виде CEPH, NFS или iSCSI-полки.</p>
 <p>Наиболее простым способом эмулировать persistent storage является использование файла в какой-либо директории Host OS как дискового пространства виртуальной машины. QEMU/KVM поддерживает множество различных форматов такого рода файлов - raw, vdi, vmdk и прочие. Однако наибольшее распространение получил формат <strong>qcow2</strong> (QEMU copy-on-write version 2). В общем случае, qcow2 представляет собой определенным образом структурированный файл без какой-либо операционной системы. Большое количество виртуальных машин распространяется именно в виде qcow2-образов (images) и являются копией системного диска виртуальной машины, упакованной в qcow2-формат. Это имеет ряд преимуществ - qcow2-кодирование занимает гораздо меньше места, чем raw копия диска байт в байт, QEMU/KVM умеет изменять размер qcow2-файла (resizing), а значит имеется возможность изменить размер системного диска виртуальной машины, также поддерживается AES шифрование qcow2 (это имеет смысл, так как образ виртуальной машины может содержать интеллектуальную собственность).</p>
@@ -214,6 +239,15 @@ QEMU/KVM также позволяет эмулировать различные
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="vitual_switching.html" class="btn btn-neutral float-right" title="Виртуальная коммутация" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="history.html" class="btn btn-neutral float-left" title="Введение и краткая история виртуализации" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

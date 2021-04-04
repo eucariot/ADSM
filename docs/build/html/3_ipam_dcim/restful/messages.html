@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Структура сообщений HTTP &mdash; Документация ADSM 0.1.0</title>
+  <title>Структура сообщений HTTP &mdash; документация ADSM 0.1.0</title>
   
 
   
@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script type="text/javascript" src="../../_static/translations.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/translations.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -35,9 +35,7 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
-    <link rel="search" title="Поиск" href="../../search.html" />
-    <link rel="next" title="Методы" href="methods.html" />
-    <link rel="prev" title="REST, RESTful, API" href="rest.html" /> 
+    <link rel="search" title="Поиск" href="../../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -51,7 +49,7 @@
           
 
           
-            <a href="../../contents.html" class="icon icon-home"> ADSM
+            <a href="../../index.html" class="icon icon-home"> ADSM
           
 
           
@@ -81,31 +79,11 @@
               
             
             
-              <ul class="current">
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../0_planning/planning.html">Часть 0. Планирование</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Часть 3. IPAM/DCIM-системы</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../architecture.html">Архитектура системы</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../scheme.html">Схема данных NetBox</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html">Некоторые нюансы установки NetBox</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../postgresql.html">Немного о PostgreSQL</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">RESTful API</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="rest.html">REST, RESTful, API</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Структура сообщений HTTP</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id1">Стартовая строка</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id4">Заголовки</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id6">Тело HTTP-сообщения</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="methods.html">Методы</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ways.html">Способы работы с RESTful API</a></li>
-<li class="toctree-l3"><a class="reference internal" href="conclusion.html">Заключение</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../conclusion.html">Заключение</a></li>
-</ul>
-</li>
 </ul>
 
             
@@ -120,7 +98,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../contents.html">ADSM</a>
+          <a href="../../index.html">ADSM</a>
         
       </nav>
 
@@ -149,11 +127,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../contents.html">Docs</a> &raquo;</li>
-        
-          <li><a href="../index.html">Часть 3. IPAM/DCIM-системы</a> &raquo;</li>
-        
-          <li><a href="index.html">RESTful API</a> &raquo;</li>
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
         
       <li>Структура сообщений HTTP</li>
     
@@ -178,9 +152,9 @@
 <h1>Структура сообщений HTTP<a class="headerlink" href="#http" title="Ссылка на этот заголовок">¶</a></h1>
 <p>HTTP-сообщение состоит из трёх частей, только первая из которых является обязательной.</p>
 <ul class="simple">
-<li>Стартовая строка</li>
-<li>Заголовки</li>
-<li>Тело сообщения</li>
+<li><p>Стартовая строка</p></li>
+<li><p>Заголовки</p></li>
+<li><p>Тело сообщения</p></li>
 </ul>
 <div class="section" id="id1">
 <h2>Стартовая строка<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h2>
@@ -195,9 +169,8 @@
 <strong>URI</strong> - идентификатор ресурса, куда клиент обращается или иными словами путь к ресурсу/документу.
 <strong>HTTP_VERSION</strong> - соответственно версия HTTP. На сегодняшний день для REST это всегда 1.1.</p>
 </div></blockquote>
-<dl class="docutils">
-<dt>Пример:</dt>
-<dd><div class="first last highlight-bash notranslate"><div class="highlight"><pre><span></span>GET /api/dcim/devices/1/ HTTP/1.1
+<dl>
+<dt>Пример:</dt><dd><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>GET /api/dcim/devices/1/ HTTP/1.1
 </pre></div>
 </div>
 </dd>
@@ -215,9 +188,8 @@
 <div class="line"><strong>REASON_PHRASE</strong> - Пояснение (OK, NOT FOUND, BAD GATEWAY итд)</div>
 </div>
 </div></blockquote>
-<dl class="docutils">
-<dt>Пример:</dt>
-<dd><div class="first last highlight-bash notranslate"><div class="highlight"><pre><span></span>HTTP/1.1 <span class="m">200</span> OK
+<dl>
+<dt>Пример:</dt><dd><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>HTTP/1.1 <span class="m">200</span> OK
 </pre></div>
 </div>
 </dd>
@@ -237,9 +209,9 @@ Accept: application/json<span class="p">;</span> <span class="nv">indent</span><
 </div></blockquote>
 <p>В них указано, что</p>
 <ul class="simple">
-<li>Обращаемся к хосту <strong>netbox.linkmeup.ru:45127</strong>,</li>
-<li>Запрос был сгенерирован в <strong>curl</strong>,</li>
-<li>А принимаем данные в формате <strong>JSON</strong> с отступом <strong>4</strong>.</li>
+<li><p>Обращаемся к хосту <strong>netbox.linkmeup.ru:45127</strong>,</p></li>
+<li><p>Запрос был сгенерирован в <strong>curl</strong>,</p></li>
+<li><p>А принимаем данные в формате <strong>JSON</strong> с отступом <strong>4</strong>.</p></li>
 </ul>
 <p>А вот какие заголовки были в HTTP-ответе:</p>
 <blockquote>
@@ -253,11 +225,11 @@ Connection: keep-alive
 </div></blockquote>
 <p>В них указано, что</p>
 <ul class="simple">
-<li>Тип сервера: <strong>nginx на Ubuntu</strong>,</li>
-<li>Время формирования ответа,</li>
-<li>Формат данных в ответе: <strong>JSON</strong></li>
-<li>Длина данных в ответе: <strong>1638 байтов</strong></li>
-<li>Соединение не нужно закрывать - ещё будут данные.</li>
+<li><p>Тип сервера: <strong>nginx на Ubuntu</strong>,</p></li>
+<li><p>Время формирования ответа,</p></li>
+<li><p>Формат данных в ответе: <strong>JSON</strong></p></li>
+<li><p>Длина данных в ответе: <strong>1638 байтов</strong></p></li>
+<li><p>Соединение не нужно закрывать - ещё будут данные.</p></li>
 </ul>
 <p>Заголовки, как вы уже заметили, выглядят как пары имя:значение, разделённые знаком «:».</p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields">Полный список возможных заголовков</a>.</p>
@@ -277,15 +249,6 @@ Connection: keep-alive
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="methods.html" class="btn btn-neutral float-right" title="Методы" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="rest.html" class="btn btn-neutral float-left" title="REST, RESTful, API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

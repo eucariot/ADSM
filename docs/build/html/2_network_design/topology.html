@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Физическая Топология &mdash; Документация ADSM 0.1.0</title>
+  <title>Физическая Топология &mdash; документация ADSM 0.1.0</title>
   
 
   
@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script type="text/javascript" src="../_static/translations.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -51,7 +51,7 @@
           
 
           
-            <a href="../contents.html" class="icon icon-home"> ADSM
+            <a href="../index.html" class="icon icon-home"> ADSM
           
 
           
@@ -81,7 +81,8 @@
               
             
             
-              <ul class="current">
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Часть 2. Дизайн сети</a><ul class="current">
@@ -94,6 +95,7 @@
 <li class="toctree-l2"><a class="reference internal" href="routing.html">Маршрутизация</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ip_plan.html">IP-план</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lab.html">Лаба</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.html">Заключение</a></li>
 </ul>
 </li>
 </ul>
@@ -110,7 +112,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../contents.html">ADSM</a>
+          <a href="../index.html">ADSM</a>
         
       </nav>
 
@@ -139,7 +141,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../contents.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html">Docs</a> &raquo;</li>
         
           <li><a href="index.html">Часть 2. Дизайн сети</a> &raquo;</li>
         
@@ -168,31 +170,28 @@
 <h2>Локации<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
 <p>У LAN_DC будет 6 ДЦ:</p>
 <ul>
-<li><dl class="first docutils">
-<dt>Россия (<strong>RU</strong>):</dt>
-<dd><ul class="first last simple">
-<li>Москва (<strong>msk</strong>)</li>
-<li>Казань (<strong>kzn</strong>)</li>
+<li><dl class="simple">
+<dt>Россия (<strong>RU</strong>):</dt><dd><ul class="simple">
+<li><p>Москва (<strong>msk</strong>)</p></li>
+<li><p>Казань (<strong>kzn</strong>)</p></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li><dl class="first docutils">
-<dt>Испания (<strong>SP</strong>):</dt>
-<dd><ul class="first last simple">
-<li>Барселона (<strong>bcn</strong>)</li>
-<li>Малага (<strong>mlg</strong>)</li>
+<li><dl class="simple">
+<dt>Испания (<strong>SP</strong>):</dt><dd><ul class="simple">
+<li><p>Барселона (<strong>bcn</strong>)</p></li>
+<li><p>Малага (<strong>mlg</strong>)</p></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li><dl class="first docutils">
-<dt>Китай (<strong>CN</strong>):</dt>
-<dd><ul class="first simple">
-<li>Шанхай (<strong>sha</strong>)</li>
-<li>Сиань (<strong>sia</strong>)</li>
+<li><dl>
+<dt>Китай (<strong>CN</strong>):</dt><dd><ul class="simple">
+<li><p>Шанхай (<strong>sha</strong>)</p></li>
+<li><p>Сиань (<strong>sia</strong>)</p></li>
 </ul>
-<div class="last figure align-center">
+<div class="figure align-center">
 <a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/2/locations.png"><img alt="https://fs.linkmeup.ru/images/adsm/2/locations.png" src="https://fs.linkmeup.ru/images/adsm/2/locations.png" style="width: 800px;" /></a>
 </div>
 </dd>
@@ -215,12 +214,13 @@
 <p><em>Общая схема фабрики</em></p>
 <p>Именовать их будем <em>XXX-leafY</em>, где <strong>XXX</strong> - трёхбуквенное сокращение ДЦ, а <strong>Y</strong> - порядковый номер. Например, <em>kzn-leaf11</em>.</p>
 <blockquote>
-<div>Я в статьях позволю себе достаточно фривольно обращаться терминами Leaf и ToR, как синонимами. Однако нужно помнить, что это не так.
+<div><p>Я в статьях позволю себе достаточно фривольно обращаться терминами Leaf и ToR, как синонимами. Однако нужно помнить, что это не так.
 ToR - это коммутатор, установленный в стойке, к которому подключаются машины.
 Leaf - это роль устройства в физической сети или свитч первого уровня в терминах топологии Клоза.
 То есть Leaf != ToR.
 Так Leaf’ом может быть End Of Raw-коммутатор, например.
-Однако в рамках этой статьи будем всё же обращаться ими как синонимами.</div></blockquote>
+Однако в рамках этой статьи будем всё же обращаться ими как синонимами.</p>
+</div></blockquote>
 <p>Каждый ToR-коммутатор в свою очередь соединён с четырьмя вышестоящими агрегирующими коммутаторами - <strong>Spine</strong>. Под Spine’ы выделено по одной стойке в ДЦ. Именовать будем аналогично: <em>XXX-spineY</em>.</p>
 <p>В этой же стойке будет стоять сетевое оборудование для связности между ДЦ - 2 маршрутизатора с MPLS на борту. Но по большому счёту - это те же самые ToR’ы. То есть с точки зрения Spine-коммутаторов не имеет никакого значения обычный там ToR с подключенными машинами или маршрутизатор для DCI - один чёрт форвардить.
 Такие специальные ToR’ы называются <strong>Edge-leaf</strong>. Мы их будем именовать <em>XXX-edgeY</em>.</p>
@@ -258,8 +258,9 @@ Leaf - это роль устройства в физической сети и�
 Для простоты предположим, что ДЦ связаны между собой прямыми линками.
 Исключим из рассмотрения внешнюю связность.</p>
 <blockquote>
-<div>Я отдаю себе отчёт в том, что каждый раз, как я убираю какой-либо компонент, я значительно упрощаю сеть. И при автоматизации нашей абстрактной сети всё будет хорошо, а на реальной возникнут костыли.
-Это так. И всё же задача этой серии - подумать и поработать над подходами, а не героически решать выдуманные проблемы.</div></blockquote>
+<div><p>Я отдаю себе отчёт в том, что каждый раз, как я убираю какой-либо компонент, я значительно упрощаю сеть. И при автоматизации нашей абстрактной сети всё будет хорошо, а на реальной возникнут костыли.
+Это так. И всё же задача этой серии - подумать и поработать над подходами, а не героически решать выдуманные проблемы.</p>
+</div></blockquote>
 <p>На Edge-Leaf’ах  underlay помещается в VPN и передаётся через MPLS-магистраль (тот самый прямой линк).</p>
 <p>Вот такая верхнеуровневая схема получается.</p>
 <blockquote>

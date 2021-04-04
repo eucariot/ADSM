@@ -1,0 +1,225 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ru" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Заключение &mdash; документация ADSM 0.1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
+    <link rel="search" title="Поиск" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ADSM
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ADSM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Заключение</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/4_lifecycle/conclusion.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>Заключение<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Итак, скромной задачей этой статьи было спуститься на один уровень абстракции ниже по сравнению с <a class="reference external" href="https://linkmeup.ru/blog/424.html">нулевой публикацией</a> и попытаться декомпозировать жизненный цикл оборудования на понятные блоки.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/4/dasha.png"><img alt="https://fs.linkmeup.ru/images/adsm/4/dasha.png" src="https://fs.linkmeup.ru/images/adsm/4/dasha.png" style="width: 600px;" /></a>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Повторюсь в очередной раз, что это лишь один из возможных подходов, который просто пришёл в голову мне. Он не только не претендует на оптимальность и проработанность, но и, хуже того, скорее всего, даже на таком описательном уровне уже местами переусложнён.</div>
+<div class="line"><br /></div>
+<div class="line">И ещё хуже то, что в рамках этой серии крайне маловероятно, что я сделаю что-то практическое, хотя бы отдалённое напоминающее описанную схему.</div>
+<div class="line">Хотя зарекаться не буду.</div>
+<div class="line"><br /></div>
+<div class="line">В следующих статьях мы поразбираемся с ZTP и какими-то базовыми скриптами автоматизации. А ещё рано или поздно углубимся в интерфейсы взаимодействия с сетевыми коробками: NETCONF/YANG, gNMI, GRPC.</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h1>Спасибы<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h1>
+<ul>
+<li><p><a class="reference external" href="https://www.linkedin.com/in/roman-gorge-2b15896b/?originalSubdomain=se">Роману Горге</a> - бывшему ведущему подкаста linkmeup, а ныне эксперту в области облачных платформ - за комментарии про подход IaC и концепцию ACID применительно к сети.</p></li>
+<li><p><a class="reference external" href="https://github.com/arefiev">Михаилу Арефьеву</a> - руководителю проектов по сетевой автоматизации в Яндексе - за анализ и критику архитектуры решения и сценариев.</p></li>
+<li><p>Дмитрию Фиголю - Network Automation Architect at Cisco Global Demo Engineering.</p></li>
+<li><p><a class="reference external" href="https://www.linkedin.com/in/nikita-astashenko-25a16683/">Никите Асташенко</a> - моему другу и классному разработчику - за поездку на Алтай и долгие разговоры у костра, без которых эта идея не вызрела бы.</p>
+<blockquote>
+<div><p>Особо благодарных просим задержаться и пройти на <a class="reference external" href="https://www.patreon.com/linkmeup?ty=h">Патреон</a>.</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/patreon.jpg"><img alt="https://fs.linkmeup.ru/images/patreon.jpg" src="https://fs.linkmeup.ru/images/patreon.jpg" style="width: 400px;" /></a>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, eucariot
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

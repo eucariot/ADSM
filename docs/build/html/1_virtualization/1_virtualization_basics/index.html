@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Основы виртуализации &mdash; Документация ADSM 0.1.0</title>
+  <title>Основы виртуализации &mdash; документация ADSM 0.1.0</title>
   
 
   
@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script type="text/javascript" src="../../_static/translations.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/translations.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -51,7 +51,7 @@
           
 
           
-            <a href="../../contents.html" class="icon icon-home"> ADSM
+            <a href="../../index.html" class="icon icon-home"> ADSM
           
 
           
@@ -81,7 +81,8 @@
               
             
             
-              <ul class="current">
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../0_planning/planning.html">Часть 0. Планирование</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Часть 1. Виртуализация</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../0_virtual_network/index.html">Виртуализация сети</a></li>
@@ -95,6 +96,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
 </ul>
 
             
@@ -109,7 +111,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../contents.html">ADSM</a>
+          <a href="../../index.html">ADSM</a>
         
       </nav>
 
@@ -138,7 +140,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../contents.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
         
           <li><a href="../index.html">Часть 1. Виртуализация</a> &raquo;</li>
         
@@ -164,7 +166,8 @@
   <div class="section" id="id1">
 <h1>Основы виртуализации<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
 <blockquote>
-<div>Автор этой статьи - <a class="reference external" href="https://www.linkedin.com/in/roman-gorge-2b15896b/?originalSubdomain=se">Роман Горге</a> - бывший ведущий linkmeup.</div></blockquote>
+<div><p>Автор этой статьи - <a class="reference external" href="https://www.linkedin.com/in/roman-gorge-2b15896b/?originalSubdomain=se">Роман Горге</a> - бывший ведущий linkmeup.</p>
+</div></blockquote>
 <p><a class="reference external" href="https://linkmeup.ru/blog/449.html">Предыдущая статья</a> рассматривала архитектуру виртуализированной сети, underlay-overlay, путь пакета между VM и прочее. В данной статье мы затронем (или попытаемся затронуть) вопросы а как собственно происходит виртуализация сетевых функций, как реализован backend основных продуктов, обеспечивающих запуск и управление VM, а также как работает виртуальный свитчинг (OVS и Linux bridge).</p>
 <p>Тема виртуализации широка и глубока, объяснить все детали работы гипервизора невозможно (да и не нужно). Мы ограничимся минимальным набором знаний необходимым для понимания работы любого виртуализированного решения, не обязательно Telco.</p>
 <blockquote>

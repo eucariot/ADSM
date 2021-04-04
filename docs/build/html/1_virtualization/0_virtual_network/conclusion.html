@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Заключение &mdash; Документация ADSM 0.1.0</title>
+  <title>Заключение &mdash; документация ADSM 0.1.0</title>
   
 
   
@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script type="text/javascript" src="../../_static/translations.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/translations.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -35,7 +35,9 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
-    <link rel="search" title="Поиск" href="../../search.html" /> 
+    <link rel="search" title="Поиск" href="../../search.html" />
+    <link rel="next" title="Основы виртуализации" href="../1_virtualization_basics/index.html" />
+    <link rel="prev" title="FAQ" href="faq.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -49,7 +51,7 @@
           
 
           
-            <a href="../../contents.html" class="icon icon-home"> ADSM
+            <a href="../../index.html" class="icon icon-home"> ADSM
           
 
           
@@ -79,8 +81,27 @@
               
             
             
-              <ul>
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../0_planning/planning.html">Часть 0. Планирование</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Часть 1. Виртуализация</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Виртуализация сети</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="motivation.html">Причины</a></li>
+<li class="toctree-l3"><a class="reference internal" href="terminology.html">Терминология</a></li>
+<li class="toctree-l3"><a class="reference internal" href="underlay.html">Underlay</a></li>
+<li class="toctree-l3"><a class="reference internal" href="overlay.html">Overlay</a></li>
+<li class="toctree-l3"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Заключение</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Полезные ссылки</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Спасибы</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../1_virtualization_basics/index.html">Основы виртуализации</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
 </ul>
 
             
@@ -95,7 +116,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../contents.html">ADSM</a>
+          <a href="../../index.html">ADSM</a>
         
       </nav>
 
@@ -124,7 +145,11 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../contents.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Часть 1. Виртуализация</a> &raquo;</li>
+        
+          <li><a href="index.html">Виртуализация сети</a> &raquo;</li>
         
       <li>Заключение</li>
     
@@ -150,16 +175,17 @@
 <p>Это весьма поверхностное описание работы виртуальной сети с оверлеем с хоста и SDN-контроллером. Но какую бы платформу виртуализации вы сегодня ни взяли, работать она будет похожим образом, будь то VMWare, ACI, OpenStack, CloudStack, Tungsten Fabric или Juniper Contrail. Они будут отличаться видами инкапсуляций и заголовков, протоколами доставки информации на конечные сетевые устройства, но принцип программно настраиваемой оверлейной сети, работающей поверх сравнительно простой и статичной андерлейной сети останется прежним.
 Можно сказать, что  области создания приватного облака на сегодняшний день SDN на основе оверлейной сети победил. Впрочем это не значит, что Openflow нет места в современном мире - он используется в OpenStacke и в той же VMWare NSX, его, насколько мне известно, использует Google для настройки андерлейной сети.</p>
 <blockquote>
-<div>Чуть ниже я привёл ссылки на более подробные материалы, если хочется изучить вопрос глубже.</div></blockquote>
+<div><p>Чуть ниже я привёл ссылки на более подробные материалы, если хочется изучить вопрос глубже.</p>
+</div></blockquote>
 <p>А что там наш Underlay?
 А в общем-то ничего. Он всю дорогу не менялся. Всё, что ему нужно делать в случае оверлея с хоста - это обновлять маршруты и ARP’ы по мере появления и исчезновения vRouter/VNGW и таскать пакеты между ними.</p>
 <p>Давайте сформулируем список требований к Underlay-сети.</p>
 <ol class="arabic simple">
-<li>Уметь в какой-то протокол маршрутизации, в нашей ситуации - BGP.</li>
-<li>Иметь широкую полосу, желательно без переподписки, чтобы не терялись пакеты из-за перегрузок.</li>
-<li>Поддерживать ECMP - неотъемлемая часть фабрики.</li>
-<li>Уметь обеспечить QoS, в том числе хитрые штуки, вроде ECN.</li>
-<li>Поддерживать NETCONF - задел на будущее.</li>
+<li><p>Уметь в какой-то протокол маршрутизации, в нашей ситуации - BGP.</p></li>
+<li><p>Иметь широкую полосу, желательно без переподписки, чтобы не терялись пакеты из-за перегрузок.</p></li>
+<li><p>Поддерживать ECMP - неотъемлемая часть фабрики.</p></li>
+<li><p>Уметь обеспечить QoS, в том числе хитрые штуки, вроде ECN.</p></li>
+<li><p>Поддерживать NETCONF - задел на будущее.</p></li>
 </ol>
 <p>Работе самой Underlay-сети я посвятил здесь совсем мало времени. Это потому, что далее в серии я именно на ней и сосредоточусь, а Overlay мы будем затрагивать только вскользь.</p>
 <p>Очевидно, я сильно ограничиваю нас всех, используя в качестве примера сеть ДЦ, построенную на фабрике Клоза с чистой IP-маршрутизацией и оверлеем с хоста.
@@ -168,22 +194,22 @@
 <div class="section" id="id2">
 <h2>Полезные ссылки<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
 <ul class="simple">
-<li><a class="reference external" href="https://tungstenfabric.github.io/website/">Tungsten Fabric Archvitecture</a>.</li>
-<li><a class="reference external" href="https://youtu.be/Kr6WIYPts8I?t=3157">6 часов про Яндекс.Облако, где в том числе затрагивается виртуальная сеть на TF</a>.</li>
-<li><a class="reference external" href="https://docs.openvswitch.org/en/latest/intro/what-is-ovs/">What Is Open vSwitch?</a></li>
-<li><a class="reference external" href="https://habr.com/ru/post/344326/">Введение в VxLAN</a>.</li>
-<li><a class="reference external" href="https://tools.ietf.org/html/rfc7348">RFC 7348. Virtual eXtensible Local Area Network (VXLAN): A Framework for Overlaying Virtualized Layer 2 Networks over Layer 3 Networks</a>.</li>
-<li><a class="reference external" href="https://www.enog.org/wp-content/uploads/presentations/enog-16/18-Scaleway-P14-fabric-ENOG16.pdf">Scaleway approach to VXLAN EVPN Fabric</a>. Тут рассказывается про всю сеть ДЦ, включая Underlay, Overlay, подходы к мульти-хоумингу и управлению.</li>
+<li><p><a class="reference external" href="https://tungstenfabric.github.io/website/">Tungsten Fabric Archvitecture</a>.</p></li>
+<li><p><a class="reference external" href="https://youtu.be/Kr6WIYPts8I?t=3157">6 часов про Яндекс.Облако, где в том числе затрагивается виртуальная сеть на TF</a>.</p></li>
+<li><p><a class="reference external" href="https://docs.openvswitch.org/en/latest/intro/what-is-ovs/">What Is Open vSwitch?</a></p></li>
+<li><p><a class="reference external" href="https://habr.com/ru/post/344326/">Введение в VxLAN</a>.</p></li>
+<li><p><a class="reference external" href="https://tools.ietf.org/html/rfc7348">RFC 7348. Virtual eXtensible Local Area Network (VXLAN): A Framework for Overlaying Virtualized Layer 2 Networks over Layer 3 Networks</a>.</p></li>
+<li><p><a class="reference external" href="https://www.enog.org/wp-content/uploads/presentations/enog-16/18-Scaleway-P14-fabric-ENOG16.pdf">Scaleway approach to VXLAN EVPN Fabric</a>. Тут рассказывается про всю сеть ДЦ, включая Underlay, Overlay, подходы к мульти-хоумингу и управлению.</p></li>
 </ul>
 </div>
 <div class="section" id="id3">
 <h2>Спасибы<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
 <ul class="simple">
-<li><a class="reference external" href="https://www.linkedin.com/in/roman-gorge-2b15896b/?originalSubdomain=se">Роману Горге</a> - бывшему ведущему подкаста linkmeup, а ныне эксперту в области облачных платформ. За комментарии и правки. Ну и ждём в скором будущем его более глубокой статьи о виртуализации.</li>
-<li><a class="reference external" href="https://www.alexander-shalimov.com">Александру Шалимову</a> - моему коллеге и эксперту в области разработки виртуальных сетей. За комментарии и правки.</li>
-<li><a class="reference external" href="https://www.linkedin.com/in/valentine-sinitsyn-b8b3a23a/">Валентину Синицыну</a>- моему коллеге и эксперту в области Tungsten Fabric . За комментарии и правки.</li>
-<li><a class="reference external" href="http://illustrators.ru/users/rabbits_manufactory">Артёму Чернобаю</a> - иллюстратору linkmeup. За КДПВ.</li>
-<li>Александру Лимонову. За мем «automato».</li>
+<li><p><a class="reference external" href="https://www.linkedin.com/in/roman-gorge-2b15896b/?originalSubdomain=se">Роману Горге</a> - бывшему ведущему подкаста linkmeup, а ныне эксперту в области облачных платформ. За комментарии и правки. Ну и ждём в скором будущем его более глубокой статьи о виртуализации.</p></li>
+<li><p><a class="reference external" href="https://www.alexander-shalimov.com">Александру Шалимову</a> - моему коллеге и эксперту в области разработки виртуальных сетей. За комментарии и правки.</p></li>
+<li><p><a class="reference external" href="https://www.linkedin.com/in/valentine-sinitsyn-b8b3a23a/">Валентину Синицыну</a>- моему коллеге и эксперту в области Tungsten Fabric . За комментарии и правки.</p></li>
+<li><p><a class="reference external" href="http://illustrators.ru/users/rabbits_manufactory">Артёму Чернобаю</a> - иллюстратору linkmeup. За КДПВ.</p></li>
+<li><p>Александру Лимонову. За мем «automato».</p></li>
 </ul>
 </div>
 </div>
@@ -193,6 +219,15 @@
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../1_virtualization_basics/index.html" class="btn btn-neutral float-right" title="Основы виртуализации" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="faq.html" class="btn btn-neutral float-left" title="FAQ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Часть 3. IPAM/DCIM-системы &mdash; Документация ADSM 0.1.0</title>
+  <title>Часть 3. IPAM/DCIM-системы &mdash; документация ADSM 0.1.0</title>
   
 
   
@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script type="text/javascript" src="../_static/translations.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -35,9 +35,7 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
-    <link rel="search" title="Поиск" href="../search.html" />
-    <link rel="next" title="Архитектура системы" href="architecture.html" />
-    <link rel="prev" title="Заключение" href="../2_network_design/conclusion.html" /> 
+    <link rel="search" title="Поиск" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -51,7 +49,7 @@
           
 
           
-            <a href="../contents.html" class="icon icon-home"> ADSM
+            <a href="../index.html" class="icon icon-home"> ADSM
           
 
           
@@ -81,19 +79,11 @@
               
             
             
-              <ul class="current">
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Часть 3. IPAM/DCIM-системы</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="architecture.html">Архитектура системы</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scheme.html">Схема данных NetBox</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html">Некоторые нюансы установки NetBox</a></li>
-<li class="toctree-l2"><a class="reference internal" href="postgresql.html">Немного о PostgreSQL</a></li>
-<li class="toctree-l2"><a class="reference internal" href="restful/index.html">RESTful API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="conclusion.html">Заключение</a></li>
-</ul>
-</li>
 </ul>
 
             
@@ -108,7 +98,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../contents.html">ADSM</a>
+          <a href="../index.html">ADSM</a>
         
       </nav>
 
@@ -137,7 +127,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../contents.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html">Docs</a> &raquo;</li>
         
       <li>Часть 3. IPAM/DCIM-системы</li>
     
@@ -182,17 +172,12 @@
 <p>Сегодня рынок предлагает около дюжины инструментов, реализующих эту задачу: как платных, так и Open Source.</p>
 <p>Для задач этой серии статей я выбрал NetBox по следующим причинам:</p>
 <ol class="arabic">
-<li><p class="first">Это бесплатно</p>
-</li>
-<li><p class="first">Он содержит в себе обе необходимые части - инвентаризацию и управление IP-пространством.</p>
-</li>
-<li><p class="first">У него есть RESTful API-интерфейс.</p>
-</li>
-<li><p class="first">Его разработал Digital Ocean (а конкретнее, любимый всеми Jeremy Stretch) для себя, то есть для дата-центров. Поэтому тут есть почти всё, что нужно, и почти ничего лишнего.</p>
-</li>
-<li><p class="first">Он активно поддерживается (Slack, Github, Google-рассылки) и обновляется.</p>
-</li>
-<li><p class="first">Это Open Source</p>
+<li><p>Это бесплатно</p></li>
+<li><p>Он содержит в себе обе необходимые части - инвентаризацию и управление IP-пространством.</p></li>
+<li><p>У него есть RESTful API-интерфейс.</p></li>
+<li><p>Его разработал Digital Ocean (а конкретнее, любимый всеми Jeremy Stretch) для себя, то есть для дата-центров. Поэтому тут есть почти всё, что нужно, и почти ничего лишнего.</p></li>
+<li><p>Он активно поддерживается (Slack, Github, Google-рассылки) и обновляется.</p></li>
+<li><p>Это Open Source</p>
 <blockquote>
 <div><div class="line-block">
 <div class="line">Для нужд АДСМ я развернул NetBox в виртуалочке на нашем сервере (спасибо Антону Клочкову и <a class="reference external" href="https://miran.ru/">Мирану</a>): <a class="reference external" href="http://netbox.linkmeup.ru:45127">http://netbox.linkmeup.ru:45127</a></div>
@@ -204,15 +189,15 @@
 </ol>
 <p>Немного полезного перед началом:</p>
 <ul class="simple">
-<li><a class="reference external" href="https://github.com/netbox-community/netbox">Сам NetBox на github</a></li>
-<li><a class="reference external" href="https://github.com/netbox-community/netbox-docker">Контейнерная версия</a></li>
-<li><a class="reference external" href="https://netbox.readthedocs.io/en/stable/">Полная инструкция по установке и вся документация по продукту</a></li>
-<li><a class="reference external" href="https://github.com/digitalocean/pynetbox">SDK для работы с NetBox в Python</a></li>
-<li><a class="reference external" href="http://netbox.linkmeup.ru:45127/api/docs/">Документация по API</a></li>
-<li><a class="reference external" href="https://groups.google.com/forum/#!forum/netbox-discuss">Mailing list</a></li>
-<li><a class="reference external" href="https://networktocode.slack.com/">Канал в Slack NetworkToCode</a></li>
-<li><a class="reference external" href="https://linkmeup.ru/blog/530.html">Что такое REST</a></li>
-<li><a class="reference external" href="http://netbox.linkmeup.ru:45127/">Инсталляция NetBox для нужд АДСМ</a></li>
+<li><p><a class="reference external" href="https://github.com/netbox-community/netbox">Сам NetBox на github</a></p></li>
+<li><p><a class="reference external" href="https://github.com/netbox-community/netbox-docker">Контейнерная версия</a></p></li>
+<li><p><a class="reference external" href="https://netbox.readthedocs.io/en/stable/">Полная инструкция по установке и вся документация по продукту</a></p></li>
+<li><p><a class="reference external" href="https://github.com/digitalocean/pynetbox">SDK для работы с NetBox в Python</a></p></li>
+<li><p><a class="reference external" href="http://netbox.linkmeup.ru:45127/api/docs/">Документация по API</a></p></li>
+<li><p><a class="reference external" href="https://groups.google.com/forum/#!forum/netbox-discuss">Mailing list</a></p></li>
+<li><p><a class="reference external" href="https://networktocode.slack.com/">Канал в Slack NetworkToCode</a></p></li>
+<li><p><a class="reference external" href="https://linkmeup.ru/blog/530.html">Что такое REST</a></p></li>
+<li><p><a class="reference external" href="http://netbox.linkmeup.ru:45127/">Инсталляция NetBox для нужд АДСМ</a></p></li>
 </ul>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Содержание:</span></p>
@@ -248,15 +233,6 @@
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="architecture.html" class="btn btn-neutral float-right" title="Архитектура системы" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="../2_network_design/conclusion.html" class="btn btn-neutral float-left" title="Заключение" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

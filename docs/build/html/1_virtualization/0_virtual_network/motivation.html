@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Причины &mdash; Документация ADSM 0.1.0</title>
+  <title>Причины &mdash; документация ADSM 0.1.0</title>
   
 
   
@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script type="text/javascript" src="../../_static/translations.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/translations.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -35,7 +35,9 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
-    <link rel="search" title="Поиск" href="../../search.html" /> 
+    <link rel="search" title="Поиск" href="../../search.html" />
+    <link rel="next" title="Терминология" href="terminology.html" />
+    <link rel="prev" title="Виртуализация сети" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -49,7 +51,7 @@
           
 
           
-            <a href="../../contents.html" class="icon icon-home"> ADSM
+            <a href="../../index.html" class="icon icon-home"> ADSM
           
 
           
@@ -79,8 +81,23 @@
               
             
             
-              <ul>
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../0_planning/planning.html">Часть 0. Планирование</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Часть 1. Виртуализация</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Виртуализация сети</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Причины</a></li>
+<li class="toctree-l3"><a class="reference internal" href="terminology.html">Терминология</a></li>
+<li class="toctree-l3"><a class="reference internal" href="underlay.html">Underlay</a></li>
+<li class="toctree-l3"><a class="reference internal" href="overlay.html">Overlay</a></li>
+<li class="toctree-l3"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="conclusion.html">Заключение</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../1_virtualization_basics/index.html">Основы виртуализации</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
 </ul>
 
             
@@ -95,7 +112,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../contents.html">ADSM</a>
+          <a href="../../index.html">ADSM</a>
         
       </nav>
 
@@ -124,7 +141,11 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../contents.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Часть 1. Виртуализация</a> &raquo;</li>
+        
+          <li><a href="index.html">Виртуализация сети</a> &raquo;</li>
         
       <li>Причины</li>
     
@@ -152,8 +173,8 @@
 <p>Чтобы не ждать, когда сетевики прокинут VLAN и любые сервисы не прописывать на каждом узле сети, люди придумали использовать оверлеи - наложенные сети - коих великое многообразие: GRE, IPinIP, MPLS, MPLS L2/L3VPN, VXLAN, GENEVE, MPLSoverUDP, MPLSoverGRE итд.</p>
 <p>Их привлекательность заключается в двух простых вещах:</p>
 <ul class="simple">
-<li>Настраиваются только конечные узлы - транзитные трогать не приходится. Это значительно ускоряет процесс, а иногда вообще позволяет исключить отдел сетевой инфраструктуры из процесса ввода новых сервисов.</li>
-<li>Нагрузка сокрыта глубоко внутри заголовков - транзитным узлам не нужно ничего знать о ней, об адресации на хостах, маршрутах наложенной сети. А это значит, нужно хранить меньше информации в таблицах, значит взять попроще/подешевле устройство.</li>
+<li><p>Настраиваются только конечные узлы - транзитные трогать не приходится. Это значительно ускоряет процесс, а иногда вообще позволяет исключить отдел сетевой инфраструктуры из процесса ввода новых сервисов.</p></li>
+<li><p>Нагрузка сокрыта глубоко внутри заголовков - транзитным узлам не нужно ничего знать о ней, об адресации на хостах, маршрутах наложенной сети. А это значит, нужно хранить меньше информации в таблицах, значит взять попроще/подешевле устройство.</p></li>
 </ul>
 <p>В этом не совсем полноценном выпуске я не планирую разбирать все возможные технологии, а скорее описать фреймворк работы оверлейных сетей в ДЦ.</p>
 <p>Вся серия будет описывать датацентр, состоящий из рядов однотипных стоек, в которых установлено одинаковое серверное оборудование.
@@ -168,6 +189,15 @@
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="terminology.html" class="btn btn-neutral float-right" title="Терминология" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Виртуализация сети" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

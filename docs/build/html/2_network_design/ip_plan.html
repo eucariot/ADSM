@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>IP-план &mdash; Документация ADSM 0.1.0</title>
+  <title>IP-план &mdash; документация ADSM 0.1.0</title>
   
 
   
@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script type="text/javascript" src="../_static/translations.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -51,7 +51,7 @@
           
 
           
-            <a href="../contents.html" class="icon icon-home"> ADSM
+            <a href="../index.html" class="icon icon-home"> ADSM
           
 
           
@@ -81,7 +81,8 @@
               
             
             
-              <ul class="current">
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Часть 2. Дизайн сети</a><ul class="current">
@@ -106,7 +107,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../contents.html">ADSM</a>
+          <a href="../index.html">ADSM</a>
         
       </nav>
 
@@ -135,7 +136,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../contents.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html">Docs</a> &raquo;</li>
         
           <li><a href="index.html">Часть 2. Дизайн сети</a> &raquo;</li>
         
@@ -162,11 +163,9 @@
 <h1>IP-план<a class="headerlink" href="#ip" title="Ссылка на этот заголовок">¶</a></h1>
 <p>Принципиально, нам нужно выделить адреса для следующих подключений:</p>
 <ol class="arabic">
-<li><p class="first">Адреса сети Underlay между ToR и машиной. Они должны быть уникальны в пределах всей сети, чтобы любая машина могла связаться с любой другой. Отлично подходит <strong>10/8</strong>. На каждую стойку по /26 с запасом. Будем выделять по /19 на ДЦ и /17 на регион.</p>
-</li>
-<li><dl class="first docutils">
-<dt>Линковые адреса между Leaf/Tor и Spine.</dt>
-<dd><div class="first last line-block">
+<li><p>Адреса сети Underlay между ToR и машиной. Они должны быть уникальны в пределах всей сети, чтобы любая машина могла связаться с любой другой. Отлично подходит <strong>10/8</strong>. На каждую стойку по /26 с запасом. Будем выделять по /19 на ДЦ и /17 на регион.</p></li>
+<li><dl>
+<dt>Линковые адреса между Leaf/Tor и Spine.</dt><dd><div class="line-block">
 <div class="line">Их хотелось бы назначать алгоритмически, то есть вычислять из имён устройств, которые нужно подключить.</div>
 <div class="line">Пусть это будет… 169.254.0.0/16.</div>
 <div class="line">А именно <strong>169.254.00X.Y/31</strong>, где <strong>X</strong> - номер Spine, <strong>Y</strong> - P2P-сеть /31.</div>
@@ -175,16 +174,13 @@
 </dd>
 </dl>
 </li>
-<li><p class="first">Cтык Spine - Edge-Leaf организуем на подсетях <strong>169.254.10X.Y/31</strong>, где точно так же <strong>X</strong> - номер Spine, <strong>Y</strong> - P2P-сеть /31.</p>
-</li>
-<li><p class="first">Линковые адреса из Edge-Leaf в MPLS-магистраль. Здесь ситуация несколько иная - место соединения всех кусков в один пирог, поэтому переиспользовать те же самые адреса  не получится - нужно выбирать следующую свободную подсеть. Поэтому за основу возьмём <strong>192.168.0.0/16</strong> и будем из неё выгребать свободные.</p>
-</li>
-<li><dl class="first docutils">
-<dt>Адреса Loopback.  Отдадим под них весь диапазон <strong>172.16.0.0/12</strong>.</dt>
-<dd><ul class="first last simple">
-<li>Leaf - по /25 на ДЦ - те же 128 стоек. Выделим по /23 на регион.</li>
-<li>Spine - по /28 на ДЦ - до 16 Spine. Выделим по /26 на регион.</li>
-<li>Edge-Leaf - по /29 на ДЦ - до 8 коробок.  Выделим по /27 на регион.</li>
+<li><p>Cтык Spine - Edge-Leaf организуем на подсетях <strong>169.254.10X.Y/31</strong>, где точно так же <strong>X</strong> - номер Spine, <strong>Y</strong> - P2P-сеть /31.</p></li>
+<li><p>Линковые адреса из Edge-Leaf в MPLS-магистраль. Здесь ситуация несколько иная - место соединения всех кусков в один пирог, поэтому переиспользовать те же самые адреса  не получится - нужно выбирать следующую свободную подсеть. Поэтому за основу возьмём <strong>192.168.0.0/16</strong> и будем из неё выгребать свободные.</p></li>
+<li><dl class="simple">
+<dt>Адреса Loopback.  Отдадим под них весь диапазон <strong>172.16.0.0/12</strong>.</dt><dd><ul class="simple">
+<li><p>Leaf - по /25 на ДЦ - те же 128 стоек. Выделим по /23 на регион.</p></li>
+<li><p>Spine - по /28 на ДЦ - до 16 Spine. Выделим по /26 на регион.</p></li>
+<li><p>Edge-Leaf - по /29 на ДЦ - до 8 коробок.  Выделим по /27 на регион.</p></li>
 </ul>
 </dd>
 </dl>
@@ -197,9 +193,8 @@
 <a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/2/ip_plan.png"><img alt="https://fs.linkmeup.ru/images/adsm/2/ip_plan.png" src="https://fs.linkmeup.ru/images/adsm/2/ip_plan.png" style="width: 600px;" /></a>
 </div>
 </div></blockquote>
-<dl class="docutils">
-<dt>Loopback’и:</dt>
-<dd><div class="first last highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="hll"> +------------------+-------+--------+-----+
+<dl>
+<dt>Loopback’и:</dt><dd><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="hll"> +------------------+-------+--------+-----+
 </span> <span class="p">|</span> Префикс          <span class="p">|</span> Роль  <span class="p">|</span> Регион <span class="p">|</span> ДЦ  <span class="p">|</span>
  +<span class="o">==================</span>+<span class="o">=======</span>+<span class="o">========</span>+<span class="o">=====</span>+
  <span class="p">|</span> <span class="m">172</span>.16.0.0/23    <span class="p">|</span>       <span class="p">|</span>        <span class="p">|</span>     <span class="p">|</span>
@@ -247,8 +242,7 @@
 </pre></div>
 </div>
 </dd>
-<dt>Underlay:</dt>
-<dd><div class="first last highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="hll"> +------------------+--------+-----+
+<dt>Underlay:</dt><dd><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="hll"> +------------------+--------+-----+
 </span> <span class="p">|</span> Префикс          <span class="p">|</span> Регион <span class="p">|</span> ДЦ  <span class="p">|</span>
  +<span class="o">==================</span>+<span class="o">========</span>+<span class="o">=====</span>+
  <span class="p">|</span> <span class="m">10</span>.0.0.0/17      <span class="p">|</span>        <span class="p">|</span>     <span class="p">|</span>

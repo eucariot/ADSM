@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Способы работы с RESTful API &mdash; Документация ADSM 0.1.0</title>
+  <title>Способы работы с RESTful API &mdash; документация ADSM 0.1.0</title>
   
 
   
@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script type="text/javascript" src="../../_static/translations.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/translations.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -35,9 +35,7 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
-    <link rel="search" title="Поиск" href="../../search.html" />
-    <link rel="next" title="Заключение" href="conclusion.html" />
-    <link rel="prev" title="Методы" href="methods.html" /> 
+    <link rel="search" title="Поиск" href="../../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -51,7 +49,7 @@
           
 
           
-            <a href="../../contents.html" class="icon icon-home"> ADSM
+            <a href="../../index.html" class="icon icon-home"> ADSM
           
 
           
@@ -81,32 +79,11 @@
               
             
             
-              <ul class="current">
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../0_planning/planning.html">Часть 0. Планирование</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Часть 3. IPAM/DCIM-системы</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../architecture.html">Архитектура системы</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../scheme.html">Схема данных NetBox</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html">Некоторые нюансы установки NetBox</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../postgresql.html">Немного о PostgreSQL</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">RESTful API</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="rest.html">REST, RESTful, API</a></li>
-<li class="toctree-l3"><a class="reference internal" href="messages.html">Структура сообщений HTTP</a></li>
-<li class="toctree-l3"><a class="reference internal" href="methods.html">Методы</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Способы работы с RESTful API</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#postman">Postman</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#python-requests">Python+requests</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#python-netbox-sdk">Python+NetBox SDK</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#swagger">SWAGGER</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="conclusion.html">Заключение</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../conclusion.html">Заключение</a></li>
-</ul>
-</li>
 </ul>
 
             
@@ -121,7 +98,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../contents.html">ADSM</a>
+          <a href="../../index.html">ADSM</a>
         
       </nav>
 
@@ -150,11 +127,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../contents.html">Docs</a> &raquo;</li>
-        
-          <li><a href="../index.html">Часть 3. IPAM/DCIM-системы</a> &raquo;</li>
-        
-          <li><a href="index.html">RESTful API</a> &raquo;</li>
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
         
       <li>Способы работы с RESTful API</li>
     
@@ -179,10 +152,10 @@
 <h1>Способы работы с RESTful API<a class="headerlink" href="#restful-api" title="Ссылка на этот заголовок">¶</a></h1>
 <p>Curl - это, конечно, очень удобно для доблестных воинов CLI, но есть инструменты получше:</p>
 <ul class="simple">
-<li>Графическая утилита Postman</li>
-<li>Библиотека requests в Python</li>
-<li>Python SDK для NetBox Pynetbox</li>
-<li>API-фреймворк Swagger</li>
+<li><p>Графическая утилита Postman</p></li>
+<li><p>Библиотека requests в Python</p></li>
+<li><p>Python SDK для NetBox Pynetbox</p></li>
+<li><p>API-фреймворк Swagger</p></li>
 </ul>
 <div class="section" id="postman">
 <h2>Postman<a class="headerlink" href="#postman" title="Ссылка на этот заголовок">¶</a></h2>
@@ -206,7 +179,8 @@
 </div></blockquote>
 <p>Postman служит только для работы с RESTful API.</p>
 <blockquote>
-<div>Например, не пытайтесь через него отправить NETCONF XML, как это делал я на заре своей автоматизационной карьеры.</div></blockquote>
+<div><p>Например, не пытайтесь через него отправить NETCONF XML, как это делал я на заре своей автоматизационной карьеры.</p>
+</div></blockquote>
 <div class="line-block">
 <div class="line">Один из приятных бонусов специфицированного API в том, что вы можете в Postman импортировать все эндпоинты и их методы как коллекцию.</div>
 <div class="line">Для этого в окне <strong>Import</strong> (File-&gt;Import) выберите <strong>Import From Link</strong> и вставьте в окно URL <a class="reference external" href="http://netbox.linkmeup.ru:45127/api/docs/?format=openapi">http://netbox.linkmeup.ru:45127/api/docs/?format=openapi</a>.</div>
@@ -237,9 +211,9 @@
 <span class="n">HEADERS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span> <span class="s1">&#39;Accept&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">}</span>
 <span class="n">NB_URL</span> <span class="o">=</span> <span class="s2">&quot;http://netbox.linkmeup.ru:45127&quot;</span>
 
-<span class="n">request_url</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;{NB_URL}/api/dcim/devices/&quot;</span>
+<span class="n">request_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">NB_URL</span><span class="si">}</span><span class="s2">/api/dcim/devices/&quot;</span>
 <span class="n">devices</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_url</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">HEADERS</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">devices</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">devices</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -249,10 +223,10 @@
 <div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
 
 <span class="n">API_TOKEN</span> <span class="o">=</span> <span class="s2">&quot;a9aae70d65c928a554f9a038b9d4703a1583594f&quot;</span>
-<span class="n">HEADERS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Authorization&#39;</span><span class="p">:</span> <span class="n">f</span><span class="s1">&#39;Token {API_TOKEN}&#39;</span><span class="p">,</span> <span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span> <span class="s1">&#39;Accept&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">}</span>
+<span class="n">HEADERS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Authorization&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;Token </span><span class="si">{</span><span class="n">API_TOKEN</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span> <span class="s1">&#39;Accept&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">}</span>
 <span class="n">NB_URL</span> <span class="o">=</span> <span class="s2">&quot;http://netbox.linkmeup.ru:45127&quot;</span>
 
-<span class="n">request_url</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;{NB_URL}/api/dcim/devices/&quot;</span>
+<span class="n">request_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">NB_URL</span><span class="si">}</span><span class="s2">/api/dcim/devices/&quot;</span>
 
 <span class="n">device_parameters</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;just a simple REQUESTS girl&quot;</span><span class="p">,</span>
@@ -261,7 +235,7 @@
     <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
 <span class="p">}</span>
 <span class="n">new_device</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">request_url</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">HEADERS</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">device_parameters</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">new_device</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">new_device</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -279,7 +253,7 @@
 <span class="n">nb</span> <span class="o">=</span> <span class="n">pynetbox</span><span class="o">.</span><span class="n">api</span><span class="p">(</span><span class="n">NB_URL</span><span class="p">)</span>
 
 <span class="n">devices</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
-<span class="k">print</span><span class="p">(</span><span class="n">devices</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">devices</span><span class="p">)</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -299,7 +273,7 @@
     <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
 <span class="p">}</span>
 <span class="n">new_device</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">**</span><span class="n">device_parameters</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">new_device</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">new_device</span><span class="p">)</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -342,9 +316,9 @@
 <div class="line">За бо́льшими деталями сюда:</div>
 </div>
 <ul class="simple">
-<li><a class="reference external" href="https://swagger.io/docs/specification/">Сайт Swagger</a></li>
-<li><a class="reference external" href="https://justcodeit.ru/swagger-docs-dlya-api-na-laravel/">Пример использования</a></li>
-<li><a class="reference external" href="https://en.wikipedia.org/wiki/OpenAPI_Specification">Wiki про Open API</a></li>
+<li><p><a class="reference external" href="https://swagger.io/docs/specification/">Сайт Swagger</a></p></li>
+<li><p><a class="reference external" href="https://justcodeit.ru/swagger-docs-dlya-api-na-laravel/">Пример использования</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/OpenAPI_Specification">Wiki про Open API</a></p></li>
 </ul>
 </div>
 </div>
@@ -354,15 +328,6 @@
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="conclusion.html" class="btn btn-neutral float-right" title="Заключение" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="methods.html" class="btn btn-neutral float-left" title="Методы" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Маршрутизация &mdash; Документация ADSM 0.1.0</title>
+  <title>Маршрутизация &mdash; документация ADSM 0.1.0</title>
   
 
   
@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script type="text/javascript" src="../_static/translations.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -51,7 +51,7 @@
           
 
           
-            <a href="../contents.html" class="icon icon-home"> ADSM
+            <a href="../index.html" class="icon icon-home"> ADSM
           
 
           
@@ -81,7 +81,8 @@
               
             
             
-              <ul class="current">
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Часть 2. Дизайн сети</a><ul class="current">
@@ -115,7 +116,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../contents.html">ADSM</a>
+          <a href="../index.html">ADSM</a>
         
       </nav>
 
@@ -144,7 +145,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../contents.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html">Docs</a> &raquo;</li>
         
           <li><a href="index.html">Часть 2. Дизайн сети</a> &raquo;</li>
         
@@ -192,7 +193,8 @@
 <p>Но всё же если коротко, то никакие IGP не подходят для сетей крупных датацентров, где счёт сетевым устройствами идёт на тысячи.
 Кроме того использование BGP везде позволит не распыляться на поддержку нескольких разных протоколов и синхронизацию между ними.</p>
 <blockquote>
-<div>Положа руку на сердце, на нашей фабрике, которая с большой долей вероятности не будет стремительно расти, за глаза хватило бы и OSPF. Это на самом деле проблемы мегаскейлеров и клауд-титанов. Но пофантазируем всего лишь на несколько выпусков, что нам это нужно, и будем использовать BGP, как завещал Пётр Лапухов.</div></blockquote>
+<div><p>Положа руку на сердце, на нашей фабрике, которая с большой долей вероятности не будет стремительно расти, за глаза хватило бы и OSPF. Это на самом деле проблемы мегаскейлеров и клауд-титанов. Но пофантазируем всего лишь на несколько выпусков, что нам это нужно, и будем использовать BGP, как завещал Пётр Лапухов.</p>
+</div></blockquote>
 <div class="section" id="id3">
 <h2>Политики маршрутизации<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
 <p>На Leaf-коммутаторах мы импортируем в BGP префиксы с Underlay’ных интерфейсов с сетями.
@@ -232,8 +234,8 @@
 Почему ASN на ДЦ?
 Декомпозируем этот вопрос на два:</p>
 <ul class="simple">
-<li>Почему одинаковые ASN на всех спайнах одного ДЦ?</li>
-<li>Почему разные в разных ДЦ?</li>
+<li><p>Почему одинаковые ASN на всех спайнах одного ДЦ?</p></li>
+<li><p>Почему разные в разных ДЦ?</p></li>
 </ul>
 <p><strong>Почему одинаковые ASN на всех спайнах одного ДЦ</strong>
 Вот как будет выглядеть AS-Path Андерлейного маршрута на Edge-Leaf:</p>
@@ -265,10 +267,10 @@
 <a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/2/as_path_inter_dc.png"><img alt="https://fs.linkmeup.ru/images/adsm/2/as_path_inter_dc.png" src="https://fs.linkmeup.ru/images/adsm/2/as_path_inter_dc.png" style="width: 800px;" /></a>
 </div>
 </div></blockquote>
-<dl class="docutils">
-<dt>То есть Spine_DC1 и Spine_DC2 должны быть разными, ровно как и leafX_DC1 и leafY_DC2, к чему мы как раз и подходим.</dt>
-<dd>Как вы, наверно, знаете, существуют хаки, позволяющие принимать маршруты с повторяющимися ASN вопреки механизму предотвращения петель (allowas-in на Cisco). И у этого есть даже вполне законные применения. Но это потенциальная брешь в устойчивости сети. И я лично в неё пару раз проваливался.
-И если у нас есть возможность не использовать опасные вещи, мы ей воспользуемся.</dd>
+<dl class="simple">
+<dt>То есть Spine_DC1 и Spine_DC2 должны быть разными, ровно как и leafX_DC1 и leafY_DC2, к чему мы как раз и подходим.</dt><dd><p>Как вы, наверно, знаете, существуют хаки, позволяющие принимать маршруты с повторяющимися ASN вопреки механизму предотвращения петель (allowas-in на Cisco). И у этого есть даже вполне законные применения. Но это потенциальная брешь в устойчивости сети. И я лично в неё пару раз проваливался.
+И если у нас есть возможность не использовать опасные вещи, мы ей воспользуемся.</p>
+</dd>
 </dl>
 </div>
 <div class="section" id="leaf-asn">
