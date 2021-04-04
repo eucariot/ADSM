@@ -10,7 +10,7 @@ RESTful API
 
 Одним из таких интерфейсов является RESTful API, который мы будем использовать для работы с нашей IPAM/DCIM-системой в будущем.
 
-    .. figure:: https://fs.linkmeup.ru/images/adsm/3/kdpv_rest.svg           
+    .. figure:: https://fs.linkmeup.ru/images/adsm/3/kdpv_rest.png
            :width: 800
            :align: center
 

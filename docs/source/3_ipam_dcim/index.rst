@@ -8,7 +8,7 @@
 | Даже для самой маленькой конторки размеров в пару филиалов наличие централизованной системы управления IP-пространством не повредит.
 | Необходимость системы инвентаризации очевидна без лишних слов. 
 
-    .. figure:: https://fs.linkmeup.ru/images/adsm/3/kdpv_ipam.svg
+    .. figure:: https://fs.linkmeup.ru/images/adsm/3/kdpv_adsm3.png
            :width: 800
            :align: center
 
