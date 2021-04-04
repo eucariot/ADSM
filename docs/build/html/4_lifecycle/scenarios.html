@@ -164,8 +164,11 @@
 <p>Распишем каждый из них детально.</p>
 <div class="section" id="id2">
 <h2>1. Ввод нового оборудования<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
-<p>В зависимости от скорости роста, возможно, самый важный сценарий - быстро запускать новые узлы (стойки, филиалы, офисы), поскольку обычно занимает больше всего времени.
-#. | Человек или часть системы, реализующей нечто а-ля ZTP, приходит в NetAPI для инициализации устройства.</p>
+<p>В зависимости от скорости роста, возможно, самый важный сценарий - быстро запускать новые узлы (стойки, филиалы, офисы), поскольку обычно занимает больше всего времени.</p>
+<ol class="arabic">
+<li><div class="line-block">
+<div class="line">Человек или часть системы, реализующей нечто а-ля ZTP, приходит в NetAPI для инициализации устройства.</div>
+</div>
 <blockquote>
 <div><blockquote>
 <div><div class="figure align-center">
@@ -192,14 +195,17 @@
 <div class="line-block">
 <div class="line">На данном шаге устройство в минимальном виде заведено в инвентарной системе, и заполнены необходимые для первичной настройки параметры.</div>
 </div>
-<ol class="arabic">
+</div></blockquote>
+</li>
 <li><div class="line-block">
 <div class="line">Далее другая часть процесса, а-ля ZTP, приходит в ручку NetAPI в поисках первоначального конфига</div>
 </div>
 <blockquote>
+<div><blockquote>
 <div><div class="figure align-center">
 <a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/4/step2.svg"><img alt="https://fs.linkmeup.ru/images/adsm/4/step2.svg" src="https://fs.linkmeup.ru/images/adsm/4/step2.svg" width="700" /></a>
 </div>
+</div></blockquote>
 <ol class="arabic simple">
 <li><p>Ручка дёргает конкретное приложение</p></li>
 <li><p>Приложение собирает данные из NetBox и, возможно, внешних систем</p></li>
@@ -222,9 +228,6 @@
 </ul>
 </div></blockquote>
 </li>
-</ol>
-</div></blockquote>
-<ol class="arabic">
 <li><p>Заполняются данные в NetBox, которые в дальнейшем будут служить переменными для генерации конфигурации.</p>
 <blockquote>
 <div><blockquote>
@@ -299,7 +302,7 @@
 <li><p>Сеть при этом не сломалась.</p>
 <blockquote>
 <div><div class="figure align-center">
-<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/4/step10-11.sv"><img alt="https://fs.linkmeup.ru/images/adsm/4/step10-11.sv" src="https://fs.linkmeup.ru/images/adsm/4/step10-11.sv" style="width: 800px;" /></a>
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/4/step10-11.svg"><img alt="https://fs.linkmeup.ru/images/adsm/4/step10-11.svg" src="https://fs.linkmeup.ru/images/adsm/4/step10-11.svg" width="800" /></a>
 </div>
 </div></blockquote>
 </li>
@@ -321,7 +324,8 @@
 </ol>
 <div class="line-block">
 <div class="line">Конвейер завершён.</div>
-<div class="line"><br /></div>
+</div>
+<div class="line-block">
 <div class="line">Это весьма упрощённый конвейер, конечно. Здесь опущены шаги, которые могут быть фактически необходимы в реальной жизни: подавления аварийных сообщений, отписывание комментариев в тикеты, возможные проверки и подтверждения целевой конфигурации живыми людьми, всевозможные валидации на каждом шаге.</div>
 </div>
 </div>
@@ -463,10 +467,10 @@
 <div class="line">Случается, что свитч ломается. Или нужно железку проапгрейдить на новую модель. В общем надо её снять, а новую поставить.</div>
 <div class="line">Теоретически это выглядит как два шага:</div>
 </div>
-<ul class="simple">
+<ol class="arabic simple">
 <li><p>Удаление текущего устройства</p></li>
 <li><p>Добавление нового</p></li>
-</ul>
+</ol>
 <p>Но нам важны несколько вещей:</p>
 <ul class="simple">
 <li><p>Имя нового устройства должно быть таким же, как и у прежнего</p></li>
