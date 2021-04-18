@@ -19,7 +19,7 @@
 
 * `Роману Горге <https://www.linkedin.com/in/roman-gorge-2b15896b/?originalSubdomain=se>`_ - бывшему ведущему подкаста linkmeup, а ныне эксперту в области облачных платформ - за комментарии про подход IaC и концепцию ACID применительно к сети.
 * `Михаилу Арефьеву <https://github.com/arefiev>`_ - руководителю проектов по сетевой автоматизации в Яндексе - за анализ и критику архитектуры решения и сценариев.
-* Дмитрию Фиголю - Network Automation Architect at Cisco Global Demo Engineering.
+* `Дмитрию Фиголю <https://twitter.com/dmfigol>`_ - Network Automation Architect at Cisco Global Demo Engineering - за острые замечания и дискуссию.
 * `Никите Асташенко <https://www.linkedin.com/in/nikita-astashenko-25a16683/>`_ - моему другу и классному разработчику - за поездку на Алтай и долгие разговоры у костра, без которых эта идея не вызрела бы.
 
     Особо благодарных просим задержаться и пройти на `Патреон <https://www.patreon.com/linkmeup?ty=h>`_.
