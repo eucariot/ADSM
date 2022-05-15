@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package ping;
+
+// The ping service definition.
+service Ping {
+  // Sends a ping reply
+  rpc SendPingReply (PingRequest) returns (PingReply) {}
+}
+
+// The request message containing the ping payload.
+message PingRequest {
+  string payload = 1;
+}
+
+// The response message containing the ping replay
+message PingReply {
+  string message = 1;
+}
