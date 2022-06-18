@@ -8,9 +8,9 @@
            :width: 800
            :align: center
 
-Когда началась история сетевой автоматизации?  
-С Ansible в 2018? С ним она явно получила ускорение благодаря безагентной природе.  
-Не. До него были голые языки на букву "P": Python, Perl, PHP.  
+| Когда началась история сетевой автоматизации?  
+| С Ansible в 2018? С ним она явно получила ускорение благодаря безагентной природе.  
+| Не. До него были голые языки на букву "P": Python, Perl, PHP.  
 
 С NETCONF? Точно нет, CLI ещё мой дед парсил. А уж сколько expect'ов там поработало…
 
@@ -29,7 +29,8 @@
     .. figure:: https://fs.linkmeup.ru/images/adsm/5/humor.png
            :width: 800
            :align: center  
-    *Источник: `доклад на Cisco Live <https://www.ciscolive.com/c/dam/r/ciscolive/emea/docs/2020/pdf/BRKNMS-2032.pdf>`_*
+    
+    Источник: `доклад на Cisco Live <https://www.ciscolive.com/c/dam/r/ciscolive/emea/docs/2020/pdf/BRKNMS-2032.pdf>`_
 
 В этой статье посмотрим, сколько всего в эти 30 лет уместилось.  
 А уместилось немало.

@@ -35,7 +35,9 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
-    <link rel="search" title="Поиск" href="../search.html" /> 
+    <link rel="search" title="Поиск" href="../search.html" />
+    <link rel="next" title="Концепция RPC - Russian Pravoslavnaya Church" href="rpc.html" />
+    <link rel="prev" title="Часть 6. Интерфейсы взаимодействия с сетевым устройством" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -80,10 +82,44 @@
             
             
               <p class="caption"><span class="caption-text">Содержание:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3_ipam_dcim/index.html">Часть 3. IPAM/DCIM-системы</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4_lifecycle/index.html">Часть 4. Архитектура системы автоматизации</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5_history/index.html">Часть 5. История сетевой автоматизации</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Часть 6. Интерфейсы взаимодействия с сетевым устройством</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">CLI - Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cli">9 грехов CLI</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">1. Модели конфигурации не формализованы</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">2. Модель и поведение не зафиксированы</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">3. CLI интерактивен</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">4. Формат данных не структурированный</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">5. Нет явного признака успешности операции</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">6. Сложно вычислять разницу между целевой и текущей конфигурацией</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">7. Сложно считать конфигурационный патч</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">8. Транзакционность не всегда доступна</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">9. Поддержание целевого состояния – задача инженера</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rpc.html">Концепция RPC - Russian Pravoslavnaya Church</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netconf.html">NETCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xml.html">&amp;lt;XML&amp;gt;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netconf_again.html">NETCONF Again</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restconf.html">RESTCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="callhome.html">Call-Home</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grpc.html">gRPC/gNMI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">Модели данных</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yang.html">YANG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yang.html#model-driven-programmability">Model Driven Programmability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="onemoretime.html">Всё вместе</a></li>
+<li class="toctree-l2"><a class="reference internal" href="links.html">Полезные ссылки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.html">Заключение</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -129,6 +165,8 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
+          <li><a href="index.html">Часть 6. Интерфейсы взаимодействия с сетевым устройством</a> &raquo;</li>
+        
       <li>CLI - Command Line Interface</li>
     
     
@@ -165,15 +203,17 @@
 <div class="line">Клянусь, это увлекательное путешествие продлится ещё десятилетия.</div>
 <div class="line">А чем же оно увлекательно?</div>
 </div>
-<p># Модели конфигурации не формализованы
-# Модель и поведение не зафиксированы
-# CLI интерактивен
-# Формат данных не структурированный
-# Нет явного признака успешности операции
-# Сложно вычислять разницу между целевой и текущей конфигурацией
-# Сложно считать конфигурационный патч
-# Транзакционность не всегда доступна
-# Поддержание целевого состояния – задача инженера</p>
+<ol class="arabic simple">
+<li><p>Модели конфигурации не формализованы</p></li>
+<li><p>Модель и поведение не зафиксированы</p></li>
+<li><p>CLI интерактивен</p></li>
+<li><p>Формат данных не структурированный</p></li>
+<li><p>Нет явного признака успешности операции</p></li>
+<li><p>Сложно вычислять разницу между целевой и текущей конфигурацией</p></li>
+<li><p>Сложно считать конфигурационный патч</p></li>
+<li><p>Транзакционность не всегда доступна</p></li>
+<li><p>Поддержание целевого состояния – задача инженера</p></li>
+</ol>
 <p>Выше 9 смертных грехов CLI, которые обусловили рождение моделей данных конфигурации, языков их описания, протоколов, как SNMP, NETCONF и gNMI.
 | Если всё по каждому из них понятно, просто пропускайте следующую секцию.</p>
 <div class="section" id="cli">
@@ -292,12 +332,21 @@
           </div>
           <footer>
   
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="rpc.html" class="btn btn-neutral float-right" title="Концепция RPC - Russian Pravoslavnaya Church" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Часть 6. Интерфейсы взаимодействия с сетевым устройством" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, eucariot
+        &copy; Copyright 2021, eucariot
 
     </p>
   </div>

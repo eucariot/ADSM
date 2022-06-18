@@ -35,7 +35,9 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
-    <link rel="search" title="Поиск" href="../search.html" /> 
+    <link rel="search" title="Поиск" href="../search.html" />
+    <link rel="next" title="Часть 6. Интерфейсы взаимодействия с сетевым устройством" href="../6_interfaces/index.html" />
+    <link rel="prev" title="Полезные ссылки" href="links.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -80,10 +82,31 @@
             
             
               <p class="caption"><span class="caption-text">Содержание:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3_ipam_dcim/index.html">Часть 3. IPAM/DCIM-системы</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4_lifecycle/index.html">Часть 4. Архитектура системы автоматизации</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Часть 5. История сетевой автоматизации</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cli.html">One CLI to rule them all</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snmp.html">SNMP - и не simple, и не management, и не short term</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_rpc.html">API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netconf.html">NETCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restconf.html">RESTCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">Модели и языки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grpc.html">gRPC/gNMI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nowdays.html">Настоящее сетевой автоматизации</a></li>
+<li class="toctree-l2"><a class="reference internal" href="future.html">Видимое будущее</a></li>
+<li class="toctree-l2"><a class="reference internal" href="horizon.html">Шаг за горизонт</a></li>
+<li class="toctree-l2"><a class="reference internal" href="links.html">Полезные ссылки</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Заключение</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Благодарности</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../6_interfaces/index.html">Часть 6. Интерфейсы взаимодействия с сетевым устройством</a></li>
 </ul>
 
             
@@ -129,6 +152,8 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
+          <li><a href="index.html">Часть 5. История сетевой автоматизации</a> &raquo;</li>
+        
       <li>Заключение</li>
     
     
@@ -156,14 +181,14 @@
 </div>
 <p>И, надеюсь, этой статьёй мне удалось немного раскрыть длинную историю сетевой автоматизации, показать, что мы живём в эпоху Кембрийского взрыва инструментов и интерфейсов. И перед нами сейчас открыты разные пути, каждый из которых сулит как минимум интересное развитие событий.</p>
 <p>Рекомендую к прочтению вторую часть этой публикации.!!!</p>
-</div>
 <div class="section" id="id2">
-<h1>Благодарности<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h1>
+<h2>Благодарности<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://netdevops.me/">Роману Додину</a> за дельные комментарии как по теоретической, так и по практической частям. А так же за полезный блог и инструменты. <a class="reference external" href="https://github.com/hellt">GitHub</a>.</p></li>
 <li><p><a class="reference external" href="https://www.linkedin.com/mwlite/in/horseinthesky">Кириллу Плетнёву</a> за наведение порядка с NETCONF и YANG - язык, модели, спецификации, форматы данных. И за уместные и остроумные замечания по языкам и библиотекам. <a class="reference external" href="https://github.com/horseinthesky">GitHub</a>, <a class="reference external" href="https://facebook.com/profile.php?id=100000214935640">fb</a>.</p></li>
 <li><p><a class="reference external" href="https://www.linkedin.com/mwlite/in/horseinthesky">Александру Лимонову</a> за несколько идеологических замечаний и исправлений фактических ошибок.</p></li>
 </ul>
+</div>
 </div>
 
 
@@ -172,12 +197,21 @@
           </div>
           <footer>
   
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../6_interfaces/index.html" class="btn btn-neutral float-right" title="Часть 6. Интерфейсы взаимодействия с сетевым устройством" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="links.html" class="btn btn-neutral float-left" title="Полезные ссылки" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, eucariot
+        &copy; Copyright 2021, eucariot
 
     </p>
   </div>

@@ -35,7 +35,9 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
-    <link rel="search" title="Поиск" href="../search.html" /> 
+    <link rel="search" title="Поиск" href="../search.html" />
+    <link rel="next" title="NETCONF Again" href="netconf_again.html" />
+    <link rel="prev" title="NETCONF" href="netconf.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -80,10 +82,38 @@
             
             
               <p class="caption"><span class="caption-text">Содержание:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3_ipam_dcim/index.html">Часть 3. IPAM/DCIM-системы</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4_lifecycle/index.html">Часть 4. Архитектура системы автоматизации</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5_history/index.html">Часть 5. История сетевой автоматизации</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Часть 6. Интерфейсы взаимодействия с сетевым устройством</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cli.html">CLI - Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rpc.html">Концепция RPC - Russian Pravoslavnaya Church</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netconf.html">NETCONF</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">&amp;lt;XML&amp;gt;</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#xml-prolog">XML Prolog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Дерево элементов</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Атрибуты</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#namespaces">Namespaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xpath-xml-path">Xpath - XML Path</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Схема</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="netconf_again.html">NETCONF Again</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restconf.html">RESTCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="callhome.html">Call-Home</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grpc.html">gRPC/gNMI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">Модели данных</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yang.html">YANG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yang.html#model-driven-programmability">Model Driven Programmability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="onemoretime.html">Всё вместе</a></li>
+<li class="toctree-l2"><a class="reference internal" href="links.html">Полезные ссылки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.html">Заключение</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -129,6 +159,8 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
+          <li><a href="index.html">Часть 6. Интерфейсы взаимодействия с сетевым устройством</a> &raquo;</li>
+        
       <li>&amp;lt;XML&amp;gt;</li>
     
     
@@ -154,7 +186,7 @@
 <div class="line">По всей видимости наиболее точный и честный ответ - «исторически сложилось».</div>
 <div class="line">Судьба XML в чём-то похожа на MPLS - оба были созданы для одной задачи, а популярность снискали в другой.</div>
 <div class="line">XML намеревался стать метаязыком для создания языков разметки документов. Но очень быстро его адаптировали под формат сериализации данных при передаче. И к моменту, когда Juniper выбирал формат, в котором API будет принимать запросы, XML стал уже проверенным, зрелым кандидатом.</div>
-<div class="line">Сегодня, вероятно, победил бы JSON, но тогда он только <a href="#id1"><span class="problematic" id="id2">`</span></a>начинал свой путь к славе &lt;<a class="reference external" href="https://trends.google.com/trends/explore?date=all&amp;q=XML,JSON,YAML">https://trends.google.com/trends/explore?date=all&amp;q=XML,JSON,YAML</a>&gt;`_&lt;/a&gt;.</div>
+<div class="line">Сегодня, вероятно, победил бы JSON, но тогда он только <a class="reference external" href="https://trends.google.com/trends/explore?date=all&amp;q=XML,JSON,YAML">начинал свой путь к славе</a>.</div>
 </div>
 <blockquote>
 <div><div class="figure align-center">
@@ -163,17 +195,17 @@
 </div></blockquote>
 <div class="line-block">
 <div class="line">YAML и protobuf тогда ещё не существовали. Ну и вообще YAML подходит лучше для описания конфигураций, которые редактируются руками, нежели как формат обмена данными.</div>
-<div class="line">Прелюбопытная историческая справка по XML, JSON и YAML: <a href="#id3"><span class="problematic" id="id4">`</span></a>YAML: The Missing Battery in Python &lt;<a class="reference external" href="https://realpython.com/python-yaml/">https://realpython.com/python-yaml/</a>&gt;`_&lt;/a&gt;.</div>
+<div class="line">Прелюбопытная историческая справка по XML, JSON и YAML: <a class="reference external" href="https://realpython.com/python-yaml/">YAML: The Missing Battery in Python</a>.</div>
 </div>
 <p>В общем выбор в те дни был предопределён - XML был сверхсовременным и суперудобным,</p>
-<p>Сложность читаемости XML компенсируется простотой его программной обработки. Чёткая иерархическая структура, понятные начало, конец и значение. В том же питоне xmltodict изящно любой валидный XML разворачивает в словарь. А вообще вот <a href="#id5"><span class="problematic" id="id6">`</span></a>годная статья &lt;<a class="reference external" href="https://realpython.com/python-xml-parser/">https://realpython.com/python-xml-parser/</a>&gt;`_&lt;/a&gt; про то, как предполагается работать с XML средствами стандартной библиотеки.</p>
+<p>Сложность читаемости XML компенсируется простотой его программной обработки. Чёткая иерархическая структура, понятные начало, конец и значение. В том же питоне xmltodict изящно любой валидный XML разворачивает в словарь. А вообще вот <a class="reference external" href="https://realpython.com/python-xml-parser/">годная статья</a> про то, как предполагается работать с XML средствами стандартной библиотеки.</p>
 <div class="line-block">
 <div class="line">Но давайте разбираться с тем, что же в себе интересного таит XML.</div>
 <div class="line">У меня нет задачи подвергнуть читателя пыткам и мучительной смерти через зачитывание стандартов, поэтому сильно глубоко мы погружаться не будем, но какую-то скучную базу дать придётся.</div>
 <div class="line">XML сам по себе не делает ничего - это только формат представления информации, в отличие от HTML, который как раз таки призван отрисовать содержимое.</div>
 <div class="line">XML описывает что за данные внутри, а его теги не определены заранее, опять же в отличие от HTML.</div>
+<div class="line">То есть это два брата, похожих друг на друга внешне, но очень разных внутри.</div>
 </div>
-<p>То есть это два брата, похожих друг на друга внешне, но очень разных внутри.</p>
 <p>Давайте сначала на отвлечённом примере поразбираемся?</p>
 <blockquote>
 <div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
@@ -209,24 +241,24 @@
 <div class="line">Коль скоро он опциональный, далее мы его опускаем.</div>
 </div>
 </div>
-<div class="section" id="id7">
-<h2>Дерево элементов<a class="headerlink" href="#id7" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="id3">
+<h2>Дерево элементов<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
 <div class="line-block">
 <div class="line">XML представляет из себя дерево, состоящее из отдельных элементов. Оно может быть произвольной вложенности.</div>
+<div class="line">Самый первый элемент называется корневым - <cite>root</cite>, все последующие - его дети.</div>
+<div class="line">В примере выше это <cite>&lt;bookstore&gt;</cite>.  Элемент представляет из себя открывающий и закрывающий теги и содержимое.</div>
+<div class="line">Теги заключены в угловые скобки и чувствительны к регистру. <cite>&lt;bookstore&gt;</cite> и <cite>&lt;Bookstore&gt;</cite> - это разные теги.</div>
+<div class="line">Соответственно между каждой парой определены отношения - родитель-ребёнок или сёстры (<cite>siblings</cite>).</div>
 </div>
-<p>Самый первый элемент называется корневым - <cite>root</cite>, все последующие - его дети.
-| В примере выше это <cite>&lt;bookstore&gt;</cite>.  Элемент представляет из себя открывающий и закрывающий теги и содержимое.
-| Теги заключены в угловые скобки и чувствительны к регистру. <cite>&lt;bookstore&gt;</cite> и <cite>&lt;Bookstore&gt;</cite> - это разные теги.
-| Соответственно между каждой парой определены отношения - родитель-ребёнок или сёстры (<cite>siblings</cite>).</p>
 <div class="line-block">
 <div class="line">Детьми корневого элемента являются элементы <cite>&lt;book&gt;</cite>. Разные элементы <cite>&lt;book&gt;</cite> друг для друга являются сёстрами.</div>
 <div class="line">Как такового понятия списка в XML нет, но по имени элемента мы (и код) понимаем, что они представляют из себя именно список.</div>
 <div class="line">У элемента <cite>&lt;book&gt;</cite> есть дочерние элементы. Их состав совсем не обязательно должен быть одинаковым - XML этого не требует, однако этого может (и скорее всего будет) требовать приложение.</div>
 </div>
-<p>Главное правило XML - каждый открывшийся тег должен быть закрыт: сказал <cite>&lt;a&gt;</cite> - говори и <cite>&lt;/a&gt;</cite>. Элемент может быть пустым, просто выражая факт своего существования, тогда запись <cite>&lt;instock&gt;&lt;/instock&gt;</cite> можно заменить на просто <cite>&lt;instock/&gt;</cite>.</p>
+<p>Главное правило XML - каждый открывшийся тег должен быть закрыт: сказал <cite>&lt;a&gt;</cite> - говори и <cite>/a</cite>. Элемент может быть пустым, просто выражая факт своего существования, тогда запись <cite>&lt;instock&gt;&lt;/instock&gt;</cite> можно заменить на просто <cite>&lt;instock/&gt;</cite>.</p>
 </div>
-<div class="section" id="id8">
-<h2>Атрибуты<a class="headerlink" href="#id8" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="id4">
+<h2>Атрибуты<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Взглянем на другой пример:</p>
 <blockquote>
 <div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;bookstore&gt;</span>
@@ -322,7 +354,8 @@
 <div class="line">Здесь уже однозначно будет конфликт. Надо решать.</div>
 <div class="line">Сделать это можно несколькими способами.</div>
 </div>
-<p># Прямо объявляем неймспейсы с префиксами:</p>
+<ol class="arabic">
+<li><p>Прямо объявляем неймспейсы с префиксами:</p>
 <blockquote>
 <div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;root&gt;</span>
 <span class="nt">&lt;postal:address</span> <span class="na">xmlns:postal=</span><span class="s">&quot;https://www.linkmeup.ru/postal_address/&quot;</span><span class="nt">&gt;</span>
@@ -343,9 +376,9 @@
 </pre></div>
 </div>
 </div></blockquote>
-<p># Определяем default namespace</p>
+</li>
+<li><p>Определяем default namespace</p>
 <blockquote>
-<div><blockquote>
 <div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;root&gt;</span>
 <span class="nt">&lt;address</span> <span class="na">xmlns=</span><span class="s">&quot;https://www.linkmeup.ru/postal_address/&quot;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;city&gt;</span>
@@ -361,7 +394,10 @@
 </pre></div>
 </div>
 </div></blockquote>
-<p>Область действия дефолтного неймспейса - сам элемент и все его потомки, если он нигде не переопределяется.</p>
+</li>
+</ol>
+<blockquote>
+<div><p>Область действия дефолтного неймспейса - сам элемент и все его потомки, если он нигде не переопределяется.</p>
 <p>Концепция namespace с одной стороны проста, с другой стороны и там есть место тёмным пятнам. Если хочется подетальнее изучить, то есть <a class="reference external" href="https://docs.microsoft.com/en-us/previous-versions/aa468565(v=msdn.10)?redirectedfrom=MSDN">пара</a> полезных <a class="reference external" href="http://www.rpbourret.com/xml/NamespacesFAQ.htm">FAQ про них</a>.</p>
 </div></blockquote>
 </div>
@@ -386,18 +422,18 @@
 <li><p>Вернуть список интерфейсов, на которых native-vlan 127</p></li>
 <li><p>Вернуть количество интерфейсов, в имени которых есть «Ethernet».</p></li>
 </ul>
-<p>В контексте NETCONF вы можете его встретить, но это не самая популярная capability. В общем, знать про него полезно, но глубоко копать не будем. Если хочется поподробнее почитать, то это можно сделать например, <a href="#id10"><span class="problematic" id="id11">`</span></a>тут &lt;<a class="reference external" href="https://www.w3schools.com/xml/xpath_intro.asp">https://www.w3schools.com/xml/xpath_intro.asp</a>&gt;`_&lt;/a&gt;.</p>
+<p>В контексте NETCONF вы можете его встретить, но это не самая популярная capability. В общем, знать про него полезно, но глубоко копать не будем. Если хочется поподробнее почитать, то это можно сделать например, <a class="reference external" href="https://www.w3schools.com/xml/xpath_intro.asp">тут</a>.</p>
 </div>
-<div class="section" id="id12">
-<h2>Схема<a class="headerlink" href="#id12" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="id7">
+<h2>Схема<a class="headerlink" href="#id7" title="Ссылка на этот заголовок">¶</a></h2>
 <div class="line-block">
 <div class="line">Что такое XML - это удобный способ передавать структурированные данные между приложениями. Но это лишено какого-либо смысла, есть нет контракта о том, как данные в этих файлах должны храниться - где какие элементы и какого они типа.</div>
 <div class="line">Представьте, что информацию об IP-адресах мы будем помещать непосредственно в элемент <cite>&lt;interface&gt;</cite>, а читать его пытаются из элемента <cite>&lt;unit&gt;</cite>?</div>
 <div class="line">Или дату мы передаём в формате <cite>YYYY-MM-DD</cite>, а читать её пытаются в <cite>MM-DD-YYYY</cite> (больные ублюдки).</div>
+<div class="line">При этом сам XML будет абсолютно «Well Formed», что называется - то есть соответствовать синтаксису XML.</div>
+<div class="line">Для этого и существует <strong>Схема</strong>. В отдельном XML-файле описывается схема данных для основного XML.</div>
+<div class="line">Это позволяет</div>
 </div>
-<p>При этом сам XML будет абсолютно «Well Formed», что называется - то есть соответствовать синтаксису XML.
-Для этого и существует <strong>Схема</strong>. В отдельном XML-файле описывается схема данных для основного XML.
-| Это позволяет</p>
 <ul class="simple">
 <li><p>двум сторонам использовать один и тот же способ хранения и распаковки данных.</p></li>
 <li><p>описывать содержимое документа</p></li>
@@ -430,7 +466,7 @@
 </pre></div>
 </div>
 </div></blockquote>
-<p><a href="#id13"><span class="problematic" id="id14">`</span></a>Самостоятельное продолжение изучения XSD &lt;<a class="reference external" href="https://www.w3schools.com/xml/schema_howto.asp">https://www.w3schools.com/xml/schema_howto.asp</a>&gt;`_&lt;/a&gt;.</p>
+<p><a class="reference external" href="https://www.w3schools.com/xml/schema_howto.asp">Самостоятельное продолжение изучения XSD</a>.</p>
 <p>Лучшая сторона XSD - это то, что на его основе можно автоматически генерировать объекты в языках программирования. То есть XSD описывает, какие именно объекты и структуры должны быть созданы, а конкретный XML - наполняет экземпляр, пользоваться которым значительно удобнее, чем крафтить XML.
 С схемами и моделями мы будем разбираться дальше.</p>
 <p>Надеюсь получилось, не утопая в деталях, дать понимание, что из себя представляет XML. Далее для нас это будет важным.</p>
@@ -444,12 +480,21 @@
           </div>
           <footer>
   
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="netconf_again.html" class="btn btn-neutral float-right" title="NETCONF Again" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="netconf.html" class="btn btn-neutral float-left" title="NETCONF" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, eucariot
+        &copy; Copyright 2021, eucariot
 
     </p>
   </div>

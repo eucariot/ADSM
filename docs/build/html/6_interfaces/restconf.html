@@ -35,7 +35,9 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
-    <link rel="search" title="Поиск" href="../search.html" /> 
+    <link rel="search" title="Поиск" href="../search.html" />
+    <link rel="next" title="Call-Home" href="callhome.html" />
+    <link rel="prev" title="NETCONF Again" href="netconf_again.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -80,10 +82,30 @@
             
             
               <p class="caption"><span class="caption-text">Содержание:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3_ipam_dcim/index.html">Часть 3. IPAM/DCIM-системы</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4_lifecycle/index.html">Часть 4. Архитектура системы автоматизации</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5_history/index.html">Часть 5. История сетевой автоматизации</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Часть 6. Интерфейсы взаимодействия с сетевым устройством</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cli.html">CLI - Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rpc.html">Концепция RPC - Russian Pravoslavnaya Church</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netconf.html">NETCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xml.html">&amp;lt;XML&amp;gt;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netconf_again.html">NETCONF Again</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">RESTCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="callhome.html">Call-Home</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grpc.html">gRPC/gNMI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">Модели данных</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yang.html">YANG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yang.html#model-driven-programmability">Model Driven Programmability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="onemoretime.html">Всё вместе</a></li>
+<li class="toctree-l2"><a class="reference internal" href="links.html">Полезные ссылки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.html">Заключение</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -129,6 +151,8 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
+          <li><a href="index.html">Часть 6. Интерфейсы взаимодействия с сетевым устройством</a> &raquo;</li>
+        
       <li>RESTCONF</li>
     
     
@@ -168,14 +192,16 @@
 <div class="line">Возьмём на этот раз Arista veos-4.21.</div>
 </div>
 <p>Что нужно настроить, чтобы заработал restconf:</p>
-<p># Выпускаем самоподписанный сертификат</p>
+<ol class="arabic">
+<li><p>Выпускаем самоподписанный сертификат</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>security pki certificate generate self-signed restconf.crt key restconf.key generate rsa <span class="m">2048</span> parameters common-name restconf
 certificate:restconf.crt generated
 </pre></div>
 </div>
 </div></blockquote>
-<p># Разрешаем доступ на устройство по порту 6020 - правим <cite>control-plane acl</cite></p>
+</li>
+<li><p>Разрешаем доступ на устройство по порту 6020 - правим <cite>control-plane acl</cite></p>
 <blockquote>
 <div><p>Смотрим то, что разрешено сейчас - это readonly acl.</p>
 <blockquote>
@@ -184,7 +210,8 @@ certificate:restconf.crt generated
 </div>
 </div></blockquote>
 </div></blockquote>
-<p># Копируем правила и создаём копию ACL. Добавляем правило, разрешающее доступ по порту 6020</p>
+</li>
+<li><p>Копируем правила и создаём копию ACL. Добавляем правило, разрешающее доступ по порту 6020</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip access-list control-plane-acl-with-restconf
 <span class="m">9</span> permit tcp any any eq <span class="m">6020</span>
@@ -211,14 +238,16 @@ certificate:restconf.crt generated
 </pre></div>
 </div>
 </div></blockquote>
-<p># Применяем ACL на Control-Plane</p>
+</li>
+<li><p>Применяем ACL на Control-Plane</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>control-plane
    ip access-group control-plane-acl-with-restconf in
 </pre></div>
 </div>
 </div></blockquote>
-<p># Включаем сервис RESTCONF</p>
+</li>
+<li><p>Включаем сервис RESTCONF</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>management api restconf
     transport https <span class="nb">test</span>
@@ -226,7 +255,8 @@ certificate:restconf.crt generated
 </pre></div>
 </div>
 </div></blockquote>
-<p># Настраиваем SSL</p>
+</li>
+<li><p>Настраиваем SSL</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>management security
     ssl profile restconf
@@ -234,7 +264,9 @@ certificate:restconf.crt generated
 </pre></div>
 </div>
 </div></blockquote>
-<p># Вы божественны</p>
+</li>
+<li><p>Вы божественны</p></li>
+</ol>
 <p>Теперь проверяем, что порт открыт</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nc -zv bcn-spine-1.arista <span class="m">6020</span>
@@ -324,12 +356,21 @@ Connection to bcn-spine-1.arista <span class="m">6020</span> port <span class="o
           </div>
           <footer>
   
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="callhome.html" class="btn btn-neutral float-right" title="Call-Home" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="netconf_again.html" class="btn btn-neutral float-left" title="NETCONF Again" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, eucariot
+        &copy; Copyright 2021, eucariot
 
     </p>
   </div>

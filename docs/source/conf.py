@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'ADSM'
-copyright = '2019, eucariot'
+copyright = '2021, eucariot'
 author = 'eucariot'
 
 # The full version, including alpha/beta/rc tags

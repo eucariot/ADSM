@@ -18,7 +18,7 @@ RESTCONF
 
 Что нужно настроить, чтобы заработал restconf:
 
-# Выпускаем самоподписанный сертификат
+1. Выпускаем самоподписанный сертификат
 
     .. code-block:: bash
 
@@ -27,7 +27,7 @@ RESTCONF
 
 
   
-# Разрешаем доступ на устройство по порту 6020 - правим `control-plane acl`
+2. Разрешаем доступ на устройство по порту 6020 - правим `control-plane acl`
       
     Смотрим то, что разрешено сейчас - это readonly acl.
 
@@ -36,7 +36,7 @@ RESTCONF
            show ip access-lists default-control-plane-acl
 
  
-# Копируем правила и создаём копию ACL. Добавляем правило, разрешающее доступ по порту 6020  
+3. Копируем правила и создаём копию ACL. Добавляем правило, разрешающее доступ по порту 6020  
 
     .. code-block:: bash
 
@@ -63,14 +63,14 @@ RESTCONF
        210 permit tcp any eq bgp any
        220 permit rsvp any any
   
-# Применяем ACL на Control-Plane
+4. Применяем ACL на Control-Plane
 
     .. code-block:: bash
 
        control-plane
           ip access-group control-plane-acl-with-restconf in
   
-# Включаем сервис RESTCONF
+5. Включаем сервис RESTCONF
 
     .. code-block:: bash
 
@@ -78,7 +78,7 @@ RESTCONF
            transport https test
            ssl profile restconf
   
-# Настраиваем SSL
+6. Настраиваем SSL
 
     .. code-block:: bash
 
@@ -86,7 +86,7 @@ RESTCONF
            ssl profile restconf
            certificate restconf.crt key restconf.key
 
-# Вы божественны
+7. Вы божественны
 
 Теперь проверяем, что порт открыт
 

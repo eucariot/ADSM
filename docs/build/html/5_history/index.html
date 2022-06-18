@@ -35,7 +35,9 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
-    <link rel="search" title="Поиск" href="../search.html" /> 
+    <link rel="search" title="Поиск" href="../search.html" />
+    <link rel="next" title="One CLI to rule them all" href="cli.html" />
+    <link rel="prev" title="Заключение" href="../4_lifecycle/conclusion.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -80,10 +82,28 @@
             
             
               <p class="caption"><span class="caption-text">Содержание:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3_ipam_dcim/index.html">Часть 3. IPAM/DCIM-системы</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4_lifecycle/index.html">Часть 4. Архитектура системы автоматизации</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Часть 5. История сетевой автоматизации</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cli.html">One CLI to rule them all</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snmp.html">SNMP - и не simple, и не management, и не short term</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_rpc.html">API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netconf.html">NETCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restconf.html">RESTCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">Модели и языки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grpc.html">gRPC/gNMI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nowdays.html">Настоящее сетевой автоматизации</a></li>
+<li class="toctree-l2"><a class="reference internal" href="future.html">Видимое будущее</a></li>
+<li class="toctree-l2"><a class="reference internal" href="horizon.html">Шаг за горизонт</a></li>
+<li class="toctree-l2"><a class="reference internal" href="links.html">Полезные ссылки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.html">Заключение</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../6_interfaces/index.html">Часть 6. Интерфейсы взаимодействия с сетевым устройством</a></li>
 </ul>
 
             
@@ -159,9 +179,11 @@
 <a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/5/kdpv0.png"><img alt="https://fs.linkmeup.ru/images/adsm/5/kdpv0.png" src="https://fs.linkmeup.ru/images/adsm/5/kdpv0.png" style="width: 800px;" /></a>
 </div>
 </div></blockquote>
-<p>Когда началась история сетевой автоматизации?
-С Ansible в 2018? С ним она явно получила ускорение благодаря безагентной природе.
-Не. До него были голые языки на букву «P»: Python, Perl, PHP.</p>
+<div class="line-block">
+<div class="line">Когда началась история сетевой автоматизации?</div>
+<div class="line">С Ansible в 2018? С ним она явно получила ускорение благодаря безагентной природе.</div>
+<div class="line">Не. До него были голые языки на букву «P»: Python, Perl, PHP.</div>
+</div>
 <p>С NETCONF? Точно нет, CLI ещё мой дед парсил. А уж сколько expect’ов там поработало…</p>
 <p><em>SNMP</em> - вот что приходит на ум в качестве первого подхода - он родом из 90-х.</p>
 <p>Однако как насчёт перехода от коммутации каналов к коммутации пакетов? Нельзя ли назвать динамическую сеть, не требующую мгновенного ручного вмешательства при обрывах, разновидностью автоматизации?</p>
@@ -176,7 +198,7 @@
 <div><div class="figure align-center">
 <a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/5/humor.png"><img alt="https://fs.linkmeup.ru/images/adsm/5/humor.png" src="https://fs.linkmeup.ru/images/adsm/5/humor.png" style="width: 800px;" /></a>
 </div>
-<p><em>Источник: `доклад на Cisco Live &lt;https://www.ciscolive.com/c/dam/r/ciscolive/emea/docs/2020/pdf/BRKNMS-2032.pdf&gt;`_</em></p>
+<p>Источник: <a class="reference external" href="https://www.ciscolive.com/c/dam/r/ciscolive/emea/docs/2020/pdf/BRKNMS-2032.pdf">доклад на Cisco Live</a></p>
 </div></blockquote>
 <p>В этой статье посмотрим, сколько всего в эти 30 лет уместилось.
 А уместилось немало.</p>
@@ -204,8 +226,10 @@
 <li class="toctree-l1"><a class="reference internal" href="future.html">Видимое будущее</a></li>
 <li class="toctree-l1"><a class="reference internal" href="horizon.html">Шаг за горизонт</a></li>
 <li class="toctree-l1"><a class="reference internal" href="links.html">Полезные ссылки</a></li>
-<li class="toctree-l1"><a class="reference internal" href="conclusion.html">Заключение</a></li>
-<li class="toctree-l1"><a class="reference internal" href="conclusion.html#id2">Благодарности</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conclusion.html">Заключение</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.html#id2">Благодарности</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -216,12 +240,21 @@
           </div>
           <footer>
   
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cli.html" class="btn btn-neutral float-right" title="One CLI to rule them all" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../4_lifecycle/conclusion.html" class="btn btn-neutral float-left" title="Заключение" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, eucariot
+        &copy; Copyright 2021, eucariot
 
     </p>
   </div>

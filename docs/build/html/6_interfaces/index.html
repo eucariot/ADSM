@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; документация ADSM 0.1.0</title>
+  <title>Часть 6. Интерфейсы взаимодействия с сетевым устройством &mdash; документация ADSM 0.1.0</title>
   
 
   
@@ -35,7 +35,9 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
-    <link rel="search" title="Поиск" href="../search.html" /> 
+    <link rel="search" title="Поиск" href="../search.html" />
+    <link rel="next" title="CLI - Command Line Interface" href="cli.html" />
+    <link rel="prev" title="Заключение" href="../5_history/conclusion.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -80,10 +82,30 @@
             
             
               <p class="caption"><span class="caption-text">Содержание:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3_ipam_dcim/index.html">Часть 3. IPAM/DCIM-системы</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4_lifecycle/index.html">Часть 4. Архитектура системы автоматизации</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5_history/index.html">Часть 5. История сетевой автоматизации</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Часть 6. Интерфейсы взаимодействия с сетевым устройством</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cli.html">CLI - Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rpc.html">Концепция RPC - Russian Pravoslavnaya Church</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netconf.html">NETCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xml.html">&amp;lt;XML&amp;gt;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netconf_again.html">NETCONF Again</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restconf.html">RESTCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="callhome.html">Call-Home</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grpc.html">gRPC/gNMI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">Модели данных</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yang.html">YANG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yang.html#model-driven-programmability">Model Driven Programmability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="onemoretime.html">Всё вместе</a></li>
+<li class="toctree-l2"><a class="reference internal" href="links.html">Полезные ссылки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.html">Заключение</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -129,7 +151,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>&lt;no title&gt;</li>
+      <li>Часть 6. Интерфейсы взаимодействия с сетевым устройством</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -148,7 +170,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="line-block">
+  <div class="section" id="id1">
+<h1>Часть 6. Интерфейсы взаимодействия с сетевым устройством<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="line-block">
 <div class="line">В этой части мы раскрываем дерево XML, пробуем на вкус капабилити NETCONF, шлём первые RPC и наконец уже расставим в правильном порядке буквы YANG, OpenConfig, gNMI.</div>
 <div class="line">Практическую пользу вам принесут только обе прочитанные статьи. Вторая без первой будет непонятна. Первая без второй - беллетристика.*</div>
 </div>
@@ -180,11 +204,11 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="xml.html">&amp;lt;XML&amp;gt;</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="xml.html#xml-prolog">XML Prolog</a></li>
-<li class="toctree-l2"><a class="reference internal" href="xml.html#id7">Дерево элементов</a></li>
-<li class="toctree-l2"><a class="reference internal" href="xml.html#id8">Атрибуты</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xml.html#id3">Дерево элементов</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xml.html#id4">Атрибуты</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xml.html#namespaces">Namespaces</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xml.html#xpath-xml-path">Xpath - XML Path</a></li>
-<li class="toctree-l2"><a class="reference internal" href="xml.html#id12">Схема</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xml.html#id7">Схема</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="netconf_again.html">NETCONF Again</a><ul>
@@ -223,6 +247,7 @@
 </li>
 </ul>
 </div>
+</div>
 
 
            </div>
@@ -230,12 +255,21 @@
           </div>
           <footer>
   
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cli.html" class="btn btn-neutral float-right" title="CLI - Command Line Interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../5_history/conclusion.html" class="btn btn-neutral float-left" title="Заключение" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, eucariot
+        &copy; Copyright 2021, eucariot
 
     </p>
   </div>

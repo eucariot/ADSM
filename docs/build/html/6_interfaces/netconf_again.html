@@ -35,7 +35,9 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
-    <link rel="search" title="Поиск" href="../search.html" /> 
+    <link rel="search" title="Поиск" href="../search.html" />
+    <link rel="next" title="RESTCONF" href="restconf.html" />
+    <link rel="prev" title="&amp;lt;XML&amp;gt;" href="xml.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -80,10 +82,61 @@
             
             
               <p class="caption"><span class="caption-text">Содержание:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3_ipam_dcim/index.html">Часть 3. IPAM/DCIM-системы</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4_lifecycle/index.html">Часть 4. Архитектура системы автоматизации</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5_history/index.html">Часть 5. История сетевой автоматизации</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Часть 6. Интерфейсы взаимодействия с сетевым устройством</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cli.html">CLI - Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rpc.html">Концепция RPC - Russian Pravoslavnaya Church</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netconf.html">NETCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xml.html">&amp;lt;XML&amp;gt;</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">NETCONF Again</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Действия, операции</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#lt-get-gt">&amp;lt;get&amp;gt;</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lt-filter-gt">&amp;lt;filter&amp;gt;</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lt-get-config-gt">&amp;lt;get-config&amp;gt;</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuration-datastores">Configuration Datastores</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lt-edit-config-gt">&amp;lt;edit-config&amp;gt;</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edit-config">Практика edit-config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#operation-replace">Operation replace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lt-commit-gt">&amp;lt;commit&amp;gt;</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lt-copy-config-gt">&amp;lt;copy-config&amp;gt;</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lt-delete-config-gt">&amp;lt;delete-config&amp;gt;</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lt-lock-unlock-gt">&amp;lt;lock/unlock&amp;gt;</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lt-close-session-gt">&amp;lt;close-session&amp;gt;</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lt-kill-session-gt">&amp;lt;kill-session&amp;gt;</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#netconf">Инструменты разработчика для NETCONF</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#netconf-console">netconf-console</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ncclient">NCclient</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#scrapli-netconf">scrapli-netconf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#scrapligo-scrapligo-netconf">Scrapligo и scrapligo-netconf</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Как это использовать</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id7">Мониторинг</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">Выполнение отдельных операций</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuration-management">Configuration Management</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="restconf.html">RESTCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="callhome.html">Call-Home</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grpc.html">gRPC/gNMI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">Модели данных</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yang.html">YANG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yang.html#model-driven-programmability">Model Driven Programmability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="onemoretime.html">Всё вместе</a></li>
+<li class="toctree-l2"><a class="reference internal" href="links.html">Полезные ссылки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.html">Заключение</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -128,6 +181,8 @@
   <ul class="wy-breadcrumbs">
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Часть 6. Интерфейсы взаимодействия с сетевым устройством</a> &raquo;</li>
         
       <li>NETCONF Again</li>
     
@@ -1251,25 +1306,26 @@ netconf&gt; hello
 <div class="section" id="configuration-management">
 <h3>Configuration Management<a class="headerlink" href="#configuration-management" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Да, это тоже возможно, если</p>
-<p># Оборудование поддерживает 100% конфигурации через NETCONF. Увы, я на своём веку повидал ситуаций, когда некоторые секции просто-напросто отсутствовали в NETCONF и никакого способа настроить нужную функцию нет.
-# Оборудование честно поддерживает операцию «replace», без этого вычисление конфигурационной дельты ложится вновь на сетевиков.</p>
+<ol class="arabic simple">
+<li><p>Оборудование поддерживает 100% конфигурации через NETCONF. Увы, я на своём веку повидал ситуаций, когда некоторые секции просто-напросто отсутствовали в NETCONF и никакого способа настроить нужную функцию нет.</p></li>
+<li><p>Оборудование честно поддерживает операцию «replace», без этого вычисление конфигурационной дельты ложится вновь на сетевиков.</p></li>
+</ol>
 <div class="line-block">
 <div class="line">Однако, в том виде, в котором мы познакомились с темой на данный момент, дальше начинается Jinja-программирование. Каждому, кто этим занимался, обычно неловко, и он стыдливо избегает разговора на эту тему.</div>
 <div class="line">Задача решается примерно следующим образом:</div>
 </div>
-<p># | Пишем циклопические развесистые jinja-шаблоны с ифами и форами, внутри которых XML. Шаблоны под каждого вендора, конечно, свои собственные, поскольку и схемы данных у них разные. Но при этом они универсальные в плане ролей устройств - не нужно для свитчей доступа и маршрутизаторов ядра писать разные шаблоны - просто в зависимости от роли будут активироваться те или иные их части.
+<p>3. | Пишем циклопические развесистые jinja-шаблоны с ифами и форами, внутри которых XML. Шаблоны под каждого вендора, конечно, свои собственные, поскольку и схемы данных у них разные. Но при этом они универсальные в плане ролей устройств - не нужно для свитчей доступа и маршрутизаторов ядра писать разные шаблоны - просто в зависимости от роли будут активироваться те или иные их части.
 | Здесь в нужных местах сразу описаны типы операций - где merge, где replace.
-# Каким-то образом формируем под каждое устройство файлы переменных, в которых указаны хостнеймы, IP-адреса, ASN, пиры и прочие специфические вещи. Эти файлы переменных в свою очередь, напротив, вендор-нейтральны, но будут отличаться от роли к роли.
-# Рендерим конфигурацию в формате XML, накладывая переменные на шаблоны. Получаем целевую конфигурацию в виде дерева XML, где в нужных местах проставлена операция <cite>replace</cite>.
-# Этот XML с помощью ncclient, ansible, scrapli-netconf или чего-то ещё подпихиваем на коробку.
-# NETCONF-сервер на коробке получает RPC и вычисляет конфигурационный патч, который фактически применит. То есть он находит разницу между целевой конфигурацией в RPC и текущей в <cite>&lt;running&gt;</cite>. Применяет эту конфигурацию.</p>
-<p>Как бы это могло выглядеть я уже показывал в <a class="reference external" href="https://linkmeup.ru/blog/1275/">предыдущем выпуске АДСМ</a>.
-!!!</p>
+4. Каким-то образом формируем под каждое устройство файлы переменных, в которых указаны хостнеймы, IP-адреса, ASN, пиры и прочие специфические вещи. Эти файлы переменных в свою очередь, напротив, вендор-нейтральны, но будут отличаться от роли к роли.
+5. Рендерим конфигурацию в формате XML, накладывая переменные на шаблоны. Получаем целевую конфигурацию в виде дерева XML, где в нужных местах проставлена операция <cite>replace</cite>.
+6. Этот XML с помощью ncclient, ansible, scrapli-netconf или чего-то ещё подпихиваем на коробку.
+7. NETCONF-сервер на коробке получает RPC и вычисляет конфигурационный патч, который фактически применит. То есть он находит разницу между целевой конфигурацией в RPC и текущей в <cite>&lt;running&gt;</cite>. Применяет эту конфигурацию.</p>
+<p>Как бы это могло выглядеть я уже показывал в <a class="reference external" href="https://linkmeup.ru/blog/1275/">предыдущем выпуске АДСМ</a>.</p>
 <blockquote>
-<div><div class="figure align-default" id="id10">
+<div><div class="figure align-default">
 <img alt="https://dteslya.engineer/images/2020-10-netdevops-pipeline.png" src="https://dteslya.engineer/images/2020-10-netdevops-pipeline.png" />
-<p class="caption"><span class="caption-text"><em>`Источник: dteslya.engineer/network_automaiton_101/ &lt;https://dteslya.engineer/network_automaiton_101/&gt;`_</em></span><a class="headerlink" href="#id10" title="Постоянная ссылка на рисунок">¶</a></p>
 </div>
+<p><a class="reference external" href="https://dteslya.engineer/network_automaiton_101/">Источник: dteslya.engineer/network_automaiton_101/</a></p>
 </div></blockquote>
 <p>Ручная правка файлов переменных - это очень неудобно, конечно же. Просто мрак, если мы говорим про какие-то типовые вещи, как например датацентровые регулярные топологии. Новая пачка стоек - сотни и тысячи строк для копипащения и ручного изменения. Но на самом деле их можно создавать автоматически на основе данных из централизованной базы данных - DCIM/IPAM.</p>
 <div class="line-block">
@@ -1277,14 +1333,18 @@ netconf&gt; hello
 <div class="line">Потому что мы у себя (в Яндексе) полностью построили весь жизненный цикл отдельного сегмента сети на основе описанной схемы. И любые изменения на сеть могут применяться только через подобный конвейер и NETCONF. Любые временные конфигурации на железе перетрутся следующим же релизом.</div>
 </div>
 <p>Что тут хорошо:</p>
-<p># Изменения в Jinja-шаблонах версионируются через git и проходят проверку другими инженерами перед применением. Это систематические изменения, влияющие на большое количество устройств.
-# Изменения в переменных - точно так же. Это точечное изменение конкретного устройства.
-# Только после согласования изменений в пунктах выше, можно сгенерировать новую конфигурацию и далее уже её отправить на проверку в git.
-# Если соблюдать процесс, то отсутствует конфигурационный дрейф.</p>
+<ol class="arabic simple">
+<li><p>Изменения в Jinja-шаблонах версионируются через git и проходят проверку другими инженерами перед применением. Это систематические изменения, влияющие на большое количество устройств.</p></li>
+<li><p>Изменения в переменных - точно так же. Это точечное изменение конкретного устройства.</p></li>
+<li><p>Только после согласования изменений в пунктах выше, можно сгенерировать новую конфигурацию и далее уже её отправить на проверку в git.</p></li>
+<li><p>Если соблюдать процесс, то отсутствует конфигурационный дрейф.</p></li>
+</ol>
 <p>Что тут плохо?</p>
-<p># Ну, очевидно, Jinja-программирование
-# Работа с текстом, вместо объектов языка.
-# Отсутствие возможности взглянуть на конфигурационный диф до его применения.</p>
+<ol class="arabic simple">
+<li><p>Ну, очевидно, Jinja-программирование</p></li>
+<li><p>Работа с текстом, вместо объектов языка.</p></li>
+<li><p>Отсутствие возможности взглянуть на конфигурационный диф до его применения.</p></li>
+</ol>
 <p>На этом на самом деле заканчивается первая большая часть этой статьи, которая позволяет просто уже взять и получать пользу от NETCONF в задачах автоматизации.</p>
 <p><strong>Я вот прям серьёзно сейчас, ей богу! Не туманные абстракции - берём NETCONF - и на многих вендорах уже можно с ним работать выстраивая автоматизацию того или иного объёма.</strong></p>
 <div class="line-block">
@@ -1303,12 +1363,21 @@ netconf&gt; hello
           </div>
           <footer>
   
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="restconf.html" class="btn btn-neutral float-right" title="RESTCONF" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="xml.html" class="btn btn-neutral float-left" title="&amp;lt;XML&amp;gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, eucariot
+        &copy; Copyright 2021, eucariot
 
     </p>
   </div>

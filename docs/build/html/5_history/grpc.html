@@ -35,7 +35,9 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
-    <link rel="search" title="Поиск" href="../search.html" /> 
+    <link rel="search" title="Поиск" href="../search.html" />
+    <link rel="next" title="Настоящее сетевой автоматизации" href="nowdays.html" />
+    <link rel="prev" title="Модели и языки" href="models.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -80,10 +82,31 @@
             
             
               <p class="caption"><span class="caption-text">Содержание:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3_ipam_dcim/index.html">Часть 3. IPAM/DCIM-системы</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4_lifecycle/index.html">Часть 4. Архитектура системы автоматизации</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Часть 5. История сетевой автоматизации</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cli.html">One CLI to rule them all</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snmp.html">SNMP - и не simple, и не management, и не short term</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_rpc.html">API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netconf.html">NETCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restconf.html">RESTCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">Модели и языки</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">gRPC/gNMI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">gRPC</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nowdays.html">Настоящее сетевой автоматизации</a></li>
+<li class="toctree-l2"><a class="reference internal" href="future.html">Видимое будущее</a></li>
+<li class="toctree-l2"><a class="reference internal" href="horizon.html">Шаг за горизонт</a></li>
+<li class="toctree-l2"><a class="reference internal" href="links.html">Полезные ссылки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.html">Заключение</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../6_interfaces/index.html">Часть 6. Интерфейсы взаимодействия с сетевым устройством</a></li>
 </ul>
 
             
@@ -129,6 +152,8 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
+          <li><a href="index.html">Часть 5. История сетевой автоматизации</a> &raquo;</li>
+        
       <li>gRPC/gNMI</li>
     
     
@@ -167,9 +192,11 @@
 <div class="line">Это фреймворк, позволяющий приложениям, запущенным в совершенно разных окружениях, взаимодействовать друг с другом посредством RPC.</div>
 <div class="line">Делает gRPC концептуально ровно то, что предполагается самой идеологией RPC, но есть несколько вещей, которые обусловили его успех и популярность:</div>
 </div>
-<p># Строгий IDL (Interface Definition Language), диктующий то, как именно описывать спецификации - protocol buffers или protobufs.
-# Готовый формат данных и механизм их маршалинга и демаршалинга - тоже protocol buffers (protobufs).
-# Библиотеки для разных языков программирования, которые на основе спецификации генерируют объекты языка (классы, методы итд) - разработчику остаётся только использовать их. Как для сервера, так и для клиента.</p>
+<ol class="arabic simple">
+<li><p>Строгий IDL (Interface Definition Language), диктующий то, как именно описывать спецификации - protocol buffers или protobufs.</p></li>
+<li><p>Готовый формат данных и механизм их маршалинга и демаршалинга - тоже protocol buffers (protobufs).</p></li>
+<li><p>Библиотеки для разных языков программирования, которые на основе спецификации генерируют объекты языка (классы, методы итд) - разработчику остаётся только использовать их. Как для сервера, так и для клиента.</p></li>
+</ol>
 <p>То есть.
 Поставил себе пакет grpc: перед тобой сразу язык спецификации, генераторы кода, интерфейсы, форматы данных, транспорт.  Красота-тра-та-та!</p>
 <div class="line-block">
@@ -178,9 +205,10 @@
 <div class="line">Что и неудивительно - с железом они работать умеют, с Linux и подавно - дело было за малым - собрать команду Network R&amp;D, в которой будут ребята, которые занимались разработкой своих серверов и адаптацией интерфейсов и инструментов, и найти достаточно гибкого вендора. А за последним дело не встанет, когда вы закупаете килограмм свичтей в секунду.</div>
 </div>
 <blockquote>
-<div><div class="figure align-default">
-<img alt="https://fs.linkmeup.ru/images/adsm/5/cool-networkers.png:width:800:align:center*Такпомнениюпоисковыхсистемвыглядяткрутыесетевики*" src="https://fs.linkmeup.ru/images/adsm/5/cool-networkers.png:width:800:align:center*Такпомнениюпоисковыхсистемвыглядяткрутыесетевики*" />
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/5/cool-networkers.png"><img alt="https://fs.linkmeup.ru/images/adsm/5/cool-networkers.png" src="https://fs.linkmeup.ru/images/adsm/5/cool-networkers.png" style="width: 800px;" /></a>
 </div>
+<p><em>Так по мнению поисковых систем выглядят крутые сетевики</em></p>
 </div></blockquote>
 <p>Вообще для обывателей всё началось 24 сентября 2015, когда OpenConfig consortium выпустил OpenConfig в мир. Весь FANG (кроме Amazon) поучаствовал в этом консорциуме. Но начал всю заварушку и продолжает её паровозить гугл. Естественно, среди них и крупные телекомы, вроде Level3, AT&amp;T, Verizon, Bell.</p>
 <p>И пока OpenConfig прокладывал себе дорогу, раскидывая в сторону вендорские и IETF модели, гугл сделал следующий шаг - как раз таки реализовал gNMI.</p>
@@ -193,7 +221,7 @@
 <div><div class="figure align-center">
 <a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/5/standards_2x.png"><img alt="https://fs.linkmeup.ru/images/adsm/5/standards_2x.png" src="https://fs.linkmeup.ru/images/adsm/5/standards_2x.png" style="width: 500px;" /></a>
 </div>
-<p><em>`Источник &lt;https://xkcd.com/927/&gt;`_</em></p>
+<p><a class="reference external" href="https://xkcd.com/927/">Источник</a></p>
 </div></blockquote>
 <div class="line-block">
 <div class="line">Так вот, рассказываю: собрались как-то сетевики гугл вместе, пришли на встречу <a class="reference external" href="https://datatracker.ietf.org/meeting/98/materials/slides-98-rtgwg-gnmi-intro-draft-openconfig-rtgwg-gnmi-spec-00">IETF 98</a> в Чикаго на секцию Routing Area Working</div>
@@ -227,12 +255,21 @@
           </div>
           <footer>
   
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="nowdays.html" class="btn btn-neutral float-right" title="Настоящее сетевой автоматизации" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="models.html" class="btn btn-neutral float-left" title="Модели и языки" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, eucariot
+        &copy; Copyright 2021, eucariot
 
     </p>
   </div>

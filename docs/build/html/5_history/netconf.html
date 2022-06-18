@@ -35,7 +35,9 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
-    <link rel="search" title="Поиск" href="../search.html" /> 
+    <link rel="search" title="Поиск" href="../search.html" />
+    <link rel="next" title="RESTCONF" href="restconf.html" />
+    <link rel="prev" title="API" href="api_rpc.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -80,10 +82,28 @@
             
             
               <p class="caption"><span class="caption-text">Содержание:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3_ipam_dcim/index.html">Часть 3. IPAM/DCIM-системы</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4_lifecycle/index.html">Часть 4. Архитектура системы автоматизации</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Часть 5. История сетевой автоматизации</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cli.html">One CLI to rule them all</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snmp.html">SNMP - и не simple, и не management, и не short term</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_rpc.html">API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">NETCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restconf.html">RESTCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">Модели и языки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grpc.html">gRPC/gNMI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nowdays.html">Настоящее сетевой автоматизации</a></li>
+<li class="toctree-l2"><a class="reference internal" href="future.html">Видимое будущее</a></li>
+<li class="toctree-l2"><a class="reference internal" href="horizon.html">Шаг за горизонт</a></li>
+<li class="toctree-l2"><a class="reference internal" href="links.html">Полезные ссылки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.html">Заключение</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../6_interfaces/index.html">Часть 6. Интерфейсы взаимодействия с сетевым устройством</a></li>
 </ul>
 
             
@@ -129,6 +149,8 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
+          <li><a href="index.html">Часть 5. История сетевой автоматизации</a> &raquo;</li>
+        
       <li>NETCONF</li>
     
     
@@ -157,7 +179,7 @@
 <div><div class="figure align-center">
 <a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/5/juniper-m40.jpeg"><img alt="https://fs.linkmeup.ru/images/adsm/5/juniper-m40.jpeg" src="https://fs.linkmeup.ru/images/adsm/5/juniper-m40.jpeg" style="width: 500px;" /></a>
 </div>
-<p><em>`Источник &lt;https://tofactorydefault.files.wordpress.com/2013/12/juniper-m40.jpg&gt;`_</em></p>
+<p><a class="reference external" href="https://tofactorydefault.files.wordpress.com/2013/12/juniper-m40.jpg">Источник</a></p>
 </div></blockquote>
 <div class="line-block">
 <div class="line">Вместе они создали легендарный М40 и лучший в мире интерфейс командной строки. До сих пор никто не сделал ничего лучшего - все только повторяют.</div>
@@ -182,27 +204,29 @@ realized on top of a simple Remote Procedure Call <span class="o">(</span>RPC<sp
 <p>Сели, похаяли SNMP, покекали с аббревиатур COPS, SPPI, PIB, CIM, MOF и записали это всё в –тик-ток– <a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc3535">RFC3535</a>.</p>
 <p>Выхлопом этой встречи стали 33 наблюдения и 8 рекомендаций. Среди них есть действительно важные, определившие наше настоящее.</p>
 <blockquote>
-<div><p>1. Программные интерфейсы должны предоставлять полное покрытие,
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">1</span>. Программные интерфейсы должны предоставлять полное покрытие,
 иначе они не будут использоваться операторами, поскольку они
 будут вынуждены использовать CLI.
-5. Необходимо строго разделение между конфигурационными и операционными
+<span class="m">5</span>. Необходимо строго разделение между конфигурационными и операционными
 данными
-8. Необходимо иметь возможность выгрузить и загрузить конфигурацию
+<span class="m">8</span>. Необходимо иметь возможность выгрузить и загрузить конфигурацию
 в текстовом формате в единообразной манере между семи вендорами
 и типами устройства
-9. Желательно иметь механизм доставки конфигурации в условиях
+<span class="m">9</span>. Желательно иметь механизм доставки конфигурации в условиях
 транзакционных ограничений.
-14. Необходимо, чтобы устройства поддерживали как программный,
+<span class="m">14</span>. Необходимо, чтобы устройства поддерживали как программный,
 так и пользовательский интерфейс
-15. Внутренние операции на устройстве должны быть одинаковы
+<span class="m">15</span>. Внутренние операции на устройстве должны быть одинаковы
 как для программного, так и для пользовательского интерфейсов.
-26. Должна быть возможность произвести операцию над указанной секцией
+<span class="m">26</span>. Должна быть возможность произвести операцию над указанной секцией
 конфигурации.
-27. Должна быть возможность выяснить возможности устройства
-28. Необходимы безопасный транспорт, механизмы аутентификации
+<span class="m">27</span>. Должна быть возможность выяснить возможности устройства
+<span class="m">28</span>. Необходимы безопасный транспорт, механизмы аутентификации
 и авторизации, поддерживаемые текущей инфраструктурой.
-30. Полная конфигурация устройства должна быть применима через один
-протокол.</p>
+<span class="m">30</span>. Полная конфигурация устройства должна быть применима через один
+протокол.
+</pre></div>
+</div>
 </div></blockquote>
 <p>Часть из них мы воспринимаем сегодня как самоочевидное, мол, а как вы ещё иначе могли бы такое сделать? Но это не воспринималось так тогда. Просто вспомним как устроен SNMP :)</p>
 <p>А ещё были явно полезные рекомендации:</p>
@@ -226,7 +250,7 @@ realized on top of a simple Remote Procedure Call <span class="o">(</span>RPC<sp
 </div>
 <div class="line-block">
 <div class="line">И в этот момент Juniper из-за угла приоткрывает полу своего XML-API.</div>
-<div class="line">И он оказывается настолько более лаконичным (это XML-то!) и удобным, что рабочая группа внезапно решает принять его концепции в качестве стандарта <a href="#id1"><span class="problematic" id="id2">**</span></a>NET**work <a href="#id3"><span class="problematic" id="id4">**</span></a>CONF**iguration protocol - <a class="reference external" href="https://www.ietf.org/rfc/rfc4741.txt">RFC4741</a>. Упор на Configuration в названии - это, видимо, гиперкомпенсация отсутствия режима конфигурации в SNMP.</div>
+<div class="line">И он оказывается настолько более лаконичным (это XML-то!) и удобным, что рабочая группа внезапно решает принять его концепции в качестве стандарта <strong>NET</strong>work <strong>CONF</strong>iguration protocol - <a class="reference external" href="https://www.ietf.org/rfc/rfc4741.txt">RFC4741</a>. Упор на Configuration в названии - это, видимо, гиперкомпенсация отсутствия режима конфигурации в SNMP.</div>
 </div>
 <p>Вот так в итоге скромно упомянут джунипер в этом RFC:</p>
 <blockquote>
@@ -252,10 +276,10 @@ configurations.
 <div class="line-block">
 <div class="line">Причём Juniper его поддерживает с нулевого дня. И в полной мере, потому что для него это максимально естественно - это и есть его API.</div>
 <div class="line">А вот внутренний API той же Циски или Хуавэя не ложится так гладко на XML и какую-либо простую схему. Для них поддержка NETCONF - это большая работа, которую они выполняют с переменным успехом. Коммиты, операция <em>replace</em> - это всё даётся тяжело. А именно в них вся сила.</div>
-<div class="line"><strong>Datastores</strong> - это различные версии конфигурации на устройстве: <cite>running</cite>, <cite>candidate</cite>, <cite>saved</cite> и, возможно, другие. Они позволяют не менять на лету работающую конфигурацию.</div>
-<div class="line"><strong>Commit</strong> обеспечивает три буквы <strong>ACID</strong> - <em>Атомарность</em>, <em>Консистентность</em> и <em>Изолированность</em>.</div>
 </div>
 <div class="line-block">
+<div class="line"><strong>Datastores</strong> - это различные версии конфигурации на устройстве: <cite>running</cite>, <cite>candidate</cite>, <cite>saved</cite> и, возможно, другие. Они позволяют не менять на лету работающую конфигурацию.</div>
+<div class="line"><strong>Commit</strong> обеспечивает три буквы <strong>ACID</strong> - <em>Атомарность</em>, <em>Консистентность</em> и <em>Изолированность</em>.</div>
 <div class="line"><strong>Операция Replace</strong> - мощнейшая штука - позволяет заменять всю или часть конфигурации на новую.</div>
 <div class="line">Мы привыкли, что в CLI нам нужно сформировать список команд, добавляющих новую конфигурацию, и команд - удаляющих старую - ненужную. Довольно простая операция для человека, но чудовищно сложная для автоматики. Мы настолько привыкли, что это даже не вызывает раздражения у нас.</div>
 <div class="line">А с NETCONF replace - мы просто суём ту конфигурацию, которую хотели бы видеть, а коробка сама считает, что нужно сделать, чтобы к ней прийти из текущего состояния. Это и есть тот самый декларативный путь, к которому мы так стремимся.</div>
@@ -274,12 +298,21 @@ configurations.
           </div>
           <footer>
   
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="restconf.html" class="btn btn-neutral float-right" title="RESTCONF" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="api_rpc.html" class="btn btn-neutral float-left" title="API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, eucariot
+        &copy; Copyright 2021, eucariot
 
     </p>
   </div>
