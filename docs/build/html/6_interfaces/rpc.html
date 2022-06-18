@@ -1,0 +1,237 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ru" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Концепция RPC - Russian Pravoslavnaya Church &mdash; документация ADSM 0.1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
+    <link rel="search" title="Поиск" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ADSM
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ADSM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Концепция RPC - Russian Pravoslavnaya Church</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/6_interfaces/rpc.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="rpc-russian-pravoslavnaya-church">
+<h1>Концепция RPC - Russian Pravoslavnaya Church<a class="headerlink" href="#rpc-russian-pravoslavnaya-church" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="line-block">
+<div class="line">RPC - клиент-серверный механизм, который позволяет запустить исполнение кода процедуры на другой машине так, словно бы он исполнялся локально. То есть разработчик просто привычным образом обращается к процедуре, не задумываясь о том, где и как она исполняется - главное, чтобы она ответ вернула.</div>
+<div class="line">А программа уже сама реализует взаимодействие с удалённой машиной.</div>
+<div class="line">Прелесть этого подхода в том, что он, во-первых, позволяет скрыть удалённый характер работы. А, во-вторых, на той, другой, стороне совершенно неважно, какая операционная система, архитектура, язык программирования и окружение - главное, чтобы они подчинялись одному протоколу.</div>
+<div class="line">Например из-под винды в exe-шнике, написанном на Delphi, вы можете исполнить удалённую программу, написанную на го, запущенную на линуксе. И никто вам не сможет помешать!</div>
+</div>
+<div class="line-block">
+<div class="line">Но что, по большому счёту, мы делаем, когда, зайдя по SSH, выполняем какую-то команду на коммутаторе или маршрутизаторе? Запускаем определённый код.</div>
+<div class="line">Например, сообщаем подсистеме BGP, что нужно теперь пробовать установить соединение с новым пиром.</div>
+</div>
+<p>Но только представьте, как было бы восхитительно, если бы для вызова этого кода, не нужно было заходить на железку по SSH и вбивать команду?!</p>
+<p>Постойте! Да ведь именно об этом мы и говорим в данном разделе.
+| Большую оставшуюся часть статьи мы посвятим именно RPC.</p>
+<div class="section" id="id1">
+<h2>Пример<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="line-block">
+<div class="line">Абстрактно взаимодействие с сетевым оборудованием выглядеть может примерно так.</div>
+<div class="line">Для начала мы определяем спецификацию - это некий контракт, который гарантирует, что у клиента и сервера одинаковое понимание процедуры: имя, параметры, типы данных итд.</div>
+</div>
+<p># Наша убер-платформа автоматизации вызывает некую функцию <cite>add_bgp_peer_stub(ip=»10.1.1.1», as=»12345»</cite>).
+# Функция <cite>add_bgp_peer_stub</cite> открывает спецификацию для протокола, реализующего RPC, и согласно ей упаковывает полученные параметры, которые станут payload’ом для сообщения. Такая упаковка называется <strong>маршалинг</strong>.
+# Далее формирует пакет и передаёт его вниз по стеку и - в сеть.
+# На другой стороне - на устройстве - приложение получает пакета.
+# Функция, принявшая сообщение, вытаскивает из него параметры процедуры, согласно той же самой спецификации и формирует список параметров. Это называется <strong>демаршалинг</strong>.
+# Приложение выполняет функцию - настраивает BGP-соседа 10.1.1.1 с AS 12345. Проверяет успешность выполнения.
+# Далее функция формирует на основе всё той же спецификации сообщение-ответ и передаёт его в ответном пакете.
+# Наша локальная сторона, с которой мы инициировали выполнение RPC, получает ответ, словно бы его вернула локальная функция.
+# Воаля</p>
+<p><a class="reference external" href="https://searchapparchitecture.techtarget.com/definition/Remote-Procedure-Call-RPC">Поподробнее про RPC</a>.</p>
+<div class="line-block">
+<div class="line">В целом RPC - это концепция, не говорящая ничего о реализации.</div>
+<div class="line">Она постулирует, что на стороне клиента есть так называемый стаб (stub) - фрагмент кода, который реализует взаимодействие по RPC. Именно стабы делают для разработчика прозрачным вызов функции - из приложения вызывается этот стаб с набором параметров, а уже стаб делает удалённый вызов.</div>
+<div class="line">Ключевая часть RPC - спецификация - штука, которая на стороне сервера и клиента определяет, как работать с данными - как упаковать, как распаковать. Без участия человека, конечно же.</div>
+<div class="line">Язык, на котором пишется спецификация - <strong>IDL</strong> - <em>Interface Definition Language</em>.</div>
+<div class="line">Иными словами, на IDL пишется спецификация, на основе которой создаются и серверный интерфейс, и клиентский стаб. Это может быть, например, набор классов в питоне, имеющих функции для удалённого вызова, с которыми разработчик работает так, словно всё происходит локально - для клиента. И набор объектов Go - для сервера.</div>
+</div>
+<p>Мы дальше разберём два протокола, которые используются под капотом RPC и при этом позволяют управлять сетевым железом.</p>
+<ul class="simple">
+<li><p>NETCONF</p></li>
+<li><p>gNMI (использующий gRPC)</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, eucariot
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

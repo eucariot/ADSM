@@ -1,0 +1,576 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ru" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>NETCONF &mdash; документация ADSM 0.1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
+    <link rel="search" title="Поиск" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ADSM
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ADSM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>NETCONF</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/6_interfaces/netconf.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="netconf">
+<h1>NETCONF<a class="headerlink" href="#netconf" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="line-block">
+<div class="line">Ох, как я вился вокруг этого нетконфа в своё время, ожидая, что это серебряная пуля, решающая если не все, то 99,99% всех проблем сетевых инженеров.</div>
+<div class="line">Спойлер: это не так.</div>
+</div>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/5/netconf-snmp-sw.jpg"><img alt="https://fs.linkmeup.ru/images/adsm/5/netconf-snmp-sw.jpg" src="https://fs.linkmeup.ru/images/adsm/5/netconf-snmp-sw.jpg" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<p>Если вам по какой-то причине кажется, что стандарты рождаются где-то в недрах институтов, оторванных от жизни, то вот вам контр-пример.</p>
+<div class="line-block">
+<div class="line">В 1996 был основан Juniper Networks, в недрах которого создали легендарный М40 и лучший в мире интерфейс командной строки. До сих пор никто не сделал ничего лучшего - все только повторяют.</div>
+<div class="line">Операционка, предоставляющая клиенту обычный текстовый интерфейс, на самом деле перекладывает команды в XML, который фактически является интерфейсом для управления устройством.</div>
+<div class="line">Если вы сейчас к любой show-команде на джуне добавите <cite>| display xml</cite>, то увидите ответ в формате XML</div>
+</div>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span>eucariot@kzn-spine-0&gt; show system uptime | display xml
+<span class="nt">&lt;rpc-reply</span> <span class="na">xmlns:junos=</span><span class="s">&quot;http://xml.juniper.net/junos/18.3R3/junos&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;multi-routing-engine-results&gt;</span>
+        <span class="nt">&lt;multi-routing-engine-item&gt;</span>
+            <span class="nt">&lt;re-name&gt;</span>localre<span class="nt">&lt;/re-name&gt;</span>
+            <span class="nt">&lt;system-uptime-information</span> <span class="na">xmlns=</span><span class="s">&quot;http://xml.juniper.net/junos/18.3R3/junos&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;current-time&gt;</span>
+                    <span class="nt">&lt;date-time</span> <span class="na">junos:seconds=</span><span class="s">&quot;1641211199&quot;</span><span class="nt">&gt;</span>2022-01-03 14:59:59 MSK<span class="nt">&lt;/date-time&gt;</span>
+                <span class="nt">&lt;/current-time&gt;</span>
+                <span class="nt">&lt;time-source&gt;</span> LOCAL CLOCK <span class="nt">&lt;/time-source&gt;</span>
+                <span class="nt">&lt;system-booted-time&gt;</span>
+                    <span class="nt">&lt;date-time</span> <span class="na">junos:seconds=</span><span class="s">&quot;1614866046&quot;</span><span class="nt">&gt;</span>2021-03-04 16:54:06 MSK<span class="nt">&lt;/date-time&gt;</span>
+                    <span class="nt">&lt;time-length</span> <span class="na">junos:seconds=</span><span class="s">&quot;26345153&quot;</span><span class="nt">&gt;</span>43w3d 22:05<span class="nt">&lt;/time-length&gt;</span>
+                <span class="nt">&lt;/system-booted-time&gt;</span>
+                <span class="nt">&lt;protocols-started-time&gt;</span>
+                    <span class="nt">&lt;date-time</span> <span class="na">junos:seconds=</span><span class="s">&quot;1614866101&quot;</span><span class="nt">&gt;</span>2021-03-04 16:55:01 MSK<span class="nt">&lt;/date-time&gt;</span>
+                    <span class="nt">&lt;time-length</span> <span class="na">junos:seconds=</span><span class="s">&quot;26345098&quot;</span><span class="nt">&gt;</span>43w3d 22:04<span class="nt">&lt;/time-length&gt;</span>
+                <span class="nt">&lt;/protocols-started-time&gt;</span>
+                <span class="nt">&lt;last-configured-time&gt;</span>
+                    <span class="nt">&lt;date-time</span> <span class="na">junos:seconds=</span><span class="s">&quot;1638893962&quot;</span><span class="nt">&gt;</span>2021-12-07 19:19:22 MSK<span class="nt">&lt;/date-time&gt;</span>
+                    <span class="nt">&lt;time-length</span> <span class="na">junos:seconds=</span><span class="s">&quot;2317237&quot;</span><span class="nt">&gt;</span>3w5d 19:40<span class="nt">&lt;/time-length&gt;</span>
+                    <span class="nt">&lt;user&gt;</span>scamp<span class="nt">&lt;/user&gt;</span>
+                <span class="nt">&lt;/last-configured-time&gt;</span>
+                <span class="nt">&lt;uptime-information&gt;</span>
+                    <span class="nt">&lt;date-time</span> <span class="na">junos:seconds=</span><span class="s">&quot;1641211200&quot;</span><span class="nt">&gt;</span>3:00PM<span class="nt">&lt;/date-time&gt;</span>
+                    <span class="nt">&lt;up-time</span> <span class="na">junos:seconds=</span><span class="s">&quot;26345160&quot;</span><span class="nt">&gt;</span>304 days, 22:06<span class="nt">&lt;/up-time&gt;</span>
+                    <span class="nt">&lt;active-user-count</span> <span class="na">junos:format=</span><span class="s">&quot;1 users&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/active-user-count&gt;</span>
+                    <span class="nt">&lt;load-average-1&gt;</span>0.20<span class="nt">&lt;/load-average-1&gt;</span>
+                    <span class="nt">&lt;load-average-5&gt;</span>0.17<span class="nt">&lt;/load-average-5&gt;</span>
+                    <span class="nt">&lt;load-average-15&gt;</span>0.20<span class="nt">&lt;/load-average-15&gt;</span>
+                    <span class="nt">&lt;user-table&gt;&lt;/user-table&gt;</span>
+                <span class="nt">&lt;/uptime-information&gt;</span>
+            <span class="nt">&lt;/system-uptime-information&gt;</span>
+        <span class="nt">&lt;/multi-routing-engine-item&gt;</span>
+    <span class="nt">&lt;/multi-routing-engine-results&gt;</span>
+    <span class="nt">&lt;cli&gt;</span>
+        <span class="nt">&lt;banner&gt;</span>{master:0}<span class="nt">&lt;/banner&gt;</span>
+    <span class="nt">&lt;/cli&gt;</span>
+<span class="nt">&lt;/rpc-reply&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>В корне вы можете видеть <cite>&lt;rpc-reply&gt;</cite>, что означает, что был какой-то <cite>&lt;rpc&gt;</cite>-request. И вот так вы можете увидеть, каким RPC-запросом можно получить такие данные:</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span>eucariot@kzn-spine-0&gt; show version | display xml rpc
+<span class="nt">&lt;rpc-reply</span> <span class="na">xmlns:junos=</span><span class="s">&quot;http://xml.juniper.net/junos/18.3R3/junos&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;rpc&gt;</span>
+        <span class="nt">&lt;get-software-information&gt;</span>
+        <span class="nt">&lt;/get-software-information&gt;</span>
+    <span class="nt">&lt;/rpc&gt;</span>
+    <span class="nt">&lt;cli&gt;</span>
+        <span class="nt">&lt;banner&gt;</span>{master:0}<span class="nt">&lt;/banner&gt;</span>
+    <span class="nt">&lt;/cli&gt;</span>
+<span class="nt">&lt;/rpc-reply&gt;</span>
+
+*Внимание, работает только для Juniper!*
+</pre></div>
+</div>
+</div></blockquote>
+<p>Так вот, их CLI и способ взаимодействия его с системой оказался настолько естественным и удачным, что его и положили в основу стандарта. Не без участия Juniper Networks, конечно же, появился <a class="reference external" href="https://www.ietf.org/rfc/rfc4741.txt">RFC4741</a>. Будем честны, один только джунипер там и постарался. И то тут, то там будут проскакивать его куски, начиная с <cite>commit confirmed</cite> и заканчивая <cite>candidate config</cite>.</p>
+<p>Вот как NETCONF был определён в 2006-м году:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Abstract
+The Network Configuration Protocol <span class="o">(</span>NETCONF<span class="o">)</span> defined in this document
+provides mechanisms to install, manipulate, and delete the
+configuration of network devices.  It uses an Extensible Markup
+Language <span class="o">(</span>XML<span class="o">)</span>-based data encoding <span class="k">for</span> the configuration data as well
+as the protocol messages.  The NETCONF protocol operations are
+realized on top of a simple Remote Procedure Call <span class="o">(</span>RPC<span class="o">)</span> layer.
+</pre></div>
+</div>
+</div></blockquote>
+<p>И определение с тех пор не менялось - вся суть NETCONF в этом параграфе.</p>
+<p>А теперь давайте разбираться с очень непростым NETCONF и его составными частями.</p>
+<div class="section" id="id1">
+<h2>NETCONF и его команды<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Если совсем коротко, NETCONF - это четырёхуровневый стек, согласно которому через SSH передаётся RPC, где указана операция и конкретный набор действий (контент).</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/5/netconf.png"><img alt="https://fs.linkmeup.ru/images/adsm/5/netconf.png" src="https://fs.linkmeup.ru/images/adsm/5/netconf.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<div class="section" id="id2">
+<h3>Стек NETCONF<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Итак, в качестве транспорта NETCONF использует SSH. На самом деле, там есть и другие протоколы: SSH, SOAP, BEEP, TLS - но мы их опустим - SSH стал де-факто стандартом.</p>
+<p>Каждый NETCONF запрос содержит элемент (или сообщение):</p>
+<ul>
+<li><p>&amp;lt;rpc&amp;gt; - это собственно запрос на вызов процедуры с необходимыми параметрами.</p></li>
+<li><p>&amp;lt;rpc-reply&amp;gt; - ответ на RPC.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>&amp;lt;rpc-error&amp;gt; - очевидно, ответная ошибка, когда RPC некорректен.</p></li>
+<li><p>&amp;lt;ok&amp;gt; - rpc корректен и отработал.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>&amp;lt;notification&amp;gt; - сообщение о событии, инициированное сетевой коробкой - аналог трапа в snmp. (из <a class="reference external" href="https://www.ietf.org/rfc/rfc6241.txt">RFC6241</a>)</p></li>
+</ul>
+<p>Это всё сообщения, внутри которых определённым образом сформированные XML.</p>
+<div class="line-block">
+<div class="line">Внутри сообщения определяется какая операция (действие) исполняется.</div>
+<div class="line">В таблице ниже полный их список, определённый в RFC:</div>
+</div>
+<p>!!!
+&lt;table&gt;</p>
+<blockquote>
+<div><dl class="simple">
+<dt>&lt;tr&gt;</dt><dd><p>&lt;td&gt;operation&lt;/td&gt;
+&lt;td&gt;description&lt;/td&gt;</p>
+</dd>
+</dl>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div><p>&lt;td&gt;`&amp;lt;get&amp;gt;`&lt;/td&gt;
+&lt;td&gt;&lt;div&gt;retrieve running configuration and device state information&lt;/td&gt;</p>
+</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div><p>&lt;td&gt;`&amp;lt;get-config&amp;gt;`&lt;/td&gt;
+&lt;td&gt;&lt;div&gt;&lt;span style=»font-size: 1rem;»&gt;retrieve all or part of a specified configuration datastore&lt;/span&gt;&lt;/td&gt;</p>
+</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div><p>&lt;td&gt;`&amp;lt;edit-config&amp;gt;`&lt;/td&gt;
+&lt;td&gt;&lt;span style=»font-size: 1rem;»&gt;edit a configuration datastore by creating, deleting, merging or replacing content&lt;/span&gt;&lt;/td&gt;</p>
+</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div><p>&lt;td&gt;`&amp;lt;copy-config&amp;gt;`&lt;/td&gt;
+&lt;td&gt;copy an entire configuration datastore to another configuration datastore&lt;/td&gt;</p>
+</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div><p>&lt;td&gt;`&amp;lt;delete-config&amp;gt;`&lt;/td&gt;
+&lt;td&gt;&lt;span style=»font-size: 1rem;»&gt;delete a configuration datastore&lt;/span&gt;&lt;/td&gt;</p>
+</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div><p>&lt;td&gt;`&amp;lt;lock&amp;gt;`&lt;/td&gt;
+&lt;td&gt;&lt;span style=»font-size: 1rem;»&gt;lock an entire configuration datastore of a device&lt;/span&gt;&lt;/td&gt;</p>
+</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div><p>&lt;td&gt;`&amp;lt;unlock&amp;gt;`&lt;/td&gt;
+&lt;td&gt;&lt;div&gt;&lt;span style=»font-size: 1rem;»&gt;release a configuration datastore lock previously obtained with the &amp;lt;lock&amp;gt; operation&lt;/span&gt;&lt;/td&gt;</p>
+</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div><p>&lt;td&gt;`&amp;lt;close-session&amp;gt;`&lt;/td&gt;
+&lt;td&gt;&lt;span style=»font-size: 1rem;»&gt;request graceful termination of a netconf session&lt;/span&gt;&lt;/td&gt;</p>
+</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div><p>&lt;td&gt;`&amp;lt;kill-session&amp;gt;`&lt;/td&gt;
+&lt;td&gt;force the termination of a netconf session&lt;/td&gt;</p>
+</div></blockquote>
+<p>&lt;/tr&gt;</p>
+</div></blockquote>
+<p>&lt;/table&gt;</p>
+<p>Каждый вендор может расширять список операций хоть до бесконечности. Так, у кого-то, например, есть <cite>&lt;copy-config&gt;</cite>.</p>
+<div class="line-block">
+<div class="line">И далее уже сам контент. Это самая сложная часть.</div>
+<div class="line">Но забегая вперёд - он никак не формализован, не описан, и, возможно, это величайшая претензия к нетконф, как стандарту, позволившему благую идею превратить в очередного зомби.</div>
+<div class="line">Даже удивительно, что после опыта с SNMP, где необходимость языка моделирования стала очевидна со временем, NETCONF родился сам по себе без какого-либо языка спецификации для данных. Уже много позже для этого подтянули YANG.</div>
+</div>
+</div>
+<div class="section" id="capabilities">
+<h3>Установка сессии и Capabilities<a class="headerlink" href="#capabilities" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Так, сначала включаем SSH NETCONF. На примере джунипер.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span> system services netconf
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">Это значит, что SSH будет использоваться как транспорт для указанной подсистемы.</div>
+<div class="line">Для netconf IANA установила специальный порт 830, хотя часто используется и обычный для SSH 22.</div>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">И пробуем подключиться.</div>
+<div class="line">Для того, чтобы указать, что это не просто подключение по SSH, мы используем вызов подсистемы:</div>
+</div>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span>ssh kazan-spine-0.juniper -s netconf
+
+<span class="c">&lt;!-- No zombies were killed during the creation of this user interface --&gt;</span>
+<span class="c">&lt;!-- user eucariot, class j-super-user --&gt;</span>
+<span class="nt">&lt;hello</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;capabilities&gt;</span>
+    <span class="nt">&lt;capability&gt;</span>urn:ietf:params:netconf:base:1.0<span class="nt">&lt;/capability&gt;</span>
+    <span class="nt">&lt;capability&gt;</span>urn:ietf:params:netconf:capability:candidate:1.0<span class="nt">&lt;/capability&gt;</span>
+    <span class="nt">&lt;capability&gt;</span>urn:ietf:params:netconf:capability:confirmed-commit:1.0<span class="nt">&lt;/capability&gt;</span>
+    <span class="nt">&lt;capability&gt;</span>urn:ietf:params:netconf:capability:validate:1.0<span class="nt">&lt;/capability&gt;</span>
+    <span class="nt">&lt;capability&gt;</span>urn:ietf:params:netconf:capability:url:1.0?scheme=http,ftp,file<span class="nt">&lt;/capability&gt;</span>
+    <span class="nt">&lt;capability&gt;</span>urn:ietf:params:xml:ns:netconf:base:1.0<span class="nt">&lt;/capability&gt;</span>
+    <span class="nt">&lt;capability&gt;</span>urn:ietf:params:xml:ns:netconf:capability:candidate:1.0<span class="nt">&lt;/capability&gt;</span>
+    <span class="nt">&lt;capability&gt;</span>urn:ietf:params:xml:ns:netconf:capability:confirmed-commit:1.0<span class="nt">&lt;/capability&gt;</span>
+    <span class="nt">&lt;capability&gt;</span>urn:ietf:params:xml:ns:netconf:capability:validate:1.0<span class="nt">&lt;/capability&gt;</span>
+    <span class="nt">&lt;capability&gt;</span>urn:ietf:params:xml:ns:netconf:capability:url:1.0?protocol=http,ftp,file<span class="nt">&lt;/capability&gt;</span>
+    <span class="nt">&lt;capability&gt;</span>http://xml.juniper.net/netconf/junos/1.0<span class="nt">&lt;/capability&gt;</span>
+    <span class="nt">&lt;capability&gt;</span>http://xml.juniper.net/dmi/system/1.0<span class="nt">&lt;/capability&gt;</span>
+  <span class="nt">&lt;/capabilities&gt;</span>
+  <span class="nt">&lt;session-id&gt;</span>15420<span class="nt">&lt;/session-id&gt;</span>
+<span class="nt">&lt;/hello&gt;</span>
+]]&gt;]]&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Мы ещё ничего не успели сделать, а железка нам уже насыпала в терминал.</div>
+<div class="line">Это сообщение NETCONF Hello, которое заставляет на берегу договориться, что поддерживается в данной сессии, а что нет.</div>
+<div class="line">Внутри - список капабилитей - возможностей, поддерживаемых коробкой.</div>
+<div class="line"><a class="reference external" href="https://www.ietf.org/rfc/rfc4741.txt">RFC4741</a> определял базовый набор функций, который должен поддерживаться каждым клиентом и каждым сервером.</div>
+</div>
+<p>При этом базовые могут расширяться другими стандартизированными capability и даже проприетарными.
+Давайте рассмотрим сначала стандартные, а потом самые интересные расширенные. Ну и будем называть их «способностями», а то капабилитя - это почти как капибара.</p>
+</div>
+<div class="section" id="netconf-standard-capabilities">
+<h3>NETCONF Standard Capabilities (стандартные способности)<a class="headerlink" href="#netconf-standard-capabilities" title="Ссылка на этот заголовок">¶</a></h3>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>Candidate configuration</strong></dt><dd><p>Эта способность говорит о том. Что коробка поддерживает отдельный кандидат-конфиг, содержащий полную конфигурацию, с которой можно работать без влияния на фактически применённую конфигурацию.  Аналоги candidate-config на Juniper.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Confirmed commit</strong></dt><dd><p>Опять же аналог джуниперовоского commit confirmed - откат изменений после коммита, если не было подтверждения коммита.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Validate</strong></dt><dd><p>Способность проверить желаемую конфигурацию до её применения.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Rollback-on-error</strong></dt><dd><p>Способность отмены изменений при ошибке. Работает, если поддерживается способность candidate configuration.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Writable-running</strong></dt><dd><p>Такая способность говорит о том, что устройство позволяет писать непосредственно в running-конфигурацию, в обхода candidate.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Distinct startup</strong></dt><dd><p>Способность задавать startup конфигурацию отличную от running и candidate.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Notification</strong></dt><dd><p>Аналог SNMP-trap. Коробка может слать аварии и события клиенту.</p>
+</dd>
+</dl>
+</li>
+</ul>
+<div class="line-block">
+<div class="line">И ещё несколько более других способностей, которыми грузить вас не хочу, ибо в лучшем виде они описаны в <a class="reference external" href="https://www.ietf.org/rfc/rfc6241.txt">RFC</a>.</div>
+<div class="line">Посмотрите, кстати, какие способности отдал джунипер, а какие нет.</div>
+</div>
+</div>
+<div class="section" id="netconf-extended-capabilities">
+<h3>NETCONF Extended Capabilities (сверх-способности)<a class="headerlink" href="#netconf-extended-capabilities" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Их тьма. Из самых интересных:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>YANG push</strong></dt><dd><p>Способность отсылать данные с коробки на клиент - периодически или по событию.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>YANG-library</strong></dt><dd><p>Способность сервера сообщить клиенту о поддерживаемых параметрах относительно YANG: версия, модель, нейспейсы итд.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Commit-description</strong></dt><dd><p>Самоговорящее название.</p>
+</dd>
+</dl>
+</li>
+</ul>
+<div class="line-block">
+<div class="line">Формат названия capability строго регламентирован: <cite>urn:ietf:params:netconf:capability:{name}:1.0</cite>.</div>
+<div class="line">Последние два значения - это имя и версия - и только они могут меняться.</div>
+<div class="line">Так <cite>urn:ietf:params:netconf:base:1.1</cite> - это имя базовой капабилити для версии 1.1.</div>
+</div>
+<p>В ответ на <cite>&lt;hello&gt;</cite> сервера клиент в свою очередь должен послать свои capability:</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;hello&gt;</span>
+ <span class="nt">&lt;capabilities&gt;</span>
+  <span class="nt">&lt;capability&gt;</span>urn:ietf:params:xml:ns:netconf:base:1.0<span class="nt">&lt;/capability&gt;</span>
+  <span class="nt">&lt;capability&gt;</span>urn:ietf:params:xml:ns:netconf:capability:candidate:1.0<span class="nt">&lt;/capability&gt;</span>
+  <span class="nt">&lt;capability&gt;</span>urn:ietf:params:xml:ns:netconf:capability:confirmed-commit:1.0<span class="nt">&lt;/capability&gt;</span>
+  <span class="nt">&lt;capability&gt;</span>urn:ietf:params:xml:ns:netconf:capability:validate:1.0<span class="nt">&lt;/capability&gt;</span>
+  <span class="nt">&lt;capability&gt;</span>urn:ietf:params:xml:ns:netconf:capability:url:1.0?protocol=http,ftp,file<span class="nt">&lt;/capability&gt;</span>
+  <span class="nt">&lt;capability&gt;</span>xml.juniper.net/netconf/junos/1.0<span class="nt">&lt;/capability&gt;</span>
+  <span class="nt">&lt;capability&gt;</span>xml.juniper.net/dmi/system/1.0<span class="nt">&lt;/capability&gt;</span>
+ <span class="nt">&lt;/capabilities&gt;</span>
+<span class="nt">&lt;/hello&gt;</span>
+]]&gt;]]&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p>Чего почти нигде не пишут, но что очень важно: если вы пробуете взаимодействовать с коробкой по нетконф руками, то нужно обязательно вручную отослать такую последовательность <cite>]]&gt;]]&gt;</cite>, сообщающую, что ввод закончен. Она называется <strong>Framing Marker</strong> или <strong>Message Separator Sequence</strong>.</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">Есть важный нюанс, описанный в <a class="reference external" href="https://www.ietf.org/rfc/rfc6242.txt">RFC6242</a>, <cite>]]&gt;]]&gt;</cite> - это старый <strong>End-of-Message Framing Marker</strong>, который был выбран из соображений, что такая последовательность не должна встречаться в well-formed XML. Однако жизнь показала, что она встречается. Поэтому в NETCONF 1.1 придумали новый механизм, который делит данные на блоки - чанки - и нумерует их. Так он и называется: <strong>Chunked Framing Mechanism</strong>.</div>
+<div class="line">Каждый чанк данных начинается с <cite>##X</cite>, где <cite>X</cite> - это число октетов в нём.</div>
+<div class="line">Это одно из фундаментальных отличий между 1.0 и 1.1 :). Другие <a class="reference external" href="https://support.yumaworks.com/support/solutions/articles/1000227848-what-are-the-differences-between-netconf-1-0-and-1-1-">менее значительны</a>.</div>
+</div>
+</div></blockquote>
+<p>Сейчас NETCONF-сессия установлена и можно заслать какой-то RPC.</p>
+<p>Посылаем свой первый RPC</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;get-config&gt;</span>
+   <span class="nt">&lt;source&gt;</span>
+     <span class="nt">&lt;running/&gt;</span>
+   <span class="nt">&lt;/source&gt;</span>
+   <span class="nt">&lt;filter</span> <span class="na">type=</span><span class="s">&quot;subtree&quot;</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;configuration&gt;</span>
+       <span class="nt">&lt;system&gt;</span>
+          <span class="nt">&lt;host-name/&gt;</span>
+       <span class="nt">&lt;/system&gt;</span>
+     <span class="nt">&lt;/configuration&gt;</span>
+   <span class="nt">&lt;/filter&gt;</span>
+  <span class="nt">&lt;/get-config&gt;</span>
+<span class="nt">&lt;/rpc&gt;</span>
+]]&gt;]]&gt;
+</pre></div>
+</div>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc-reply</span> <span class="na">xmlns:junos=</span><span class="s">&quot;http://xml.juniper.net/junos/14.1R1/junos&quot;</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;data&gt;</span>
+   <span class="nt">&lt;configuration</span> <span class="na">xmlns=</span><span class="s">&quot;http://xml.juniper.net/xnm/1.1/xnm&quot;</span> <span class="na">junos:commit-seconds=</span><span class="s">&quot;1644510087&quot;</span> <span class="na">junos:commit-localtime=</span><span class="s">&quot;2022-02-10 16:21:27 UTC&quot;</span> <span class="na">junos:commit-user=</span><span class="s">&quot;eucariot&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;system&gt;</span>
+        <span class="nt">&lt;host-name&gt;</span>kzn-spine-0<span class="nt">&lt;/host-name&gt;</span>
+    <span class="nt">&lt;/system&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+<span class="nt">&lt;/data&gt;</span>
+<span class="nt">&lt;/rpc-reply&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Мы отправили элемент <cite>&lt;rpc&gt;</cite>, в котором запросили <cite>&lt;running&gt;</cite>-конфигурацию с помощью операцию <cite>&lt;get-config&gt;</cite>. И ещё на сервере отфильтровали по интересной ветке.</p>
+<p>А в ответ пришёл <cite>&lt;rpc-reply&gt;</cite> с ответом. И в запросе, и в ответе можете найти <cite>message-id</cite> - по ним можно отслеживать на что именно ответ - ведь режим работы NETCONF асинхронный и можно засылать следующее сообщение, пока предыдущее ещё не было обработано.</p>
+<div class="line-block">
+<div class="line">Здесь вы видите некоторую структуру XML. Её легко можно скормить XML-парсеру, который превратит его в JSON или python dict или что угодно другое, с чем удобно работать в скриптах и программах. И далее извлечь по ключам нужные данные.</div>
+<div class="line">Но почему XML? За что? Как вообще с этим быть?</div>
+</div>
+<div class="line-block">
+<div class="line">Ох. Зря вы спросили.</div>
+<div class="line">В общем дальше 10 000 знаков про XML. Если вы не готовы это выдержать, милости прошу дальше. Но будьте готовы, что практика NETCONF тогда пройдёт мимо вас. Или вы мимо неё. В общем разминётесь.</div>
+</div>
+<p>Так за что же так с нами?</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, eucariot
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

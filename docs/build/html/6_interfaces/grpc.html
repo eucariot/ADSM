@@ -1,0 +1,1044 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ru" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gRPC/gNMI &mdash; документация ADSM 0.1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
+    <link rel="search" title="Поиск" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ADSM
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ADSM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>gRPC/gNMI</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/6_interfaces/grpc.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="grpc-gnmi">
+<h1>gRPC/gNMI<a class="headerlink" href="#grpc-gnmi" title="Ссылка на этот заголовок">¶</a></h1>
+<p>За последние лет семь gRPC уже всем уши прожужжали. И только самые ловкие разработчики могли избежать реализации взаимодействия с какой-нибудь системой по gRPC.</p>
+<p><a class="reference external" href="https://github.com/grpc/grpc/blob/master/doc/g_stands_for.md">g в gRPC</a>, кстати, означает вовсе не <em>«google»</em>.</p>
+<div class="line-block">
+<div class="line">Реализация фреймворка поверх gRPC в мире сетевой автоматизации получила название <strong>gNMI</strong> - <em>gRPC Network Management Interface</em>.</div>
+<div class="line">В основе gNMI лежит gRPC, для моделирования данных использует YANG (но не обязательно), внутри уже определяются конкретные RPC. Кроме того gNMI изначально предоставляет возможность естественным образом реализовать telemetry - потоковую передачу телеметрических данных.</div>
+</div>
+<p>В любом случае я не я, если перед gNMI я не разберу gRPC. Поэтому простите за отступление, но без него статья превратится в бесполезное поверхностное хауту.</p>
+<div class="section" id="grpc">
+<h2>gRPC<a class="headerlink" href="#grpc" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="line-block">
+<div class="line">Без теории - за ней прошу в первую статью!!!</div>
+<div class="line">В любом случае после голой теории вот только такие ощущения:</div>
+</div>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/5/owl.jpeg"><img alt="https://fs.linkmeup.ru/images/adsm/5/owl.jpeg" src="https://fs.linkmeup.ru/images/adsm/5/owl.jpeg" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<p><em>Есть, правда, и более `последовательная инструкция &lt;https://fs.linkmeup.ru/images/adsm/5/owl-2.jpeg&gt;`_.</em></p>
+<p>Хотя точно стоит сказать о том, что gRPC использует <strong>Protocol Buffers</strong> (или <strong>коротко protobuf</strong>). Термин этот довольно нагруженный:</p>
+<ul class="simple">
+<li><p>это и спецификация, в которой описано, как данные должны выглядеть. Ещё это называется прото-спека.</p></li>
+<li><p>это и IDL (Interface Definition Language), позволяющим разным системам друг с другом на одном языке общаться</p></li>
+<li><p>это и формат сериализованных данных, в котором информация передаётся между системами</p></li>
+<li><p>То есть всего лишь один proto-файл (или их набор), определяет сразу все эти три вещи</p></li>
+<li><p>То есть когда вы пишете gRPC-приложение, формирование protobuf - это важнейший шаг.</p></li>
+</ul>
+<div class="section" id="ping">
+<h3>Пишем ping!<a class="headerlink" href="#ping" title="Ссылка на этот заголовок">¶</a></h3>
+<p><strong>Спецификация</strong></p>
+<p>Описываем protobuf:</p>
+<blockquote>
+<div><div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">service</span> <span class="nx">Ping</span> <span class="p">{</span>
+  <span class="nx">rpc</span> <span class="nx">SendPingReply</span> <span class="p">(</span><span class="nx">PingRequest</span><span class="p">)</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">PingReply</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Сначала определяем сервис - <cite>Ping</cite>. А в нём есть метод - <cite>SendPingReply</cite> - это собственно и есть RPC - та самая процедура, которую мы дёрнем удалённо - процедура отправить <cite>Ping Reply</cite>.</div>
+<div class="line">В качестве атрибута она принимает параметр <cite>PingRequest</cite>, а вернёт ответ <cite>PingReply</cite>.</div>
+</div>
+<p>А что такое эти <cite>PingRequest</cite> и <cite>PingReply</cite>??</p>
+<blockquote>
+<div><div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">message</span> <span class="nx">PingRequest</span> <span class="p">{</span>
+  <span class="kt">string</span> <span class="nx">payload</span> <span class="p">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><cite>PingRequest</cite>  - это одно из пересылаемых сообщений между клиентом и сервером.</div>
+<div class="line">Так объявляется факт его существования, и его содержимое. В этом случае внутри сообщения передаётся одно поле <cite>payload</cite> типа <cite>string</cite>.</div>
+<div class="line"><cite>payload</cite> -  это произвольное имя, которое мы можем выбрать, как хотим.</div>
+<div class="line"><cite>string</cite> - определение типа.</div>
+<div class="line"><cite>1</cite> - позиция поля в сообщении - для нас не имеет значения.</div>
+</div>
+<blockquote>
+<div><div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">message</span> <span class="nx">PingReply</span> <span class="p">{</span>
+  <span class="kt">string</span> <span class="nx">message</span> <span class="p">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Всё точно то же самое. Именем поля может быть даже слово message.</p>
+<p>Вот так будет выглядеть полный proto-файл:</p>
+<blockquote>
+<div><div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">syntax</span> <span class="p">=</span> <span class="s">&quot;proto3&quot;</span><span class="p">;</span>
+
+<span class="nx">option</span> <span class="nx">go_package</span> <span class="p">=</span> <span class="s">&quot;go-server/ping&quot;</span><span class="p">;</span>
+
+<span class="kn">package</span> <span class="nx">ping</span><span class="p">;</span>
+
+<span class="c1">// The ping service definition.</span>
+<span class="nx">service</span> <span class="nx">Ping</span> <span class="p">{</span>
+  <span class="c1">// Sends a ping reply</span>
+  <span class="nx">rpc</span> <span class="nx">SendPingReply</span> <span class="p">(</span><span class="nx">PingRequest</span><span class="p">)</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">PingReply</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="c1">// The request message containing the ping payload.</span>
+<span class="nx">message</span> <span class="nx">PingRequest</span> <span class="p">{</span>
+  <span class="kt">string</span> <span class="nx">payload</span> <span class="p">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// The response message containing the ping replay</span>
+<span class="nx">message</span> <span class="nx">PingReply</span> <span class="p">{</span>
+  <span class="kt">string</span> <span class="nx">message</span> <span class="p">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>То есть именно вот так и выглядит спецификация, описывающая схему данных на обеих сторонах. И сервер и клиент будут использовать один и тот же proto-файл и всегда знать, как разобрать то, что отправила другая сторона. Даже если они написаны на разных языках.</p>
+<div class="line-block">
+<div class="line">Сохраняем как <cite>protos/ping.proto</cite> - он будет один для всех.</div>
+<div class="line">Ну ладно спецификация есть. И что с ней теперь делать?</div>
+</div>
+<p>А теперь мы напишем пинг-клиент на Python, а пинг-сервер на Go.</p>
+</div>
+<div class="section" id="grpc-client">
+<h3>gRPC Client<a class="headerlink" href="#grpc-client" title="Ссылка на этот заголовок">¶</a></h3>
+<p><strong>Сгенерированный Код</strong></p>
+<div class="line-block">
+<div class="line">Создадим директорию <cite>python-client</cite>.</div>
+<div class="line">Далее на основе спецификации сгенерируем код.</div>
+<div class="line">Для этого нужно будет установить <cite>grpcio-tools</cite>.</div>
+</div>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install grpcio-tools
+</pre></div>
+</div>
+</div></blockquote>
+<p>И используя его уже нагенерить нужные классы:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 -m grpc_tools.protoc <span class="se">\</span>
+        -I protos <span class="se">\</span>
+        --python_out<span class="o">=</span>python-client <span class="se">\</span>
+        --grpc_python_out<span class="o">=</span>python-client <span class="se">\</span>
+        protos/ping.proto
+</pre></div>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Сразу после этого в каталоге, где мы это выполнили, появятся два файла: <cite>ping_pb2.py</cite> и <cite>ping_pb2_grpc.py</cite> - это сгенерированный код.</div>
+<div class="line">Если вы зяглянете вовнутрь, то обнаружите там кучу классов. Это классы, реализующие сообщения, сервисы для сервера (<cite>PingServicer</cite>) и для клиента (<cite>PingStub</cite>). Там же у класса <cite>Ping</cite> есть и метод <cite>SendPingReply</cite>. И куча других штуковин.</div>
+<div class="line">Эти файлы нам никогда не придётся менять вручную - мы будем их только импортировать и использовать.</div>
+</div>
+<div class="line-block">
+<div class="line">Очевидно, что эти py-файлы это только реализация интерфейса взаимодействия. Ровным счётом ничего тут не говорит, как этот сервис будет работать.</div>
+<div class="line">Бизнес-логика описывается уже отдельно - и вот она делается нами.</div>
+</div>
+<p>Пока структура выглядит так:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>.
+├── ping_client.py
+├── ping_pb2.py
+└── ping_pb2_grpc.py
+</pre></div>
+</div>
+</div></blockquote>
+<p>Давайте писать gRPC-клиент.</p>
+<p>Клиент будет совсем бесхитростным.
+В цикле он будет пытаться выполнить RPC <cite>SendPingReply</cite> на удалённом хосте <cite>84.201.157.17:12345</cite>. В качестве аргумента передаём payload, который считали из аргументов запуска скрипта.</p>
+<p>В функции <cite>run</cite> мы устанавливаем соединение к серверу, подключаем <cite>stub</cite> и выполняем RPC <cite>SendPingReply</cite>, которому передаём сообщение <cite>PingRequest</cite> с тем самым <cite>payload</cite>.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="kn">import</span> <span class="nn">grpc</span>
+
+<span class="kn">import</span> <span class="nn">ping_pb2</span>
+<span class="kn">import</span> <span class="nn">ping_pb2_grpc</span>
+
+<span class="n">server</span> <span class="o">=</span> <span class="s2">&quot;84.201.157.17:12345&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">grpc</span><span class="o">.</span><span class="n">insecure_channel</span><span class="p">(</span><span class="n">server</span><span class="p">)</span> <span class="k">as</span> <span class="n">channel</span><span class="p">:</span>
+        <span class="n">stub</span> <span class="o">=</span> <span class="n">ping_pb2_grpc</span><span class="o">.</span><span class="n">PingStub</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">stub</span><span class="o">.</span><span class="n">SendPingReply</span><span class="p">(</span><span class="n">ping_pb2</span><span class="o">.</span><span class="n">PingRequest</span><span class="p">(</span><span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">))</span>
+        <span class="n">rtt</span> <span class="o">=</span> <span class="nb">round</span><span class="p">((</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ping response received: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s2"> time=</span><span class="si">{</span><span class="n">rtt</span><span class="si">}</span><span class="s2">ms&quot;</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">run</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Если запустить его сейчас, клиент вернёт <cite>StatusCode.UNAVAILABLE</cite> - сервера пока нет, порт 12345 никто не слушает.</p>
+<p>Давайте теперь писать</p>
+</div>
+<div class="section" id="id1">
+<h3>gRPC-сервер<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h3>
+<p>на Go. Я его развернул на облачной виртуалочке, поэтому какое-то время он будет доступен и читателям.</p>
+<p>Всё, что делает сервер - получает какую-то строку в <cite>payload</cite>, добавляет к нему <em>«-pong»</em> и возвращает это клиенту.</p>
+<p><strong>Сгенерированный Код</strong></p>
+<div class="line-block">
+<div class="line">Тут нам тоже понадобится дополнительный код, реализующий интерфейс.</div>
+<div class="line">Создаём рабочую директорию <cite>go-server</cite>, внутри которой ещё <cite>ping</cite> - для хранения спецификации и кода интерфейса.</div>
+</div>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>protoc --go_out<span class="o">=</span>. --go-grpc_out<span class="o">=</span>.  protos/ping.proto
+</pre></div>
+</div>
+</div></blockquote>
+<p>И получается так:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>.
+├── go.mod
+├── go.sum
+└── ping
+    ├── ping_grpc.pb.go
+    ├── ping.pb.go
+    └── ping.proto
+</pre></div>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Дальше сам код сервера. Я его тоже взял из <a class="reference external" href="https://github.com/grpc/grpc-go/tree/master/examples/helloworld">примеров для go</a>.</div>
+<div class="line">Мы тут опускаем часть про установку go, protoc, потому что это всё есть в <a class="reference external" href="https://grpc.io/docs/languages/go/quickstart/">документации grpc.io</a>.</div>
+</div>
+<blockquote>
+<div><div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;context&quot;</span>
+    <span class="s">&quot;flag&quot;</span>
+    <span class="s">&quot;fmt&quot;</span>
+    <span class="s">&quot;log&quot;</span>
+    <span class="s">&quot;net&quot;</span>
+
+    <span class="s">&quot;google.golang.org/grpc&quot;</span>
+    <span class="nx">pb</span> <span class="s">&quot;ping-server/ping&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">var</span> <span class="p">(</span>
+    <span class="nx">port</span> <span class="p">=</span> <span class="nx">flag</span><span class="p">.</span><span class="nx">Int</span><span class="p">(</span><span class="s">&quot;port&quot;</span><span class="p">,</span> <span class="mi">12345</span><span class="p">,</span> <span class="s">&quot;The server port&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="kd">type</span> <span class="nx">server</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">pb</span><span class="p">.</span><span class="nx">UnimplementedPingServer</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">server</span><span class="p">)</span> <span class="nx">SendPingReply</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">in</span> <span class="o">*</span><span class="nx">pb</span><span class="p">.</span><span class="nx">PingRequest</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">pb</span><span class="p">.</span><span class="nx">PingReply</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Received: %v&quot;</span><span class="p">,</span> <span class="nx">in</span><span class="p">.</span><span class="nx">GetPayload</span><span class="p">())</span>
+    <span class="k">return</span> <span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">PingReply</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="nx">in</span><span class="p">.</span><span class="nx">GetPayload</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot;-pong&quot;</span><span class="p">},</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">flag</span><span class="p">.</span><span class="nx">Parse</span><span class="p">()</span>
+    <span class="nx">lis</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nx">Listen</span><span class="p">(</span><span class="s">&quot;tcp&quot;</span><span class="p">,</span> <span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;10.128.0.6:%d&quot;</span><span class="p">,</span> <span class="o">*</span><span class="nx">port</span><span class="p">))</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nx">Fatalf</span><span class="p">(</span><span class="s">&quot;failed to listen: %v&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="nx">s</span> <span class="o">:=</span> <span class="nx">grpc</span><span class="p">.</span><span class="nx">NewServer</span><span class="p">()</span>
+    <span class="nx">pb</span><span class="p">.</span><span class="nx">RegisterPingServer</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">server</span><span class="p">{})</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;server listening at %v&quot;</span><span class="p">,</span> <span class="nx">lis</span><span class="p">.</span><span class="nx">Addr</span><span class="p">())</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">Serve</span><span class="p">(</span><span class="nx">lis</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nx">Fatalf</span><span class="p">(</span><span class="s">&quot;failed to serve: %v&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Вся бизнес логика описана в функции <cite>SendPingReply</cite>, ожидающей <cite>PingRequest</cite>, а возвращающей <cite>PingReply</cite>, в котором мы отправляем сообщение <cite>message</cite>: <cite>payload</cite> + <em>«-pong»</em> (<cite>GetPayload</cite>). Естественно, там может быть более изощрённая логика.</p>
+<div class="line-block">
+<div class="line">Ну, а в <cite>main</cite> мы запускаем сервер на адресе <cite>10.128.0.6</cite>.</div>
+<div class="line">Почему не на <cite>84.201.157.17</cite>, на который стучится клиент? Тут без хитростей - это внутренний адрес ВМ, на который натируются все запросы к публичному адресу.</div>
+</div>
+<p>Я положу его в</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>.
+└── ping-server
+    └── main.go
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ go run ping-server/main.go
+<span class="m">2022</span>/01/30 <span class="m">04</span>:26:11 server listening at <span class="m">10</span>.128.0.6:12345
+</pre></div>
+</div>
+</div></blockquote>
+<p>Всё, сервер готов слушать.</p>
+<p><a class="reference external" href="https://github.com/eucariot/ADSM/tree/master/docs/source/5_interfaces/materials/grpc-ping/python-server">Пример сервера на питоне</a>, если хочется попробовать.</p>
+<blockquote>
+<div><p>Используем сразу asyncio, это же сервер, нельзя тут блочиться.</p>
+<p>Для того, чтобы запустить сервер, нужно доставить пакет grpcio</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python -m pip install grpcio
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+<p><strong>Запускаем?</strong></p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>❯ python ping_client.py piu
+Ping response received: piu-pong <span class="nv">time</span><span class="o">=</span><span class="m">208</span>.13ms
+Ping response received: piu-pong <span class="nv">time</span><span class="o">=</span><span class="m">165</span>.62ms
+Ping response received: piu-pong <span class="nv">time</span><span class="o">=</span><span class="m">162</span>.89ms
+</pre></div>
+</div>
+</div></blockquote>
+<p>У-хууу, ё-моё, grpc-заработал!!!!</p>
+<p>А давайте теперь попробуем подампать трафик? Я запустил сервер удалённо и снял трафик.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/5/grpcio-dump.png"><img alt="https://fs.linkmeup.ru/images/adsm/5/grpcio-dump.png" src="https://fs.linkmeup.ru/images/adsm/5/grpcio-dump.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">По умолчанию, Wireshark не декодирует HTTP2, давайте научим его?</div>
+<div class="line"><cite>Analyze -&gt; Decode As.</cite></div>
+</div>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/5/grpcio-dump-http.png"><img alt="https://fs.linkmeup.ru/images/adsm/5/grpcio-dump-http.png" src="https://fs.linkmeup.ru/images/adsm/5/grpcio-dump-http.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<p>Вот тут уже видно почти все наши объекты, которые передаются между клиентом и сервером.
+<a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/5_interfaces/materials/dumps/grpc.pcap">pcap-файл</a>.</p>
+<p>Кайф!!</p>
+<p>Давайте ещё раз проговорим, что мы сделали.</p>
+<p># Описали спецификацию сервиса - какие методы доступны, какими сообщениями с какими полями они обмениваются.
+# Сгенерировали из этой спецификации код как для сервера на Go, так и для клиента на Python.
+# Написали логику сервера и клиента
+# Клиент сделал вызов удалённого метода на сервере. Список доступных методов мы знаем из proto-файла.
+# Сервер вернул результат работы процедуры клиенту.</p>
+<p><a class="reference external" href="https://github.com/eucariot/ADSM/tree/master/docs/source/5_interfaces/materials/grpc-ping">Весь код в репозитории</a>.</p>
+<p>Итак, разобрались с gRPC. Ну, будем так считать, по крайней мере.</p>
+<p>Внутри гугла gRPC удалось адаптировать даже к задачам сети. То есть gRPC стал единым интерфейсом взаимодействия между разными компонентами во всей компании (или одним из - мы не знаем).</p>
+</div>
+</div>
+<div class="section" id="gnmi">
+<h2>gNMI<a class="headerlink" href="#gnmi" title="Ссылка на этот заголовок">¶</a></h2>
+<p><strong>gNMI</strong> довольно новый протокол. Про него нет страницы на вики, довольно мало материалов и мало кто рассказывает о том, как его использует в своём проде.</p>
+<p>Он не является стандартом согласно любым организациям и RFC, но его спецификация <a class="reference external" href="https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md">описана на гитхабе</a>.</p>
+<div class="line-block">
+<div class="line">Что нам важно знать о нём для начала? <em>gRPC Network Management Interface</em>.</div>
+<div class="line">Это протокол управления сетевыми устройствами, использующий gRPC как фреймворк: транспорт, режимы взаимодействия (унарный и все виды стриминга), механизмы маршаллинга данных, прото-файлы для описания спецификаций.</div>
+</div>
+<p>В качестве модели данных он может использовать YANG (а может и не использовать - в протобафы можно же засунуть всё, что угодно).</p>
+<p>Как того требует gRPC, на сетевом устройстве запускается сервер, на системе управления - клиент. На обеих сторонах должна быть одна спецификация, одна модель данных.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/5/gnmi.png"><img alt="https://fs.linkmeup.ru/images/adsm/5/gnmi.png" src="https://fs.linkmeup.ru/images/adsm/5/gnmi.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<p>Поскольку это конструкт над gRPC, в нём определены <a class="reference external" href="https://github.com/openconfig/gnmi/blob/master/proto/gnmi/gnmi.proto">конкретные сервисы и RPC</a>:</p>
+<blockquote>
+<div><div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">servicegNMI</span><span class="p">{</span>
+  <span class="nx">rpcCapabilities</span><span class="p">(</span><span class="nx">CapabilityRequest</span><span class="p">)</span> <span class="nx">returns</span><span class="p">(</span><span class="nx">CapabilityResponse</span><span class="p">);</span>
+  <span class="nx">rpcGet</span><span class="p">(</span><span class="nx">GetRequest</span><span class="p">)</span> <span class="nx">returns</span><span class="p">(</span><span class="nx">GetResponse</span><span class="p">);</span>
+  <span class="nx">rpcSet</span><span class="p">(</span><span class="nx">SetRequest</span><span class="p">)</span> <span class="nx">returns</span><span class="p">(</span><span class="nx">SetResponse</span><span class="p">);</span>
+  <span class="nx">rpcSubscribe</span><span class="p">(</span><span class="nx">streamSubscribeRequest</span><span class="p">)</span> <span class="nx">returns</span><span class="p">(</span><span class="nx">streamSubscribeResponse</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Более наглядное представление полного прото-файла можно увидеть на <a class="reference external" href="https://github.com/hellt/gnmi-map">интерактивной карте</a>, которую нарисовал Роман Додин:</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/5/gnmi_0.7.0_map.png"><img alt="https://fs.linkmeup.ru/images/adsm/5/gnmi_0.7.0_map.png" src="https://fs.linkmeup.ru/images/adsm/5/gnmi_0.7.0_map.png" style="width: 1000px;" /></a>
+</div>
+<p><a class="reference external" href="https://fs.linkmeup.ru/images/adsm/5/gnmi_0.7.0_map.pdf">Побольше</a></p>
+</div></blockquote>
+<p>Здесь каждый RPC расписан на сообщения и типы данных, и указаны ссылки на прото-спеки и документацию.
+Не могу сказать, что это удобное место для того, чтобы начать знакомиться с gNMI, но вы точно к нему ещё много раз вернётесь, если сядете на gNMI.</p>
+<p>Предлагаю попробовать на практике вместо теорий.</p>
+<div class="line-block">
+<div class="line">Вообще gNMI, как плоть от плоти gRPC не очень удобен для использования человеком. Прото-файлы пиши, код пиши, исполняй. Нельзя как в REST API просто curl отправить и получить текстовый ответ - это вообще известная боль.</div>
+<div class="line">Но для gNMI напридумывали клиентов.</div>
+</div>
+<p>И тут google в лучших традициях делает прекрасные инфраструктурные вещи и ужасный пользовательский интерфейс. <a class="reference external" href="https://github.com/google/gnxi">gNXI</a>, <a class="reference external" href="https://github.com/openconfig/gnmi">OpenConfig gNMI CLI client</a>.</p>
+<div class="section" id="gnmic">
+<h3>gNMIc<a class="headerlink" href="#gnmic" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Нас и тут спасает Роман Додин, поучаствоваший в создании классного клиента gNMI, совместно с Karim Radhouani - <a class="reference external" href="https://gnmic.kmrd.dev/install/">gNMIc</a>.</p>
+<p>Устанавливаем по инструкции:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash -c <span class="s2">&quot;</span><span class="k">$(</span>curl -sL https://get-gnmic.kmrd.dev<span class="k">)</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Теперь надо настроить узел.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>interface Management1
+   ip address <span class="m">192</span>.168.1.11/24
+
+username eucariot secret &lt;SUPPASECRET&gt;
+
+management api gnmi
+   transport grpc default
+
+ip access-list control-plane-acl-with-restconf-and-gnmi
+   <span class="m">8</span> permit tcp any any eq <span class="m">6030</span>
+…
+
+control-plane
+   ip access-group control-plane-acl-with-restconf-and-gnmi in
+</pre></div>
+</div>
+</div></blockquote>
+<p>Попробуем выяснить capabilities:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gnmic capabilities <span class="se">\</span>
+      -a bcn-spine-1.arista:6030 <span class="se">\</span>
+      -u eucariot <span class="se">\</span>
+      -p password <span class="se">\</span>
+      --insecure
+</pre></div>
+</div>
+</div></blockquote>
+<p>А в ответ пара экранов текста, полного возможностей:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gNMI version: <span class="m">0</span>.6.0
+supported models:
+  - arista-exp-eos-multicast, Arista Networks &lt;http://arista.com/&gt;,
+  - arista-exp-eos, Arista Networks &lt;http://arista.com/&gt;,
+  - openconfig-if-ip, OpenConfig working group, <span class="m">2</span>.3.0
+…
+supported encodings:
+  - JSON
+  - JSON_IETF
+  - ASCII
+</pre></div>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Тут видно, что устройство поддерживает три вида кодирования. Нам интересен JSON.</div>
+<div class="line">А так же, несколько десятков моделей данных, как OpenConfig, так и IETF и проприетарные.</div>
+<div class="line">Дальше нет времени объяснять, откуда я это взял, просто пробуем собрать IP-адреса всех интерфейсов:</div>
+</div>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gnmic get <span class="se">\</span>
+      --path <span class="s2">&quot;/interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/config&quot;</span><span class="se">\</span>
+      -a bcn-spine-1.arista:6030 <span class="se">\</span>
+      -u eucariot <span class="se">\</span>
+      -p password <span class="se">\</span>
+      --insecure
+</pre></div>
+</div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;bcn-spine-1.arista:6030&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="s2">&quot;1969-12-31T16:00:00-08:00&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;updates&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+               <span class="nt">&quot;Path&quot;</span><span class="p">:</span> <span class="s2">&quot;interfaces/interface[name=Management1]/subinterfaces/subinterface[index=0]/ipv4/addresses/address[ip=192.168.1.11]/config&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/config&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;openconfig-if-ip:ip&quot;</span><span class="p">:</span> <span class="s2">&quot;192.168.1.11&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;openconfig-if-ip:prefix-length&quot;</span><span class="p">:</span> <span class="mi">24</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+               <span class="nt">&quot;Path&quot;</span><span class="p">:</span> <span class="s2">&quot;interfaces/interface[name=Ethernet3]/subinterfaces/subinterface[index=0]/ipv4/addresses/address[ip=169.254.101.1]/config&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/config&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;openconfig-if-ip:ip&quot;</span><span class="p">:</span> <span class="s2">&quot;169.254.101.1&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;openconfig-if-ip:prefix-length&quot;</span><span class="p">:</span> <span class="mi">31</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+               <span class="nt">&quot;Path&quot;</span><span class="p">:</span> <span class="s2">&quot;interfaces/interface[name=Ethernet2]/subinterfaces/subinterface[index=0]/ipv4/addresses/address[ip=169.254.1.3]/config&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/config&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;openconfig-if-ip:ip&quot;</span><span class="p">:</span> <span class="s2">&quot;169.254.1.3&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;openconfig-if-ip:prefix-length&quot;</span><span class="p">:</span> <span class="mi">31</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Из ответа видно полный путь к каждому интерфейсу, запрошенный путь и результат в модели OpenConfig.</p>
+<div class="line-block">
+<div class="line">Один ультра-полезный аргумент в gNMIc, это <cite>–path «/»</cite> -  он вернёт просто всё, что может.</div>
+<div class="line">Полезен он тем, что можно из вывода пореверсинжинирить где что искать.</div>
+</div>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gnmic get <span class="se">\</span>
+      --path <span class="s2">&quot;/&quot;</span> <span class="se">\</span>
+      -a bcn-spine-1.arista:6030 <span class="se">\</span>
+      -u eucariot <span class="se">\</span>
+      -p password <span class="se">\</span>
+      --insecure
+</pre></div>
+</div>
+</div></blockquote>
+<p>Ответа будет много.</p>
+<p>И оттуда можно понять, что посмотреть конфигурацию BGP-пиров можно, используя путь <cite>«/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/config»</cite>:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gnmic get <span class="se">\</span>
+      --path <span class="s2">&quot;/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/config&quot;</span> <span class="se">\</span>
+      -a bcn-spine-1.arista:6030 <span class="se">\</span>
+      -u eucariot <span class="se">\</span>
+      -p password <span class="se">\</span>
+      --insecure
+</pre></div>
+</div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;bcn-spine-1.arista:6030&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="s2">&quot;1969-12-31T16:00:00-08:00&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;updates&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+               <span class="nt">&quot;Path&quot;</span><span class="p">:</span> <span class="s2">&quot;network-instances/network-instance[name=default]/protocols/protocol[identifier=BGP][name=BGP]/bgp/neighbors/neighbor[neighbor-address=169.254.1.2]/config&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/config&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;openconfig-network-instance:auth-password&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;openconfig-network-instance:description&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;openconfig-network-instance:enabled&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nt">&quot;openconfig-network-instance:local-as&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;openconfig-network-instance:neighbor-address&quot;</span><span class="p">:</span> <span class="s2">&quot;169.254.1.2&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;openconfig-network-instance:peer-as&quot;</span><span class="p">:</span> <span class="mi">4228186112</span><span class="p">,</span>
+            <span class="nt">&quot;openconfig-network-instance:peer-group&quot;</span><span class="p">:</span> <span class="s2">&quot;LEAFS&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;openconfig-network-instance:route-flap-damping&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&quot;openconfig-network-instance:send-community&quot;</span><span class="p">:</span> <span class="s2">&quot;NONE&quot;</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+               <span class="nt">&quot;Path&quot;</span><span class="p">:</span> <span class="s2">&quot;network-instances/network-instance[name=default]/protocols/protocol[identifier=BGP][name=BGP]/bgp/neighbors/neighbor[neighbor-address=169.254.101.0]/config&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/config&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;openconfig-network-instance:auth-password&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;openconfig-network-instance:description&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;openconfig-network-instance:enabled&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nt">&quot;openconfig-network-instance:local-as&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;openconfig-network-instance:neighbor-address&quot;</span><span class="p">:</span> <span class="s2">&quot;169.254.101.0&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;openconfig-network-instance:peer-as&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;openconfig-network-instance:peer-group&quot;</span><span class="p">:</span> <span class="s2">&quot;EDGES&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;openconfig-network-instance:route-flap-damping&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&quot;openconfig-network-instance:send-community&quot;</span><span class="p">:</span> <span class="s2">&quot;NONE&quot;</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>А такой, чтобы проверить состояние пира: <cite>«/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/session-state»</cite></p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gnmic get <span class="se">\</span>
+           --path <span class="s2">&quot;/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/session-state&quot;</span> <span class="se">\</span>
+      -a bcn-spine-1.arista:6030 <span class="se">\</span>
+      -u eucariot <span class="se">\</span>
+      -p password <span class="se">\</span>
+      --insecure
+</pre></div>
+</div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;bcn-spine-1.arista:6030&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="s2">&quot;1969-12-31T16:00:00-08:00&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;updates&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+               <span class="nt">&quot;Path&quot;</span><span class="p">:</span> <span class="s2">&quot;network-instances/network-instance[name=default]/protocols/protocol[identifier=BGP][name=BGP]/bgp/neighbors/neighbor[neighbor-address=169.254.1.2]/state/session-state&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/session-state&quot;</span><span class="p">:</span> <span class="s2">&quot;ACTIVE&quot;</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+               <span class="nt">&quot;Path&quot;</span><span class="p">:</span> <span class="s2">&quot;network-instances/network-instance[name=default]/protocols/protocol[identifier=BGP][name=BGP]/bgp/neighbors/neighbor[neighbor-address=169.254.101.0]/state/session-state&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/session-state&quot;</span><span class="p">:</span> <span class="s2">&quot;ACTIVE&quot;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>И получается, вполне очевидное деление на конфигурационные и операционные данные.</p>
+<p>Вот данные по конфигурации ветки system:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gnmic get <span class="se">\</span>
+      --path <span class="s2">&quot;/system/config&quot;</span> <span class="se">\</span>
+      -a bcn-spine-1.arista:6030 <span class="se">\</span>
+      -u eucariot <span class="se">\</span>
+      -p password <span class="se">\</span>
+      --insecure
+</pre></div>
+</div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;bcn-spine-1.arista:6030&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="s2">&quot;1969-12-31T16:00:00-08:00&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;updates&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;Path&quot;</span><span class="p">:</span> <span class="s2">&quot;system/config&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;system/config&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;openconfig-system:hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;bcn-spine-1&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;openconfig-system:login-banner&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;openconfig-system:motd-banner&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>А вот по состоянию:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gnmic get <span class="se">\</span>
+      --path <span class="s2">&quot;/system/state&quot;</span> <span class="se">\</span>
+      -a bcn-spine-1.arista:6030 <span class="se">\</span>
+      -u eucariot <span class="se">\</span>
+      -p password <span class="se">\</span>
+      --insecure
+</pre></div>
+</div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;bcn-spine-1.arista:6030&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="s2">&quot;1969-12-31T16:00:00-08:00&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;updates&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;Path&quot;</span><span class="p">:</span> <span class="s2">&quot;system/state&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;system/state&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;openconfig-system:boot-time&quot;</span><span class="p">:</span> <span class="s2">&quot;164480684820&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;openconfig-system:current-datetime&quot;</span><span class="p">:</span> <span class="s2">&quot;2022-02-19T13:24:54Z+00:00&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;openconfig-system:hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;bcn-spine-1&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;openconfig-system:login-banner&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;openconfig-system:motd-banner&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Ну, и последний практический пример в этой секции: настроим чего полезного на железке, <cite>Set RPC</cite>.</p>
+<p>Сначала посмотрим значение AS у одного из BGP-пиров:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gnmic get <span class="se">\</span>
+           --path <span class="s2">&quot;/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor[neighbor-address=169.254.1.2]/config/peer-as&quot;</span> <span class="se">\</span>
+      -a bcn-spine-1.arista:6030 <span class="se">\</span>
+      -u eucariot <span class="se">\</span>
+      -p passowrd <span class="se">\</span>
+      --insecure
+</pre></div>
+</div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;bcn-spine-1.arista:6030&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="s2">&quot;1969-12-31T16:00:00-08:00&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;updates&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+               <span class="nt">&quot;Path&quot;</span><span class="p">:</span> <span class="s2">&quot;network-instances/network-instance[name=default]/protocols/protocol[identifier=BGP][name=BGP]/bgp/neighbors/neighbor[neighbor-address=169.254.1.2]/config/peer-as&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/config/peer-as&quot;</span><span class="p">:</span> <span class="mi">4228186112</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Теперь поменяем значение:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gnmic <span class="nb">set</span> <span class="se">\</span>
+           --update-path <span class="s2">&quot;/network-instances/network-instance[name=default]/protocols/protocol[name=BGP]/bgp/neighbors/neighbor[neighbor-address=169.254.1.2]/config/peer-as&quot;</span> <span class="se">\</span>
+      --update-value <span class="s2">&quot;4228186113&quot;</span> <span class="se">\</span>
+      -a bcn-spine-1.arista:6030 <span class="se">\</span>
+      -u eucariot <span class="se">\</span>
+      -p passowrd <span class="se">\</span>
+      --insecure
+</pre></div>
+</div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;bcn-spine-1.arista:6030&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">1645281264572566754</span><span class="p">,</span>
+  <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="s2">&quot;2022-02-19T06:34:24.572566754-08:00&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;results&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;operation&quot;</span><span class="p">:</span> <span class="s2">&quot;UPDATE&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;network-instances/network-instance[name=default]/protocols/protocol[name=BGP]/bgp/neighbors/    neighbor[neighbor-address=169.254.1.2]/config/peer-as&quot;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Проверяем ещё раз:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gnmic get <span class="se">\</span>
+           --path <span class="s2">&quot;/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor[neighbor-address=169.254.1.2]/config/peer-as&quot;</span> <span class="se">\</span>
+      -a bcn-spine-1.arista:6030 <span class="se">\</span>
+      -u eucariot <span class="se">\</span>
+      -p password <span class="se">\</span>
+      --insecure
+</pre></div>
+</div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;bcn-spine-1.arista:6030&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="s2">&quot;1969-12-31T16:00:00-08:00&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;updates&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+               <span class="nt">&quot;Path&quot;</span><span class="p">:</span> <span class="s2">&quot;network-instances/network-instance[name=default]/protocols/protocol[identifier=BGP][name=BGP]/bgp/neighbors/neighbor[neighbor-address=169.254.1.2]/config/peer-as&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/config/peer-as&quot;</span><span class="p">:</span> <span class="mi">4228186113</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Уиии!
+Я чуть не вскочил с места, когда получилось.</p>
+<p>А ещё у gNMIc есть <a class="reference external" href="https://netdevops.me/2020/gnmic-got-better-with-yang-completions/">автокомплишн</a>.</p>
+<div class="line-block">
+<div class="line">Ну нам бы сейчас полезно было бы посмотреть на примеры работы с кодом?</div>
+<div class="line">Но вместо того, чтобы всё делать руками, воспользуемся готовым инструментом.</div>
+</div>
+<p>Сам gNMIc может быть импортирован как зависимость в Go-программу, поскольку имеет <a class="reference external" href="https://gnmic.kmrd.dev/user_guide/golang_package/intro/">зрелую подсистему API</a>.</p>
+</div>
+<div class="section" id="pygnmi">
+<h3>pyGNMI<a class="headerlink" href="#pygnmi" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Эта библиотека <a class="reference external" href="https://github.com/akarneliuk/pygnmi/commit/80af66e7295ad11ca9009c0059beb61c853ee31d">написана Антоном Карнелюком</a> (и снова русский след). Заметно удобнее всего остального и активно развивается.</p>
+<p>Да на неё даже ссылается Arista из своей <a class="reference external" href="https://aristanetworks.github.io/openmgmt/examples/pygnmi/">Open Management</a>.</p>
+<p>Соберём capabilities:</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="kn">from</span> <span class="nn">pygnmi.client</span> <span class="kn">import</span> <span class="n">gNMIclient</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">host</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;bcn-spine-1.arista&quot;</span><span class="p">,</span> <span class="mi">6030</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">gNMIclient</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">host</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="s2">&quot;eucariot&quot;</span><span class="p">,</span>
+                    <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">,</span> <span class="n">insecure</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">gc</span><span class="p">:</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">capabilities</span><span class="p">()</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>По-get-аем что-нибудь:</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="kn">from</span> <span class="nn">pygnmi.client</span> <span class="kn">import</span> <span class="n">gNMIclient</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">host</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;bcn-spine-1.arista&quot;</span><span class="p">,</span> <span class="mi">6030</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+           <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;openconfig-interfaces:interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/config&quot;</span><span class="p">]</span>
+
+    <span class="k">with</span> <span class="n">gNMIclient</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">host</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="s2">&quot;eucariot&quot;</span><span class="p">,</span>
+                    <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">,</span> <span class="n">insecure</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">gc</span><span class="p">:</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">paths</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Ну и осталось теперь что-то поменять, например, тот же hostname:</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="kn">from</span> <span class="nn">pygnmi.client</span> <span class="kn">import</span> <span class="n">gNMIclient</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">host</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;bcn-spine-1.arista&quot;</span><span class="p">,</span> <span class="mi">6030</span><span class="p">)</span>
+
+<span class="n">set_config</span> <span class="o">=</span> <span class="p">[</span>
+<span class="p">(</span>
+    <span class="s2">&quot;openconfig-system:system&quot;</span><span class="p">,</span>
+    <span class="p">{</span>
+            <span class="s2">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;bcn-spine-1.barista-karatista&quot;</span>
+            <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+<span class="p">]</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+
+    <span class="k">with</span> <span class="n">gNMIclient</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">host</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="s2">&quot;eucariot&quot;</span><span class="p">,</span>
+                    <span class="n">password</span><span class="o">=</span><span class="s2">&quot;fpassword&quot;</span><span class="p">,</span> <span class="n">insecure</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">gc</span><span class="p">:</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">update</span><span class="o">=</span><span class="n">set_config</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python gc_set.py <span class="p">|</span> jq
+<span class="o">{</span>
+  <span class="s2">&quot;timestamp&quot;</span>: <span class="m">1645326686451002000</span>,
+  <span class="s2">&quot;prefix&quot;</span>: null,
+  <span class="s2">&quot;response&quot;</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">&quot;path&quot;</span>: <span class="s2">&quot;system&quot;</span>,
+      <span class="s2">&quot;op&quot;</span>: <span class="s2">&quot;UPDATE&quot;</span>
+    <span class="o">}</span>
+  <span class="o">]</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>В <a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/5_interfaces/materials/scripts/gnmiclient_set_bgp.py">репе ADSM</a> можно найти пример по изменению BGP peer-as.</p>
+<div class="line-block">
+<div class="line">gNMIc и pyGNMI - это всего лишь частные инструменты для работы через gNMI. Ничто не мешает вам самим реализовать набор методов удобным образом.</div>
+<div class="line">Важно здесь заметить то, что у gNMI нет концепции Data Stores и как следствие функционала коммитов конфигурации - мы работаем с сервисом.</div>
+<div class="line">gNMI заставляет нас вывернуть привычный взгляд на сеть иголками внутрь. Мы к ней теперь должны относиться как к ещё одному сервису, которым можно легко управлять через единообразный интерфейс. Сам же gNMI обеспечивает транзакционность всех изменений, передаваемых в одном RPC.</div>
+<div class="line">Представьте себе, что вы пишите в базу данных и нужно потом сделать ещё коммит, чтобы эти изменения сохранить - звучит нелогично. Вот так и с сетью - транзакционность есть, коммитов - нет.</div>
+<div class="line">Для инфраструктурной команды сеть - это больше не какой-то свой собственный особенный мир, находящийся где-то там за высокой стеной CLI, окружённый рвами, заполненными проприетарным синтаксисом.</div>
+</div>
+<p>Нам следует разделить сетевое устройство, к которому мы всю жизнь относились как к чему-то в целостному, потому что покупаем сразу всё это в сборе, на следующие части:</p>
+<ul class="simple">
+<li><p><strong>железный хост</strong> - коммутаторы и маршрутизаторы, со всеми их медными и оптическими проводочками, куском кремния под вентилятором и трансиверами,</p></li>
+<li><p><strong>операционная система</strong> - софт, который управляет жизнью железа и запускаемыми приложениями,</p></li>
+<li><p><strong>приложения</strong>, реализующие те или иные сервисы или доступ к ним - аутентификация, интерфейсы, BGP, VLAN’ы, или gNMI, дающий доступ к ним ко всем.</p></li>
+</ul>
+<p>Да, влияние проблем на сетевом устройстве имеет больший охват. Да, можно оторвать себе доступ одним неверным движением. Да, поддержка целевого состояния на все 100% - всё ещё сложная задача.</p>
+<p>Но чем, в конце концов это отличается от обычного Linux’а, на котором крутится сервис?</p>
+<p>То есть сервисный интерфейс (gNMI, gRPC, REST, NETCONF) следует рассматривать как способ управления собственно сервисами, в то время как для обслуживания хоста никуда не девается SSH+CLI - для отладки, обновления, управления приложениями. Впрочем и тут есть Ansible, Salt. Вот только идеально для этого, чтобы сетевая железка стала по-настоящему открытой - с Linux’ом на борту.</p>
+<p>Кроме того есть</p>
+</div>
+</div>
+<div class="section" id="gnoi">
+<h2>gNOI<a class="headerlink" href="#gnoi" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="line-block">
+<div class="line"><em>gRPC Network Operations Interface</em> от OpenConfig - набор микросервисов, основанных на gRPC, позволяющих выполнять операционные команды на хостах.</div>
+<div class="line">Если проще, то можно запустить ping, traceroute, почистить разные таблицы, сделать Route Refresh BGP-соседу, скопировать файл - всё то, что относится не к конфигурации, а скорее к отладке и эксплуатации.</div>
+</div>
+<p>На самом деле там на сегодняшний день уже <a class="reference external" href="https://github.com/openconfig/gnoi">достаточно внушительный список операций</a>.</p>
+<p>А ещё по аналогии с gNMIc существует и <a class="reference external" href="https://gnoic.kmrd.dev/">gNOIc</a>.</p>
+<div class="line-block">
+<div class="line">Обратили, кстати, внимание, что здесь в вызовах не было ничего специфичного для Аристы?</div>
+<div class="line">На самом деле некая неявная привязка есть - это пути, они могли бы отличаться для Аристы и Хуавэя. Но внимание на слово «openconfig» в этих путях. Что это? Что за Открытый конфиг?</div>
+</div>
+<div class="line-block">
+<div class="line">Сложность с автоматизацией сети - она ведь в чём? В том, что прежде чем отправлять конфигурацию на устройство, человек должен сесть и прям-таки разобраться в структуре CLI или XML и руками накидать шаблоны для конфигурации.</div>
+<div class="line">Даже просто для того, чтобы настроить IP-адрес на интерфейсе, нужно знать иерархию секций конфигурации или конкретное поддерево XML.</div>
+</div>
+<div class="line-block">
+<div class="line">А ещё выяснить, в каком формате надо передавать адрес: <cite>fe80::1/64</cite>, <cite>fe80::1 64</cite>, <cite>fe80::1 link-local</cite>, <cite>address: fe80::1, mask: 64</cite>, <cite>FE8:0:0:0:0:0:0:1</cite>, <cite>0000111111101000 0000000000000000 0000000000000000 0000000000000000 0000000000000000 0000000000000000 0000000000000000 0000000000000001</cite> или там вообще не поддерживается IPv6. И надо ли сначала как-то энейблить IPv6, а MTU заимствуется с интерфейса или для IPv6 отдельный?</div>
+<div class="line">И так для каждого вендора по отдельности. Знаете, сетевых автоматизаторов спасает только то, что они до этого лет 10 ели на завтрак циски да джуниперы - и как свои два пальца знают все тонкости CLI.</div>
+<div class="line">Оно же их и губит.</div>
+</div>
+<p>NETCONF поел овса из-за того, что не предложил никакой стандартизации для моделирования данных. Именно поэтому вендоры успели наплодить своих собственных, несовместимых моделей, про которые мы и поговорим ниже.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, eucariot
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

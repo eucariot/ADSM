@@ -1,0 +1,361 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ru" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>RESTCONF &mdash; документация ADSM 0.1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
+    <link rel="search" title="Поиск" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ADSM
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ADSM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>RESTCONF</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/6_interfaces/restconf.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="restconf">
+<h1>RESTCONF<a class="headerlink" href="#restconf" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="line-block">
+<div class="line">Просто пара слов об этом мертворожденном протоколе.</div>
+<div class="line">Это помесь RESTAPI и NETCONF, которая была призвана упростить управление сетью для WEB-приложений.</div>
+<div class="line">Внутри идеологически это NETCONF с его datastores и способами работать с конфигурацией, однако в качестве транспорта - HTTP с набором операций CRUD, реализованных через стандартные методы (<em>GET</em>, <em>POST</em>, <em>PUT</em>, <em>PATCH</em>, <em>DELETE</em>).</div>
+<div class="line">Данные передаются в формате JSON или XML.</div>
+<div class="line">В качестве модели данных используется YANG.</div>
+</div>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/5/restconf.png"><img alt="https://fs.linkmeup.ru/images/adsm/5/restconf.png" src="https://fs.linkmeup.ru/images/adsm/5/restconf.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<p>Описан в <a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc8040">RFC8040</a>.</p>
+<div class="line-block">
+<div class="line">Не могу отказать себе в удовольствии попробовать.</div>
+<div class="line">Возьмём на этот раз Arista veos-4.21.</div>
+</div>
+<p>Что нужно настроить, чтобы заработал restconf:</p>
+<p># Выпускаем самоподписанный сертификат</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>security pki certificate generate self-signed restconf.crt key restconf.key generate rsa <span class="m">2048</span> parameters common-name restconf
+certificate:restconf.crt generated
+</pre></div>
+</div>
+</div></blockquote>
+<p># Разрешаем доступ на устройство по порту 6020 - правим <cite>control-plane acl</cite></p>
+<blockquote>
+<div><p>Смотрим то, что разрешено сейчас - это readonly acl.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>show ip access-lists default-control-plane-acl
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+<p># Копируем правила и создаём копию ACL. Добавляем правило, разрешающее доступ по порту 6020</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip access-list control-plane-acl-with-restconf
+<span class="m">9</span> permit tcp any any eq <span class="m">6020</span>
+<span class="m">30</span> permit udp any any eq bfd ttl eq <span class="m">255</span>
+<span class="m">40</span> permit udp any any eq bfd-echo ttl eq <span class="m">254</span>
+<span class="m">50</span> permit udp any any eq multihop-bfd
+<span class="m">60</span> permit udp any any eq micro-bfd
+<span class="m">70</span> permit ospf any any
+<span class="m">80</span> permit tcp any any eq ssh telnet www snmp bgp https msdp ldp
+<span class="m">90</span> permit udp any any eq bootps bootpc snmp rip ntp ldp
+<span class="m">100</span> permit tcp any any eq mlag ttl eq <span class="m">255</span>
+<span class="m">110</span> permit udp any any eq mlag ttl eq <span class="m">255</span>
+<span class="m">120</span> permit vrrp any any
+<span class="m">130</span> permit ahp any any
+<span class="m">140</span> permit pim any any
+<span class="m">150</span> permit igmp any any
+<span class="m">160</span> permit tcp any any range <span class="m">5900</span> <span class="m">5910</span>
+<span class="m">170</span> permit tcp any any range <span class="m">50000</span> <span class="m">50100</span>
+<span class="m">180</span> permit udp any any range <span class="m">51000</span> <span class="m">51100</span>
+<span class="m">190</span> permit tcp any any eq <span class="m">3333</span>
+<span class="m">200</span> permit tcp any any eq nat ttl eq <span class="m">255</span>
+<span class="m">210</span> permit tcp any eq bgp any
+<span class="m">220</span> permit rsvp any any
+</pre></div>
+</div>
+</div></blockquote>
+<p># Применяем ACL на Control-Plane</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>control-plane
+   ip access-group control-plane-acl-with-restconf in
+</pre></div>
+</div>
+</div></blockquote>
+<p># Включаем сервис RESTCONF</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>management api restconf
+    transport https <span class="nb">test</span>
+    ssl profile restconf
+</pre></div>
+</div>
+</div></blockquote>
+<p># Настраиваем SSL</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>management security
+    ssl profile restconf
+    certificate restconf.crt key restconf.key
+</pre></div>
+</div>
+</div></blockquote>
+<p># Вы божественны</p>
+<p>Теперь проверяем, что порт открыт</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nc -zv bcn-spine-1.arista <span class="m">6020</span>
+Connection to bcn-spine-1.arista <span class="m">6020</span> port <span class="o">[</span>tcp/*<span class="o">]</span> succeeded!
+</pre></div>
+</div>
+</div></blockquote>
+<p>И собственно курлим:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -k -s GET <span class="s1">&#39;https://bcn-spine-1.arista:6020/restconf/data/openconfig-interfaces:interfaces/interface=Management1&#39;</span> <span class="se">\</span>
+     --header <span class="s1">&#39;Accept: application/yang-data+json&#39;</span> <span class="se">\</span>
+     -u eucariot:password
+</pre></div>
+</div>
+</div></blockquote>
+<p>Так мы извлекли информацию про интерфейс <cite>Management1</cite>.</p>
+<p>А вот так можно получить данные по BGP:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -k -s GET <span class="s1">&#39;https://bcn-spine-1.arista:6020/restconf/data/network-instances/network-instance/config/protocols&#39;</span> <span class="se">\</span>
+     --header <span class="s1">&#39;Accept: application/yang-data+json&#39;</span> <span class="se">\</span>
+     -u eucariot:password <span class="p">|</span> jq
+</pre></div>
+</div>
+</div></blockquote>
+<p>Строка URL формируется следующим образом:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>https://&lt;ADDRESS&gt;/&lt;ROOT&gt;/data/&lt;<span class="o">[</span>YANG-MODULE<span class="o">]</span>:CONTAINER&gt;/&lt;LEAF&gt;/<span class="o">[</span>?&lt;OPTIONS&gt;<span class="o">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>&amp;lt;ADDRESS&amp;gt;</strong> - адрес RESTCONF-сервера.</p></li>
+<li><p><strong>&amp;lt;ROOT&amp;lt;</strong> - Точка входа для запросов RESTCONF. Можно найти тут : <a class="reference external" href="https://&amp;lt;ADDRESS&amp;gt;/.well-known/">https://&amp;lt;ADDRESS&amp;gt;/.well-known/</a></p></li>
+<li><p><strong>data</strong> - прям так и остаётся</p></li>
+<li><p><strong>&amp;lt;[YANG MODULE:]CONTAINER&amp;gt;</strong> - Базовый контейнер YANG. Наличие YANG Module - не обязательно.</p></li>
+<li><p><strong>&amp;lt;LEAF&amp;gt;</strong> - Отдельный элемент в контейнере</p></li>
+<li><p><strong>&amp;lt;OPTIONS&amp;gt;</strong> - Опциональные параметры, влияющие на результат.</p></li>
+</ul>
+<p>Пробуем выяснить <cite>&lt;ROOT&gt;</cite>:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -k https://bcn-spine-1.arista:6020/.well-known/host-meta
+&lt;XRD <span class="nv">xmlns</span><span class="o">=</span>’http://docs.oasis-open.org/ns/xri/xrd-1.0’&gt;
+    &lt;Link <span class="nv">rel</span><span class="o">=</span>’restconf’ <span class="nv">href</span><span class="o">=</span>’/restconf’/&gt;
+&lt;/XRD&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Ну можно и настроить что-нибудь:</div>
+<div class="line">К примеру hostname.</div>
+</div>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -k -X PUT https://bcn-spine-1.arista:6020/restconf/data/system/config <span class="se">\</span>
+     -H <span class="s1">&#39;Content-Type: application/json&#39;</span> -u eucariot:password <span class="se">\</span>
+     -d <span class="s1">&#39;{&quot;openconfig-system:hostname&quot;:&quot;vika-kristina-0&quot;}&#39;</span>
+
+<span class="o">{</span><span class="s2">&quot;openconfig-system:hostname&quot;</span>:<span class="s2">&quot;vika-kristina-0&quot;</span><span class="o">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Проверим?</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -k -X GET https://bcn-spine-1.arista:6020/restconf/data/system/config <span class="se">\</span>
+     --header <span class="s1">&#39;Accept: application/yang-data+json&#39;</span> <span class="se">\</span>
+     -u eucariot:password
+
+<span class="o">{</span><span class="s2">&quot;openconfig-system:hostname&quot;</span>:<span class="s2">&quot;bcn-spine-1&quot;</span>,<span class="s2">&quot;openconfig-system:login-banner&quot;</span>:<span class="s2">&quot;&quot;</span>,<span class="s2">&quot;openconfig-system:motd-banner&quot;</span>:<span class="s2">&quot;&quot;</span><span class="o">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Что? Не поменялось?! И оно действительно не поменялось. Я не смог заставить это работать.</p>
+<div class="line-block">
+<div class="line">В общем знакомство с RESTCONF пока скорее травматично: документации исчезающие мало, большая часть ссылок - на космические корабли, бороздящие просторы неизученной Вселенной, примеры работы с RESTCONF все как один однообразны, а некоторые просто не работают. С той же аристой использование разных моделей - ietf, openconfig приводит к одному ответу в виде OpenConfig.</div>
+<div class="line">В конце концов отсутствие в выдаче хоть сколько-то серьёзных работ по автоматизации с помощью RESTCONF говорит о том, что это всё не более чем баловство. И я намеренно не пишу слово «пока». Лично я в него не верю</div>
+</div>
+<div class="line-block">
+<div class="line">Хотя ощутимые удобства присутствуют - это использование чуть более привычного интерфейса и существующих библиотек. И с точки зрения разработчика несколько проще - он теперь имеет дело со знакомым с пелёнок WEB-сервисом.</div>
+<div class="line">При этом CRUD не очень гладко ложится на RPC-подход, да и в идее держать открытым на сетевом железе HTTP есть что-то противоестественное, согласитесь?</div>
+</div>
+<p>Просто жаль сил, вложенных в этот протокол. Потому что на пятки ему наступает gRPC/gNMI.</p>
+<p>На самостоятельное изучение: <a class="reference external" href="https://blog.wimwauters.com/networkprogrammability/2020-04-02_restconf_introduction_part1">RESTCONF intro with Postman - Part 1</a></p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, eucariot
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

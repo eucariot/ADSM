@@ -1,0 +1,329 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ru" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CLI - Command Line Interface &mdash; документация ADSM 0.1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
+    <link rel="search" title="Поиск" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ADSM
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ADSM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>CLI - Command Line Interface</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/6_interfaces/cli.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cli-command-line-interface">
+<h1>CLI - Command Line Interface<a class="headerlink" href="#cli-command-line-interface" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="line-block">
+<div class="line"><strong>CLI</strong> - <em>сиэлай, кли, сли, слай, слаи, консоль, терминал, командная строка</em>. Этому механизму уже лет 60. И он никуда не делся. Он живее всех живых - где-то для отладки, где-то для эксплуатации, зачастую для конфигурации и даже для ежедневной работы.</div>
+<div class="line">На компьютерах, серверах, виртуальных машинах, коммутаторах, маршрутизаторах, фаерволах, АТС, базовых станциях. Трудно найти такое оборудование, где нет CLI, пусть даже хорошо спрятанного.</div>
+<div class="line">И в этом его сила - 100% функциональности на 100% сетевых устройств можно настроить через CLI. Ладно 99,9% - придётся выкинуть некоторое альтернативное оборудование.</div>
+</div>
+<div class="line-block">
+<div class="line">Это породило миллионы строк кода на Perl, PHP, Python, Go, Ruby, развесистые джинджа-шаблоны и по 300 экспектов в каждом скрипте.</div>
+<div class="line">И дало работу тысячам кодеров, выросших из сетевиков и админов.</div>
+<div class="line">Вот уже лет 30, а то и больше мы старательно пишем скрипты, которые с той или иной степенью успеха прикидываются человеком перед сетевой коробкой.</div>
+</div>
+<p>И ещё долго мы не останемся без дела - выпускают всё новые версии софта, ещё более другие модели железа, постоянно меняется CLI, и там, где вчера был string, завтра будет integer. И там, где вчера было <cite>no some shitty service enable</cite>, завтра будет <cite>some shitty service disable</cite>. И там, где вчера на вопрос интерфейса надо было ответить <cite>yes</cite>, завтра вылезет ошибка.</p>
+<div class="line-block">
+<div class="line">Клянусь, это увлекательное путешествие продлится ещё десятилетия.</div>
+<div class="line">А чем же оно увлекательно?</div>
+</div>
+<p># Модели конфигурации не формализованы
+# Модель и поведение не зафиксированы
+# CLI интерактивен
+# Формат данных не структурированный
+# Нет явного признака успешности операции
+# Сложно вычислять разницу между целевой и текущей конфигурацией
+# Сложно считать конфигурационный патч
+# Транзакционность не всегда доступна
+# Поддержание целевого состояния – задача инженера</p>
+<p>Выше 9 смертных грехов CLI, которые обусловили рождение моделей данных конфигурации, языков их описания, протоколов, как SNMP, NETCONF и gNMI.
+| Если всё по каждому из них понятно, просто пропускайте следующую секцию.</p>
+<div class="section" id="cli">
+<h2>9 грехов CLI<a class="headerlink" href="#cli" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="id1">
+<h3>1. Модели конфигурации не формализованы<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="line-block">
+<div class="line">Есть такое? Есть такое.</div>
+<div class="line">Как мы узнаём, какие команды с какими аргументами в каком порядке надо дать?</div>
+<div class="line">Правильно - идём в Command reference guide на сайте производителя и дальше методом проб и ошибок разбираемся в терминале. Или в обратном порядке. Но эти два способа (и ещё помощь друга) - это то, как мы узнаём модель данных конфигурации.</div>
+<div class="line">И скажем так: она наверняка есть - ведь каждый раз одна и та же команда приводит к одному и тому же результату (правда ведь? Правда?)</div>
+<div class="line">Знаем как настраивать интерфейсы, знаем как они должны называться, где будет IPv4, а где IPv6 адреса? Если мы введём что-то неправильно, CLI ругнётся, но мы не отправим OS в kernel panic или ASIC в рестарт?</div>
+<div class="line">Просто эта модель не формализована. Или по крайней мере нам об этом не говорят.</div>
+<div class="line">И да, своим естественным интеллектом мы рано или поздно такую модель в своей голове выстраиваем и научаемся ею пользоваться.</div>
+<div class="line">Но для того, чтобы написать код, нам придётся её хорошо или плохо самим формализовать - иерархия, порядок ввода команд, последовательность аргументов, типы значений. И скорее плохо, конечно.</div>
+</div>
+</div>
+<div class="section" id="id2">
+<h3>2. Модель и поведение не зафиксированы<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Всё, что мы изучили на предыдущем этапе может поменяться в новой версии - и мы сначала переобучаем себя, потом переписываем код.</p>
+</div>
+<div class="section" id="id3">
+<h3>3. CLI интерактивен<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="line-block">
+<div class="line"><cite>expect(«Вы точно хотите выключить bgp-сессию, mpls на всей коробке [Y/n]?»] Yes!</cite></div>
+<div class="line"><cite>expect(«Вы точно хотите выключить электричество в серверной [Y/n]?»] No!</cite></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>4. Формат данных не структурированный<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="line-block">
+<div class="line">Мы засылаем туда неструктурированный текст.</div>
+<div class="line">Мы получаем оттуда неструктурированный текст.</div>
+<div class="line">Мы его крафтим, мы его парсим. Мы пишем jinja-шаблоны и regexp’ы. Мы прожигаем свою жизнь.</div>
+<div class="line">Лучше json’ы перекладывать.</div>
+</div>
+<blockquote>
+<div><p>Строго говоря, будь-то json или вывод <cite>show version</cite>, в итоге это всё равно поток байтов и по сути текст. Только в одном случае в нём есть структура, а в другом - это просто набор символов.</p>
+</div></blockquote>
+</div>
+<div class="section" id="id5">
+<h3>5. Нет явного признака успешности операции<a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="line-block">
+<div class="line">Вывод CLI не означает ни успех, ни провал.</div>
+<div class="line">Warning ещё не означает, что что-то пошло не так.</div>
+<div class="line">Отсутствие вывода - ещё не признак успешности.</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>6. Сложно вычислять разницу между целевой и текущей конфигурацией<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="line-block">
+<div class="line">Казалось бы нужно просто подифать два текста.</div>
+<div class="line">Вот только в этих текстах имеет значение, порядок строк.</div>
+<div class="line">Одна и та же конфигурация может быть (и будет) разной для разных версий ПО.</div>
+<div class="line">Различающийся же регистр, напротив, может ничего не значить в одном месте, а в другом значить.</div>
+<div class="line">Одна и та же команда, в разных контекстах может означать разное (выключите MPLS на интерфейсе или в глобальном режиме - посмотрите на последствия).</div>
+<div class="line">Даже IPv6-адреса могут быть записаны в сокращённом или полном виде.</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>7. Сложно считать конфигурационный патч<a class="headerlink" href="#id7" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="line-block">
+<div class="line">Как следствие предыдущего пункта - выяснить, какие команды нужно применить - тоже нетривиально.</div>
+<div class="line">Но не только это.</div>
+<div class="line">Дело в том, что нужно уметь не только правильно добавлять, но и правильно удалять - а способов - не один и не два. Обратная команда не всегда формируется как отрицание прямой. Часто нужны не все её параметры.</div>
+<div class="line">В каком порядке отменять - и не поломает ли это чего-то ещё?</div>
+<div class="line">Даже не всегда команды после применения выглядят так же, как их применяли.</div>
+</div>
+</div>
+<div class="section" id="id8">
+<h3>8. Транзакционность не всегда доступна<a class="headerlink" href="#id8" title="Ссылка на этот заголовок">¶</a></h3>
+<p>В целом мы уже избалованы коммитами - многие вендоры его поддерживают. Но многие ещё нет. А те, кто поддерживает, может это делать тоже собственным уникальным способом, как например валидация ввода только при коммите, или коммит заключается в последовательном применении всех команд без вычисления дельты.</p>
+</div>
+<div class="section" id="id9">
+<h3>9. Поддержание целевого состояния – задача инженера<a class="headerlink" href="#id9" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="line-block">
+<div class="line">Ооо, это самое интересное - а как собственно привести конфигурацию к тому состоянию, которое мы желаем увидеть, а не просто применить новую конфигу?</div>
+<div class="line">Кто и как должен посчитать конфигурационный патч, применить только его и проверить за собой, что рантайм соответствует эталону?</div>
+</div>
+<blockquote>
+<div><div class="line-block">
+<div class="line">Но тут стоит быть чуть более честным - не всегда CLI настолько плох. Некоторые вендоры генерируют CLI-интерфейс из YANG-модели, что гарантирует чёткое соответствие между тем, что и как конфигурируется через CLI или любые другие интерфейсы.</div>
+<div class="line">Например, в Nokia SR Linux интерфейс командной строки, а так же gNMI, JSON-RPC и внутренние приложения работают с единым API - <cite>mgmt_srv</cite> - поэтому не только формализованы из одной и той же YANG-модели, но и имеют одинаковые возможности по чтению/записи конфигурации.</div>
+<div class="line">Дифы, коммиты, датасторы и прочее, тоже могут быть сделаны с умом - как у той же Nokia или у Juniper.</div>
+<div class="line">Но это всё, конечно, не отменяет факта работы с неструктурированным текстом.</div>
+</div>
+</div></blockquote>
+<p>Этого всего, как мне кажется, достаточно для того, чтобы даже не приступать к написанию полноценной системы автоматизации, основанной на CLI.</p>
+<div class="line-block">
+<div class="line">Далее был опыт с SNMP и всеми связанными протоколами (приглашаю пройти в первую статью!!!).</div>
+<div class="line">Признаем его удачным лишь по той простой причине, что он позволил сформулировать требования к новым интерфейсам и протоколам.</div>
+<div class="line">Не исчерпывающий список можно сформулировать так:</div>
+</div>
+<ul class="simple">
+<li><p>Представление данных в структурированном виде,</p></li>
+<li><p>Разделение конфигурационных и операционных данных,</p></li>
+<li><p>Читаемость для человека исходных данных и самой конфигурации,</p></li>
+<li><p>Воспроизводимость - задачу на исходных данных можно запустить повторно - проиграть,</p></li>
+<li><p>Механизм основан на формальных моделях,</p></li>
+<li><p>Транзакционность изменений и их откат,</p></li>
+<li><p>Поддержание целевого состояния.</p></li>
+</ul>
+<p>Не все они появились сразу. Не все они появились. Но это понятная и приятная цель.</p>
+<div class="line-block">
+<div class="line">И на замену SNMP, в подмогу CLI зародился NETCONF, эксплуатирующий идею RPC - Remote Procedure Call.</div>
+<div class="line">Что за RPC, какое у него отношение с API вы так же можете узнать из первой статьи.</div>
+<div class="line">Ну, только если коротко.</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, eucariot
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,247 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ru" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Видимое будущее &mdash; документация ADSM 0.1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
+    <link rel="search" title="Поиск" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ADSM
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ADSM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Видимое будущее</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/5_history/future.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>Видимое будущее<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="line-block">
+<div class="line">Тут на самом деле два направления развития.</div>
+<div class="line">Во-первых, совершенно очевидно будут стремительно набирать популярность <strong>программные интерфейсы</strong> взаимодействия с железом и набивший оскомину на конференциях model-driven programmability.</div>
+<div class="line">Рано или поздно он сойдёт со слайдов и начнёт свой путь в каждое домохозяйство.</div>
+<div class="line">gNMI слишком хорош, чтобы пройти мимо него. Да и NETCONF, настоенный на YANG’е, тоже.</div>
+<div class="line">Будем видеть всё больше статей, больше лаб, разборов. Всё больше вендоров будет нормально поддерживать их и увеличивать покрытие.</div>
+<div class="line">Такие требования начнут появляться в RFI.</div>
+</div>
+<p>И это очень-очень-очень хорошо.</p>
+<div class="line-block">
+<div class="line">Другое направление более интересное и многообещающее.</div>
+<div class="line"><strong>Whitebox-оборудование</strong>. Лет 5 назад это было таким же шумом, как сейчас gNMI. Это - где-то там, у них - у больших и сильных - есть и железо, и софт, и штат R&amp;D для этого интересного.</div>
+</div>
+<div class="line-block">
+<div class="line">Сегодня Cumulus, Switchdev, Onos, SONiC - уже вполне зрелые операционные системы, на которых работает прод. Broadcom опубликовал свой SDK на <a class="reference external" href="https://github.com/Broadcom-Network-Switching-Software/OpenBCM">github</a> - это вообще из разряда «что происходит?!»</div>
+<div class="line">Выпуском железа занимаются уже давно не только новоиспечённые игроки, вроде mellanox’а (<a class="reference external" href="https://linkmeup.ru/podcasts/1059/">у нас с ними был подкаст</a>), <a class="reference external" href="https://opennetworking.org/wp-content/uploads/2018/12/Stratum-on-Whitebox-Switches.pdf">delta</a> Xpliant, Barefoot (<a class="reference external" href="https://linkmeup.ru/podcasts/1083/">у нас и с ними был подкаст</a>), но и вендоры - так называемые Britebox - Branded white box - cisco, huawei итд.</div>
+</div>
+<div class="line-block">
+<div class="line">Почему это важно? И почему эта информация вообще получила место в статье про историю автоматизации?</div>
+<div class="line">А всё просто. С появление Whitebox в мир сетевых операционных систем приходит Linux.</div>
+<div class="line">«Да он там и до этого был» - скажут некоторые. Не секрет, что почти все проприетарные сетевые ОС основаны на Linux или FreeBSD. И что с того, если доступа к консоли обычно нет, не говоря уж о руте?</div>
+</div>
+<div class="line-block">
+<div class="line">А на Whitebox’ах стоит самый что ни на есть честный Linux, на который можно установить пакеты из репозитория, притащить любой файл, любой бинарник, любой скрипт.</div>
+<div class="line">Он превращается в обычный сервер с о-о-очень модными сетевыми карточками с чипом на 12,8 тера.</div>
+<div class="line">На нём есть файлы конфигурации, systemd, cron.</div>
+</div>
+<p>А это означает, что обслуживать его можно как обычный Linux-сервер.</p>
+<p>Можно поднять nginx и совершенно любое REST-приложение за ним. Ну или gRPC-сервер.
+Поставить телеграф-агент - и сливать метрики в коллекторы.</p>
+<div class="line-block">
+<div class="line">И здесь совершенно чудесно ложится идея разделения управления устройством и сервисами, которые на нём запущены.</div>
+<div class="line">Есть Linux-тачка. На ней CPU, память, интерфейсы, пользователи, мониторинги системы и всё такое прочее: но весьма ограниченный набор. Доступ - по SSH. Инструмент - любой, используемый для управления физическими машинами - Ansible, Salt, Chef.</div>
+</div>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/5/switch_decoupled.png"><img alt="https://fs.linkmeup.ru/images/adsm/5/switch_decoupled.png" src="https://fs.linkmeup.ru/images/adsm/5/switch_decoupled.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<p>А есть сервисы - BGP, VPN, VxLAN, который на физической машине запущен. И вот они могут управляться через REST, gRPC, ну или хотя бы путём подсовывания конфигурационных файлов.</p>
+<div class="line-block">
+<div class="line">И менеджмент конфигурации сети становится задачей других, уже существующих отделов: серверной инфраструктуры и config-плейна. Без размазывания компетенций и накладных расходов.</div>
+<div class="line"><strong>Сетевики всё ещё нужны</strong>, очевидно - для определения того, что именно нужно настраивать, как будет выглядеть архитектура сети, набор протоколов, модель данных.</div>
+</div>
+<p>Сюда же можно подтащить версионирование работающих приложений, в которое можно включить и конфигурацию, запуск двух версий side-by-side и где-то не за горизонтом даже полноценный CI маячит.</p>
+<p>А все заморочки с ансиблом, питон-скриптами, притворяющимися человеком с руками и какой-никакой головой, поддержанием стейта конфигурационной портянки текста - они просто испаряются в предрассветном тумане.</p>
+<p>И попробуйте после этого взглянуть на существующую модель работы с сетевым железом - какой кривой и инертной она выглядит.</p>
+<p><strong>Но есть «Но».</strong>
+| Во-первых, это требует глобальной перестройки всех процессов и вообще-то сознания. Такие вещи за 5 лет не происходят в индустрии - мы ещё долго будем развивать NETCONF.
+| Во-вторых, это требует всё же некий R&amp;D - в штате должны быть крепкие инфраструктурщики и разработчики. В то время как <a class="reference external" href="https://fs.linkmeup.ru/images/adsm/5/lickedhard.jpeg">идеально вылизанное вендорское железо и софт</a> - требуют весьма ограниченное количество человеческих ресурсов на обслуживание.
+| В-третьих, это всё сейчас и ещё долгое время будет касаться ДатаЦентров со сравнительно простой сетью, построенной преимущественно на свитчах. В гораздо меньшей степени это применимо к энтерпрайзной сети. А уж когда это докатится до операторов нам будут рассказывать наши внуки. При том что NETCONF там тоже плюс-минус состоялся.</p>
+<p>И всё же этот мир прекрасен.</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, eucariot
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

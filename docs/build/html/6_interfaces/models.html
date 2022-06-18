@@ -1,0 +1,332 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ru" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Модели данных &mdash; документация ADSM 0.1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
+    <link rel="search" title="Поиск" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ADSM
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ADSM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Модели данных</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/6_interfaces/models.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>Модели данных<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Собственно то, в какой иерархии представлена конфигурация - и есть модель данных. Говорится об этом или нет, но такая модель есть всегда и у любого интерфейса. Она может быть плоской или иерархической, может быть простой или запутанной. Если бы её не было, то вы бы просто не смогли настроить устройство, а команды конфигурации могли бы видоизвиняться случайным образом. Говорят, в Router OS 7 подвезли такую функцию.</p>
+<div class="line-block">
+<div class="line">Так, мы знаем, что например, в случае Juniper нужно войти в контекст <cite>system-&gt;login</cite>, чтобы настроить нового пользователя, а формат команды будет <cite>set &lt;USERNAME&gt; &lt;OTHER PARAMETERS&gt;</cite>.</div>
+<div class="line">А настройка IP-адреса управления при этом будет происходить в контексте <cite>interface -&gt; em0 -&gt; unit 0 -&gt; family inet</cite>. И так будет всегда. Во всяком случае на этой железке и этой версии софта.</div>
+</div>
+<p>То есть модель данных - это контракт между пользователем и операционной системой - как она интерпретирует переданные команды в зависимости от контекста.</p>
+<p>Это верно для CLI, SNMP, NETCONF, gNMI и даже прямых вызовов чипового SDK.</p>
+<div class="line-block">
+<div class="line">Просто бОльшую часть истории нам не нужно было знать об этих моделях. Есть аксиома - у каждого вендора она своя. А мы в голове, сознательно или нет, её выстраивали, воссоздавали.</div>
+<div class="line">И вендор может менять эту модель по своему усмотрению от версии к версии. А мы как люди к этому адаптируем свою внутреннюю модель, приспосабливаемся - по законам эволюции.</div>
+</div>
+<div class="section" id="native">
+<h2>Native<a class="headerlink" href="#native" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Так было всегда, но это поменялось с приходом автоматизации. Вендоры, как будто бы думали, что рост сетей можно поддерживать постоянным докидыванием людей на их настройку. Но людям это не нравилось, они начали писать инструменты автоматизации на perl’ах, php, python’ах с expect’ами, попытками отловить все возможные ответы CLI, правильно на них среагировать. Но количество скорби в этом мире только множилось. Все рано или поздно приходили к пониманию, что долго притворяться робот человеком не может.</p>
+<div class="line-block">
+<div class="line">Так и появились NETCONF и RESTCONF (так появлялся и SNMP). Они дали возможность работать со структурированными данными, а также создавать более явные контракты между клиентом и сервером.</div>
+<div class="line">Автор утилиты/библиотеки, опираясь на этот контракт, пишет код, а вендор обязуется принять данные, которые ему прислали. Если вы присылаете соответствующие контракту данные, а вендор говорит, что вы ерунду прислали, вы идёте в суд (в TAC).</div>
+</div>
+<div class="line-block">
+<div class="line">Первые реализации NETCONF были настолько же закрытыми, как и сам CLI. У джуна - меньше, у циски - больше. У кого-то RPC перекладывались собственно в вызове CLI.</div>
+<div class="line">Но необходимость приводить это всё к каким-то явным схемам становилась всё очевиднее с каждым днём. К этому же подталкивал и расцвет NMS, берущих на вооружение NETCONF.</div>
+</div>
+<p>И так появились первые модели данных - NATIVE. У каждого вендора своя, но уже модель, и уже открытая.
+Вендоры с достаточно высокой социальной ответственностью выкладывают свои модели в <a class="reference external" href="https://github.com/YangModels/yang/tree/master/vendor">публичный репозиторий</a>.</p>
+<div class="line-block">
+<div class="line">Наличие модели позволяет уже как минимум не рыскать в попытках вслепую нащупать, как составить XML, а пойти, посмотреть, в каком виде ожидает данные коробка.</div>
+<div class="line">А при желании модель читать программно и руками даже ничего не делать.</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>Вендор-нейтральные модели<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="line-block">
+<div class="line">С этим уже можно было жить.</div>
+<div class="line">Инженерам нужно было чуть меньше думать об интерфейсах и форматах сообщений, но с глубоким вниманием подходить к содержимому сообщений всё ещё приходилось, оказывая разные знаки почтения разным вендорам.</div>
+</div>
+<div class="line-block">
+<div class="line">При этом казалось бы - вся сеть - это конечный набор одинаковых сервисов, если выбросить всякие IGRP, HSRP, RRPP и прочие проприетарные выдумки. Ну, всем же нужен IP, OSPF, BGP? Всем нужна аутентификация на устройствах и SSH? Они не могут иметь очень уж принципиальные отличия, как минимум из-за необходимости поддерживать совместимость друг с другом и соответствия RFC.</div>
+<div class="line">Так почему мы делаем это сотней разных способов?</div>
+</div>
+<dl>
+<dt>&lt;table&gt;</dt><dd><dl class="simple">
+<dt>&lt;tr&gt;</dt><dd><p>&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;juniper&lt;/td&gt;
+&lt;td&gt;nokia&lt;/td&gt;
+&lt;td&gt;cisco&lt;/td&gt;</p>
+</dd>
+</dl>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div><p>&lt;td&gt;настройка интерфейса&lt;/td&gt;
+&lt;td&gt;configure&lt;div&gt;set interfaces ge-0/0/0 unit 0 family inet address 10.0.0.1/30&lt;/td&gt;
+&lt;td&gt;router&lt;div&gt;interface «test»&lt;div&gt;address 10.0.0.1/30&lt;div&gt;port 1/1/1&lt;div&gt;no shutdown&lt;div&gt;exit&lt;/td&gt;
+&lt;td&gt;conf t&lt;div&gt;interface gigabitethernet1&lt;div&gt;ip address 10.0.0.1&lt;span style=»font-size: 1rem;»&gt;255.255.255.252&lt;/span&gt;&lt;div&gt;no shut&lt;div&gt;exit&lt;/td&gt;</p>
+</div></blockquote>
+<p>&lt;/tr&gt;
+&lt;tr&gt;</p>
+<blockquote>
+<div><p>&lt;td&gt;настройка bgp&lt;/td&gt;
+&lt;td&gt;set routing-options router-id 10.0.0.1&lt;div&gt;set routing-options autonomous-system 65000&lt;div&gt;set protocols bgp group test type internal&lt;div&gt;set protocols bgp group test peer-as 65000&lt;div&gt;set protocols bgp group test neighbor 10.0.0.2&lt;span style=»font-size: 1rem;»&gt;export redistribute-connected&lt;/span&gt;&lt;div&gt;set policy-options policy-statement&lt;span style=»font-size: 1rem;»&gt;redistribute-connected from protocol direct&lt;/span&gt;&lt;div&gt;set policy-options policy-statement&lt;span style=»font-size: 1rem;»&gt;redistribute-connected then accept&lt;/span&gt;&lt;div&gt;commit and-quit&lt;/td&gt;
+&lt;td&gt;&lt;div&gt;autonomous-system 6500&lt;div&gt;router-id 10.0.0.1&lt;div&gt;&lt;br&gt;&lt;div&gt;bgp&lt;div&gt;group «ibgp»&lt;div&gt; type internal&lt;div&gt; neighbor 10.10.10.2 exit&lt;/td&gt;
+&lt;td&gt;&lt;div&gt;router bgp 65000&lt;div&gt;bgp router-id 10.0.0.1&lt;div&gt;neighbor 10.0.0.2&lt;div&gt;remote-as 65000&lt;div&gt;redistribute connectedexit&lt;/td&gt;</p>
+</div></blockquote>
+<p>&lt;/tr&gt;</p>
+</dd>
+</dl>
+<p>&lt;/table&gt;</p>
+<p>Сложность ведь не в транспорте и не в интерфейсе, а в модели данных. Сделать у каждого вендора Configuration State Management - одноразовая решаемая (а много где и решённая) задача. А вот договориться между всеми производителями, как должна выглядеть модель - так же сложно, как и любая другая задача, где людям нужно договориться.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/5/dontlookup.jpeg"><img alt="https://fs.linkmeup.ru/images/adsm/5/dontlookup.jpeg" src="https://fs.linkmeup.ru/images/adsm/5/dontlookup.jpeg" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<p>Но ни один из зарождавшихся и выживших стандартов или не ставил целью унификацию вообще, или пытался поднять этот вопрос, но был выброшен в окно штаб-квартиры вендора.</p>
+<p>Хотя вру. IETF предприняли отчасти успешную попытку написать универсальную модель.</p>
+<div class="section" id="ietf">
+<h3>IETF-модель<a class="headerlink" href="#ietf" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="line-block">
+<div class="line">Ещё в 2014-м году были сделаны <a class="reference external" href="https://github.com/YangModels/yang/tree/main/standard/ietf/RFC">первые коммиты</a> в её репозиторий.</div>
+<div class="line">С тех пор много накоммичено, но мало фактически сделано. Общепризнанно, что IETF -модель очень медленно развивается, у неё низкое покрытие, а архитектура - так себе.</div>
+<div class="line">С IETF-модели рекомендуют начинать, потому что она якобы проще, а уже потом переходить на OpenConfig, но как по мне - это напрасная трата времени.</div>
+<div class="line">Она мертворождённая и никому особо не нужна. Хотя вендоры поддерживают.</div>
+<div class="line">Заказчиков и пользователей беспокоила обрезанность модели и инертность IETF.</div>
+<div class="line">Но один в поле не воин - тысячи разрозненных автоматизаторов по всему миру не могли ничего с этим сделать. А вот большие компании могли.</div>
+<div class="line">Когда надо настроить тысячу свитчей, а каждый месяц запускать новый датацентр, когда на сети 5 разных поколений дизайна, а катить изменения нужно дважды в день, начинаешь несколько иначе смотреть на все этим ваши сиэлаи и вендор-специфичные эксэмали.</div>
+</div>
+<p>Так гугл придумал OpenConfig. Он не стал размениваться на IETF-модели и торги со стариканами из института.</p>
+</div>
+<div class="section" id="openconfig">
+<h3>OpenConfig - мечта, становящаяся явью<a class="headerlink" href="#openconfig" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Возможно, впервые за шестидесятилетнюю историю телекоммуникаций у нас появился шанс изобрести свой USB Type C. Представьте мир, в котором Cisco, Juniper, Arista и Mikrotik настраиваются одними и теми же командами и это к тому же приводит к одинаковому результату?</p>
+<p>Я не могу.</p>
+<p>OpenConfig - это открытая YANG-модель, которая предполагается единой для всех вендоров. Одна стандартизированная модель для управления конфигурацией, сбора операционных данных с устройства и телеметрии. Одна для всех поддерживающих OC вендоров.</p>
+<p>Итак, OpenConfig появился в 2015 году в Google как ответ на следующие вызовы:</p>
+<ul class="simple">
+<li><p>20+ ролей сетевых устройств</p></li>
+<li><p>Больше полудюжины вендоров</p></li>
+<li><p>Множество платформ</p></li>
+<li><p>4M строк в конфигурационных файлах</p></li>
+<li><p>30K изменений конфигураций в месяц</p></li>
+<li><p>Больше 8M OIDs опрашиваются каждые 5 минут</p></li>
+<li><p>Больше 20K CLI-команд выполняется каждые 5 минут</p></li>
+<li><p>Множество инструментов и поколений софта, куча скриптов</p></li>
+<li><p>Отсутствие абстракций и проприетарные CLI</p></li>
+<li><p>SNMP не был рассчитан на столь большое количество устройств и на столько большие объёмы данных (RIB)</p></li>
+</ul>
+<div class="line-block">
+<div class="line">Как работать с openconfig мы уже немного попрактиковались выше.</div>
+<div class="line">Полезным было бы взглянуть на структуру этой модели. Но это мы сделаем в следующей главе про YANG.</div>
+</div>
+<p>OpenConfig сегодня даёт возможность настройки базовых сервисов. Безусловно речь не идёт про вещи, завязанные на аппаратные особенности: QoS, управление буферами и ресурсами чипа, сплиты портов, работа с трансиверами. И в каком-то хоть сколько-то обозримом будущем этого ждать не стоит.</p>
+<p>Хуже того, на сегодняшний день многие вендоры, ввязавшиеся в поддержку OC, не реализуют все 100%, а лишь часть.</p>
+<p>Но BGP с OSPF настроить точно можно.</p>
+<p><strong>Что делать в этом случае?</strong></p>
+<div class="line-block">
+<div class="line">И есть два пути.</div>
+<div class="line">Один из них - брать OC и видоизменять его с помощью добавления или убирания каких-либо его частей.</div>
+<div class="line">Когда вендор хочет расширить покрытие модели - он делает augmentation, встраивая его в нужное место.</div>
+<div class="line">Если он хочет поменять какое-то поведение или удалить функциональность - он описывает deviation к базовой модели.</div>
+<div class="line">Этот способ, конечно, не покрывает все потребности.</div>
+</div>
+<p>Другой - использовать вендорские Native модели, покрытие которых намного больше.</p>
+<p>Абсолютно нормально совмещать OC и Native - главное, не настраивать одно и то же с помощью разных моделей.
+В целом рекомендуют (даже сами вендоры), использовать OC там, где это возможно, а где нет - прибегать к native.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/5/open-vs-native.png"><img alt="https://fs.linkmeup.ru/images/adsm/5/open-vs-native.png" src="https://fs.linkmeup.ru/images/adsm/5/open-vs-native.png" style="width: 800px;" /></a>
+</div>
+<p><em>Источник: `доклад на Cisco Live &lt;https://www.ciscolive.com/c/dam/r/ciscolive/emea/docs/2020/pdf/BRKDEV-1368.pdf&gt;`_</em></p>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Google привёл в наш мир OpenConfig в одной руке, а gNMI - в другой.</div>
+<div class="line">Но в качестве транспорта для OC может быть как gNMI, так и NETCONF и RESTCONF - это не принципиально. В то же время, для gNMI OpenConfig в частности и YANG вообще не единственные возможные модели и языки.</div>
+</div>
+<p>Так что же это за мифический YANG?</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, eucariot
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

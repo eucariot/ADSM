@@ -1,0 +1,476 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ru" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>YANG &mdash; документация ADSM 0.1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
+    <link rel="search" title="Поиск" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ADSM
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ADSM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>YANG</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/6_interfaces/yang.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="yang">
+<h1>YANG<a class="headerlink" href="#yang" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="line-block">
+<div class="line">Оооо, как долго я шёл к этому, как долго я ждал, чтобы разобраться с этой темой.</div>
+<div class="line">Такой манящий и такой недоступный - <strong>YANG</strong> - <em>Yet Another Next Generation</em>, который решит все мои дилеммы автоматизатора, который снимет с меня груз парсинга CLI и приведёт нас всех в новый дивный мир.</div>
+<div class="line">Почему-то казалось, что стоит только понять, что такое YANG - и дальше самой сложной задачей останется оттраблшутить Ансибль и высадиться на Марсе.</div>
+</div>
+<p>YANG, а точнее модели, написанные на нём, не стали серебряной пулей, как не стали ей (пока) NETCONF, OpenConfig, gNMI.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/5/yang-data-model.png"><img alt="https://fs.linkmeup.ru/images/adsm/5/yang-data-model.png" src="https://fs.linkmeup.ru/images/adsm/5/yang-data-model.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<p>И вообще YANG - вещь весьма академическая. Это просто язык описания моделей. Модели у каждого производителя и под каждую задачу могут быть совершенно разными, но, учитывая, что они все написаны на одном языке, мы можем применять одни и те же подходы и инструменты для работы с ними, и не отращивать ещё новые нейронные связи.</p>
+<p>Вообще-то модели может не быть вовсе, или она может быть описана по-английски или по-русски, вместо YANG. Но при этом в JunOS/VRP/IOS по-прежнему будет какая-то структура данных. Просто в этом случае у вас не будет контракта, и в суд вы обратиться не сможете.
+Это собственно то, как мы и жили прежде.</p>
+<div class="line-block">
+<div class="line">Вообще-то YANG пришёл на помощь NETCONF’у, когда стало понятно, что &lt;s&gt;достаточно разврата - откапывайте SNMP SMI&lt;/s&gt; без моделей дальше никуда ни шагу - и уже достаточно ошибок было совершено.</div>
+<div class="line">YANG - достойный сын SMIng. Когда парни из Network Working Group поняли, что с SNMP у них как-то не выгорело, весь накопленный багаж знаний они пустили на пользу обществу.</div>
+<div class="line">В общем-то, не мудрствуя лукаво, ребята из IETF взяли синтаксическую структуру и базовые типы из SMIng и запилили YANG.</div>
+<div class="line">При разработке YANG решили не совершать ошибок SMIng, который должен был стать универсальным языком под общие задачи, отчего немало страдал - нет, YANG нацеливался исключительно на NETCONF.</div>
+<div class="line">И какова ирония: RESTCONF и gNMI тоже решили использовать YANG - как язык моделирования. Ну логично ведь - не выдумывать 13-й стандарт же (хотя, подождите)?</div>
+</div>
+<p>Но гугл пошёл ещё дальше - gNMI может работать как с YANG-моделями, так и нет. Свободу вариативности! Что, впрочем, вполне логично, ведь в основе gNMI - protobuf’ы gRPC. А они могут как быть созданы на основе YANG-модели, так и просто придуманы из головы, или модель может быть написана не на YANG.</p>
+<p>Как видно, благими намерениями уже тогда - был устлан путь к хьюман-ридабл, мэшин-парсибл.</p>
+<p>Давайте мы не будем закапываться в сам язык - пожалуй, это нужно не очень большому числу людей. Нам интереснее практическая сторона - конкретные модели, как в них найти глазами нужные вещи, как с ними работать программно, какая вообще от них польза.</p>
+<p>Дальше в качестве практики возьмём модель OpenConfig.</p>
+<div class="section" id="id1">
+<h2>Препарируем YANG-модель<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Давайте ещё раз вспомним пример, как мы собирали данные по конфигурации интерфейсов.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gnmic get --path <span class="s2">&quot;/interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/config&quot;</span> <span class="se">\</span>
+      -a bcn-spine-1.arista:6030 <span class="se">\</span>
+      -u eucariot <span class="se">\</span>
+      -p password <span class="se">\</span>
+      --insecure
+</pre></div>
+</div>
+</div></blockquote>
+<p>Откуда взялся этот замысловатый путь?</p>
+<p>Для этого нам понадобится взглянуть на <a class="reference external" href="https://github.com/openconfig/public/tree/master/release/models/interfaces">открытый репозиторий OpenConfig</a>.</p>
+<div class="line-block">
+<div class="line">Пристально смотрим…</div>
+<div class="line">Ещё немного…</div>
+<div class="line">Понятно?</div>
+</div>
+<div class="line-block">
+<div class="line">И мне не очень. Чтобы такое читать, надо всё же разбираться с самим языком.</div>
+<div class="line">Нам лень.</div>
+<div class="line">Поэтому воспользуемся помощью библиотеки pyang.</div>
+</div>
+</div>
+<div class="section" id="pyang">
+<h2>Pyang<a class="headerlink" href="#pyang" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Продолжим с примером про интерфейсы.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo pip install pyang
+</pre></div>
+</div>
+</div></blockquote>
+<p>В рабочий каталог склоним репу:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/openconfig/public
+</pre></div>
+</div>
+</div></blockquote>
+<p>И дадим вот такую команду:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyang -f tree -p yang/oc/public/release/models/ yang/oc/public/release/models/interfaces/openconfig-interfaces.yang
+</pre></div>
+</div>
+</div></blockquote>
+<p>И дальше вываливается много текста:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module: openconfig-interfaces
+  +--rw interfaces
+     +--rw interface* <span class="o">[</span>name<span class="o">]</span>
+        +--rw name             -&gt; ../config/name
+        +--rw config
+        <span class="p">|</span>  +--rw name?            string
+        <span class="p">|</span>  +--rw <span class="nb">type</span>             identityref
+        <span class="p">|</span>  +--rw mtu?             uint16
+        <span class="p">|</span>  +--rw loopback-mode?   boolean
+        <span class="p">|</span>  +--rw description?     string
+        <span class="p">|</span>  +--rw enabled?         boolean
+        +--ro state
+        <span class="p">|</span>  +--ro name?            string
+        <span class="p">|</span>  +--ro <span class="nb">type</span>             identityref
+        <span class="p">|</span>  +--ro mtu?             uint16
+        <span class="p">|</span>  +--ro loopback-mode?   boolean
+        <span class="p">|</span>  +--ro description?     string
+        <span class="p">|</span>  +--ro enabled?         boolean
+        <span class="p">|</span>  +--ro ifindex?         uint32
+        <span class="p">|</span>  +--ro admin-status     enumeration
+        <span class="p">|</span>  +--ro oper-status      enumeration
+        <span class="p">|</span>  +--ro last-change?     oc-types:timeticks64
+        <span class="p">|</span>  +--ro logical?         boolean
+        <span class="p">|</span>  +--ro management?      boolean
+        <span class="p">|</span>  +--ro cpu?             boolean
+        <span class="p">|</span>  +--ro counters
+        <span class="p">|</span>     +--ro in-octets?             oc-yang:counter64
+        <span class="p">|</span>     +--ro in-pkts?               oc-yang:counter64
+        <span class="p">|</span>     +--ro in-unicast-pkts?       oc-yang:counter64
+        <span class="p">|</span>     +--ro in-broadcast-pkts?     oc-yang:counter64
+        <span class="p">|</span>     +--ro in-multicast-pkts?     oc-yang:counter64
+        <span class="p">|</span>     +--ro in-discards?           oc-yang:counter64
+        <span class="p">|</span>     +--ro in-errors?             oc-yang:counter64
+        <span class="p">|</span>     +--ro in-unknown-protos?     oc-yang:counter64
+        <span class="p">|</span>     +--ro in-fcs-errors?         oc-yang:counter64
+        <span class="p">|</span>     +--ro out-octets?            oc-yang:counter64
+        <span class="p">|</span>     +--ro out-pkts?              oc-yang:counter64
+        <span class="p">|</span>     +--ro out-unicast-pkts?      oc-yang:counter64
+        <span class="p">|</span>     +--ro out-broadcast-pkts?    oc-yang:counter64
+        <span class="p">|</span>     +--ro out-multicast-pkts?    oc-yang:counter64
+        <span class="p">|</span>     +--ro out-discards?          oc-yang:counter64
+        <span class="p">|</span>     +--ro out-errors?            oc-yang:counter64
+        <span class="p">|</span>     +--ro carrier-transitions?   oc-yang:counter64
+        <span class="p">|</span>     +--ro last-clear?            oc-types:timeticks64
+        +--rw hold-time
+        <span class="p">|</span>  +--rw config
+        <span class="p">|</span>  <span class="p">|</span>  +--rw up?     uint32
+        <span class="p">|</span>  <span class="p">|</span>  +--rw down?   uint32
+        <span class="p">|</span>  +--ro state
+        <span class="p">|</span>     +--ro up?     uint32
+        <span class="p">|</span>     +--ro down?   uint32
+        +--rw subinterfaces
+           +--rw subinterface* <span class="o">[</span>index<span class="o">]</span>
+              +--rw index     -&gt; ../config/index
+              +--rw config
+              <span class="p">|</span>  +--rw index?         uint32
+              <span class="p">|</span>  +--rw description?   string
+              <span class="p">|</span>  +--rw enabled?       boolean
+              +--ro state
+                 +--ro index?          uint32
+                 +--ro description?    string
+                 +--ro enabled?        boolean
+                 +--ro name?           string
+                 +--ro ifindex?        uint32
+                 +--ro admin-status    enumeration
+                 +--ro oper-status     enumeration
+                 +--ro last-change?    oc-types:timeticks64
+                 +--ro logical?        boolean
+                 +--ro management?     boolean
+                 +--ro cpu?            boolean
+                 +--ro counters
+                    +--ro in-octets?             oc-yang:counter64
+                    +--ro in-pkts?               oc-yang:counter64
+                    +--ro in-unicast-pkts?       oc-yang:counter64
+                    +--ro in-broadcast-pkts?     oc-yang:counter64
+                    +--ro in-multicast-pkts?     oc-yang:counter64
+                    +--ro in-discards?           oc-yang:counter64
+                    +--ro in-errors?             oc-yang:counter64
+                    +--ro in-unknown-protos?     oc-yang:counter64
+                    +--ro in-fcs-errors?         oc-yang:counter64
+                    +--ro out-octets?            oc-yang:counter64
+                    +--ro out-pkts?              oc-yang:counter64
+                    +--ro out-unicast-pkts?      oc-yang:counter64
+                    +--ro out-broadcast-pkts?    oc-yang:counter64
+                    +--ro out-multicast-pkts?    oc-yang:counter64
+                    +--ro out-discards?          oc-yang:counter64
+                    +--ro out-errors?            oc-yang:counter64
+                    +--ro carrier-transitions?   oc-yang:counter64
+                    +--ro last-clear?            oc-types:timeticks64
+</pre></div>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Неплохо. С такими аргументами pyang представляет модель в виде дерева, выбрасывая несущественные данные.</div>
+<div class="line">Здесь сразу видно, на каком уровне иерархии что находится, какой у него тип и режим - rw или ro.</div>
+<div class="line">Постойте, но где же ipv4, который в запросе gnmic? Тут его явно нет. А в запросе и ответе явно был - то есть где-то он должен существовать и в модели.</div>
+<div class="line">Взглянем ещё раз на директорию. И повторим pyang:</div>
+</div>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyang -f tree  -p yang/oc/public/release/models/ yang/oc/public/release/models/interfaces/openconfig-if-ip.yang <span class="p">|</span> head -n <span class="m">10</span>
+module: openconfig-if-ip
+
+  augment /oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface:
+    +--rw ipv4
+       +--rw addresses
+       <span class="p">|</span>  +--rw address* <span class="o">[</span>ip<span class="o">]</span>
+       <span class="p">|</span>     +--rw ip        -&gt; ../config/ip
+       <span class="p">|</span>     +--rw config
+       <span class="p">|</span>     <span class="p">|</span>  +--rw ip?              oc-inet:ipv4-address
+       <span class="p">|</span>     <span class="p">|</span>  +--rw prefix-length?   uint8
+</pre></div>
+</div>
+</div></blockquote>
+<p>Вот и он во всей красе. И тут видно, что это аугментация к модели <cite>/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface</cite>.</p>
+<p>А что такое <cite>oc-if</cite>?</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>less yang/oc/public/release/models/interfaces/openconfig-interfaces.yang <span class="p">|</span> grep <span class="s1">&#39;^ *prefix&#39;</span>
+prefix <span class="s2">&quot;oc-if&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Итак, у модели есть короткий префикс для более удобного обращения к ней. Он используется в другой модели, чтобы сделать его аугментацию.</div>
+<div class="line">Так можно просто проверить корректность</div>
+</div>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyang -p yang/oc/public/release/models/ yang/oc/public/release/models/interfaces/openconfig-interfaces.yang
+</pre></div>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Ключ <cite>-f</cite> позволяет конвертировать в разные форматы: <cite>tree</cite>, <cite>yin</cite>, <cite>yang</cite>, <cite>jstree</cite>, <cite>uml</cite> и другие.</div>
+<div class="line">Для нас интереснее всего <cite>tree</cite> и <cite>uml</cite>, потому что вот такие крутые картинки можно рисовать для визуалов</div>
+</div>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/5/openconfig-interfaces.png"><img alt="https://fs.linkmeup.ru/images/adsm/5/openconfig-interfaces.png" src="https://fs.linkmeup.ru/images/adsm/5/openconfig-interfaces.png" style="width: 800px;" /></a>
+</div>
+<p><em>Чтобы конвертировать uml в png можно воспользоваться пакетом plantuml</em>. <a class="reference external" href="https://fs.linkmeup.ru/images/adsm/5/openconfig-interfaces.png">Ссылка на картинку побольше</a></p>
+</div></blockquote>
+<p>С помощью pyang, конечно, можно работать не только с моделями OpenConfig, но и с любыми другими, написанными на языке YANG.</p>
+<p><a class="reference external" href="https://www.ietf.org/proceedings/90/slides/slides-90-edu-yang-0.pdf">Место, где неплохо описан pyang</a>.</p>
+<p>А <a class="reference external" href="https://ultraconfig.com.au/blog/learn-yang-full-tutorial-for-beginners/">тут</a> бравые парни из Австралии пишут свою модель. С этой работой будет полезно ознакомиться тем, кто хочет разобраться поглубже в языке YANG.</p>
+<p>На сегодняшний день многие вендоры поддерживают YANG-схему для своих NETCONF/gNMI-интерфейсов.</p>
+<p>Есть несколько мест, где их можно раздобыть:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/YangModels/yang/tree/master/vendor">Официальный репозиторий YANG</a>. Тут есть ссылки на гитхабы вендоров, которые публикуют свои модели.</p></li>
+<li><p>Но Huawei, например, хранит свои YANG-и в нескольких местах (<a class="reference external" href="https://github.com/Huawei/yang/">https://github.com/Huawei/yang/</a> и <a class="reference external" href="https://github.com/HuaweiDatacomm/yang">https://github.com/HuaweiDatacomm/yang</a>)</p></li>
+<li><p>Отдельно так же лежат схемы аристы: <a class="reference external" href="https://github.com/aristanetworks/yang">https://github.com/aristanetworks/yang</a></p></li>
+<li><p>Некоторые вендоры могут хранить их на своих сайтах.</p></li>
+</ul>
+<p>В общем, собираем с репы по коммиту.</p>
+<div class="line-block">
+<div class="line">Замечательная новость в том, что все коробки, заявляющие своё соответствие RFC6022 должны уметь возвращать всю YANG-схему по запросу с операцией <cite>&lt;get_schema&gt;</cite>.</div>
+<div class="line">Отвратительная новость в том, что не все вендоры эту операцию поддерживают.</div>
+</div>
+<div class="section" id="id6">
+<h3>Что нужно знать про YANG?<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="line-block">
+<div class="line">Это способ описать структуру данных, но не сами данные.</div>
+<div class="line">Сами данные могут быть представлены в любом формате, поддерживающем структуры: XML, JSON, Protobuf, объекты Python.</div>
+<div class="line">YANG придумывали не для того, чтобы решить общую задачу, он нацелен на конкретно NETCONF и конкретно XML-кодирование. Но его смогли присобачить и к другим интерфейсам.</div>
+</div>
+<p>Я бы взял на себя смелость сказать, что NETCONF/YANG - это как TCP/IP. То есть там и про NETCONF, и про YANG. Однако не только NETCONF.</p>
+<div class="line-block">
+<div class="line">Очевидно, YANG - огромная тема, которой будет тесно даже на страницах отдельной книги. В этой статье мне хотелось только приоткрыть первый её разворот, на котором ещё нет пугающих выкладок.</div>
+<div class="line">Возможно, когда-то, если я осознаю неизбежность его повсеместного проявления, я напишу отдельную огромную статью и о нём. А пока положим достаточным эти едва ли заметные тропинки.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="model-driven-programmability">
+<h1>Model Driven Programmability<a class="headerlink" href="#model-driven-programmability" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Так что же это такое? Ведомая моделью программируемость? Теперь, после двух статей, нам хватит пары минут, чтобы разобраться что это такое.</p>
+<p>Давайте вернёмся к <a class="reference external" href="https://linkmeup.ru/blog/1275/">4-й части АДСМ</a>, где я использовал позаимствованную у Дмитрия Тесля картинку.</p>
+<blockquote>
+<div><div class="figure align-default">
+<img alt="https://dteslya.engineer/images/2020-10-netdevops-pipeline.png" src="https://dteslya.engineer/images/2020-10-netdevops-pipeline.png" />
+</div>
+<p><em>`Источник: dteslya.engineer/network_automaiton_101 &lt;https://dteslya.engineer/network_automaiton_101/&gt;`_</em></p>
+</div></blockquote>
+<p>Она ведь очень понятная? Inventory, Git с шаблонами конфигурации, рендер, валидация, применение.</p>
+<div class="line-block">
+<div class="line">Где закопаны два мешка с человеко-неделями? Под шаблонами с генераторами и под системами применения конфигурации.</div>
+<div class="line">Со вторым пытаются бороться NETCONF, RESTCONF, gNMI.</div>
+<div class="line">А с первым - модели.</div>
+</div>
+<p>Проблема в том, что шаблоны мы составляем руками на основе изучения документации, интерфейса коробки и действуем методом проб и ошибок, вообще-то. Если нужна проверка типов, диапазонов, если меняется иерархия - будьте добры сами всё это написать и обработать. И, окончив, уехать в сумасшедший дом, учить друзей джинджа-программированию.</p>
+<p>Model Driven меняет картину следующим образом:</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/5/model-driven.png"><img alt="https://fs.linkmeup.ru/images/adsm/5/model-driven.png" src="https://fs.linkmeup.ru/images/adsm/5/model-driven.png" style="width: 800px;" /></a>
+</div>
+<p><em>Не могу найти, откуда брал эту картинку.</em></p>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Здесь шаблоны конфигурации заменяются на YANG-модель (в данном случае OpenConfig).</div>
+<div class="line">Из инвентарки (топологии) и этих моделей рендерится конфиг, который с помощью RPC (тут gRPC) прогружается на коробку.</div>
+</div>
+<p>Model Driven означает тут, что мы</p>
+<div class="line-block">
+<div class="line">А) не думаем (или думаем меньше) про иерархию, типы данных. Перестаём мыслить тегами XML.</div>
+<div class="line">Б) Модель определяет, как будет выглядеть конфигурация, как с ней работать.</div>
+<div class="line">В) Использование точно такой же модели на устройстве гарантирует, что отправленное нами, будет принято и валидно на той стороне, коль скоро оно валидно на этой.</div>
+</div>
+<div class="line-block">
+<div class="line">Иными словами именно модель управляет тем, как мы и железо будет работать с конфигурацией.</div>
+<div class="line">Вот и вся суть.</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, eucariot
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

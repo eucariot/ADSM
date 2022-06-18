@@ -1,0 +1,311 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ru" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>NETCONF &mdash; документация ADSM 0.1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
+    <link rel="search" title="Поиск" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ADSM
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ADSM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>NETCONF</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/5_history/netconf.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="netconf">
+<h1>NETCONF<a class="headerlink" href="#netconf" title="Ссылка на этот заголовок">¶</a></h1>
+<p><em>Сытые 0-е и по ныне</em></p>
+<p>Если вам по какой-то причине кажется, что стандарты рождаются где-то в недрах институтов, оторванных от жизни, то послушайте вот эту историю. Скорбно при этом помним про ISO.</p>
+<p>В 1996 выходец из Ксерокса Прадип Синдху и Скот Кринс из StrataCom, купленной Циской, основали Juniper Networks. Идея создания мощного пакетного маршрутизатора пришла в голову Синдху, и он стал CTO компании, а второго наняли на роль CEO.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/5/juniper-m40.jpeg"><img alt="https://fs.linkmeup.ru/images/adsm/5/juniper-m40.jpeg" src="https://fs.linkmeup.ru/images/adsm/5/juniper-m40.jpeg" style="width: 500px;" /></a>
+</div>
+<p><em>`Источник &lt;https://tofactorydefault.files.wordpress.com/2013/12/juniper-m40.jpg&gt;`_</em></p>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Вместе они создали легендарный М40 и лучший в мире интерфейс командной строки. До сих пор никто не сделал ничего лучшего - все только повторяют.</div>
+<div class="line">Операционка, предоставляющая клиенту обычный текстовый интерфейс, на самом деле перекладывает команды в XML, который используется для управления оборудованием.</div>
+</div>
+<p>Так вот, их CLI и способ взаимодействия его с системой оказался настолько естественным и удачным, что его и положили в основу стандарта NETCONF в 2006-м году. Не без участия Juniper Networks, конечно же, появился <a class="reference external" href="https://www.ietf.org/rfc/rfc4741.txt">RFC4741</a>. Будем честны, один только джунипер там и постарался в практической части. И то тут, то там будут проскакивать его куски, начиная с set и заканчивая candidate config.</p>
+<p>Вот как он был определён в нулевых:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Abstract
+The Network Configuration Protocol <span class="o">(</span>NETCONF<span class="o">)</span> defined in this document
+provides mechanisms to install, manipulate, and delete the
+configuration of network devices.  It uses an Extensible Markup
+Language <span class="o">(</span>XML<span class="o">)</span>-based data encoding <span class="k">for</span> the configuration data as well
+as the protocol messages.  The NETCONF protocol operations are
+realized on top of a simple Remote Procedure Call <span class="o">(</span>RPC<span class="o">)</span> layer.
+</pre></div>
+</div>
+</div></blockquote>
+<p>И определение с тех пор не менялось - вся суть NETCONF в этом параграфе.</p>
+<p>Но как так получилось, с чего началось? Да с того, что в начале 2000-х IAB проснулся в одно недоброе утро и осознал, что все планы по CMIP мир провалил, SNMP прорастил свои корни глубоко и перестал быть Simple, никто из вендоров так и не реализовал на 100% его поддержку, в самой аббревиатуре SNMP «M» вместо <em>«Management»</em> стала обозначать <em>«Monitoring»</em>, и к тому же единой модели данных конфигурации не получилось. Хуже того - появился этот выскочка Juniper, который везде суёт свой нос.</p>
+<p>В общем умники из IAB крепко призадумались. И собрались снова - на этот раз в офлайне 4-го июня 2002-го года в Рестоне (это в Штатах - любопытный городок - почитайте), чтобы <em>«продолжить важный диалог, начатый между операторами и протокол-девелоперами»</em>.</p>
+<p>Сели, похаяли SNMP, покекали с аббревиатур COPS, SPPI, PIB, CIM, MOF и записали это всё в –тик-ток– <a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc3535">RFC3535</a>.</p>
+<p>Выхлопом этой встречи стали 33 наблюдения и 8 рекомендаций. Среди них есть действительно важные, определившие наше настоящее.</p>
+<blockquote>
+<div><p>1. Программные интерфейсы должны предоставлять полное покрытие,
+иначе они не будут использоваться операторами, поскольку они
+будут вынуждены использовать CLI.
+5. Необходимо строго разделение между конфигурационными и операционными
+данными
+8. Необходимо иметь возможность выгрузить и загрузить конфигурацию
+в текстовом формате в единообразной манере между семи вендорами
+и типами устройства
+9. Желательно иметь механизм доставки конфигурации в условиях
+транзакционных ограничений.
+14. Необходимо, чтобы устройства поддерживали как программный,
+так и пользовательский интерфейс
+15. Внутренние операции на устройстве должны быть одинаковы
+как для программного, так и для пользовательского интерфейсов.
+26. Должна быть возможность произвести операцию над указанной секцией
+конфигурации.
+27. Должна быть возможность выяснить возможности устройства
+28. Необходимы безопасный транспорт, механизмы аутентификации
+и авторизации, поддерживаемые текущей инфраструктурой.
+30. Полная конфигурация устройства должна быть применима через один
+протокол.</p>
+</div></blockquote>
+<p>Часть из них мы воспринимаем сегодня как самоочевидное, мол, а как вы ещё иначе могли бы такое сделать? Но это не воспринималось так тогда. Просто вспомним как устроен SNMP :)</p>
+<p>А ещё были явно полезные рекомендации:</p>
+<ul class="simple">
+<li><p>Рабочее совещание рекомендует прекратить форсить рабочие группы предоставлять конфигурационные MIB’ы</p></li>
+<li><p>Рабочее совещание рекомендует не тратить время на CIM, COPS-PR, SPPI PIB</p></li>
+</ul>
+<p>В общем-то какие претензии к SNMP и его компании заставили уважаемых людей собраться на три дня?</p>
+<ul class="simple">
+<li><p>Проблемы масштабирования. Забирать большие объёмы данных с большого количества устройств он не был рассчитан.</p></li>
+<li><p>Транзакционность изменений на устройстве, и тем более на сети, должна была поддерживаться не протоколом и устройством, а системой инструментов.</p></li>
+<li><p>Откат также лежал на инструментах.</p></li>
+<li><p>Writable MIB не покрывали большей части задач по настройке устройства.</p></li>
+<li><p>Весь этот куст OID’ов был крайне сложночитаем для человека. Понять, что произойдёт после работы скрипта было очень сложно. <em>Сколькие из вас отчаялись, пытаясь его понять?</em></p></li>
+<li><p>Не было никакого инструмента, который позволял бы повторно выполнить те же действия идемпотентно на этом же устройстве или на другом.</p></li>
+<li><p>Контроль состояния тоже отсутствовал.</p></li>
+</ul>
+<div class="line-block">
+<div class="line">В итоге протокол, призванный решать вопрос автоматизации, не особо-то для этого подходил.</div>
+<div class="line">Короткий итог встречи: IETF всё это время что-то там придумывал, разрабатывал, чтобы сделать жизнь операторов проще, а те не будь дураками, пришли и наконец сказали, что, мол, вы тут штаны просиживаете, а ничего полезного для нас не делаете, а делаете вы бесполезное! И ISO туда же!</div>
+</div>
+<div class="line-block">
+<div class="line">И в этот момент Juniper из-за угла приоткрывает полу своего XML-API.</div>
+<div class="line">И он оказывается настолько более лаконичным (это XML-то!) и удобным, что рабочая группа внезапно решает принять его концепции в качестве стандарта <a href="#id1"><span class="problematic" id="id2">**</span></a>NET**work <a href="#id3"><span class="problematic" id="id4">**</span></a>CONF**iguration protocol - <a class="reference external" href="https://www.ietf.org/rfc/rfc4741.txt">RFC4741</a>. Упор на Configuration в названии - это, видимо, гиперкомпенсация отсутствия режима конфигурации в SNMP.</div>
+</div>
+<p>Вот так в итоге скромно упомянут джунипер в этом RFC:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>In the late 1990&#39;s, some vendors started to use the Extensible Markup
+Language (XML) [XML] for describing device configurations and for
+protocols that can be used to retrieve and manipulate XML formatted
+configurations.
+</pre></div>
+</div>
+</div></blockquote>
+<p>А через 5 лет, в  2011, исправленное и дополненное издание вышло под номером <a class="reference external" href="https://www.ietf.org/rfc/rfc6241.txt">RFC6241</a>. Там уже потрудились несколько университетов и компаний. Одной из них стала восходящая звезда сетевой автоматизации Tail-f, купленная и погубленная в 2014-м году циской. Нет, формально она, конечно, осталась внутри как отдельный Business Unit, но в большой мир они отсвечиваюь теперь только Cisco NSO, хотя могли бы приносить большую пользу. Впрочем, может, я зря наговариваю? Надо будет потрогать его.</p>
+<p>И вот в операторские сети на белом коне въезжает NETCONF.</p>
+<ul class="simple">
+<li><p>Работает по SSH (и не только),</p></li>
+<li><p>Представляет данные в структурированном виде,</p></li>
+<li><p>Разделяет конфигурационные и операционные данные,</p></li>
+<li><p>Имеет несколько операций над данными: create, merge, replace, delete, remove,</p></li>
+<li><p>Может обеспечить контроль целевого состояния конфигурации,</p></li>
+<li><p>Поддерживает концепцию нескольких версий конфигурации (datastores),</p></li>
+<li><p>Может поддерживать commit конфигурации. Обеспечивает транзакционность,</p></li>
+<li><p>И вообще красавчик.</p></li>
+</ul>
+<div class="line-block">
+<div class="line">Причём Juniper его поддерживает с нулевого дня. И в полной мере, потому что для него это максимально естественно - это и есть его API.</div>
+<div class="line">А вот внутренний API той же Циски или Хуавэя не ложится так гладко на XML и какую-либо простую схему. Для них поддержка NETCONF - это большая работа, которую они выполняют с переменным успехом. Коммиты, операция <em>replace</em> - это всё даётся тяжело. А именно в них вся сила.</div>
+<div class="line"><strong>Datastores</strong> - это различные версии конфигурации на устройстве: <cite>running</cite>, <cite>candidate</cite>, <cite>saved</cite> и, возможно, другие. Они позволяют не менять на лету работающую конфигурацию.</div>
+<div class="line"><strong>Commit</strong> обеспечивает три буквы <strong>ACID</strong> - <em>Атомарность</em>, <em>Консистентность</em> и <em>Изолированность</em>.</div>
+</div>
+<div class="line-block">
+<div class="line"><strong>Операция Replace</strong> - мощнейшая штука - позволяет заменять всю или часть конфигурации на новую.</div>
+<div class="line">Мы привыкли, что в CLI нам нужно сформировать список команд, добавляющих новую конфигурацию, и команд - удаляющих старую - ненужную. Довольно простая операция для человека, но чудовищно сложная для автоматики. Мы настолько привыкли, что это даже не вызывает раздражения у нас.</div>
+<div class="line">А с NETCONF replace - мы просто суём ту конфигурацию, которую хотели бы видеть, а коробка сама считает, что нужно сделать, чтобы к ней прийти из текущего состояния. Это и есть тот самый декларативный путь, к которому мы так стремимся.</div>
+</div>
+<div class="line-block">
+<div class="line">Для работы с NETCONF есть библиотеки для питона (и синхронные, и асинхронные), для го, плагины для Ансибл.</div>
+<div class="line">Вроде бы всё - бери и пользуйся. Но не все производители его поддерживают. И совсем немногие поддерживают его в полной мере. Где-то нельзя настроить DHCP-Relay, где-то нет секций IPv6-vpn AF в BGP, где-то <cite>replace</cite> не поддерживается или поддерживается, но работает через delete/create - ух, неспасибо за это.</div>
+<div class="line">В итоге пара пунктов из вышеупомянутого <a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc3535">RFC3535</a> нарушены: не всё можно настроить через этот новый протокол, а для настройки всех возможных функций нужен как минимум CLI.</div>
+</div>
+<p>Но своё место NETCONF уже прочно занял и будет дальше только расширять и углублять. Несколько вендоров действительно его поддерживают в полной мере. А на других точечные операции всё равно многократно удобнее через программный интерфейс со структурированными данными выполнять. Плюс своё давление оказывают крупные заказчики, требующие его поддержки.</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, eucariot
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

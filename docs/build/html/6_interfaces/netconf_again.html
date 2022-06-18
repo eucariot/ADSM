@@ -1,0 +1,1340 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ru" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>NETCONF Again &mdash; документация ADSM 0.1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
+    <link rel="search" title="Поиск" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ADSM
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ADSM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>NETCONF Again</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/6_interfaces/netconf_again.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="netconf-again">
+<h1>NETCONF Again<a class="headerlink" href="#netconf-again" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="line-block">
+<div class="line">И вот теперь время взглянуть на операции NETCONF и попрактиковаться.</div>
+<div class="line">Один из принципов NETCONF - это отделение конфигурационных данных от операционных.</div>
+<div class="line">Поэтому отдельными операциями он позволяет управлять конфигурацией, а отдельными - забирать информацию о состоянии.</div>
+<div class="line">Вот базовый неполный список операций NETCONF:</div>
+</div>
+<ul class="simple">
+<li><p>&amp;lt;get&amp;gt;</p></li>
+<li><p>&amp;lt;get-config&amp;gt;</p></li>
+<li><p>&amp;lt;edit-config&amp;gt;</p></li>
+<li><p>&amp;lt;copy-config&amp;gt;</p></li>
+<li><p>&amp;lt;delete-config&amp;gt;</p></li>
+<li><p>&amp;lt;lock&amp;gt;</p></li>
+<li><p>&amp;lt;unlock&amp;gt;</p></li>
+<li><p>&amp;lt;close-session&amp;gt;</p></li>
+<li><p>&amp;lt;kill-session&amp;gt;</p></li>
+</ul>
+<p>Но зачастую вендоры определяют свои собственные операции.</p>
+<div class="section" id="id1">
+<h2>Действия, операции<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="lt-get-gt">
+<h3>&amp;lt;get&amp;gt;<a class="headerlink" href="#lt-get-gt" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="line-block">
+<div class="line">Эта операция возвращает текущие (running) операционные и конфигурационные данные.</div>
+<div class="line">Выполните просто</div>
+</div>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;get/&gt;</span>
+<span class="nt">&lt;/rpc&gt;</span>
+]]&gt;]]&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">И в ответ получите несколько экранов XML.</div>
+<div class="line">Ответ приходит в <cite>&lt;rpc-reply&gt;</cite>. В случае ошибки внутри <cite>&lt;rpc-reply&gt;</cite> сервер вернёт <cite>&lt;rpc-error&gt;</cite> с текстом ошибки.</div>
+<div class="line">Для получения ошибки можно просто сформировать некорректный XML.</div>
+<div class="line">Например, забудем закрывающий тег <cite>&lt;/get&gt;</cite>:</div>
+</div>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;get&gt;</span>
+<span class="nt">&lt;/rpc&gt;</span>
+]]&gt;]]&gt;
+<span class="nt">&lt;rpc-reply</span> <span class="na">xmlns:junos=</span><span class="s">&quot;http://xml.juniper.net/junos/14.1R1/junos&quot;</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;rpc-error&gt;</span>
+<span class="nt">&lt;error-type&gt;</span>protocol<span class="nt">&lt;/error-type&gt;</span>
+<span class="nt">&lt;error-tag&gt;</span>operation-failed<span class="nt">&lt;/error-tag&gt;</span>
+<span class="nt">&lt;error-severity&gt;</span>error<span class="nt">&lt;/error-severity&gt;</span>
+<span class="nt">&lt;error-message&gt;</span>syntax error, expecting <span class="ni">&amp;lt;</span>filter<span class="ni">&amp;gt;</span> or <span class="ni">&amp;lt;</span>/get<span class="ni">&amp;gt;</span><span class="nt">&lt;/error-message&gt;</span>
+<span class="nt">&lt;error-info&gt;</span>
+<span class="nt">&lt;bad-element&gt;</span>interfaces<span class="nt">&lt;/bad-element&gt;</span>
+<span class="nt">&lt;/error-info&gt;</span>
+<span class="nt">&lt;/rpc-error&gt;</span>
+<span class="nt">&lt;/rpc-reply&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Или запросить несуществующую ветку:</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;get&gt;</span>
+    <span class="nt">&lt;interfaces/&gt;</span>
+  <span class="nt">&lt;/get&gt;</span>
+<span class="nt">&lt;/rpc&gt;</span>
+]]&gt;]]&gt;
+
+<span class="nt">&lt;rpc-reply</span> <span class="na">xmlns:junos=</span><span class="s">&quot;http://xml.juniper.net/junos/14.1R1/junos&quot;</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;rpc-error&gt;</span>
+<span class="nt">&lt;error-type&gt;</span>protocol<span class="nt">&lt;/error-type&gt;</span>
+<span class="nt">&lt;error-tag&gt;</span>operation-failed<span class="nt">&lt;/error-tag&gt;</span>
+<span class="nt">&lt;error-severity&gt;</span>error<span class="nt">&lt;/error-severity&gt;</span>
+<span class="nt">&lt;error-message&gt;</span>syntax error, expecting <span class="ni">&amp;lt;</span>filter<span class="ni">&amp;gt;</span> or <span class="ni">&amp;lt;</span>/get<span class="ni">&amp;gt;</span><span class="nt">&lt;/error-message&gt;</span>
+<span class="nt">&lt;error-info&gt;</span>
+<span class="nt">&lt;bad-element&gt;</span>interfaces<span class="nt">&lt;/bad-element&gt;</span>
+<span class="nt">&lt;/error-info&gt;</span>
+<span class="nt">&lt;/rpc-error&gt;</span>
+<span class="nt">&lt;/rpc-reply&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">В зависимости от вендора в ответе на <cite>&lt;get&gt;</cite> будет содержаться либо вообще всё, что вам может дать устройство - полный конфиг и вся информацию по состоянию, либо какую-то часть.</div>
+<div class="line">Так, Juniper возвращается конфиг и совсем немного данных сверху. Для того, чтобы забрать операционные данные нужно использовать специальные операции, например <cite>&lt;get-interface-information&gt;</cite>:</div>
+</div>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc&gt;</span>
+    <span class="nt">&lt;get-interface-information/&gt;</span>
+<span class="nt">&lt;/rpc&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Вот такой будет ответ: <a class="reference external" href="https://pastebin.com/2xTpuSi3">https://pastebin.com/2xTpuSi3</a>.</p>
+<blockquote>
+<div><p>Этому, кстати, сложно найти объяснение. Довольно неудобно для каждой ветки операционных данных иметь собственный RPC. И более того, непонятно как это вообще описывается в моделях данных.</p>
+</div></blockquote>
+<p>Очевидно, это не всегда (никогда) удобно. Хотелось бы пофильтровать данные. NETCONF позволяет не просто отфильтровать результат, а указать NETCONF-серверу, какую именно часть клиент желает запросить. Для этого используется элемент <cite>&lt;filter&gt;</cite>.</p>
+</div>
+<div class="section" id="lt-filter-gt">
+<h3>&amp;lt;filter&amp;gt;<a class="headerlink" href="#lt-filter-gt" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="line-block">
+<div class="line">С его помощью можно указать какую именно часть информации вы хотите получить. Можно указывать атрибут фильтрации, поддерживаются subtree и xpath.</div>
+<div class="line">По умолчанию используется subtree, но обычно его задают явно, дабы избежать двусмысленности.</div>
+</div>
+<div class="line-block">
+<div class="line">Давайте на примере get пофильтруем ответ.</div>
+<div class="line">Без фильтра совсем данные вернутся полностью.</div>
+</div>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;get/&gt;</span>
+<span class="nt">&lt;/rpc&gt;</span>
+]]&gt;]]&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p>Вот такой будет ответ: <a class="reference external" href="https://pastebin.com/MMWXM2eT">https://pastebin.com/MMWXM2eT</a>.</p>
+<p>С пустым фильтром не вернётся никаких данных.</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;get&gt;</span>
+   <span class="nt">&lt;filter</span> <span class="na">type=</span><span class="s">&quot;subtree&quot;</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;/filter&gt;</span>
+  <span class="nt">&lt;/get&gt;</span>
+<span class="nt">&lt;/rpc&gt;</span>
+]]&gt;]]&gt;
+
+<span class="nt">&lt;rpc-reply</span> <span class="na">xmlns:junos=</span><span class="s">&quot;http://xml.juniper.net/junos/14.1R1/junos&quot;</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;data&gt;</span>
+<span class="nt">&lt;database-status-information&gt;</span>
+<span class="nt">&lt;database-status&gt;</span>
+<span class="nt">&lt;user&gt;</span>eucariot<span class="nt">&lt;/user&gt;</span>
+<span class="nt">&lt;terminal&gt;&lt;/terminal&gt;</span>
+<span class="nt">&lt;pid&gt;</span>31101<span class="nt">&lt;/pid&gt;</span>
+<span class="nt">&lt;start-time</span> <span class="na">junos:seconds=</span><span class="s">&quot;1644636396&quot;</span><span class="nt">&gt;</span>2022-02-12 03:26:36 UTC<span class="nt">&lt;/start-time&gt;</span>
+<span class="nt">&lt;edit-path&gt;&lt;/edit-path&gt;</span>
+<span class="nt">&lt;/database-status&gt;</span>
+<span class="nt">&lt;/database-status-information&gt;</span>
+<span class="nt">&lt;/data&gt;</span>
+<span class="nt">&lt;/rpc-reply&gt;</span>
+]]&gt;]]&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p>Вот таким запросом можно вытащить операционные данные по всем интерфейсам</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;get&gt;</span>
+   <span class="nt">&lt;filter</span> <span class="na">type=</span><span class="s">&quot;subtree&quot;</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;configuration&gt;</span>
+       <span class="nt">&lt;interfaces/&gt;</span>
+     <span class="nt">&lt;/configuration&gt;</span>
+   <span class="nt">&lt;/filter&gt;</span>
+  <span class="nt">&lt;/get&gt;</span>
+<span class="nt">&lt;/rpc&gt;</span>
+]]&gt;]]&gt;
+
+<span class="nt">&lt;rpc-reply</span> <span class="na">xmlns:junos=</span><span class="s">&quot;http://xml.juniper.net/junos/14.1R1/junos&quot;</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;data&gt;</span>
+<span class="nt">&lt;configuration</span> <span class="na">xmlns=</span><span class="s">&quot;http://xml.juniper.net/xnm/1.1/xnm&quot;</span> <span class="na">junos:changed-seconds=</span><span class="s">&quot;1644510087&quot;</span> <span class="na">junos:changed-localtime=</span><span class="s">&quot;2022-02-10 16:21:27 UTC&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;interfaces&gt;</span>
+        <span class="nt">&lt;interface&gt;</span>
+            <span class="nt">&lt;name&gt;</span>ge-0/0/0<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;unit&gt;</span>
+                       <span class="nt">&lt;name&gt;</span>0<span class="nt">&lt;/name&gt;</span>
+                       <span class="nt">&lt;family&gt;</span>
+                    <span class="nt">&lt;inet&gt;</span>
+                               <span class="nt">&lt;address&gt;</span>
+                            <span class="nt">&lt;name&gt;</span>169.254.0.1/31<span class="nt">&lt;/name&gt;</span>
+                               <span class="nt">&lt;/address&gt;</span>
+                    <span class="nt">&lt;/inet&gt;</span>
+                       <span class="nt">&lt;/family&gt;</span>
+            <span class="nt">&lt;/unit&gt;</span>
+        <span class="nt">&lt;/interface&gt;</span>
+        <span class="nt">&lt;interface&gt;</span>
+            <span class="nt">&lt;name&gt;</span>ge-0/0/2<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;unit&gt;</span>
+                       <span class="nt">&lt;name&gt;</span>0<span class="nt">&lt;/name&gt;</span>
+                       <span class="nt">&lt;family&gt;</span>
+                    <span class="nt">&lt;inet&gt;</span>
+                               <span class="nt">&lt;address&gt;</span>
+                            <span class="nt">&lt;name&gt;</span>169.254.100.1/31<span class="nt">&lt;/name&gt;</span>
+                               <span class="nt">&lt;/address&gt;</span>
+                    <span class="nt">&lt;/inet&gt;</span>
+                       <span class="nt">&lt;/family&gt;</span>
+            <span class="nt">&lt;/unit&gt;</span>
+        <span class="nt">&lt;/interface&gt;</span>
+        <span class="nt">&lt;interface&gt;</span>
+            <span class="nt">&lt;name&gt;</span>em0<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;unit&gt;</span>
+                       <span class="nt">&lt;name&gt;</span>0<span class="nt">&lt;/name&gt;</span>
+                       <span class="nt">&lt;family&gt;</span>
+                    <span class="nt">&lt;inet&gt;</span>
+                               <span class="nt">&lt;address&gt;</span>
+                            <span class="nt">&lt;name&gt;</span>192.168.1.2/24<span class="nt">&lt;/name&gt;</span>
+                               <span class="nt">&lt;/address&gt;</span>
+                    <span class="nt">&lt;/inet&gt;</span>
+                       <span class="nt">&lt;/family&gt;</span>
+            <span class="nt">&lt;/unit&gt;</span>
+        <span class="nt">&lt;/interface&gt;</span>
+    <span class="nt">&lt;/interfaces&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+<span class="nt">&lt;database-status-information&gt;</span>
+<span class="nt">&lt;database-status&gt;</span>
+<span class="nt">&lt;user&gt;</span>eucariot<span class="nt">&lt;/user&gt;</span>
+<span class="nt">&lt;terminal&gt;&lt;/terminal&gt;</span>
+<span class="nt">&lt;pid&gt;</span>31101<span class="nt">&lt;/pid&gt;</span>
+<span class="nt">&lt;start-time</span> <span class="na">junos:seconds=</span><span class="s">&quot;1644636721&quot;</span><span class="nt">&gt;</span>2022-02-12 03:32:01 UTC<span class="nt">&lt;/start-time&gt;</span>
+<span class="nt">&lt;edit-path&gt;&lt;/edit-path&gt;</span>
+<span class="nt">&lt;/database-status&gt;</span>
+<span class="nt">&lt;/database-status-information&gt;</span>
+<span class="nt">&lt;/data&gt;</span>
+<span class="nt">&lt;/rpc-reply&gt;</span>
+]]&gt;]]&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p>Если вы хотите выбрать не все элементы дерева, а только интересующую вас часть, то можно указать, какие именно нужны:</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;get&gt;</span>
+   <span class="nt">&lt;filter</span> <span class="na">type=</span><span class="s">&quot;subtree&quot;</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;configuration&gt;</span>
+       <span class="nt">&lt;interfaces&gt;</span>
+         <span class="nt">&lt;interface&gt;</span>
+           <span class="nt">&lt;name/&gt;</span>
+           <span class="nt">&lt;description/&gt;</span>
+         <span class="nt">&lt;/interface&gt;</span>
+       <span class="nt">&lt;/interfaces&gt;</span>
+     <span class="nt">&lt;/configuration&gt;</span>
+   <span class="nt">&lt;/filter&gt;</span>
+  <span class="nt">&lt;/get&gt;</span>
+<span class="nt">&lt;/rpc&gt;</span>
+]]&gt;]]&gt;
+
+<span class="nt">&lt;rpc-reply</span> <span class="na">xmlns:junos=</span><span class="s">&quot;http://xml.juniper.net/junos/14.1R1/junos&quot;</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;data&gt;</span>
+<span class="nt">&lt;configuration</span> <span class="na">xmlns=</span><span class="s">&quot;http://xml.juniper.net/xnm/1.1/xnm&quot;</span> <span class="na">junos:changed-seconds=</span><span class="s">&quot;1644637011&quot;</span> <span class="na">junos:changed-localtime=</span><span class="s">&quot;2022-02-12 03:36:51 UTC&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;interfaces&gt;</span>
+        <span class="nt">&lt;interface&gt;</span>
+            <span class="nt">&lt;name&gt;</span>ge-0/0/0<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;description&gt;</span>kzn-leaf-0<span class="nt">&lt;/description&gt;</span>
+        <span class="nt">&lt;/interface&gt;</span>
+        <span class="nt">&lt;interface&gt;</span>
+            <span class="nt">&lt;name&gt;</span>ge-0/0/2<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;description&gt;</span>kzn-edge-0<span class="nt">&lt;/description&gt;</span>
+        <span class="nt">&lt;/interface&gt;</span>
+        <span class="nt">&lt;interface&gt;</span>
+            <span class="nt">&lt;name&gt;</span>em0<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;description&gt;</span>mgmt-switch<span class="nt">&lt;/description&gt;</span>
+        <span class="nt">&lt;/interface&gt;</span>
+    <span class="nt">&lt;/interfaces&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+<span class="nt">&lt;database-status-information&gt;</span>
+<span class="nt">&lt;database-status&gt;</span>
+<span class="nt">&lt;user&gt;</span>eucariot<span class="nt">&lt;/user&gt;</span>
+<span class="nt">&lt;terminal&gt;&lt;/terminal&gt;</span>
+<span class="nt">&lt;pid&gt;</span>31316<span class="nt">&lt;/pid&gt;</span>
+<span class="nt">&lt;start-time</span> <span class="na">junos:seconds=</span><span class="s">&quot;1644637103&quot;</span><span class="nt">&gt;</span>2022-02-12 03:38:23 UTC<span class="nt">&lt;/start-time&gt;</span>
+<span class="nt">&lt;edit-path&gt;&lt;/edit-path&gt;</span>
+<span class="nt">&lt;/database-status&gt;</span>
+<span class="nt">&lt;/database-status-information&gt;</span>
+<span class="nt">&lt;/data&gt;</span>
+<span class="nt">&lt;/rpc-reply&gt;</span>
+]]&gt;]]&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p>При этом если хочется забрать данные только по конкретному интерфейсу:</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;get&gt;</span>
+   <span class="nt">&lt;filter</span> <span class="na">type=</span><span class="s">&quot;subtree&quot;</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;configuration&gt;</span>
+       <span class="nt">&lt;interfaces&gt;</span>
+         <span class="nt">&lt;interface&gt;</span>
+           <span class="nt">&lt;name&gt;</span>ge-0/0/0<span class="nt">&lt;/name&gt;</span>
+         <span class="nt">&lt;/interface&gt;</span>
+       <span class="nt">&lt;/interfaces&gt;</span>
+     <span class="nt">&lt;/configuration&gt;</span>
+   <span class="nt">&lt;/filter&gt;</span>
+  <span class="nt">&lt;/get&gt;</span>
+<span class="nt">&lt;/rpc&gt;</span>
+]]&gt;]]&gt;
+
+
+<span class="nt">&lt;rpc-reply</span> <span class="na">xmlns:junos=</span><span class="s">&quot;http://xml.juniper.net/junos/14.1R1/junos&quot;</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;data&gt;</span>
+<span class="nt">&lt;configuration</span> <span class="na">xmlns=</span><span class="s">&quot;http://xml.juniper.net/xnm/1.1/xnm&quot;</span> <span class="na">junos:changed-seconds=</span><span class="s">&quot;1644637011&quot;</span> <span class="na">junos:changed-localtime=</span><span class="s">&quot;2022-02-12 03:36:51 UTC&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;interfaces&gt;</span>
+        <span class="nt">&lt;interface&gt;</span>
+            <span class="nt">&lt;name&gt;</span>ge-0/0/0<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;description&gt;</span>kzn-leaf-0<span class="nt">&lt;/description&gt;</span>
+            <span class="nt">&lt;unit&gt;</span>
+                       <span class="nt">&lt;name&gt;</span>0<span class="nt">&lt;/name&gt;</span>
+                       <span class="nt">&lt;family&gt;</span>
+                    <span class="nt">&lt;inet&gt;</span>
+                               <span class="nt">&lt;address&gt;</span>
+                            <span class="nt">&lt;name&gt;</span>169.254.0.1/31<span class="nt">&lt;/name&gt;</span>
+                               <span class="nt">&lt;/address&gt;</span>
+                    <span class="nt">&lt;/inet&gt;</span>
+                       <span class="nt">&lt;/family&gt;</span>
+            <span class="nt">&lt;/unit&gt;</span>
+        <span class="nt">&lt;/interface&gt;</span>
+    <span class="nt">&lt;/interfaces&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+<span class="nt">&lt;database-status-information&gt;</span>
+<span class="nt">&lt;database-status&gt;</span>
+<span class="nt">&lt;user&gt;</span>eucariot<span class="nt">&lt;/user&gt;</span>
+<span class="nt">&lt;terminal&gt;&lt;/terminal&gt;</span>
+<span class="nt">&lt;pid&gt;</span>31316<span class="nt">&lt;/pid&gt;</span>
+<span class="nt">&lt;start-time</span> <span class="na">junos:seconds=</span><span class="s">&quot;1644637321&quot;</span><span class="nt">&gt;</span>2022-02-12 03:42:01 UTC<span class="nt">&lt;/start-time&gt;</span>
+<span class="nt">&lt;edit-path&gt;&lt;/edit-path&gt;</span>
+<span class="nt">&lt;/database-status&gt;</span>
+<span class="nt">&lt;/database-status-information&gt;</span>
+<span class="nt">&lt;/data&gt;</span>
+<span class="nt">&lt;/rpc-reply&gt;</span>
+]]&gt;]]&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Соответственно можно совместить запрос конкретного интерфейса и только тех его полей, которые интересны.</div>
+<div class="line">В одном get-запросе можно выбрать несколько удовлетворяющих деревьев.</div>
+</div>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;get&gt;</span>
+   <span class="nt">&lt;filter</span> <span class="na">type=</span><span class="s">&quot;subtree&quot;</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;configuration&gt;</span>
+       <span class="nt">&lt;interfaces&gt;</span>
+         <span class="nt">&lt;interface&gt;</span>
+           <span class="nt">&lt;name&gt;</span>ge-0/0/0<span class="nt">&lt;/name&gt;</span>
+           <span class="nt">&lt;description/&gt;</span>
+         <span class="nt">&lt;/interface&gt;</span>
+       <span class="nt">&lt;/interfaces&gt;</span>
+     <span class="nt">&lt;/configuration&gt;</span>
+   <span class="nt">&lt;/filter&gt;</span>
+  <span class="nt">&lt;/get&gt;</span>
+<span class="nt">&lt;/rpc&gt;</span>
+]]&gt;]]&gt;
+
+<span class="nt">&lt;rpc-reply</span> <span class="na">xmlns:junos=</span><span class="s">&quot;http://xml.juniper.net/junos/14.1R1/junos&quot;</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;data&gt;</span>
+<span class="nt">&lt;configuration</span> <span class="na">xmlns=</span><span class="s">&quot;http://xml.juniper.net/xnm/1.1/xnm&quot;</span> <span class="na">junos:changed-seconds=</span><span class="s">&quot;1644637011&quot;</span> <span class="na">junos:changed-localtime=</span><span class="s">&quot;2022-02-12 03:36:51 UTC&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;interfaces&gt;</span>
+        <span class="nt">&lt;interface&gt;</span>
+            <span class="nt">&lt;name&gt;</span>ge-0/0/0<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;description&gt;</span>kzn-leaf-0<span class="nt">&lt;/description&gt;</span>
+        <span class="nt">&lt;/interface&gt;</span>
+    <span class="nt">&lt;/interfaces&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+<span class="nt">&lt;database-status-information&gt;</span>
+<span class="nt">&lt;database-status&gt;</span>
+<span class="nt">&lt;user&gt;</span>eucariot<span class="nt">&lt;/user&gt;</span>
+<span class="nt">&lt;terminal&gt;&lt;/terminal&gt;</span>
+<span class="nt">&lt;pid&gt;</span>31316<span class="nt">&lt;/pid&gt;</span>
+<span class="nt">&lt;start-time</span> <span class="na">junos:seconds=</span><span class="s">&quot;1644637396&quot;</span><span class="nt">&gt;</span>2022-02-12 03:43:16 UTC<span class="nt">&lt;/start-time&gt;</span>
+<span class="nt">&lt;edit-path&gt;&lt;/edit-path&gt;</span>
+<span class="nt">&lt;/database-status&gt;</span>
+<span class="nt">&lt;/database-status-information&gt;</span>
+<span class="nt">&lt;/data&gt;</span>
+<span class="nt">&lt;/rpc-reply&gt;</span>
+]]&gt;]]&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p>Ещё немного про <a class="reference external" href="https://netdevops.me/2020/netconf-subtree-filtering-by-example/">subtree filtering</a>.</p>
+<div class="line-block">
+<div class="line">В случае Juniper <cite>&lt;get&gt;</cite> ничем практически не отличается от <cite>&lt;get-config&gt;</cite>. Для того, чтобы забрать операционные данные, нужно воспользоваться другими операциями - специфическими под каждую задачу.</div>
+<div class="line">Узнать их можно достаточно просто:</div>
+<div class="line"><cite>show version | display xml rpc</cite></div>
+</div>
+<div class="line-block">
+<div class="line">С помощью операций <cite>&lt;get&gt;</cite> удобно забирать операционные данные с устройства. Например, для мониторинга. Или для отладки. Можно выбрать всех BGP-соседей в состоянии Idle, или все интерфейсы с ошибками, данные по маршрутам.</div>
+<div class="line">Да, понятно, что для всего этого есть и более удобные способы, но всё же такой путь есть.</div>
+</div>
+</div>
+<div class="section" id="lt-get-config-gt">
+<h3>&amp;lt;get-config&amp;gt;<a class="headerlink" href="#lt-get-config-gt" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="line-block">
+<div class="line">Позволяет забрать конфигурацию устройства.</div>
+<div class="line">Могло показаться, что <cite>&lt;get-config&gt;</cite> - это поддерево <cite>&lt;get&gt;</cite>, но это всё-таки не так.</div>
+</div>
+<p>С помощью <cite>&lt;get-config&gt;</cite> можно указать из какого источника мы хотим получить конфигу - <cite>running</cite>, <cite>candidate</cite>, startup итд.</p>
+<div class="line-block">
+<div class="line">Ну и можно быть уверенным, что в ответе будут только конфигурационные данные.</div>
+<div class="line">Хотя по своему опыту вам скажу, что вендоры тут могут отличаться изобретательностью, подмешивая оперданные к конфиге.</div>
+</div>
+<p>Забираем текущий конфиг:</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;get-config&gt;</span>
+   <span class="nt">&lt;source&gt;</span>
+     <span class="nt">&lt;running/&gt;</span>
+   <span class="nt">&lt;/source&gt;</span>
+  <span class="nt">&lt;/get-config&gt;</span>
+<span class="nt">&lt;/rpc&gt;</span>
+]]&gt;]]&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p><cite>&lt;get-config&gt;</cite> так же, как и <cite>&lt;get&gt;</cite> позволяет использовать элемент <cite>&lt;filter&gt;</cite>. Например:</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;get-config&gt;</span>
+   <span class="nt">&lt;source&gt;</span>
+     <span class="nt">&lt;running/&gt;</span>
+   <span class="nt">&lt;/source&gt;</span>
+   <span class="nt">&lt;filter</span> <span class="na">type=</span><span class="s">&quot;subtree&quot;</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;configuration&gt;</span>
+       <span class="nt">&lt;system&gt;</span>
+          <span class="nt">&lt;host-name/&gt;</span>
+       <span class="nt">&lt;/system&gt;</span>
+     <span class="nt">&lt;/configuration&gt;</span>
+   <span class="nt">&lt;/filter&gt;</span>
+  <span class="nt">&lt;/get-config&gt;</span>
+<span class="nt">&lt;/rpc&gt;</span>
+]]&gt;]]&gt;
+
+<span class="nt">&lt;rpc-reply</span> <span class="na">xmlns:junos=</span><span class="s">&quot;http://xml.juniper.net/junos/14.1R1/junos&quot;</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;data&gt;</span>
+<span class="nt">&lt;configuration</span> <span class="na">xmlns=</span><span class="s">&quot;http://xml.juniper.net/xnm/1.1/xnm&quot;</span> <span class="na">junos:commit-seconds=</span><span class="s">&quot;1644637011&quot;</span> <span class="na">junos:commit-localtime=</span><span class="s">&quot;2022-02-12 03:36:51 UTC&quot;</span> <span class="na">junos:commit-user=</span><span class="s">&quot;eucariot&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;system&gt;</span>
+        <span class="nt">&lt;host-name&gt;</span>kzn-spine-0<span class="nt">&lt;/host-name&gt;</span>
+    <span class="nt">&lt;/system&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+<span class="nt">&lt;/data&gt;</span>
+<span class="nt">&lt;/rpc-reply&gt;</span>
+]]&gt;]]&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p>В запросе самые внимательные обратили внимание на элемент <cite>&lt;source&gt;</cite>.</p>
+</div>
+<div class="section" id="configuration-datastores">
+<h3>Configuration Datastores<a class="headerlink" href="#configuration-datastores" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="line-block">
+<div class="line">Это место для хранения полной конфигурации. Хотя слово «хранения», возможно, и не очень точное. Обязательным!! является только <cite>&lt;running&gt;</cite> - это текущая актуальная конфигурация.</div>
+<div class="line">В зависимости от вендора и поддерживаемых капабилитей могут быть так же <cite>&lt;candidate&gt;</cite>, <cite>&lt;startup&gt;</cite> и какие-то другие.</div>
+</div>
+<p>Соответственно запросить конфигурацию можно из разных Datastores при их наличии, указывая соответствующий элемент внутри <cite>&lt;source&gt;</cite>.</p>
+<div class="line-block">
+<div class="line">Как увидим далее, менять конфигурацию так же,  можно в разных datastores через <cite>&lt;target&gt;</cite>.</div>
+<div class="line">И тут разные вендоры ведут себя по-разному, кто-то разрешает менять сразу в <cite>&lt;running&gt;</cite>, а кто-то только <cite>&lt;candidate&gt;</cite> с последующим <cite>&lt;commit&gt;</cite>.</div>
+</div>
+</div>
+<div class="section" id="lt-edit-config-gt">
+<h3>&amp;lt;edit-config&amp;gt;<a class="headerlink" href="#lt-edit-config-gt" title="Ссылка на этот заголовок">¶</a></h3>
+<p>ЕЙ богу, самая интересная штука во всём NETCONF! Операция, с помощью которой можно привести конфигурацию к нужному состоянию. Серебряная пуля, панацея, окончательное решение конфигурационного вопроса. Ага, щаз!
+Идея в теории прекрасна: мы отправляем на устройство желаемую конфигурацию в виде XML, а оно само шуршит и считает, что нужно применить, а что удалить. Давайте идеальный случай и разберём сначала.</p>
+<div class="line-block">
+<div class="line"><cite>&lt;edit-config&gt;</cite> позволяет загрузить полную конфигурацию устройства или его часть в указанный datastore. При этом устройство сравнивает актуальную конфигурацию в datastore и передаваемую с клиента и предпринимает указанные действия.</div>
+<div class="line">А какие действия могут быть указаны? Это определяется атрибутом «operation» в любом из элементов поддерева <cite>&lt;configuration&gt;</cite>. Operation может встречаться несколько раз в XML и быть при этом разным. Атрибут может принимать следующие значения:</div>
+</div>
+<ul class="simple">
+<li><p><strong>Merge</strong> - новая конфига вливается в старую - что необходимо заменить - заменяется, новое - добавляется, ничего не удаляется.</p></li>
+<li><p><strong>Replace</strong> - заменяет старую конфигурацию новой.</p></li>
+<li><p><strong>Create</strong> - создаёт блок конфигурации. Однако, если он уже существует, вернётся <cite>&lt;rpc-error&gt;</cite></p></li>
+<li><p><strong>Delete</strong> - удаляет блок конфигурации. Однако, если его не существует, вернётся <cite>&lt;rpc-error&gt;</cite></p></li>
+<li><p><strong>Remove</strong> - удаляет блок конфигурации. Однако, если его не существует, проигнорирует. Определён в RFC6241.</p></li>
+</ul>
+<p>Если тип операции не задан, то новая конфигурация будет вмёржена в старую. Задать операцию по умолчанию можно с помощью параметра <cite>&lt;default-operation&gt;</cite>: <cite>merge</cite>, <cite>replace</cite>, <cite>none</cite>.</p>
+<p>В дереве <cite>&lt;configuration&gt;</cite> задаётся собственно целевая конфигурация в виде XML.</p>
+<p>Безусловно, самая интересная операция внутри <cite>&lt;edit-config&gt;</cite> - это replace. Ведь она предполагает, что устройство возьмёт конфигурацию из RPC и заменит ею ту, что находится в datastore. А где-то там под капотом и крышкой блока цилиндров система сама просчитает дельту, которую нужно отправить на чипы.</p>
+</div>
+<div class="section" id="edit-config">
+<h3>Практика edit-config<a class="headerlink" href="#edit-config" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Давайте сначала что-то простое: поменяет hostname:</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;edit-config&gt;</span>
+   <span class="nt">&lt;target&gt;</span>
+     <span class="nt">&lt;candidate/&gt;</span>
+   <span class="nt">&lt;/target&gt;</span>
+   <span class="nt">&lt;config&gt;</span>
+     <span class="nt">&lt;configuration&gt;</span>
+       <span class="nt">&lt;system&gt;</span>
+          <span class="nt">&lt;host-name&gt;</span>just-for-lulz<span class="nt">&lt;/host-name&gt;</span>
+       <span class="nt">&lt;/system&gt;</span>
+     <span class="nt">&lt;/configuration&gt;</span>
+   <span class="nt">&lt;/config&gt;</span>
+  <span class="nt">&lt;/edit-config&gt;</span>
+<span class="nt">&lt;/rpc&gt;</span>
+]]&gt;]]&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p>Проверяем, что в кандидат-конфиге эти изменения есть, а в текущем - нет</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;get-config&gt;</span>
+   <span class="nt">&lt;source&gt;</span>
+     <span class="nt">&lt;candidate/&gt;</span>
+   <span class="nt">&lt;/source&gt;</span>
+   <span class="nt">&lt;filter</span> <span class="na">type=</span><span class="s">&quot;subtree&quot;</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;configuration&gt;</span>
+       <span class="nt">&lt;system&gt;</span>
+          <span class="nt">&lt;host-name/&gt;</span>
+       <span class="nt">&lt;/system&gt;</span>
+     <span class="nt">&lt;/configuration&gt;</span>
+   <span class="nt">&lt;/filter&gt;</span>
+  <span class="nt">&lt;/get-config&gt;</span>
+<span class="nt">&lt;/rpc&gt;</span>
+]]&gt;]]&gt;
+
+<span class="nt">&lt;rpc-reply</span> <span class="na">xmlns:junos=</span><span class="s">&quot;http://xml.juniper.net/junos/14.1R1/junos&quot;</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;data&gt;</span>
+<span class="nt">&lt;configuration</span> <span class="na">xmlns=</span><span class="s">&quot;http://xml.juniper.net/xnm/1.1/xnm&quot;</span> <span class="na">junos:changed-seconds=</span><span class="s">&quot;1644719855&quot;</span> <span class="na">junos:changed-localtime=</span><span class="s">&quot;2022-02-13 02:37:35 UTC&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;system&gt;</span>
+        <span class="nt">&lt;host-name&gt;</span>just-for-lulz<span class="nt">&lt;/host-name&gt;</span>
+    <span class="nt">&lt;/system&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+<span class="nt">&lt;/data&gt;</span>
+<span class="nt">&lt;/rpc-reply&gt;</span>
+]]&gt;]]&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p>Проверяем running:</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;get-config&gt;</span>
+   <span class="nt">&lt;source&gt;</span>
+     <span class="nt">&lt;running/&gt;</span>
+   <span class="nt">&lt;/source&gt;</span>
+   <span class="nt">&lt;filter</span> <span class="na">type=</span><span class="s">&quot;subtree&quot;</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;configuration&gt;</span>
+       <span class="nt">&lt;system&gt;</span>
+          <span class="nt">&lt;host-name/&gt;</span>
+       <span class="nt">&lt;/system&gt;</span>
+     <span class="nt">&lt;/configuration&gt;</span>
+   <span class="nt">&lt;/filter&gt;</span>
+  <span class="nt">&lt;/get-config&gt;</span>
+<span class="nt">&lt;/rpc&gt;</span>
+]]&gt;]]&gt;
+
+<span class="nt">&lt;rpc-reply</span> <span class="na">xmlns:junos=</span><span class="s">&quot;http://xml.juniper.net/junos/14.1R1/junos&quot;</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;data&gt;</span>
+<span class="nt">&lt;configuration</span> <span class="na">xmlns=</span><span class="s">&quot;http://xml.juniper.net/xnm/1.1/xnm&quot;</span> <span class="na">junos:commit-seconds=</span><span class="s">&quot;1644637011&quot;</span> <span class="na">junos:commit-localtime=</span><span class="s">&quot;2022-02-12 03:36:51 UTC&quot;</span> <span class="na">junos:commit-user=</span><span class="s">&quot;eucariot&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;system&gt;</span>
+        <span class="nt">&lt;host-name&gt;</span>kzn-spine-0<span class="nt">&lt;/host-name&gt;</span>
+    <span class="nt">&lt;/system&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+<span class="nt">&lt;/data&gt;</span>
+<span class="nt">&lt;/rpc-reply&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Значит, надо закоммитить изменения.</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc&gt;</span>
+  <span class="nt">&lt;commit/&gt;</span>
+<span class="nt">&lt;/rpc&gt;</span>
+]]&gt;]]&gt;
+
+<span class="nt">&lt;rpc-reply</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span> <span class="na">xmlns:junos=</span><span class="s">&quot;http://xml.juniper.net/junos/14.1R1/junos&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;ok/&gt;</span>
+<span class="nt">&lt;/rpc-reply&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Проверяем running:</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;get-config&gt;</span>
+   <span class="nt">&lt;source&gt;</span>
+     <span class="nt">&lt;running/&gt;</span>
+   <span class="nt">&lt;/source&gt;</span>
+   <span class="nt">&lt;filter</span> <span class="na">type=</span><span class="s">&quot;subtree&quot;</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;configuration&gt;</span>
+       <span class="nt">&lt;system&gt;</span>
+          <span class="nt">&lt;host-name/&gt;</span>
+       <span class="nt">&lt;/system&gt;</span>
+     <span class="nt">&lt;/configuration&gt;</span>
+   <span class="nt">&lt;/filter&gt;</span>
+  <span class="nt">&lt;/get-config&gt;</span>
+<span class="nt">&lt;/rpc&gt;</span>
+]]&gt;]]&gt;
+
+<span class="nt">&lt;rpc-reply</span> <span class="na">xmlns:junos=</span><span class="s">&quot;http://xml.juniper.net/junos/14.1R1/junos&quot;</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;data&gt;</span>
+<span class="nt">&lt;configuration</span> <span class="na">xmlns=</span><span class="s">&quot;http://xml.juniper.net/xnm/1.1/xnm&quot;</span> <span class="na">junos:commit-seconds=</span><span class="s">&quot;1644720065&quot;</span> <span class="na">junos:commit-localtime=</span><span class="s">&quot;2022-02-13 02:41:05 UTC&quot;</span> <span class="na">junos:commit-user=</span><span class="s">&quot;eucariot&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;system&gt;</span>
+        <span class="nt">&lt;host-name&gt;</span>just-for-lulz<span class="nt">&lt;/host-name&gt;</span>
+    <span class="nt">&lt;/system&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+<span class="nt">&lt;/data&gt;</span>
+<span class="nt">&lt;/rpc-reply&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>На Juniper доступны в NETCONF те же функции коммитов, что и в CLI. Например, <cite>commit confirmed</cite> и <cite>confirmed-timeout</cite>.</p>
+<p>А теперь что-то посложнее и с операцией <cite>replace</cite>: заменим список BGP-пиров:</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;edit-config&gt;</span>
+   <span class="nt">&lt;target&gt;</span>
+     <span class="nt">&lt;candidate/&gt;</span>
+   <span class="nt">&lt;/target&gt;</span>
+   <span class="nt">&lt;config&gt;</span>
+     <span class="nt">&lt;configuration&gt;</span>
+    <span class="nt">&lt;protocols&gt;</span>
+            <span class="nt">&lt;bgp</span> <span class="na">operation=</span><span class="s">&quot;replace&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;group&gt;</span>
+                    <span class="nt">&lt;name&gt;</span>LEAFS<span class="nt">&lt;/name&gt;</span>
+                    <span class="nt">&lt;type&gt;</span>external<span class="nt">&lt;/type&gt;</span>
+                    <span class="nt">&lt;import&gt;</span>ALLOW<span class="nt">&lt;/import&gt;</span>
+                    <span class="nt">&lt;family&gt;</span>
+                        <span class="nt">&lt;inet&gt;</span>
+                            <span class="nt">&lt;unicast&gt;</span>
+                            <span class="nt">&lt;/unicast&gt;</span>
+                        <span class="nt">&lt;/inet&gt;</span>
+                    <span class="nt">&lt;/family&gt;</span>
+                    <span class="nt">&lt;export&gt;</span>EXPORT<span class="nt">&lt;/export&gt;</span>
+                    <span class="nt">&lt;neighbor&gt;</span>
+                        <span class="nt">&lt;name&gt;</span>169.254.0.0<span class="nt">&lt;/name&gt;</span>
+                        <span class="nt">&lt;peer-as&gt;</span>64513.00000<span class="nt">&lt;/peer-as&gt;</span>
+                    <span class="nt">&lt;/neighbor&gt;</span>
+                <span class="nt">&lt;/group&gt;</span>
+                <span class="nt">&lt;group&gt;</span>
+                    <span class="nt">&lt;name&gt;</span>EDGES<span class="nt">&lt;/name&gt;</span>
+                    <span class="nt">&lt;type&gt;</span>external<span class="nt">&lt;/type&gt;</span>
+                    <span class="nt">&lt;import&gt;</span>ALLOW<span class="nt">&lt;/import&gt;</span>
+                    <span class="nt">&lt;family&gt;</span>
+                        <span class="nt">&lt;inet&gt;</span>
+                            <span class="nt">&lt;unicast&gt;</span>
+                            <span class="nt">&lt;/unicast&gt;</span>
+                        <span class="nt">&lt;/inet&gt;</span>
+                    <span class="nt">&lt;/family&gt;</span>
+                    <span class="nt">&lt;export&gt;</span>EXPORT<span class="nt">&lt;/export&gt;</span>
+                    <span class="nt">&lt;neighbor&gt;</span>
+                        <span class="nt">&lt;name&gt;</span>222.222.222.0<span class="nt">&lt;/name&gt;</span>
+                        <span class="nt">&lt;peer-as&gt;</span>65535<span class="nt">&lt;/peer-as&gt;</span>
+                    <span class="nt">&lt;/neighbor&gt;</span>
+                <span class="nt">&lt;/group&gt;</span>
+            <span class="nt">&lt;/bgp&gt;</span>
+        <span class="nt">&lt;/protocols&gt;</span>
+     <span class="nt">&lt;/configuration&gt;</span>
+   <span class="nt">&lt;/config&gt;</span>
+  <span class="nt">&lt;/edit-config&gt;</span>
+<span class="nt">&lt;/rpc&gt;</span>
+]]&gt;]]&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p>Коммит</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc&gt;</span>
+  <span class="nt">&lt;commit/&gt;</span>
+<span class="nt">&lt;/rpc&gt;</span>
+]]&gt;]]&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p>Проверяем running</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;get-config&gt;</span>
+<span class="nt">&lt;source&gt;</span>
+    <span class="nt">&lt;running/&gt;</span>
+<span class="nt">&lt;/source&gt;</span>
+<span class="nt">&lt;filter</span> <span class="na">type=</span><span class="s">&quot;subtree&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;configuration&gt;</span>
+    <span class="nt">&lt;protocols&gt;</span>
+        <span class="nt">&lt;bgp&gt;</span>
+            <span class="nt">&lt;group&gt;</span>
+            <span class="nt">&lt;neighbor/&gt;</span>
+            <span class="nt">&lt;/group&gt;</span>
+        <span class="nt">&lt;/bgp&gt;</span>
+    <span class="nt">&lt;/protocols&gt;</span>
+    <span class="nt">&lt;/configuration&gt;</span>
+<span class="nt">&lt;/filter&gt;</span>
+<span class="nt">&lt;/get-config&gt;</span>
+<span class="nt">&lt;/rpc&gt;</span>
+]]&gt;]]&gt;
+
+<span class="nt">&lt;rpc-reply</span> <span class="na">xmlns:junos=</span><span class="s">&quot;http://xml.juniper.net/junos/14.1R1/junos&quot;</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:    xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;data&gt;</span>
+<span class="nt">&lt;configuration</span> <span class="na">xmlns=</span><span class="s">&quot;http://xml.juniper.net/xnm/1.1/xnm&quot;</span> <span class="na">junos:commit-seconds=</span><span class="s">&quot;1644720678&quot;</span>        <span class="na">junos:commit-localtime=</span><span class="s">&quot;2022-02-13 02:51:18 UTC&quot;</span> <span class="na">junos:commit-user=</span><span class="s">&quot;eucariot&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;protocols&gt;</span>
+        <span class="nt">&lt;bgp&gt;</span>
+            <span class="nt">&lt;group&gt;</span>
+                <span class="nt">&lt;name&gt;</span>LEAFS<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;neighbor&gt;</span>
+                    <span class="nt">&lt;name&gt;</span>169.254.0.0<span class="nt">&lt;/name&gt;</span>
+                    <span class="nt">&lt;peer-as&gt;</span>64513.00000<span class="nt">&lt;/peer-as&gt;</span>
+                <span class="nt">&lt;/neighbor&gt;</span>
+            <span class="nt">&lt;/group&gt;</span>
+            <span class="nt">&lt;group&gt;</span>
+                <span class="nt">&lt;name&gt;</span>EDGES<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;neighbor&gt;</span>
+                    <span class="nt">&lt;name&gt;</span>222.222.222.0<span class="nt">&lt;/name&gt;</span>
+                    <span class="nt">&lt;peer-as&gt;</span>65535<span class="nt">&lt;/peer-as&gt;</span>
+                <span class="nt">&lt;/neighbor&gt;</span>
+            <span class="nt">&lt;/group&gt;</span>
+        <span class="nt">&lt;/bgp&gt;</span>
+    <span class="nt">&lt;/protocols&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+<span class="nt">&lt;/data&gt;</span>
+<span class="nt">&lt;/rpc-reply&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Всё сработало)</p>
+<p>А теперь попробуем операцию <cite>merge</cite> при добавлении нового пира.</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;edit-config&gt;</span>
+   <span class="nt">&lt;target&gt;</span>
+     <span class="nt">&lt;candidate/&gt;</span>
+   <span class="nt">&lt;/target&gt;</span>
+   <span class="nt">&lt;config&gt;</span>
+     <span class="nt">&lt;configuration&gt;</span>
+    <span class="nt">&lt;protocols&gt;</span>
+            <span class="nt">&lt;bgp</span> <span class="na">operation=</span><span class="s">&quot;merge&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;group&gt;</span>
+                    <span class="nt">&lt;name&gt;</span>LEAFS<span class="nt">&lt;/name&gt;</span>
+                    <span class="nt">&lt;type&gt;</span>external<span class="nt">&lt;/type&gt;</span>
+                    <span class="nt">&lt;import&gt;</span>ALLOW<span class="nt">&lt;/import&gt;</span>
+                    <span class="nt">&lt;family&gt;</span>
+                        <span class="nt">&lt;inet&gt;</span>
+                            <span class="nt">&lt;unicast&gt;</span>
+                            <span class="nt">&lt;/unicast&gt;</span>
+                        <span class="nt">&lt;/inet&gt;</span>
+                    <span class="nt">&lt;/family&gt;</span>
+                    <span class="nt">&lt;export&gt;</span>EXPORT<span class="nt">&lt;/export&gt;</span>
+                    <span class="nt">&lt;neighbor&gt;</span>
+                        <span class="nt">&lt;name&gt;</span>169.254.0.0<span class="nt">&lt;/name&gt;</span>
+                        <span class="nt">&lt;peer-as&gt;</span>64513.00000<span class="nt">&lt;/peer-as&gt;</span>
+                    <span class="nt">&lt;/neighbor&gt;</span>
+                <span class="nt">&lt;/group&gt;</span>
+                <span class="nt">&lt;group&gt;</span>
+                    <span class="nt">&lt;name&gt;</span>EDGES<span class="nt">&lt;/name&gt;</span>
+                    <span class="nt">&lt;type&gt;</span>external<span class="nt">&lt;/type&gt;</span>
+                    <span class="nt">&lt;import&gt;</span>ALLOW<span class="nt">&lt;/import&gt;</span>
+                    <span class="nt">&lt;family&gt;</span>
+                        <span class="nt">&lt;inet&gt;</span>
+                            <span class="nt">&lt;unicast&gt;</span>
+                            <span class="nt">&lt;/unicast&gt;</span>
+                        <span class="nt">&lt;/inet&gt;</span>
+                    <span class="nt">&lt;/family&gt;</span>
+                    <span class="nt">&lt;export&gt;</span>EXPORT<span class="nt">&lt;/export&gt;</span>
+                    <span class="nt">&lt;neighbor&gt;</span>
+                        <span class="nt">&lt;name&gt;</span>222.222.222.0<span class="nt">&lt;/name&gt;</span>
+                        <span class="nt">&lt;peer-as&gt;</span>65535<span class="nt">&lt;/peer-as&gt;</span>
+                    <span class="nt">&lt;/neighbor&gt;</span>
+                    <span class="nt">&lt;neighbor&gt;</span>
+                        <span class="nt">&lt;name&gt;</span>169.254.100.0<span class="nt">&lt;/name&gt;</span>
+                        <span class="nt">&lt;peer-as&gt;</span>65535<span class="nt">&lt;/peer-as&gt;</span>
+                    <span class="nt">&lt;/neighbor&gt;</span>
+                <span class="nt">&lt;/group&gt;</span>
+            <span class="nt">&lt;/bgp&gt;</span>
+        <span class="nt">&lt;/protocols&gt;</span>
+     <span class="nt">&lt;/configuration&gt;</span>
+   <span class="nt">&lt;/config&gt;</span>
+  <span class="nt">&lt;/edit-config&gt;</span>
+<span class="nt">&lt;/rpc&gt;</span>
+]]&gt;]]&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p>Коммит</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc&gt;</span>
+  <span class="nt">&lt;commit/&gt;</span>
+<span class="nt">&lt;/rpc&gt;</span>
+]]&gt;]]&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p>Проверка:</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc-reply</span> <span class="na">xmlns:junos=</span><span class="s">&quot;http://xml.juniper.net/junos/14.1R1/junos&quot;</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;data&gt;</span>
+<span class="nt">&lt;configuration</span> <span class="na">xmlns=</span><span class="s">&quot;http://xml.juniper.net/xnm/1.1/xnm&quot;</span> <span class="na">junos:commit-seconds=</span><span class="s">&quot;1644721481&quot;</span> <span class="na">junos:commit-localtime=</span><span class="s">&quot;2022-02-13 03:04:41 UTC&quot;</span> <span class="na">junos:commit-user=</span><span class="s">&quot;eucariot&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;protocols&gt;</span>
+        <span class="nt">&lt;bgp&gt;</span>
+            <span class="nt">&lt;group&gt;</span>
+                <span class="nt">&lt;name&gt;</span>LEAFS<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;neighbor&gt;</span>
+                    <span class="nt">&lt;name&gt;</span>169.254.0.0<span class="nt">&lt;/name&gt;</span>
+                    <span class="nt">&lt;peer-as&gt;</span>64513.00000<span class="nt">&lt;/peer-as&gt;</span>
+                <span class="nt">&lt;/neighbor&gt;</span>
+            <span class="nt">&lt;/group&gt;</span>
+            <span class="nt">&lt;group&gt;</span>
+                <span class="nt">&lt;name&gt;</span>EDGES<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;neighbor&gt;</span>
+                    <span class="nt">&lt;name&gt;</span>222.222.222.0<span class="nt">&lt;/name&gt;</span>
+                    <span class="nt">&lt;peer-as&gt;</span>65535<span class="nt">&lt;/peer-as&gt;</span>
+                <span class="nt">&lt;/neighbor&gt;</span>
+                <span class="nt">&lt;neighbor&gt;</span>
+                    <span class="nt">&lt;name&gt;</span>169.254.100.0<span class="nt">&lt;/name&gt;</span>
+                    <span class="nt">&lt;peer-as&gt;</span>65535<span class="nt">&lt;/peer-as&gt;</span>
+                <span class="nt">&lt;/neighbor&gt;</span>
+            <span class="nt">&lt;/group&gt;</span>
+        <span class="nt">&lt;/bgp&gt;</span>
+    <span class="nt">&lt;/protocols&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+<span class="nt">&lt;/data&gt;</span>
+<span class="nt">&lt;/rpc-reply&gt;</span>
+]]&gt;]]&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Вот он новенький пир, и старые на месте.</div>
+<div class="line">То есть достаточно очевидна разница между работой <cite>replace</cite> и <cite>merge</cite>.</div>
+</div>
+</div>
+<div class="section" id="operation-replace">
+<h3>Operation replace<a class="headerlink" href="#operation-replace" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="line-block">
+<div class="line">С <cite>replace</cite> следует иметь в виду некоторые нюансы. Например, что нужно передавать полную конфигурацию того или иного сервиса или функциональности - не просто новые параметры - ведь железка натурально заменит то, что было,  тем, что прилетело. Едва ли вы хотите создав один интерфейс в OSPF Area, удалить остальные?</div>
+<div class="line">Некоторые сущности не могут быть удалены, такие, например, как физические интерфейсы. Поэтому при формировании соответствующего блока конфигурации нужно быть аккуратнее - в целевой конфигурации должны все они присутствовать, иначе в лучшем случае вернётся <cite>&lt;rpc-error&gt;</cite>, а в худшем вы чего-то поудаляете.</div>
+</div>
+<p>Использовать <cite>replace</cite> можно как на уровне отдельных частей конфигурации, так и на верхнем уровне, требуя заменить всё поддерево.</p>
+<p>Однако ещё один нюанс заключается в том, что в зависимости от реализации вычисление дельты может занять много ресурсов CPU. Поэтому, если собираетесь кинуть диф на 13 000 строк политик BGP, то дважды подумайте и трижды оттестируйте, что после этого происходит с коробкой.</p>
+</div>
+<div class="section" id="lt-commit-gt">
+<h3>&amp;lt;commit&amp;gt;<a class="headerlink" href="#lt-commit-gt" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="line-block">
+<div class="line">Ещё одно свидетельство того, что модель NETCONF скалькирована с API Juniper - это возможность commit’a candidate-конфигурации в running. Доступна она, конечно, только в том случае, если при обмене capability сервер сообщил, что поддерживает candidate datastore.</div>
+<div class="line"><cite>&lt;commit&gt;</cite> не замещает running на candidate, как это делает <cite>&lt;copy-config&gt;</cite>, а выполняет именно применение конфигурационной дельты, как это происходит в CLI.</div>
+</div>
+<p>Как и в CLI у <cite>commit</cite> может быть параметр <cite>confirmed</cite>, заставляющий откатить изменения, если commit не был подтверждён. За это отвечает отдельная capability: <cite>confirmed-commit</cite>.</p>
+<p><cite>&lt;commit&gt;</cite> не входит в число базовых операций, поскольку как раз зависит от поддерживаемых возможностей сервера.</p>
+</div>
+<div class="section" id="lt-copy-config-gt">
+<h3>&amp;lt;copy-config&amp;gt;<a class="headerlink" href="#lt-copy-config-gt" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Операция заменяет одну конфигурацию другой. Имеет два параметра: <cite>source</cite> - откуда - и <cite>target</cite> - куда.
+Может использоваться как для применения новой конфигурации на коробку, так и для бэкапа активной.
+Если коробка поддерживает capability <cite>:url</cite>, то в качестве <cite>source</cite> и/или <cite>target</cite> может быть указан URL.</p>
+</div>
+<div class="section" id="lt-delete-config-gt">
+<h3>&amp;lt;delete-config&amp;gt;<a class="headerlink" href="#lt-delete-config-gt" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Очевидно, удаляет конфигурацию из target datastore. Без хитростей.</p>
+</div>
+<div class="section" id="lt-lock-unlock-gt">
+<h3>&amp;lt;lock/unlock&amp;gt;<a class="headerlink" href="#lt-lock-unlock-gt" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Аналогично Juniper CLI ставит блок на target datastore от совместного редактирования, чтобы не было конфликта. Причём блок должен работать как на NETCONF, так и на другие способы изменения конфигурации - SNMP, CLI, gRPC итд.</p>
+</div>
+<div class="section" id="lt-close-session-gt">
+<h3>&amp;lt;close-session&amp;gt;<a class="headerlink" href="#lt-close-session-gt" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Аккуратно закрывает существующую NETCONF-сессию, снимает локи, высвобождает ресурсы.</p>
+</div>
+<div class="section" id="lt-kill-session-gt">
+<h3>&amp;lt;kill-session&amp;gt;<a class="headerlink" href="#lt-kill-session-gt" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Грубо разрывает сессиию, но снимает локи. Если сервер получил такую операцию в тот момент, когда он дожидается confirmed commit, он должен отменить его и откатить изменения к состоянию, как было до установки сессии.</p>
+</div>
+</div>
+<div class="section" id="netconf">
+<h2>Инструменты разработчика для NETCONF<a class="headerlink" href="#netconf" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="line-block">
+<div class="line">Ну вот как будто бы необходимый базис по NETCONF набрали.</div>
+<div class="line">Я в этой статье не ставлю перед собой задачу выстроить какую-то систему автоматизации. Просто хочу показать разные интерфейсы в теории и на практике.</div>
+</div>
+<p>И я думаю, к этому моменту вам уже очевидно, что отправка XML через SSH с ручным проставлением Framing Marker (<cite>]]&gt;]]&gt;</cite>) - не самый удобный способ. Давайте посмотрим на существующие библиотеки.</p>
+<div class="section" id="netconf-console">
+<h3>netconf-console<a class="headerlink" href="#netconf-console" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Прежде чем писать какой-то код, обычно стоит проверить всё руками. Но вот руками крафтить XML и проставлять framing marker’ы тоскливо. Тут отца русской автоматизации спасёт <cite>netconf-console</cite> - главный и, возможно, единственный CLI-инструмент для работы с NETCONF.</p>
+<p>Может работать в режиме команды:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>netconf-console --host <span class="m">192</span>.168.1.2 --port <span class="m">22</span> -u eucariot -p password --get-config
+</pre></div>
+</div>
+</div></blockquote>
+<p>А может в интерактивном:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>netconf-console2 --host <span class="m">192</span>.168.1.2 --port <span class="m">22</span> -u eucariot -p password -i
+netconf&gt; hello
+</pre></div>
+</div>
+</div></blockquote>
+<p><a class="reference external" href="https://netdevops.me/2020/netconf-console-in-a-docker-container/">Чуть больше про библиотеку у Романа Додина</a>.</p>
+</div>
+<div class="section" id="ncclient">
+<h3>NCclient<a class="headerlink" href="#ncclient" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="line-block">
+<div class="line">Это, пожалуй, самая известная библиотека для работы с NETCONF. Она для питона и достаточно зрелая.</div>
+<div class="line">Начать пользоваться очень легко:</div>
+</div>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ncclient</span> <span class="kn">import</span> <span class="n">manager</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">manager</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+        <span class="n">host</span><span class="o">=</span><span class="s2">&quot;kzn-spine-0.juniper&quot;</span><span class="p">,</span>
+        <span class="n">ssh_config</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">hostkey_verify</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">device_params</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;junos&#39;</span><span class="p">}</span>
+    <span class="p">)</span> <span class="k">as</span> <span class="n">m</span><span class="p">:</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_config</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;running&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">data_xml</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Дабы уберечь читателя от многочасовых мук с отладкой аунтентификации, небольшая подсказка тут.
+Текущая версия <cite>paramiko</cite> на момент написания статьи (&gt;=2.9.0), которую подтягивает <cite>ncclient</cite>, в ряде случае не может работать с OpenSSH-ключами и падает с ошибкой «Authentication failed». Рекомендую в этом случае устанавливать 2.8.0.
+На гитхабе открыта куча issue на эту тему. И, кажется, его даже <a class="reference external" href="https://github.com/paramiko/paramiko/issues/2017">починили</a>, но я не проверял.
+И вроде бы даже есть <a class="reference external" href="https://localcoder.org/paramiko-not-a-valid-rsa-private-key-file">решение</a>, но и это я не проверял.</p>
+</div></blockquote>
+<p>Так же работают <cite>filter</cite>:</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ncclient</span> <span class="kn">import</span> <span class="n">manager</span>
+
+<span class="n">rpc</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">     &lt;filter&gt;</span>
+<span class="s2">     &lt;configuration&gt;</span>
+<span class="s2">       &lt;system&gt;</span>
+<span class="s2">          &lt;host-name/&gt;</span>
+<span class="s2">       &lt;/system&gt;</span>
+<span class="s2">     &lt;/configuration&gt;</span>
+<span class="s2">     &lt;/filter&gt;</span>
+<span class="s2">     &quot;&quot;&quot;</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">manager</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+        <span class="n">host</span><span class="o">=</span><span class="s2">&quot;kzn-spine-0.juniper&quot;</span><span class="p">,</span>
+        <span class="n">ssh_config</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">hostkey_verify</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">device_params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;junos&quot;</span><span class="p">}</span>
+    <span class="p">)</span> <span class="k">as</span> <span class="n">m</span><span class="p">:</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_config</span><span class="p">(</span><span class="s2">&quot;running&quot;</span><span class="p">,</span> <span class="n">rpc</span><span class="p">)</span><span class="o">.</span><span class="n">data_xml</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>С таким вот результатом:</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;rpc-reply</span> <span class="na">message-id=</span><span class="s">&quot;urn:uuid:864dd143-7a86-40ca-8992-5a35f2322ea0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;data&gt;</span>
+           <span class="nt">&lt;configuration</span> <span class="na">commit-seconds=</span><span class="s">&quot;1644732354&quot;</span> <span class="na">commit-localtime=</span><span class="s">&quot;2022-02-13 06:05:54 UTC&quot;</span> <span class="na">commit-user=</span><span class="s">&quot;eucariot&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;system&gt;</span>
+        <span class="nt">&lt;host-name&gt;</span>
+        kzn-spine-0
+        <span class="nt">&lt;/host-name&gt;</span>
+      <span class="nt">&lt;/system&gt;</span>
+    <span class="nt">&lt;/configuration&gt;</span>
+  <span class="nt">&lt;/data&gt;</span>
+<span class="nt">&lt;/rpc-reply&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>На текстовый XML смотреть не надо - парсим библиотечкой <cite>xmltodict</cite>:</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ncclient</span> <span class="kn">import</span> <span class="n">manager</span>
+<span class="kn">import</span> <span class="nn">xmltodict</span>
+
+<span class="n">rpc</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">     &lt;filter&gt;</span>
+<span class="s2">     &lt;configuration&gt;</span>
+<span class="s2">       &lt;system&gt;</span>
+<span class="s2">          &lt;host-name/&gt;</span>
+<span class="s2">       &lt;/system&gt;</span>
+<span class="s2">     &lt;/configuration&gt;</span>
+<span class="s2">     &lt;/filter&gt;</span>
+<span class="s2">     &quot;&quot;&quot;</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">manager</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+        <span class="n">host</span><span class="o">=</span><span class="s2">&quot;kzn-spine-0.juniper&quot;</span><span class="p">,</span>
+        <span class="n">ssh_config</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">hostkey_verify</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">device_params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;junos&quot;</span><span class="p">}</span>
+    <span class="p">)</span> <span class="k">as</span> <span class="n">m</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_config</span><span class="p">(</span><span class="s2">&quot;running&quot;</span><span class="p">,</span> <span class="n">rpc</span><span class="p">)</span><span class="o">.</span><span class="n">data_xml</span>
+    <span class="n">result_dict</span> <span class="o">=</span> <span class="n">xmltodict</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;hostname is </span><span class="si">{</span><span class="n">result_dict</span><span class="p">[</span><span class="s2">&quot;rpc-reply&quot;</span><span class="p">][</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;configuration&quot;</span><span class="p">][</span><span class="s2">&quot;system&quot;</span><span class="p">][</span><span class="s2">&quot;host-name&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>С уже таким результатом:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hostname is kzn-spine-0
+</pre></div>
+</div>
+<p>При работе с сетевыми коробками по NETCONF xmltodict, пожалуй, самая практичная библиотека, преобразующая XML-данные в объект Python. Она использует C-шный парсер <a class="reference external" href="https://docs.python.org/3/library/pyexpat.html">pyexpat</a>, так что недостатков у такого подхода фактически нет.</p>
+</div></blockquote>
+<p>Точно так же можно обновить конфигурацию в два действия: <cite>&lt;edit-config&gt;</cite> в <cite>&lt;candidate&gt;</cite> и <cite>&lt;commit&gt;</cite>:</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ncclient</span> <span class="kn">import</span> <span class="n">manager</span>
+<span class="kn">import</span> <span class="nn">xmltodict</span>
+
+<span class="n">rpc</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">     &lt;config&gt;</span>
+<span class="s2">       &lt;configuration&gt;</span>
+<span class="s2">         &lt;interfaces&gt;</span>
+<span class="s2">           &lt;interface&gt;</span>
+<span class="s2">             &lt;name&gt;ge-0/0/0&lt;/name&gt;</span>
+<span class="s2">             &lt;description&gt;Mit der Dummheit kämpfen Götter selbst vergebens.&lt;/description&gt;</span>
+<span class="s2">           &lt;/interface&gt;</span>
+<span class="s2">         &lt;/interfaces&gt;</span>
+<span class="s2">       &lt;/configuration&gt;</span>
+<span class="s2">     &lt;/config&gt;</span>
+<span class="s2">     &quot;&quot;&quot;</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">manager</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+        <span class="n">host</span><span class="o">=</span><span class="s2">&quot;kzn-spine-0.juniper&quot;</span><span class="p">,</span>
+        <span class="n">ssh_config</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">hostkey_verify</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">device_params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;junos&quot;</span><span class="p">}</span>
+    <span class="p">)</span> <span class="k">as</span> <span class="n">m</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">edit_config</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="s2">&quot;candidate&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">rpc</span><span class="p">)</span><span class="o">.</span><span class="n">data_xml</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="n">result_dict</span> <span class="o">=</span> <span class="n">xmltodict</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result_dict</span><span class="p">)</span>
+
+<span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">&#39;rpc-reply&#39;</span><span class="p">,</span> <span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">&#39;@message-id&#39;</span><span class="p">,</span> <span class="s1">&#39;urn:uuid:93bde991-81f9-42d6-a343-b4fc267646c2&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;ok&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)]))])</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Дальше пока копать не будем. Тем более, бытует мнение <em>«без всяких сомнений, самый ублюдочно написанный Python код, что я видел в opensource»</em></p>
+</div>
+<div class="section" id="scrapli-netconf">
+<h3>scrapli-netconf<a class="headerlink" href="#scrapli-netconf" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="line-block">
+<div class="line">NCclient был первым и классным, но отсутствие поддержки async в нём сильно ограничивает его использование.</div>
+<div class="line">Тут нас выручает Карл Монтанари, который уже подарил миру <a class="reference external" href="https://github.com/carlmontanari/scrapli">scrapli</a>.</div>
+<div class="line">Но для тех, кто достаточно смел, чтобы использовать на своей сети NETCONF, создали <a class="reference external" href="https://github.com/scrapli/scrapli_netconf">scrapli-netconf</a>.</div>
+</div>
+<p>Давайте взглянем на пару примеров работы.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scrapli_netconf.driver</span> <span class="kn">import</span> <span class="n">NetconfDriver</span>
+
+<span class="n">rpc</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">     &lt;filter&gt;</span>
+<span class="s2">     &lt;configuration&gt;</span>
+<span class="s2">       &lt;system&gt;</span>
+<span class="s2">          &lt;host-name/&gt;</span>
+<span class="s2">       &lt;/system&gt;</span>
+<span class="s2">     &lt;/configuration&gt;</span>
+<span class="s2">     &lt;/filter&gt;</span>
+<span class="s2">     &quot;&quot;&quot;</span>
+
+<span class="n">device</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;kzn-spine-0.juniper&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;auth_strict_key&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s2">&quot;port&quot;</span><span class="p">:</span> <span class="mi">22</span>
+        <span class="p">}</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">NetconfDriver</span><span class="p">(</span><span class="o">**</span><span class="n">device</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">get_config</span><span class="p">(</span><span class="s2">&quot;running&quot;</span><span class="p">,</span> <span class="n">rpc</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="scrapligo-scrapligo-netconf">
+<h3>Scrapligo и scrapligo-netconf<a class="headerlink" href="#scrapligo-scrapligo-netconf" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="line-block">
+<div class="line">Для Go тоже не придумано ничего лучше, чем <a class="reference external" href="https://github.com/scrapli/scrapligo">scrapligo</a>, в котором есть модуль для работы через netconf.</div>
+<div class="line">Так что если вы сетевик, осваивающий Го, путь для вас уже проложен.</div>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>Как это использовать<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="id7">
+<h3>Мониторинг<a class="headerlink" href="#id7" title="Ссылка на этот заголовок">¶</a></h3>
+<p>NETCONF предоставляет возможность собирать операционные данные:</p>
+<ul class="simple">
+<li><p>Состояния протоколов (OPSF, BGP-пиринги)</p></li>
+<li><p>Статистику интерфейсов</p></li>
+<li><p>Утилизацию ресурсов CPU</p></li>
+<li><p>Таблицы маршрутизации</p></li>
+<li><p>Другое</p></li>
+</ul>
+<div class="line-block">
+<div class="line">При этом возвращаются структурированные данные, с которыми легко работать без сложных процедур парсинга.</div>
+<div class="line">Поэтому NETCONF вполне можно использовать для целей мониторинга.</div>
+<div class="line">Тут вы спросите: а зачем, если есть SNMP? А я отвечу. Точнее постараюсь.</div>
+</div>
+<ul class="simple">
+<li><p>Используем безопасный SSH, не используем SNMP</p></li>
+<li><p>Не несём дополнительные протоколы в сеть</p></li>
+<li><p>Полная свобода того, какие данные мы собираем, без необходимости разбираться в OID’ах и MIB’ах</p></li>
+<li><p>При этом есть возможность собирать данные в соответствии с YANG-моделью</p></li>
+<li><p>Гипотетическая возможность оформить подписку на события в системе</p></li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h3>Выполнение отдельных операций<a class="headerlink" href="#id8" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="line-block">
+<div class="line">Используя NETCONF, можно выполнять какие-то конкретные задачи: собрать данные с сети или изменить какую-то часть конфигурации.</div>
+<div class="line">Например, вы хотите периодически собирать MAC-адреса с сети или список коммитов.</div>
+<div class="line">Или вам нужно переключать порт коммутатора в другой VLAN.</div>
+<div class="line">Или например, у вас есть скрипт, который проверяет, что устройство в порядке - правильные настройки сислог-сервера, корректное время и пинги, куда полагается, работают.</div>
+<div class="line">Это всё можно сделать и на парсинге CLI, безусловно, но структурированные данные - это структурированные данные, а regexp - это regexp.</div>
+</div>
+</div>
+<div class="section" id="configuration-management">
+<h3>Configuration Management<a class="headerlink" href="#configuration-management" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Да, это тоже возможно, если</p>
+<p># Оборудование поддерживает 100% конфигурации через NETCONF. Увы, я на своём веку повидал ситуаций, когда некоторые секции просто-напросто отсутствовали в NETCONF и никакого способа настроить нужную функцию нет.
+# Оборудование честно поддерживает операцию «replace», без этого вычисление конфигурационной дельты ложится вновь на сетевиков.</p>
+<div class="line-block">
+<div class="line">Однако, в том виде, в котором мы познакомились с темой на данный момент, дальше начинается Jinja-программирование. Каждому, кто этим занимался, обычно неловко, и он стыдливо избегает разговора на эту тему.</div>
+<div class="line">Задача решается примерно следующим образом:</div>
+</div>
+<p># | Пишем циклопические развесистые jinja-шаблоны с ифами и форами, внутри которых XML. Шаблоны под каждого вендора, конечно, свои собственные, поскольку и схемы данных у них разные. Но при этом они универсальные в плане ролей устройств - не нужно для свитчей доступа и маршрутизаторов ядра писать разные шаблоны - просто в зависимости от роли будут активироваться те или иные их части.
+| Здесь в нужных местах сразу описаны типы операций - где merge, где replace.
+# Каким-то образом формируем под каждое устройство файлы переменных, в которых указаны хостнеймы, IP-адреса, ASN, пиры и прочие специфические вещи. Эти файлы переменных в свою очередь, напротив, вендор-нейтральны, но будут отличаться от роли к роли.
+# Рендерим конфигурацию в формате XML, накладывая переменные на шаблоны. Получаем целевую конфигурацию в виде дерева XML, где в нужных местах проставлена операция <cite>replace</cite>.
+# Этот XML с помощью ncclient, ansible, scrapli-netconf или чего-то ещё подпихиваем на коробку.
+# NETCONF-сервер на коробке получает RPC и вычисляет конфигурационный патч, который фактически применит. То есть он находит разницу между целевой конфигурацией в RPC и текущей в <cite>&lt;running&gt;</cite>. Применяет эту конфигурацию.</p>
+<p>Как бы это могло выглядеть я уже показывал в <a class="reference external" href="https://linkmeup.ru/blog/1275/">предыдущем выпуске АДСМ</a>.
+!!!</p>
+<blockquote>
+<div><div class="figure align-default" id="id10">
+<img alt="https://dteslya.engineer/images/2020-10-netdevops-pipeline.png" src="https://dteslya.engineer/images/2020-10-netdevops-pipeline.png" />
+<p class="caption"><span class="caption-text"><em>`Источник: dteslya.engineer/network_automaiton_101/ &lt;https://dteslya.engineer/network_automaiton_101/&gt;`_</em></span><a class="headerlink" href="#id10" title="Постоянная ссылка на рисунок">¶</a></p>
+</div>
+</div></blockquote>
+<p>Ручная правка файлов переменных - это очень неудобно, конечно же. Просто мрак, если мы говорим про какие-то типовые вещи, как например датацентровые регулярные топологии. Новая пачка стоек - сотни и тысячи строк для копипащения и ручного изменения. Но на самом деле их можно создавать автоматически на основе данных из централизованной базы данных - DCIM/IPAM.</p>
+<div class="line-block">
+<div class="line">Почему я об этом говорю так уверенно?</div>
+<div class="line">Потому что мы у себя (в Яндексе) полностью построили весь жизненный цикл отдельного сегмента сети на основе описанной схемы. И любые изменения на сеть могут применяться только через подобный конвейер и NETCONF. Любые временные конфигурации на железе перетрутся следующим же релизом.</div>
+</div>
+<p>Что тут хорошо:</p>
+<p># Изменения в Jinja-шаблонах версионируются через git и проходят проверку другими инженерами перед применением. Это систематические изменения, влияющие на большое количество устройств.
+# Изменения в переменных - точно так же. Это точечное изменение конкретного устройства.
+# Только после согласования изменений в пунктах выше, можно сгенерировать новую конфигурацию и далее уже её отправить на проверку в git.
+# Если соблюдать процесс, то отсутствует конфигурационный дрейф.</p>
+<p>Что тут плохо?</p>
+<p># Ну, очевидно, Jinja-программирование
+# Работа с текстом, вместо объектов языка.
+# Отсутствие возможности взглянуть на конфигурационный диф до его применения.</p>
+<p>На этом на самом деле заканчивается первая большая часть этой статьи, которая позволяет просто уже взять и получать пользу от NETCONF в задачах автоматизации.</p>
+<p><strong>Я вот прям серьёзно сейчас, ей богу! Не туманные абстракции - берём NETCONF - и на многих вендорах уже можно с ним работать выстраивая автоматизацию того или иного объёма.</strong></p>
+<div class="line-block">
+<div class="line">Как вам ощущения от составления XML? А представьте, что вам нужно всю конфигурацию на несколько тысяч строк описать? А приправить это всё Jinja-программированием? А описывать в ямлах переменные?</div>
+<div class="line">Но абсолютное большинство тех, кто использует сегодня NETCONF, именно так и делают. (!) Мнение автора. Change my mind!</div>
+<div class="line">В то время как есть YANG и набор инструментов вокруг него?</div>
+</div>
+<p>Хух. Давайте просто не будем об этом сейчас? Просто не сейчас? Попозже. После RESTCONF и gRPC?</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, eucariot
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,264 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ru" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gRPC/gNMI &mdash; документация ADSM 0.1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
+    <link rel="search" title="Поиск" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ADSM
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ADSM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>gRPC/gNMI</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/5_history/grpc.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="grpc-gnmi">
+<h1>gRPC/gNMI<a class="headerlink" href="#grpc-gnmi" title="Ссылка на этот заголовок">¶</a></h1>
+<p><em>Сверхлихие 20-е</em></p>
+<p>За последние лет семь <a class="reference external" href="https://grpc.io/docs/">gRPC</a> уже всем уши прожужжали. И только самые ловкие разработчики могли избежать реализации взаимодействия с какой-нибудь системой по gRPC.</p>
+<blockquote>
+<div><p>«g» в <em>gRPC</em>, кстати, <a class="reference external" href="https://github.com/grpc/grpc/blob/master/doc/g_stands_for.md">означает вовсе не «google»</a>.</p>
+</div></blockquote>
+<div class="section" id="id1">
+<h2>gRPC<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Вообще-то RPC вроде бы как начал давным давно уходить в тень, уступая место REST и ему подобным. Но в недрах гугла он цвёл, эффективно связывая между собой микросервисы, и назывался Stubby. Ровно до тех пор пока, в 2015 они не решили его переписать и заопенсорсить, чтобы нанести непоправимую пользу миру.</p>
+<div class="line-block">
+<div class="line">Долгое время в изученной Вселенной не существовало никаких общедоступных библиотек, позволяющих реализовать какой-то типовой RPC. Разработчики сами описывали и сообщения, и формат данных в них, и как их интерпретировать. Поэтому и популярности особой он не сыскал.</div>
+<div class="line">А тут вот, пожалте: готовый протокол, стек, формат данных и библиотеки для кучи языков.</div>
+<div class="line">Что же он из себя представляет?</div>
+</div>
+<div class="line-block">
+<div class="line">Это фреймворк, позволяющий приложениям, запущенным в совершенно разных окружениях, взаимодействовать друг с другом посредством RPC.</div>
+<div class="line">Делает gRPC концептуально ровно то, что предполагается самой идеологией RPC, но есть несколько вещей, которые обусловили его успех и популярность:</div>
+</div>
+<p># Строгий IDL (Interface Definition Language), диктующий то, как именно описывать спецификации - protocol buffers или protobufs.
+# Готовый формат данных и механизм их маршалинга и демаршалинга - тоже protocol buffers (protobufs).
+# Библиотеки для разных языков программирования, которые на основе спецификации генерируют объекты языка (классы, методы итд) - разработчику остаётся только использовать их. Как для сервера, так и для клиента.</p>
+<p>То есть.
+Поставил себе пакет grpc: перед тобой сразу язык спецификации, генераторы кода, интерфейсы, форматы данных, транспорт.  Красота-тра-та-та!</p>
+<div class="line-block">
+<div class="line">Мы не знаем сколько лет внутри гугла gRPC набирал популярность и проникал всё глубже в межсервисное взаимодействие. Но что теперь известно точно, так это то, что у них менеджмент с яйцами, а сетевые инженеры достаточно гибки и пытливы, чтобы и к сети адаптировать этот единый протокол.</div>
+<div class="line">При этом не забываем, что на проприетарные джуносы, иосы и врп никто не притащит свой бинарничек, чтобы удобный для себя интерфейс реализовать. Это значит, что white-box коммутаторы с собственной linux OS у гугла появились задолго до того как их увидел мир.</div>
+<div class="line">Что и неудивительно - с железом они работать умеют, с Linux и подавно - дело было за малым - собрать команду Network R&amp;D, в которой будут ребята, которые занимались разработкой своих серверов и адаптацией интерфейсов и инструментов, и найти достаточно гибкого вендора. А за последним дело не встанет, когда вы закупаете килограмм свичтей в секунду.</div>
+</div>
+<blockquote>
+<div><div class="figure align-default">
+<img alt="https://fs.linkmeup.ru/images/adsm/5/cool-networkers.png:width:800:align:center*Такпомнениюпоисковыхсистемвыглядяткрутыесетевики*" src="https://fs.linkmeup.ru/images/adsm/5/cool-networkers.png:width:800:align:center*Такпомнениюпоисковыхсистемвыглядяткрутыесетевики*" />
+</div>
+</div></blockquote>
+<p>Вообще для обывателей всё началось 24 сентября 2015, когда OpenConfig consortium выпустил OpenConfig в мир. Весь FANG (кроме Amazon) поучаствовал в этом консорциуме. Но начал всю заварушку и продолжает её паровозить гугл. Естественно, среди них и крупные телекомы, вроде Level3, AT&amp;T, Verizon, Bell.</p>
+<p>И пока OpenConfig прокладывал себе дорогу, раскидывая в сторону вендорские и IETF модели, гугл сделал следующий шаг - как раз таки реализовал gNMI.</p>
+<p>Итак, в 2016-м <a class="reference external" href="https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md#7-revision-history">мир увидел</a> плод труда инженеров гугл - протокол <strong>gNMI</strong>, реализующий весь стек технологий для программного взаимодействия с железом.</p>
+<div class="line-block">
+<div class="line">И что с того?! Ведь к тому времени буйным цветом шёл NETCONF и к тому же почти одновременно с gNMI уже почти сформировался RFC 8040, описывающий RESTCONF со вполне ещё модным на тот момент REST.</div>
+<div class="line">Как в таких условиях пробиться ещё одному протоколу и не стать героем известной картинки?</div>
+</div>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/5/standards_2x.png"><img alt="https://fs.linkmeup.ru/images/adsm/5/standards_2x.png" src="https://fs.linkmeup.ru/images/adsm/5/standards_2x.png" style="width: 500px;" /></a>
+</div>
+<p><em>`Источник &lt;https://xkcd.com/927/&gt;`_</em></p>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Так вот, рассказываю: собрались как-то сетевики гугл вместе, пришли на встречу <a class="reference external" href="https://datatracker.ietf.org/meeting/98/materials/slides-98-rtgwg-gnmi-intro-draft-openconfig-rtgwg-gnmi-spec-00">IETF 98</a> в Чикаго на секцию Routing Area Working</div>
+<div class="line">Group и прямым текстом им заявили, что то, что те навыдумывали, пора пришла заменить на <a class="reference external" href="https://github.com/openconfig/reference/tree/master/rpc/gnmi">молодёжные технологии</a>.</div>
+<div class="line">Шёл 2017-й год. Марат устроился в Яндекс.</div>
+</div>
+<p>И… Ничего не изменилось.</p>
+<p>В 2018 они, видимо, поняли, что их не услышали и на <a class="reference external" href="https://datatracker.ietf.org/meeting/101/materials/slides-101-netconf-grpc-network-management-interface-gnmi-00">IETF 101</a> снова пришли с рассказом про gNMI, и уже более явно сообщали, что он пришёл на замену этим вашим x-CONF’ам. Слышите вы, старпёры? Ало?! gNMI пришёл!</p>
+<p>И тут завертелось! Сообщество сетевых автоматизаторов из вендоров, телекомов и просто одиноких пассионариев понесло благую весть в народ.</p>
+<div class="line-block">
+<div class="line">Как вы видите, gNMI молодой и дерзкий протокол. Про него нет страницы на вики, довольно скромное количество материалов и мало кто рассказывает о том, как его использует в своём проде.</div>
+<div class="line">Он не является стандартом согласно любым организациям и RFC, но его спецификация описана на <a class="reference external" href="https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md">гитхабе</a>.</div>
+</div>
+<p>Однако свою дорогу в мир прокладывает. Медленно, но, похоже, что верно.</p>
+<div class="line-block">
+<div class="line">Что нам важно знать о нём? gRPC Network Management Interface.</div>
+<div class="line">Это протокол управления сетевыми устройствами, использующий gRPC как фреймворк: транспорт, режимы взаимодействия (унарный и все виды стриминга), механизмы маршаллинга данных, proto-файлы для описания спецификаций.</div>
+<div class="line">В качестве модели данных он может использовать YANG-модели, а может и не использовать - protobuf’ы можно сгенерировать на основе чего угодно, и даже просто написать вручную.</div>
+</div>
+<div class="line-block">
+<div class="line">Как того требует gRPC, на сетевом устройстве запускается сервер, а на системе управления - клиент. На обеих сторонах должна быть одна спецификация, одна модель данных.</div>
+<div class="line">gNMI в мир пришёл под руку с OpenConfig, но неразрывно они друг с другом не связаны.</div>
+</div>
+<p>В этой статье я не копаю глубоко в каждый протокол и фреймворк, не разбираюсь, как они устроены, а даю только взгляд на историю развития автоматизации. За деталями приглашаю во вторую статью.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, eucariot
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

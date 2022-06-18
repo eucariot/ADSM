@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Iac и NaC &mdash; документация ADSM 0.1.0</title>
+  <title>IaC &mdash; документация ADSM 0.1.0</title>
   
 
   
@@ -129,7 +129,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Iac и NaC</li>
+      <li>IaC</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -148,8 +148,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="iac-nac">
-<h1>Iac и NaC<a class="headerlink" href="#iac-nac" title="Ссылка на этот заголовок">¶</a></h1>
+  <div class="section" id="iac">
+<h1>IaC<a class="headerlink" href="#iac" title="Ссылка на этот заголовок">¶</a></h1>
 <p>Если вы не слышали о <strong>IaC - Infrastructure as Code</strong>, у меня для вас плохие новости. Очень плохие.
 Ладно, не напрягайтесь, сейчас всё расскажу.</p>
 <div class="line-block">
@@ -192,8 +192,14 @@
 <div class="line">Обновление конфигурации на сети и обновление прочей инфраструктуры после этого - тот же процесс деплоя.</div>
 </div>
 <div class="line-block">
-<div class="line">В общем это именно то, о чём мы тут толкуем с самого 0-го выпуска. Дизайн описан в формализованном HLD, а конкретные данные берутся из нашего SoT - Netbox. Из них генерится конфигурация и складывается в репозиторий, где прогоняются авто-тесты (в аппаратной или виртуальной лабе или что-то а-ля batfish), кто-то смотрит глазами и подтверждает изменения, далее они по всем правилам CD выезжают в прод.</div>
+<div class="line">В общем это именно то, о чём мы тут толкуем с самого 0-го выпуска. Дизайн описан в формализованном HLD, а конкретные данные берутся из нашего SoT - Netbox. Из них генерится конфигурация и складывается в репозиторий, где прогоняются авто-тесты (в аппаратной или виртуальной лабе или что-то а-ля Batfish), кто-то смотрит глазами и подтверждает изменения, далее они по всем правилам CD выезжают в прод.</div>
 </div>
+<p>IaC - и ничегошеньки не настраиваем руками.</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/4/tobusy.png"><img alt="https://fs.linkmeup.ru/images/adsm/4/tobusy.png" src="https://fs.linkmeup.ru/images/adsm/4/tobusy.png" style="width: 500px;" /></a>
+</div>
+</div></blockquote>
 </div>
 
 

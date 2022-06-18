@@ -1,0 +1,481 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ru" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>&amp;lt;XML&amp;gt; &mdash; документация ADSM 0.1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
+    <link rel="search" title="Поиск" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ADSM
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Содержание:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../0_planning/planning.html">Часть 0. Планирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1_virtualization/index.html">Часть 1. Виртуализация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_network_design/index.html">Часть 2. Дизайн сети</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ADSM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>&amp;lt;XML&amp;gt;</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/6_interfaces/xml.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="lt-xml-gt">
+<h1>&amp;lt;XML&amp;gt;<a class="headerlink" href="#lt-xml-gt" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="line-block">
+<div class="line">По всей видимости наиболее точный и честный ответ - «исторически сложилось».</div>
+<div class="line">Судьба XML в чём-то похожа на MPLS - оба были созданы для одной задачи, а популярность снискали в другой.</div>
+<div class="line">XML намеревался стать метаязыком для создания языков разметки документов. Но очень быстро его адаптировали под формат сериализации данных при передаче. И к моменту, когда Juniper выбирал формат, в котором API будет принимать запросы, XML стал уже проверенным, зрелым кандидатом.</div>
+<div class="line">Сегодня, вероятно, победил бы JSON, но тогда он только <a href="#id1"><span class="problematic" id="id2">`</span></a>начинал свой путь к славе &lt;<a class="reference external" href="https://trends.google.com/trends/explore?date=all&amp;q=XML,JSON,YAML">https://trends.google.com/trends/explore?date=all&amp;q=XML,JSON,YAML</a>&gt;`_&lt;/a&gt;.</div>
+</div>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/5/xml_json.png"><img alt="https://fs.linkmeup.ru/images/adsm/5/xml_json.png" src="https://fs.linkmeup.ru/images/adsm/5/xml_json.png" style="width: 800px;" /></a>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">YAML и protobuf тогда ещё не существовали. Ну и вообще YAML подходит лучше для описания конфигураций, которые редактируются руками, нежели как формат обмена данными.</div>
+<div class="line">Прелюбопытная историческая справка по XML, JSON и YAML: <a href="#id3"><span class="problematic" id="id4">`</span></a>YAML: The Missing Battery in Python &lt;<a class="reference external" href="https://realpython.com/python-yaml/">https://realpython.com/python-yaml/</a>&gt;`_&lt;/a&gt;.</div>
+</div>
+<p>В общем выбор в те дни был предопределён - XML был сверхсовременным и суперудобным,</p>
+<p>Сложность читаемости XML компенсируется простотой его программной обработки. Чёткая иерархическая структура, понятные начало, конец и значение. В том же питоне xmltodict изящно любой валидный XML разворачивает в словарь. А вообще вот <a href="#id5"><span class="problematic" id="id6">`</span></a>годная статья &lt;<a class="reference external" href="https://realpython.com/python-xml-parser/">https://realpython.com/python-xml-parser/</a>&gt;`_&lt;/a&gt; про то, как предполагается работать с XML средствами стандартной библиотеки.</p>
+<div class="line-block">
+<div class="line">Но давайте разбираться с тем, что же в себе интересного таит XML.</div>
+<div class="line">У меня нет задачи подвергнуть читателя пыткам и мучительной смерти через зачитывание стандартов, поэтому сильно глубоко мы погружаться не будем, но какую-то скучную базу дать придётся.</div>
+<div class="line">XML сам по себе не делает ничего - это только формат представления информации, в отличие от HTML, который как раз таки призван отрисовать содержимое.</div>
+<div class="line">XML описывает что за данные внутри, а его теги не определены заранее, опять же в отличие от HTML.</div>
+</div>
+<p>То есть это два брата, похожих друг на друга внешне, но очень разных внутри.</p>
+<p>Давайте сначала на отвлечённом примере поразбираемся?</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;bookstore&gt;</span>
+  <span class="nt">&lt;book&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Everyday Italian<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;author&gt;</span>Giada De Laurentiis<span class="nt">&lt;/author&gt;</span>
+    <span class="nt">&lt;year&gt;</span>2005<span class="nt">&lt;/year&gt;</span>
+    <span class="nt">&lt;instock&gt;</span>
+    <span class="nt">&lt;/instock&gt;</span>
+  <span class="nt">&lt;/book&gt;</span>
+  <span class="nt">&lt;book&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Harry Potter<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;author&gt;</span>J K. Rowling<span class="nt">&lt;/author&gt;</span>
+    <span class="nt">&lt;year&gt;</span>2005<span class="nt">&lt;/year&gt;</span>
+    <span class="nt">&lt;instock</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/book&gt;</span>
+<span class="nt">&lt;/bookstore&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Тут у нас XML, описывающий книжный магазин и имеющиеся в нём книги. У каждой книги есть свой набор атрибутов - название, автор, год выпуска, наличие в магазине.</p>
+<p>Всё начинается с</p>
+<div class="section" id="xml-prolog">
+<h2>XML Prolog<a class="headerlink" href="#xml-prolog" title="Ссылка на этот заголовок">¶</a></h2>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Это так называемый XML Prolog. Он опционален, однако обычно присутствует и должен идти первой строкой. Версия всегда строго 1.0, кодировка по умолчанию -  UTF-8.</div>
+<div class="line">Коль скоро он опциональный, далее мы его опускаем.</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>Дерево элементов<a class="headerlink" href="#id7" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="line-block">
+<div class="line">XML представляет из себя дерево, состоящее из отдельных элементов. Оно может быть произвольной вложенности.</div>
+</div>
+<p>Самый первый элемент называется корневым - <cite>root</cite>, все последующие - его дети.
+| В примере выше это <cite>&lt;bookstore&gt;</cite>.  Элемент представляет из себя открывающий и закрывающий теги и содержимое.
+| Теги заключены в угловые скобки и чувствительны к регистру. <cite>&lt;bookstore&gt;</cite> и <cite>&lt;Bookstore&gt;</cite> - это разные теги.
+| Соответственно между каждой парой определены отношения - родитель-ребёнок или сёстры (<cite>siblings</cite>).</p>
+<div class="line-block">
+<div class="line">Детьми корневого элемента являются элементы <cite>&lt;book&gt;</cite>. Разные элементы <cite>&lt;book&gt;</cite> друг для друга являются сёстрами.</div>
+<div class="line">Как такового понятия списка в XML нет, но по имени элемента мы (и код) понимаем, что они представляют из себя именно список.</div>
+<div class="line">У элемента <cite>&lt;book&gt;</cite> есть дочерние элементы. Их состав совсем не обязательно должен быть одинаковым - XML этого не требует, однако этого может (и скорее всего будет) требовать приложение.</div>
+</div>
+<p>Главное правило XML - каждый открывшийся тег должен быть закрыт: сказал <cite>&lt;a&gt;</cite> - говори и <cite>&lt;/a&gt;</cite>. Элемент может быть пустым, просто выражая факт своего существования, тогда запись <cite>&lt;instock&gt;&lt;/instock&gt;</cite> можно заменить на просто <cite>&lt;instock/&gt;</cite>.</p>
+</div>
+<div class="section" id="id8">
+<h2>Атрибуты<a class="headerlink" href="#id8" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Взглянем на другой пример:</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;bookstore&gt;</span>
+  <span class="nt">&lt;book</span> <span class="na">category=</span><span class="s">&quot;cooking&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>Everyday Italian<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;author&gt;</span>Giada De Laurentiis<span class="nt">&lt;/author&gt;</span>
+    <span class="nt">&lt;year&gt;</span>2005<span class="nt">&lt;/year&gt;</span>
+  <span class="nt">&lt;/book&gt;</span>
+  <span class="nt">&lt;book</span> <span class="na">category=</span><span class="s">&quot;children&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>Harry Potter<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;author&gt;</span>J K. Rowling<span class="nt">&lt;/author&gt;</span>
+    <span class="nt">&lt;year&gt;</span>2005<span class="nt">&lt;/year&gt;</span>
+  <span class="nt">&lt;/book&gt;</span>
+<span class="nt">&lt;/bookstore&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Теперь внутри тега появилась строка вида <cite>category=»cooking»</cite>. Она описывает дополнительные данные об элементе. Своего рода метаданные.</div>
+<div class="line">При этом вот эти две записи абсолютно равноправны <strong>с точки зрения XML</strong>:</div>
+</div>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;book</span> <span class="na">category=</span><span class="s">&quot;cooking&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;title</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>Everyday Italian<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;author&gt;</span>Giada De Laurentiis<span class="nt">&lt;/author&gt;</span>
+  <span class="nt">&lt;year&gt;</span>2005<span class="nt">&lt;/year&gt;</span>
+<span class="nt">&lt;/book&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>и</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;book&gt;</span>
+  <span class="nt">&lt;category&gt;</span>cooking<span class="nt">&lt;/category&gt;</span>
+  <span class="nt">&lt;title&gt;</span>Everyday Italian
+    <span class="nt">&lt;lang&gt;</span>en<span class="nt">&lt;/lang&gt;</span>
+  <span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;author&gt;</span>Giada De Laurentiis<span class="nt">&lt;/author&gt;</span>
+  <span class="nt">&lt;year&gt;</span>2005<span class="nt">&lt;/year&gt;</span>
+<span class="nt">&lt;/book&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">То есть XML в терминах ни синтаксиса, ни семантики понятия дочерний элемент и атрибут не разделяет. Это остаётся исключительно на совести составителя/разработчика.</div>
+<div class="line">В целом к этому следует относиться именно как к метаданным - информации об информации. То есть если это не является неотъемлемым свойством объекта или нужно в служебных целях, то его можно вынести в атрибуты.</div>
+</div>
+<p>Чтобы далеко не уходить, вот пример из netconf:</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc</span> <span class="na">message-id=</span><span class="s">”101″</span><span class="nt">&gt;</span>
+<span class="nt">&lt;get-config&gt;</span>
+  <span class="nt">&lt;source&gt;</span>
+    <span class="nt">&lt;running/&gt;</span>
+  <span class="nt">&lt;/source&gt;</span>
+<span class="nt">&lt;/get-config&gt;</span>
+<span class="nt">&lt;/rpc&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Здесь <cite>message-id</cite> - это атрибут элемента RPC, который не имеет непосредственного отношения к передаваемым далее данным, но позволяет отследить по <cite>message-id</cite> ответ сервера (он вставит его в <cite>&lt;rpc-reply&gt;</cite>).</div>
+<div class="line">Ещё один пример, который мы будем разбирать дальше: <cite>&lt;interfaces operation=»replace»&gt;</cite>. Атрибут <cite>operation=»replace»</cite> не является частью конфигурации интерфейса, он лишь говорит, что то, что существует сейчас на коробке в ветке <cite>&lt;interfaces&gt;</cite>, нужно заменить на то, что описано в данном XML.</div>
+<div class="line">Ну и замечу, что пусть с точки зрения XML атрибут и дочерний элемент взаимозаменяемы, когда вы придумываете свою схему обмена или хранения, однако NETCONF вам такого не простит. Да и любой другой интерфейс, в который вы встраиваетесь - ведь в нём уже определена схема XML.</div>
+</div>
+</div>
+<div class="section" id="namespaces">
+<h2>Namespaces<a class="headerlink" href="#namespaces" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="line-block">
+<div class="line">Хух. Я откладывал много лет момент, когда придётся разобраться с неймспейсами в XML.</div>
+<div class="line">На самом деле ничего тут нет хитрого.</div>
+<div class="line">Если мы определили два разных элемента с одинаковыми именами, то появляется неоднозначность - какой именно элемент мы имеем в виду, обращаясь к нему по имени?</div>
+<div class="line">Например, элемент <cite>&lt;name&gt;</cite> может быть как у интерфейса, так и у пользователя и у влана итд. Их можно разнести в разные NS, хотя это не обязательно, потому что они находятся под разными родителями.</div>
+<div class="line">А если на одном уровне могут оказаться совпадающие имена - это уже настоящая проблема. Например,</div>
+</div>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;root&gt;</span>
+<span class="nt">&lt;address&gt;</span>
+  <span class="nt">&lt;city&gt;</span>
+    <span class="nt">&lt;name&gt;</span>Moscow<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;street&gt;</span>Novocheremushkinskaya, 50<span class="nt">&lt;/street&gt;</span>
+  <span class="nt">&lt;/city&gt;</span>
+<span class="nt">&lt;/address&gt;</span>
+<span class="nt">&lt;address&gt;</span>
+  <span class="nt">&lt;ipv6&gt;</span>2a01:ba80:e:20::32<span class="nt">&lt;/ipv6&gt;</span>
+  <span class="nt">&lt;ipv4&gt;</span>185.127.149.137<span class="nt">&lt;/ipv4&gt;</span>
+<span class="nt">&lt;/address&gt;</span>
+<span class="nt">&lt;/root&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">В первом случае имеется в виду почтовый адрес, во втором - IP.</div>
+<div class="line">Здесь уже однозначно будет конфликт. Надо решать.</div>
+<div class="line">Сделать это можно несколькими способами.</div>
+</div>
+<p># Прямо объявляем неймспейсы с префиксами:</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;root&gt;</span>
+<span class="nt">&lt;postal:address</span> <span class="na">xmlns:postal=</span><span class="s">&quot;https://www.linkmeup.ru/postal_address/&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;postal:city&gt;</span>
+    <span class="nt">&lt;postal:name&gt;</span>Moscow<span class="nt">&lt;/postal:name&gt;</span>
+    <span class="nt">&lt;postal:street&gt;</span>Novocheremushkinskaya, 50<span class="nt">&lt;/postal:street&gt;</span>
+  <span class="nt">&lt;/postal:city&gt;</span>
+<span class="nt">&lt;/postal:address&gt;</span>
+<span class="nt">&lt;ip:address</span> <span class="na">xmlns:ip=</span><span class="s">&quot;https://www.linkmeup.ru/ip/&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;ip:ipv6&gt;</span>2a01:ba80:e:20::32<span class="nt">&lt;/ip:ipv6&gt;</span>
+  <span class="nt">&lt;ip:ipv4&gt;</span>185.127.149.137<span class="nt">&lt;/ip:ipv4&gt;</span>
+<span class="nt">&lt;/ip:address&gt;</span>
+<span class="nt">&lt;/root&gt;</span>
+
+ Теперь это полное, fully qualified, имя безо всяких ограничений. Обращаемся из приложений, соответственно, по полному имени.
+ `postal` и `ip` - это короткие префиксы. Само имя namespace - это произвольная строка. Но негласная договорённость, что все используют URI. Он может вести на страницу с описанием этого неймспейса, а может и не вести.
+ Но указание префикса в каждом теге может показаться не очень удобным, тогда есть второй способ.
+</pre></div>
+</div>
+</div></blockquote>
+<p># Определяем default namespace</p>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;root&gt;</span>
+<span class="nt">&lt;address</span> <span class="na">xmlns=</span><span class="s">&quot;https://www.linkmeup.ru/postal_address/&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;city&gt;</span>
+    <span class="nt">&lt;name&gt;</span>Moscow<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;street&gt;</span>Novocheremushkinskaya, 50<span class="nt">&lt;/street&gt;</span>
+  <span class="nt">&lt;/city&gt;</span>
+<span class="nt">&lt;/address&gt;</span>
+<span class="nt">&lt;address</span> <span class="na">xmlns=</span><span class="s">&quot;https://www.linkmeup.ru/ip/&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;ipv6&gt;</span>2a01:ba80:e:20::32<span class="nt">&lt;/ipv6&gt;</span>
+  <span class="nt">&lt;ipv4&gt;</span>185.127.149.137<span class="nt">&lt;/ipv4&gt;</span>
+<span class="nt">&lt;/address&gt;</span>
+<span class="nt">&lt;/root&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Область действия дефолтного неймспейса - сам элемент и все его потомки, если он нигде не переопределяется.</p>
+<p>Концепция namespace с одной стороны проста, с другой стороны и там есть место тёмным пятнам. Если хочется подетальнее изучить, то есть <a class="reference external" href="https://docs.microsoft.com/en-us/previous-versions/aa468565(v=msdn.10)?redirectedfrom=MSDN">пара</a> полезных <a class="reference external" href="http://www.rpbourret.com/xml/NamespacesFAQ.htm">FAQ про них</a>.</p>
+</div></blockquote>
+</div>
+<div class="section" id="xpath-xml-path">
+<h2>Xpath - XML Path<a class="headerlink" href="#xpath-xml-path" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Сначала правильно, но непонятно: <cite>XPath</cite> - это способ выбрать ноды или множество нод из XML документа.
+Теперь неправильно, но понятно: это способ представить иерархию XML в виде «привычного» нам пути, где элементы отделены друг от друга знаком «<cite>/</cite>».</p>
+<p>Например, в XML из примера выше путь к элементу <cite>&lt;title&gt;</cite> будет записан в виде <cite>/bookstore/book/title</cite></p>
+<div class="line-block">
+<div class="line">Ну а теперь и правильно, и понятно, но долго.</div>
+<div class="line">XPath - это очень гибкий и мощный инструмент, позволяющий внутри XML делать разнообразные запросы. Он поддерживает различные функции: <cite>sum</cite>, <cite>count</cite>, <cite>avg</cite>, <cite>min</cite>, <cite>starts-with</cite>, <cite>contains</cite>, <cite>concat</cite>, <cite>true</cite>, <cite>false</cite> - над разными типами данных: числа, строки, булевы.</div>
+<div class="line">Так с помощью XPath можно выбрать названия всех книг с ценою выше 35: <cite>/bookstore/book[price&gt;35]/title</cite></div>
+</div>
+<p>XPath оперирует нодами, которыми являются элементы, атрибуты, текст, неймспейсы и другое.</p>
+<div class="line-block">
+<div class="line">Соответственно помимо того, что мы можем запросить часть XML по конкретному пути, можно делать разные хитрые запросы.</div>
+<div class="line">Например:</div>
+</div>
+<ul class="simple">
+<li><p>Вернуть BGP-группу, в которой есть peer 10.1.1.1</p></li>
+<li><p>Вернуть интерфейс, на котором число ошибок больше 100</p></li>
+<li><p>Вернуть список интерфейсов, на которых native-vlan 127</p></li>
+<li><p>Вернуть количество интерфейсов, в имени которых есть «Ethernet».</p></li>
+</ul>
+<p>В контексте NETCONF вы можете его встретить, но это не самая популярная capability. В общем, знать про него полезно, но глубоко копать не будем. Если хочется поподробнее почитать, то это можно сделать например, <a href="#id10"><span class="problematic" id="id11">`</span></a>тут &lt;<a class="reference external" href="https://www.w3schools.com/xml/xpath_intro.asp">https://www.w3schools.com/xml/xpath_intro.asp</a>&gt;`_&lt;/a&gt;.</p>
+</div>
+<div class="section" id="id12">
+<h2>Схема<a class="headerlink" href="#id12" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="line-block">
+<div class="line">Что такое XML - это удобный способ передавать структурированные данные между приложениями. Но это лишено какого-либо смысла, есть нет контракта о том, как данные в этих файлах должны храниться - где какие элементы и какого они типа.</div>
+<div class="line">Представьте, что информацию об IP-адресах мы будем помещать непосредственно в элемент <cite>&lt;interface&gt;</cite>, а читать его пытаются из элемента <cite>&lt;unit&gt;</cite>?</div>
+<div class="line">Или дату мы передаём в формате <cite>YYYY-MM-DD</cite>, а читать её пытаются в <cite>MM-DD-YYYY</cite> (больные ублюдки).</div>
+</div>
+<p>При этом сам XML будет абсолютно «Well Formed», что называется - то есть соответствовать синтаксису XML.
+Для этого и существует <strong>Схема</strong>. В отдельном XML-файле описывается схема данных для основного XML.
+| Это позволяет</p>
+<ul class="simple">
+<li><p>двум сторонам использовать один и тот же способ хранения и распаковки данных.</p></li>
+<li><p>описывать содержимое документа</p></li>
+<li><p>определять ограничение на данные</p></li>
+<li><p>проверять корректность XML</p></li>
+</ul>
+<p>Называется это хозяйство <strong>XML Schema Definition</strong> - или коротко <strong>XSD</strong>.</p>
+<p>Поскольку это тот же самый XML, он должен как-то обозначать себя, что является схемой. Для этого есть ключевой элемент <cite>&lt;schema&gt;</cite>. Вот так будет выглядеть XSD для кусочка XML выше:</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;xs:schemaxmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
+  &lt;xs:elementname=&quot;address&quot;&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:elementname=&quot;country_name&quot; type=&quot;xs:string&quot;/&gt;
+        &lt;xs:elementname=&quot;population&quot; type=&quot;xs:decimal&quot;/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+&lt;/xs:element&gt;
+&lt;/xs:schema&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p>При этом в самом XML можно дать ссылку на XSD</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;note</span>
+<span class="na">xmlns=</span><span class="s">&quot;https://www.linkmeup.ru&quot;</span>
+<span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+<span class="na">xsi:schemaLocation=</span><span class="s">&quot;https://www.linkmeup.ru/404.xsd&quot;</span><span class="nt">&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><a href="#id13"><span class="problematic" id="id14">`</span></a>Самостоятельное продолжение изучения XSD &lt;<a class="reference external" href="https://www.w3schools.com/xml/schema_howto.asp">https://www.w3schools.com/xml/schema_howto.asp</a>&gt;`_&lt;/a&gt;.</p>
+<p>Лучшая сторона XSD - это то, что на его основе можно автоматически генерировать объекты в языках программирования. То есть XSD описывает, какие именно объекты и структуры должны быть созданы, а конкретный XML - наполняет экземпляр, пользоваться которым значительно удобнее, чем крафтить XML.
+С схемами и моделями мы будем разбираться дальше.</p>
+<p>Надеюсь получилось, не утопая в деталях, дать понимание, что из себя представляет XML. Далее для нас это будет важным.</p>
+<p>&amp;lt;/XML&amp;gt;</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, eucariot
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
