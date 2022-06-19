@@ -93,7 +93,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cli.html">CLI - Command Line Interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rpc.html">Концепция RPC - Russian Pravoslavnaya Church</a></li>
 <li class="toctree-l2"><a class="reference internal" href="netconf.html">NETCONF</a></li>
-<li class="toctree-l2"><a class="reference internal" href="xml.html">&amp;lt;XML&amp;gt;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xml.html">&lt;XML&gt;</a></li>
 <li class="toctree-l2"><a class="reference internal" href="netconf_again.html">NETCONF Again</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">RESTCONF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="callhome.html">Call-Home</a></li>
@@ -195,7 +195,7 @@
 <ol class="arabic">
 <li><p>Выпускаем самоподписанный сертификат</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>security pki certificate generate self-signed restconf.crt key restconf.key generate rsa <span class="m">2048</span> parameters common-name restconf
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>security pki certificate generate self-signed restconf.crt key restconf.key generate rsa 2048 parameters common-name restconf
 certificate:restconf.crt generated
 </pre></div>
 </div>
@@ -205,7 +205,7 @@ certificate:restconf.crt generated
 <blockquote>
 <div><p>Смотрим то, что разрешено сейчас - это readonly acl.</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>show ip access-lists default-control-plane-acl
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>show ip access-lists default-control-plane-acl
 </pre></div>
 </div>
 </div></blockquote>
@@ -213,35 +213,35 @@ certificate:restconf.crt generated
 </li>
 <li><p>Копируем правила и создаём копию ACL. Добавляем правило, разрешающее доступ по порту 6020</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip access-list control-plane-acl-with-restconf
-<span class="m">9</span> permit tcp any any eq <span class="m">6020</span>
-<span class="m">30</span> permit udp any any eq bfd ttl eq <span class="m">255</span>
-<span class="m">40</span> permit udp any any eq bfd-echo ttl eq <span class="m">254</span>
-<span class="m">50</span> permit udp any any eq multihop-bfd
-<span class="m">60</span> permit udp any any eq micro-bfd
-<span class="m">70</span> permit ospf any any
-<span class="m">80</span> permit tcp any any eq ssh telnet www snmp bgp https msdp ldp
-<span class="m">90</span> permit udp any any eq bootps bootpc snmp rip ntp ldp
-<span class="m">100</span> permit tcp any any eq mlag ttl eq <span class="m">255</span>
-<span class="m">110</span> permit udp any any eq mlag ttl eq <span class="m">255</span>
-<span class="m">120</span> permit vrrp any any
-<span class="m">130</span> permit ahp any any
-<span class="m">140</span> permit pim any any
-<span class="m">150</span> permit igmp any any
-<span class="m">160</span> permit tcp any any range <span class="m">5900</span> <span class="m">5910</span>
-<span class="m">170</span> permit tcp any any range <span class="m">50000</span> <span class="m">50100</span>
-<span class="m">180</span> permit udp any any range <span class="m">51000</span> <span class="m">51100</span>
-<span class="m">190</span> permit tcp any any eq <span class="m">3333</span>
-<span class="m">200</span> permit tcp any any eq nat ttl eq <span class="m">255</span>
-<span class="m">210</span> permit tcp any eq bgp any
-<span class="m">220</span> permit rsvp any any
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ip access-list control-plane-acl-with-restconf
+9 permit tcp any any eq 6020
+30 permit udp any any eq bfd ttl eq 255
+40 permit udp any any eq bfd-echo ttl eq 254
+50 permit udp any any eq multihop-bfd
+60 permit udp any any eq micro-bfd
+70 permit ospf any any
+80 permit tcp any any eq ssh telnet www snmp bgp https msdp ldp
+90 permit udp any any eq bootps bootpc snmp rip ntp ldp
+100 permit tcp any any eq mlag ttl eq 255
+110 permit udp any any eq mlag ttl eq 255
+120 permit vrrp any any
+130 permit ahp any any
+140 permit pim any any
+150 permit igmp any any
+160 permit tcp any any range 5900 5910
+170 permit tcp any any range 50000 50100
+180 permit udp any any range 51000 51100
+190 permit tcp any any eq 3333
+200 permit tcp any any eq nat ttl eq 255
+210 permit tcp any eq bgp any
+220 permit rsvp any any
 </pre></div>
 </div>
 </div></blockquote>
 </li>
 <li><p>Применяем ACL на Control-Plane</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>control-plane
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>control-plane
    ip access-group control-plane-acl-with-restconf in
 </pre></div>
 </div>
@@ -249,8 +249,8 @@ certificate:restconf.crt generated
 </li>
 <li><p>Включаем сервис RESTCONF</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>management api restconf
-    transport https <span class="nb">test</span>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>management api restconf
+    transport https test
     ssl profile restconf
 </pre></div>
 </div>
@@ -258,7 +258,7 @@ certificate:restconf.crt generated
 </li>
 <li><p>Настраиваем SSL</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>management security
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>management security
     ssl profile restconf
     certificate restconf.crt key restconf.key
 </pre></div>

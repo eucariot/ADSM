@@ -20,7 +20,7 @@ RESTCONF
 
 1. Выпускаем самоподписанный сертификат
 
-    .. code-block:: bash
+    .. code-block:: text
 
        security pki certificate generate self-signed restconf.crt key restconf.key generate rsa 2048 parameters common-name restconf
        certificate:restconf.crt generated
@@ -31,14 +31,14 @@ RESTCONF
       
     Смотрим то, что разрешено сейчас - это readonly acl.
 
-        .. code-block:: bash
+        .. code-block:: text
 
            show ip access-lists default-control-plane-acl
 
  
 3. Копируем правила и создаём копию ACL. Добавляем правило, разрешающее доступ по порту 6020  
 
-    .. code-block:: bash
+    .. code-block:: text
 
        ip access-list control-plane-acl-with-restconf
        9 permit tcp any any eq 6020
@@ -65,14 +65,14 @@ RESTCONF
   
 4. Применяем ACL на Control-Plane
 
-    .. code-block:: bash
+    .. code-block:: text
 
        control-plane
           ip access-group control-plane-acl-with-restconf in
   
 5. Включаем сервис RESTCONF
 
-    .. code-block:: bash
+    .. code-block:: text
 
        management api restconf
            transport https test
@@ -80,7 +80,7 @@ RESTCONF
   
 6. Настраиваем SSL
 
-    .. code-block:: bash
+    .. code-block:: text
 
        management security
            ssl profile restconf

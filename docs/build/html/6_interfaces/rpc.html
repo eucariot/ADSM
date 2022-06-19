@@ -96,7 +96,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="netconf.html">NETCONF</a></li>
-<li class="toctree-l2"><a class="reference internal" href="xml.html">&amp;lt;XML&amp;gt;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xml.html">&lt;XML&gt;</a></li>
 <li class="toctree-l2"><a class="reference internal" href="netconf_again.html">NETCONF Again</a></li>
 <li class="toctree-l2"><a class="reference internal" href="restconf.html">RESTCONF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="callhome.html">Call-Home</a></li>
@@ -197,8 +197,8 @@
 <div class="line">Для начала мы определяем спецификацию - это некий контракт, который гарантирует, что у клиента и сервера одинаковое понимание процедуры: имя, параметры, типы данных итд.</div>
 </div>
 <ol class="arabic simple">
-<li><p>Наша убер-платформа автоматизации вызывает некую функцию <cite>add_bgp_peer_stub(ip=»10.1.1.1», as=»12345»</cite>).</p></li>
-<li><p>Функция <cite>add_bgp_peer_stub</cite> открывает спецификацию для протокола, реализующего RPC, и согласно ей упаковывает полученные параметры, которые станут payload’ом для сообщения. Такая упаковка называется <strong>маршалинг</strong>.</p></li>
+<li><p>Наша убер-платформа автоматизации вызывает некую функцию <code class="docutils literal notranslate"><span class="pre">add_bgp_peer_stub(ip=&quot;10.1.1.1&quot;,</span> <span class="pre">as=&quot;12345&quot;</span></code>).</p></li>
+<li><p>Функция <code class="docutils literal notranslate"><span class="pre">add_bgp_peer_stub</span></code> открывает спецификацию для протокола, реализующего RPC, и согласно ей упаковывает полученные параметры, которые станут payload’ом для сообщения. Такая упаковка называется <strong>маршалинг</strong>.</p></li>
 <li><p>Далее формирует пакет и передаёт его вниз по стеку и - в сеть.</p></li>
 <li><p>На другой стороне - на устройстве - приложение получает пакета.</p></li>
 <li><p>Функция, принявшая сообщение, вытаскивает из него параметры процедуры, согласно той же самой спецификации и формирует список параметров. Это называется <strong>демаршалинг</strong>.</p></li>

@@ -93,7 +93,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cli.html">CLI - Command Line Interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rpc.html">Концепция RPC - Russian Pravoslavnaya Church</a></li>
 <li class="toctree-l2"><a class="reference internal" href="netconf.html">NETCONF</a></li>
-<li class="toctree-l2"><a class="reference internal" href="xml.html">&amp;lt;XML&amp;gt;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xml.html">&lt;XML&gt;</a></li>
 <li class="toctree-l2"><a class="reference internal" href="netconf_again.html">NETCONF Again</a></li>
 <li class="toctree-l2"><a class="reference internal" href="restconf.html">RESTCONF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="callhome.html">Call-Home</a></li>
@@ -184,8 +184,8 @@
 <h1>Модели данных<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
 <p>Собственно то, в какой иерархии представлена конфигурация - и есть модель данных. Говорится об этом или нет, но такая модель есть всегда и у любого интерфейса. Она может быть плоской или иерархической, может быть простой или запутанной. Если бы её не было, то вы бы просто не смогли настроить устройство, а команды конфигурации могли бы видоизвиняться случайным образом. Говорят, в Router OS 7 подвезли такую функцию.</p>
 <div class="line-block">
-<div class="line">Так, мы знаем, что например, в случае Juniper нужно войти в контекст <cite>system-&gt;login</cite>, чтобы настроить нового пользователя, а формат команды будет <cite>set &lt;USERNAME&gt; &lt;OTHER PARAMETERS&gt;</cite>.</div>
-<div class="line">А настройка IP-адреса управления при этом будет происходить в контексте <cite>interface -&gt; em0 -&gt; unit 0 -&gt; family inet</cite>. И так будет всегда. Во всяком случае на этой железке и этой версии софта.</div>
+<div class="line">Так, мы знаем, что например, в случае Juniper нужно войти в контекст <code class="docutils literal notranslate"><span class="pre">system-&gt;login</span></code>, чтобы настроить нового пользователя, а формат команды будет <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">&lt;USERNAME&gt;</span> <span class="pre">&lt;OTHER</span> <span class="pre">PARAMETERS&gt;</span></code>.</div>
+<div class="line">А настройка IP-адреса управления при этом будет происходить в контексте <code class="docutils literal notranslate"><span class="pre">interface</span> <span class="pre">-&gt;</span> <span class="pre">em0</span> <span class="pre">-&gt;</span> <span class="pre">unit</span> <span class="pre">0</span> <span class="pre">-&gt;</span> <span class="pre">family</span> <span class="pre">inet</span></code>. И так будет всегда. Во всяком случае на этой железке и этой версии софта.</div>
 </div>
 <p>То есть модель данных - это контракт между пользователем и операционной системой - как она интерпретирует переданные команды в зависимости от контекста.</p>
 <p>Это верно для CLI, SNMP, NETCONF, gNMI и даже прямых вызовов чипового SDK.</p>

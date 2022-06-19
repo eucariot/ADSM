@@ -78,7 +78,7 @@ NETCONF
 
 Вот как NETCONF был определён в 2006-м году:
 
-    .. code-block:: bash
+    .. code-block:: text
 
        Abstract
        The Network Configuration Protocol (NETCONF) defined in this document
@@ -179,7 +179,7 @@ NETCONF и его команды
 
 Так, сначала включаем SSH NETCONF. На примере джунипер.
 
-    .. code-block:: bash
+    .. code-block:: text
 
        set system services netconf
 

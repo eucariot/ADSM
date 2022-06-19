@@ -93,7 +93,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cli.html">CLI - Command Line Interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rpc.html">Концепция RPC - Russian Pravoslavnaya Church</a></li>
 <li class="toctree-l2"><a class="reference internal" href="netconf.html">NETCONF</a></li>
-<li class="toctree-l2"><a class="reference internal" href="xml.html">&amp;lt;XML&amp;gt;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xml.html">&lt;XML&gt;</a></li>
 <li class="toctree-l2"><a class="reference internal" href="netconf_again.html">NETCONF Again</a></li>
 <li class="toctree-l2"><a class="reference internal" href="restconf.html">RESTCONF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="callhome.html">Call-Home</a></li>
@@ -310,8 +310,8 @@
 </div>
 </div></blockquote>
 <div class="line-block">
-<div class="line">Сразу после этого в каталоге, где мы это выполнили, появятся два файла: <cite>ping_pb2.py</cite> и <cite>ping_pb2_grpc.py</cite> - это сгенерированный код.</div>
-<div class="line">Если вы зяглянете вовнутрь, то обнаружите там кучу классов. Это классы, реализующие сообщения, сервисы для сервера (<cite>PingServicer</cite>) и для клиента (<cite>PingStub</cite>). Там же у класса <cite>Ping</cite> есть и метод <cite>SendPingReply</cite>. И куча других штуковин.</div>
+<div class="line">Сразу после этого в каталоге, где мы это выполнили, появятся два файла: <code class="docutils literal notranslate"><span class="pre">ping_pb2.py</span></code> и <code class="docutils literal notranslate"><span class="pre">ping_pb2_grpc.py</span></code> - это сгенерированный код.</div>
+<div class="line">Если вы зяглянете вовнутрь, то обнаружите там кучу классов. Это классы, реализующие сообщения, сервисы для сервера (<code class="docutils literal notranslate"><span class="pre">PingServicer</span></code>) и для клиента (<code class="docutils literal notranslate"><span class="pre">PingStub</span></code>). Там же у класса <code class="docutils literal notranslate"><span class="pre">Ping</span></code> есть и метод <code class="docutils literal notranslate"><span class="pre">SendPingReply</span></code>. И куча других штуковин.</div>
 <div class="line">Эти файлы нам никогда не придётся менять вручную - мы будем их только импортировать и использовать.</div>
 </div>
 <div class="line-block">
@@ -320,7 +320,7 @@
 </div>
 <p>Пока структура выглядит так:</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>.
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.
 ├── ping_client.py
 ├── ping_pb2.py
 └── ping_pb2_grpc.py
@@ -329,8 +329,8 @@
 </div></blockquote>
 <p>Давайте писать gRPC-клиент.</p>
 <p>Клиент будет совсем бесхитростным.
-В цикле он будет пытаться выполнить RPC <cite>SendPingReply</cite> на удалённом хосте <cite>84.201.157.17:12345</cite>. В качестве аргумента передаём payload, который считали из аргументов запуска скрипта.</p>
-<p>В функции <cite>run</cite> мы устанавливаем соединение к серверу, подключаем <cite>stub</cite> и выполняем RPC <cite>SendPingReply</cite>, которому передаём сообщение <cite>PingRequest</cite> с тем самым <cite>payload</cite>.</p>
+В цикле он будет пытаться выполнить RPC <code class="docutils literal notranslate"><span class="pre">SendPingReply</span></code> на удалённом хосте <code class="docutils literal notranslate"><span class="pre">84.201.157.17:12345</span></code>. В качестве аргумента передаём payload, который считали из аргументов запуска скрипта.</p>
+<p>В функции <code class="docutils literal notranslate"><span class="pre">run</span></code> мы устанавливаем соединение к серверу, подключаем <code class="docutils literal notranslate"><span class="pre">stub</span></code> и выполняем RPC <code class="docutils literal notranslate"><span class="pre">SendPingReply</span></code>, которому передаём сообщение <code class="docutils literal notranslate"><span class="pre">PingRequest</span></code> с тем самым <code class="docutils literal notranslate"><span class="pre">payload</span></code>.</p>
 <blockquote>
 <div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">time</span>
@@ -362,17 +362,17 @@
 </pre></div>
 </div>
 </div></blockquote>
-<p>Если запустить его сейчас, клиент вернёт <cite>StatusCode.UNAVAILABLE</cite> - сервера пока нет, порт 12345 никто не слушает.</p>
+<p>Если запустить его сейчас, клиент вернёт <code class="docutils literal notranslate"><span class="pre">StatusCode.UNAVAILABLE</span></code> - сервера пока нет, порт 12345 никто не слушает.</p>
 <p>Давайте теперь писать</p>
 </div>
 <div class="section" id="id1">
 <h3>gRPC-сервер<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h3>
 <p>на Go. Я его развернул на облачной виртуалочке, поэтому какое-то время он будет доступен и читателям.</p>
-<p>Всё, что делает сервер - получает какую-то строку в <cite>payload</cite>, добавляет к нему <em>«-pong»</em> и возвращает это клиенту.</p>
+<p>Всё, что делает сервер - получает какую-то строку в <code class="docutils literal notranslate"><span class="pre">payload</span></code>, добавляет к нему <em>«-pong»</em> и возвращает это клиенту.</p>
 <p><strong>Сгенерированный Код</strong></p>
 <div class="line-block">
 <div class="line">Тут нам тоже понадобится дополнительный код, реализующий интерфейс.</div>
-<div class="line">Создаём рабочую директорию <cite>go-server</cite>, внутри которой ещё <cite>ping</cite> - для хранения спецификации и кода интерфейса.</div>
+<div class="line">Создаём рабочую директорию <cite>go-server</cite>, внутри которой ещё <code class="docutils literal notranslate"><span class="pre">ping</span></code> - для хранения спецификации и кода интерфейса.</div>
 </div>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>protoc --go_out<span class="o">=</span>. --go-grpc_out<span class="o">=</span>.  protos/ping.proto
@@ -438,10 +438,10 @@
 </pre></div>
 </div>
 </div></blockquote>
-<p>Вся бизнес логика описана в функции <cite>SendPingReply</cite>, ожидающей <cite>PingRequest</cite>, а возвращающей <cite>PingReply</cite>, в котором мы отправляем сообщение <cite>message</cite>: <cite>payload</cite> + <em>«-pong»</em> (<cite>GetPayload</cite>). Естественно, там может быть более изощрённая логика.</p>
+<p>Вся бизнес логика описана в функции <code class="docutils literal notranslate"><span class="pre">SendPingReply</span></code>, ожидающей <code class="docutils literal notranslate"><span class="pre">PingRequest</span></code>, а возвращающей <code class="docutils literal notranslate"><span class="pre">PingReply</span></code>, в котором мы отправляем сообщение <code class="docutils literal notranslate"><span class="pre">message</span></code>: <code class="docutils literal notranslate"><span class="pre">payload</span></code> + <em>«-pong»</em> (<code class="docutils literal notranslate"><span class="pre">GetPayload</span></code>). Естественно, там может быть более изощрённая логика.</p>
 <div class="line-block">
-<div class="line">Ну, а в <cite>main</cite> мы запускаем сервер на адресе <cite>10.128.0.6</cite>.</div>
-<div class="line">Почему не на <cite>84.201.157.17</cite>, на который стучится клиент? Тут без хитростей - это внутренний адрес ВМ, на который натируются все запросы к публичному адресу.</div>
+<div class="line">Ну, а в <code class="docutils literal notranslate"><span class="pre">main</span></code> мы запускаем сервер на адресе <code class="docutils literal notranslate"><span class="pre">10.128.0.6</span></code>.</div>
+<div class="line">Почему не на <code class="docutils literal notranslate"><span class="pre">84.201.157.17</span></code>, на который стучится клиент? Тут без хитростей - это внутренний адрес ВМ, на который натируются все запросы к публичному адресу.</div>
 </div>
 <p>Я положу его в</p>
 <blockquote>
@@ -655,7 +655,7 @@ supported encodings:
 </div></blockquote>
 <p>Из ответа видно полный путь к каждому интерфейсу, запрошенный путь и результат в модели OpenConfig.</p>
 <div class="line-block">
-<div class="line">Один ультра-полезный аргумент в gNMIc, это <cite>–path «/»</cite> -  он вернёт просто всё, что может.</div>
+<div class="line">Один ультра-полезный аргумент в gNMIc, это <code class="docutils literal notranslate"><span class="pre">--path</span> <span class="pre">&quot;/&quot;</span></code> -  он вернёт просто всё, что может.</div>
 <div class="line">Полезен он тем, что можно из вывода пореверсинжинирить где что искать.</div>
 </div>
 <blockquote>
@@ -669,7 +669,7 @@ supported encodings:
 </div>
 </div></blockquote>
 <p>Ответа будет много.</p>
-<p>И оттуда можно понять, что посмотреть конфигурацию BGP-пиров можно, используя путь <cite>«/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/config»</cite>:</p>
+<p>И оттуда можно понять, что посмотреть конфигурацию BGP-пиров можно, используя путь <code class="docutils literal notranslate"><span class="pre">&quot;/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/config&quot;</span></code>:</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gnmic get <span class="se">\</span>
       --path <span class="s2">&quot;/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/config&quot;</span> <span class="se">\</span>
@@ -722,7 +722,7 @@ supported encodings:
 </pre></div>
 </div>
 </div></blockquote>
-<p>А такой, чтобы проверить состояние пира: <cite>«/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/session-state»</cite></p>
+<p>А такой, чтобы проверить состояние пира: <code class="docutils literal notranslate"><span class="pre">&quot;/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/session-state&quot;</span></code></p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gnmic get <span class="se">\</span>
            --path <span class="s2">&quot;/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/session-state&quot;</span> <span class="se">\</span>
@@ -820,7 +820,7 @@ supported encodings:
 </pre></div>
 </div>
 </div></blockquote>
-<p>Ну, и последний практический пример в этой секции: настроим чего полезного на железке, <cite>Set RPC</cite>.</p>
+<p>Ну, и последний практический пример в этой секции: настроим чего полезного на железке, <code class="docutils literal notranslate"><span class="pre">Set</span> <span class="pre">RPC</span></code>.</p>
 <p>Сначала посмотрим значение AS у одного из BGP-пиров:</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gnmic get <span class="se">\</span>
@@ -1033,7 +1033,7 @@ supported encodings:
 <div class="line">Даже просто для того, чтобы настроить IP-адрес на интерфейсе, нужно знать иерархию секций конфигурации или конкретное поддерево XML.</div>
 </div>
 <div class="line-block">
-<div class="line">А ещё выяснить, в каком формате надо передавать адрес: <cite>fe80::1/64</cite>, <cite>fe80::1 64</cite>, <cite>fe80::1 link-local</cite>, <cite>address: fe80::1, mask: 64</cite>, <cite>FE8:0:0:0:0:0:0:1</cite>, <cite>0000111111101000 0000000000000000 0000000000000000 0000000000000000 0000000000000000 0000000000000000 0000000000000000 0000000000000001</cite> или там вообще не поддерживается IPv6. И надо ли сначала как-то энейблить IPv6, а MTU заимствуется с интерфейса или для IPv6 отдельный?</div>
+<div class="line">А ещё выяснить, в каком формате надо передавать адрес: <code class="docutils literal notranslate"><span class="pre">fe80::1/64</span></code>, <code class="docutils literal notranslate"><span class="pre">fe80::1</span> <span class="pre">64</span></code>, <code class="docutils literal notranslate"><span class="pre">fe80::1</span> <span class="pre">link-local</span></code>, <code class="docutils literal notranslate"><span class="pre">address:</span> <span class="pre">fe80::1,</span> <span class="pre">mask:</span> <span class="pre">64</span></code>, <code class="docutils literal notranslate"><span class="pre">FE8:0:0:0:0:0:0:1</span></code>, <code class="docutils literal notranslate"><span class="pre">0000111111101000</span> <span class="pre">0000000000000000</span> <span class="pre">0000000000000000</span> <span class="pre">0000000000000000</span> <span class="pre">0000000000000000</span> <span class="pre">0000000000000000</span> <span class="pre">0000000000000000</span> <span class="pre">0000000000000001</span></code> или там вообще не поддерживается IPv6. И надо ли сначала как-то энейблить IPv6, а MTU заимствуется с интерфейса или для IPv6 отдельный?</div>
 <div class="line">И так для каждого вендора по отдельности. Знаете, сетевых автоматизаторов спасает только то, что они до этого лет 10 ели на завтрак циски да джуниперы - и как свои два пальца знают все тонкости CLI.</div>
 <div class="line">Оно же их и губит.</div>
 </div>

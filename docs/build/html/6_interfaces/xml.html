@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&amp;lt;XML&amp;gt; &mdash; документация ADSM 0.1.0</title>
+  <title>&lt;XML&gt; &mdash; документация ADSM 0.1.0</title>
   
 
   
@@ -93,7 +93,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cli.html">CLI - Command Line Interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rpc.html">Концепция RPC - Russian Pravoslavnaya Church</a></li>
 <li class="toctree-l2"><a class="reference internal" href="netconf.html">NETCONF</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">&amp;lt;XML&amp;gt;</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">&lt;XML&gt;</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#xml-prolog">XML Prolog</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id3">Дерево элементов</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id4">Атрибуты</a></li>
@@ -161,7 +161,7 @@
         
           <li><a href="index.html">Часть 6. Интерфейсы взаимодействия с сетевым устройством</a> &raquo;</li>
         
-      <li>&amp;lt;XML&amp;gt;</li>
+      <li>&lt;XML&gt;</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -180,8 +180,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="lt-xml-gt">
-<h1>&amp;lt;XML&amp;gt;<a class="headerlink" href="#lt-xml-gt" title="Ссылка на этот заголовок">¶</a></h1>
+  <div class="section" id="xml">
+<h1>&lt;XML&gt;<a class="headerlink" href="#xml" title="Ссылка на этот заголовок">¶</a></h1>
 <div class="line-block">
 <div class="line">По всей видимости наиболее точный и честный ответ - «исторически сложилось».</div>
 <div class="line">Судьба XML в чём-то похожа на MPLS - оба были созданы для одной задачи, а популярность снискали в другой.</div>
@@ -245,17 +245,17 @@
 <h2>Дерево элементов<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
 <div class="line-block">
 <div class="line">XML представляет из себя дерево, состоящее из отдельных элементов. Оно может быть произвольной вложенности.</div>
-<div class="line">Самый первый элемент называется корневым - <cite>root</cite>, все последующие - его дети.</div>
-<div class="line">В примере выше это <cite>&lt;bookstore&gt;</cite>.  Элемент представляет из себя открывающий и закрывающий теги и содержимое.</div>
-<div class="line">Теги заключены в угловые скобки и чувствительны к регистру. <cite>&lt;bookstore&gt;</cite> и <cite>&lt;Bookstore&gt;</cite> - это разные теги.</div>
-<div class="line">Соответственно между каждой парой определены отношения - родитель-ребёнок или сёстры (<cite>siblings</cite>).</div>
+<div class="line">Самый первый элемент называется корневым - <code class="docutils literal notranslate"><span class="pre">root</span></code>, все последующие - его дети.</div>
+<div class="line">В примере выше это <code class="docutils literal notranslate"><span class="pre">&lt;bookstore&gt;</span></code>.  Элемент представляет из себя открывающий и закрывающий теги и содержимое.</div>
+<div class="line">Теги заключены в угловые скобки и чувствительны к регистру. <code class="docutils literal notranslate"><span class="pre">&lt;bookstore&gt;</span></code> и <code class="docutils literal notranslate"><span class="pre">&lt;Bookstore&gt;</span></code> - это разные теги.</div>
+<div class="line">Соответственно между каждой парой определены отношения - родитель-ребёнок или сёстры (<code class="docutils literal notranslate"><span class="pre">siblings</span></code>).</div>
 </div>
 <div class="line-block">
-<div class="line">Детьми корневого элемента являются элементы <cite>&lt;book&gt;</cite>. Разные элементы <cite>&lt;book&gt;</cite> друг для друга являются сёстрами.</div>
+<div class="line">Детьми корневого элемента являются элементы <code class="docutils literal notranslate"><span class="pre">&lt;book&gt;</span></code>. Разные элементы <code class="docutils literal notranslate"><span class="pre">&lt;book&gt;</span></code> друг для друга являются сёстрами.</div>
 <div class="line">Как такового понятия списка в XML нет, но по имени элемента мы (и код) понимаем, что они представляют из себя именно список.</div>
-<div class="line">У элемента <cite>&lt;book&gt;</cite> есть дочерние элементы. Их состав совсем не обязательно должен быть одинаковым - XML этого не требует, однако этого может (и скорее всего будет) требовать приложение.</div>
+<div class="line">У элемента <code class="docutils literal notranslate"><span class="pre">&lt;book&gt;</span></code> есть дочерние элементы. Их состав совсем не обязательно должен быть одинаковым - XML этого не требует, однако этого может (и скорее всего будет) требовать приложение.</div>
 </div>
-<p>Главное правило XML - каждый открывшийся тег должен быть закрыт: сказал <cite>&lt;a&gt;</cite> - говори и <cite>/a</cite>. Элемент может быть пустым, просто выражая факт своего существования, тогда запись <cite>&lt;instock&gt;&lt;/instock&gt;</cite> можно заменить на просто <cite>&lt;instock/&gt;</cite>.</p>
+<p>Главное правило XML - каждый открывшийся тег должен быть закрыт: сказал <code class="docutils literal notranslate"><span class="pre">&lt;a&gt;</span></code> - говори и <code class="docutils literal notranslate"><span class="pre">&lt;/a&gt;</span></code>. Элемент может быть пустым, просто выражая факт своего существования, тогда запись <code class="docutils literal notranslate"><span class="pre">&lt;instock&gt;&lt;/instock&gt;</span></code> можно заменить на просто <code class="docutils literal notranslate"><span class="pre">&lt;instock/&gt;</span></code>.</p>
 </div>
 <div class="section" id="id4">
 <h2>Атрибуты<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
@@ -277,7 +277,7 @@
 </div>
 </div></blockquote>
 <div class="line-block">
-<div class="line">Теперь внутри тега появилась строка вида <cite>category=»cooking»</cite>. Она описывает дополнительные данные об элементе. Своего рода метаданные.</div>
+<div class="line">Теперь внутри тега появилась строка вида <code class="docutils literal notranslate"><span class="pre">category=&quot;cooking&quot;</span></code>. Она описывает дополнительные данные об элементе. Своего рода метаданные.</div>
 <div class="line">При этом вот эти две записи абсолютно равноправны <strong>с точки зрения XML</strong>:</div>
 </div>
 <blockquote>
@@ -319,8 +319,8 @@
 </div>
 </div></blockquote>
 <div class="line-block">
-<div class="line">Здесь <cite>message-id</cite> - это атрибут элемента RPC, который не имеет непосредственного отношения к передаваемым далее данным, но позволяет отследить по <cite>message-id</cite> ответ сервера (он вставит его в <cite>&lt;rpc-reply&gt;</cite>).</div>
-<div class="line">Ещё один пример, который мы будем разбирать дальше: <cite>&lt;interfaces operation=»replace»&gt;</cite>. Атрибут <cite>operation=»replace»</cite> не является частью конфигурации интерфейса, он лишь говорит, что то, что существует сейчас на коробке в ветке <cite>&lt;interfaces&gt;</cite>, нужно заменить на то, что описано в данном XML.</div>
+<div class="line">Здесь <code class="docutils literal notranslate"><span class="pre">message-id</span></code> - это атрибут элемента RPC, который не имеет непосредственного отношения к передаваемым далее данным, но позволяет отследить по <code class="docutils literal notranslate"><span class="pre">message-id</span></code> ответ сервера (он вставит его в <code class="docutils literal notranslate"><span class="pre">&lt;rpc-reply&gt;</span></code>).</div>
+<div class="line">Ещё один пример, который мы будем разбирать дальше: <code class="docutils literal notranslate"><span class="pre">&lt;interfaces</span> <span class="pre">operation=&quot;replace&quot;&gt;</span></code>. Атрибут <code class="docutils literal notranslate"><span class="pre">operation=&quot;replace&quot;</span></code> не является частью конфигурации интерфейса, он лишь говорит, что то, что существует сейчас на коробке в ветке <code class="docutils literal notranslate"><span class="pre">&lt;interfaces&gt;</span></code>, нужно заменить на то, что описано в данном XML.</div>
 <div class="line">Ну и замечу, что пусть с точки зрения XML атрибут и дочерний элемент взаимозаменяемы, когда вы придумываете свою схему обмена или хранения, однако NETCONF вам такого не простит. Да и любой другой интерфейс, в который вы встраиваетесь - ведь в нём уже определена схема XML.</div>
 </div>
 </div>
@@ -330,7 +330,7 @@
 <div class="line">Хух. Я откладывал много лет момент, когда придётся разобраться с неймспейсами в XML.</div>
 <div class="line">На самом деле ничего тут нет хитрого.</div>
 <div class="line">Если мы определили два разных элемента с одинаковыми именами, то появляется неоднозначность - какой именно элемент мы имеем в виду, обращаясь к нему по имени?</div>
-<div class="line">Например, элемент <cite>&lt;name&gt;</cite> может быть как у интерфейса, так и у пользователя и у влана итд. Их можно разнести в разные NS, хотя это не обязательно, потому что они находятся под разными родителями.</div>
+<div class="line">Например, элемент <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code> может быть как у интерфейса, так и у пользователя и у влана итд. Их можно разнести в разные NS, хотя это не обязательно, потому что они находятся под разными родителями.</div>
 <div class="line">А если на одном уровне могут оказаться совпадающие имена - это уже настоящая проблема. Например,</div>
 </div>
 <blockquote>
@@ -371,7 +371,7 @@
 <span class="nt">&lt;/root&gt;</span>
 
  Теперь это полное, fully qualified, имя безо всяких ограничений. Обращаемся из приложений, соответственно, по полному имени.
- `postal` и `ip` - это короткие префиксы. Само имя namespace - это произвольная строка. Но негласная договорённость, что все используют URI. Он может вести на страницу с описанием этого неймспейса, а может и не вести.
+ ``postal`` и ``ip`` - это короткие префиксы. Само имя namespace - это произвольная строка. Но негласная договорённость, что все используют URI. Он может вести на страницу с описанием этого неймспейса, а может и не вести.
  Но указание префикса в каждом теге может показаться не очень удобным, тогда есть второй способ.
 </pre></div>
 </div>
@@ -403,13 +403,13 @@
 </div>
 <div class="section" id="xpath-xml-path">
 <h2>Xpath - XML Path<a class="headerlink" href="#xpath-xml-path" title="Ссылка на этот заголовок">¶</a></h2>
-<p>Сначала правильно, но непонятно: <cite>XPath</cite> - это способ выбрать ноды или множество нод из XML документа.
-Теперь неправильно, но понятно: это способ представить иерархию XML в виде «привычного» нам пути, где элементы отделены друг от друга знаком «<cite>/</cite>».</p>
-<p>Например, в XML из примера выше путь к элементу <cite>&lt;title&gt;</cite> будет записан в виде <cite>/bookstore/book/title</cite></p>
+<p>Сначала правильно, но непонятно: <code class="docutils literal notranslate"><span class="pre">XPath</span></code> - это способ выбрать ноды или множество нод из XML документа.
+Теперь неправильно, но понятно: это способ представить иерархию XML в виде «привычного» нам пути, где элементы отделены друг от друга знаком «<code class="docutils literal notranslate"><span class="pre">/</span></code>».</p>
+<p>Например, в XML из примера выше путь к элементу <code class="docutils literal notranslate"><span class="pre">&lt;title&gt;</span></code> будет записан в виде <code class="docutils literal notranslate"><span class="pre">/bookstore/book/title</span></code></p>
 <div class="line-block">
 <div class="line">Ну а теперь и правильно, и понятно, но долго.</div>
-<div class="line">XPath - это очень гибкий и мощный инструмент, позволяющий внутри XML делать разнообразные запросы. Он поддерживает различные функции: <cite>sum</cite>, <cite>count</cite>, <cite>avg</cite>, <cite>min</cite>, <cite>starts-with</cite>, <cite>contains</cite>, <cite>concat</cite>, <cite>true</cite>, <cite>false</cite> - над разными типами данных: числа, строки, булевы.</div>
-<div class="line">Так с помощью XPath можно выбрать названия всех книг с ценою выше 35: <cite>/bookstore/book[price&gt;35]/title</cite></div>
+<div class="line">XPath - это очень гибкий и мощный инструмент, позволяющий внутри XML делать разнообразные запросы. Он поддерживает различные функции: <code class="docutils literal notranslate"><span class="pre">sum</span></code>, <code class="docutils literal notranslate"><span class="pre">count</span></code>, <code class="docutils literal notranslate"><span class="pre">avg</span></code>, <code class="docutils literal notranslate"><span class="pre">min</span></code>, <code class="docutils literal notranslate"><span class="pre">starts-with</span></code>, <code class="docutils literal notranslate"><span class="pre">contains</span></code>, <code class="docutils literal notranslate"><span class="pre">concat</span></code>, <code class="docutils literal notranslate"><span class="pre">true</span></code>, <code class="docutils literal notranslate"><span class="pre">false</span></code> - над разными типами данных: числа, строки, булевы.</div>
+<div class="line">Так с помощью XPath можно выбрать названия всех книг с ценою выше 35: <code class="docutils literal notranslate"><span class="pre">/bookstore/book[price&gt;35]/title</span></code></div>
 </div>
 <p>XPath оперирует нодами, которыми являются элементы, атрибуты, текст, неймспейсы и другое.</p>
 <div class="line-block">
@@ -428,8 +428,8 @@
 <h2>Схема<a class="headerlink" href="#id7" title="Ссылка на этот заголовок">¶</a></h2>
 <div class="line-block">
 <div class="line">Что такое XML - это удобный способ передавать структурированные данные между приложениями. Но это лишено какого-либо смысла, есть нет контракта о том, как данные в этих файлах должны храниться - где какие элементы и какого они типа.</div>
-<div class="line">Представьте, что информацию об IP-адресах мы будем помещать непосредственно в элемент <cite>&lt;interface&gt;</cite>, а читать его пытаются из элемента <cite>&lt;unit&gt;</cite>?</div>
-<div class="line">Или дату мы передаём в формате <cite>YYYY-MM-DD</cite>, а читать её пытаются в <cite>MM-DD-YYYY</cite> (больные ублюдки).</div>
+<div class="line">Представьте, что информацию об IP-адресах мы будем помещать непосредственно в элемент <code class="docutils literal notranslate"><span class="pre">&lt;interface&gt;</span></code>, а читать его пытаются из элемента <code class="docutils literal notranslate"><span class="pre">&lt;unit&gt;</span></code>?</div>
+<div class="line">Или дату мы передаём в формате <code class="docutils literal notranslate"><span class="pre">YYYY-MM-DD</span></code>, а читать её пытаются в <code class="docutils literal notranslate"><span class="pre">MM-DD-YYYY</span></code> (больные ублюдки).</div>
 <div class="line">При этом сам XML будет абсолютно «Well Formed», что называется - то есть соответствовать синтаксису XML.</div>
 <div class="line">Для этого и существует <strong>Схема</strong>. В отдельном XML-файле описывается схема данных для основного XML.</div>
 <div class="line">Это позволяет</div>
@@ -441,7 +441,7 @@
 <li><p>проверять корректность XML</p></li>
 </ul>
 <p>Называется это хозяйство <strong>XML Schema Definition</strong> - или коротко <strong>XSD</strong>.</p>
-<p>Поскольку это тот же самый XML, он должен как-то обозначать себя, что является схемой. Для этого есть ключевой элемент <cite>&lt;schema&gt;</cite>. Вот так будет выглядеть XSD для кусочка XML выше:</p>
+<p>Поскольку это тот же самый XML, он должен как-то обозначать себя, что является схемой. Для этого есть ключевой элемент <code class="docutils literal notranslate"><span class="pre">&lt;schema&gt;</span></code>. Вот так будет выглядеть XSD для кусочка XML выше:</p>
 <blockquote>
 <div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
 &lt;xs:schemaxmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
@@ -470,7 +470,7 @@
 <p>Лучшая сторона XSD - это то, что на его основе можно автоматически генерировать объекты в языках программирования. То есть XSD описывает, какие именно объекты и структуры должны быть созданы, а конкретный XML - наполняет экземпляр, пользоваться которым значительно удобнее, чем крафтить XML.
 С схемами и моделями мы будем разбираться дальше.</p>
 <p>Надеюсь получилось, не утопая в деталях, дать понимание, что из себя представляет XML. Далее для нас это будет важным.</p>
-<p>&amp;lt;/XML&amp;gt;</p>
+<p>&lt;/XML&gt;</p>
 </div>
 </div>
 
