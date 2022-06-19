@@ -110,13 +110,13 @@ NETCONF и его команды
 Каждый NETCONF запрос содержит элемент (или сообщение):
 
 
-* &lt;rpc&gt; - это собственно запрос на вызов процедуры с необходимыми параметрами.
-* &lt;rpc-reply&gt; - ответ на RPC.
+* <rpc> - это собственно запрос на вызов процедуры с необходимыми параметрами.
+* <rpc-reply> - ответ на RPC.
       
-        * &lt;rpc-error&gt; - очевидно, ответная ошибка, когда RPC некорректен.
-        * &lt;ok&gt; - rpc корректен и отработал.
+        * <rpc-error> - очевидно, ответная ошибка, когда RPC некорректен.
+        * <ok> - rpc корректен и отработал.
    
-* &lt;notification&gt; - сообщение о событии, инициированное сетевой коробкой - аналог трапа в snmp. (из `RFC6241 <https://www.ietf.org/rfc/rfc6241.txt>`_)
+* <notification> - сообщение о событии, инициированное сетевой коробкой - аналог трапа в snmp. (из `RFC6241 <https://www.ietf.org/rfc/rfc6241.txt>`_)
 
 Это всё сообщения, внутри которых определённым образом сформированные XML. 
 
@@ -124,51 +124,50 @@ NETCONF и его команды
 | В таблице ниже полный их список, определённый в RFC:
 
 
-!!!
-<table>
+    .. table:: 
+
+       ============  =============
+         operation    description
+       ============  =============
+       ``<get>``      retrieve running configuration and device state information
+        ``<get-config>``  retrieve all or part of a specified configuration datastore
+       =====  =====
+
+
+
+
+dsfsdf
     <tr>
-        <td>operation</td>
-        <td>description</td>
-    </tr>
-    <tr>
-        <td>`&lt;get&gt;`</td>
-        <td><div>retrieve running configuration and device state information</td>
-    </tr>
-    <tr>
-        <td>`&lt;get-config&gt;`</td>
-        <td><div><span style="font-size: 1rem;">retrieve all or part of a specified configuration datastore</span></td>
-    </tr>
-    <tr>
-        <td>`&lt;edit-config&gt;`</td>
+        <td>`<edit-config>`</td>
         <td><span style="font-size: 1rem;">edit a configuration datastore by creating, deleting, merging or replacing content</span></td>
     </tr>
     <tr>
-        <td>`&lt;copy-config&gt;`</td>
+        <td>`<copy-config>`</td>
         <td>copy an entire configuration datastore to another configuration datastore</td>
     </tr>
     <tr>
-        <td>`&lt;delete-config&gt;`</td>
+        <td>`<delete-config>`</td>
         <td><span style="font-size: 1rem;">delete a configuration datastore</span></td>
     </tr>
     <tr>
-        <td>`&lt;lock&gt;`</td>
+        <td>`<lock>`</td>
         <td><span style="font-size: 1rem;">lock an entire configuration datastore of a device</span></td>
     </tr>
     <tr>
-        <td>`&lt;unlock&gt;`</td>
-        <td><div><span style="font-size: 1rem;">release a configuration datastore lock previously obtained with the &lt;lock&gt; operation</span></td>
+        <td>`<unlock>`</td>
+        <td><div><span style="font-size: 1rem;">release a configuration datastore lock previously obtained with the <lock> operation</span></td>
     </tr>
     <tr>
-        <td>`&lt;close-session&gt;`</td>
+        <td>`<close-session>`</td>
         <td><span style="font-size: 1rem;">request graceful termination of a netconf session</span></td>
     </tr>
     <tr>
-        <td>`&lt;kill-session&gt;`</td>
+        <td>`<kill-session>`</td>
         <td>force the termination of a netconf session</td>
     </tr>
 </table>
 
-Каждый вендор может расширять список операций хоть до бесконечности. Так, у кого-то, например, есть `<copy-config>`.
+Каждый вендор может расширять список операций хоть до бесконечности. Так, у кого-то, например, есть ``<copy-config>``.
 
 | И далее уже сам контент. Это самая сложная часть.
 | Но забегая вперёд - он никак не формализован, не описан, и, возможно, это величайшая претензия к нетконф, как стандарту, позволившему благую идею превратить в очередного зомби.

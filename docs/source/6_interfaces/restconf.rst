@@ -103,7 +103,7 @@ RESTCONF
             --header 'Accept: application/yang-data+json' \
             -u eucariot:password
 
-Так мы извлекли информацию про интерфейс `Management1`.
+Так мы извлекли информацию про интерфейс ``Management1``.
 
 А вот так можно получить данные по BGP:
 
@@ -119,15 +119,15 @@ RESTCONF
 
        https://<ADDRESS>/<ROOT>/data/<[YANG-MODULE]:CONTAINER>/<LEAF>/[?<OPTIONS>]
 
-* **&lt;ADDRESS&gt;** - адрес RESTCONF-сервера.
-* **&lt;ROOT&lt;** - Точка входа для запросов RESTCONF. Можно найти тут : https://&lt;ADDRESS&gt;/.well-known/
+* **<ADDRESS>** - адрес RESTCONF-сервера.
+* **<ROOT>** - Точка входа для запросов RESTCONF. Можно найти тут : https://<ADDRESS>/.well-known/
 * **data** - прям так и остаётся
-* **&lt;[YANG MODULE:]CONTAINER&gt;** - Базовый контейнер YANG. Наличие YANG Module - не обязательно. 
-* **&lt;LEAF&gt;** - Отдельный элемент в контейнере
-* **&lt;OPTIONS&gt;** - Опциональные параметры, влияющие на результат.
+* **<[YANG MODULE:]CONTAINER>** - Базовый контейнер YANG. Наличие YANG Module - не обязательно. 
+* **<LEAF>** - Отдельный элемент в контейнере
+* **<OPTIONS>** - Опциональные параметры, влияющие на результат.
 
 
-Пробуем выяснить `<ROOT>`:
+Пробуем выяснить ``<ROOT>``:
 
     .. code-block:: bash
 
