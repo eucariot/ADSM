@@ -221,34 +221,72 @@
 <div class="line">При этом казалось бы - вся сеть - это конечный набор одинаковых сервисов, если выбросить всякие IGRP, HSRP, RRPP и прочие проприетарные выдумки. Ну, всем же нужен IP, OSPF, BGP? Всем нужна аутентификация на устройствах и SSH? Они не могут иметь очень уж принципиальные отличия, как минимум из-за необходимости поддерживать совместимость друг с другом и соответствия RFC.</div>
 <div class="line">Так почему мы делаем это сотней разных способов?</div>
 </div>
+<blockquote>
+<div><p><strong>Настройка интерфейса</strong>:</p>
+<p>Juniper:</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>configure
+set interfaces ge-0/0/0 unit 0 family inet address 10.0.0.1/30
+commit and-quit
+</pre></div>
+</div>
+</div></blockquote>
 <dl>
-<dt>&lt;table&gt;</dt><dd><dl class="simple">
-<dt>&lt;tr&gt;</dt><dd><p>&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;juniper&lt;/td&gt;
-&lt;td&gt;nokia&lt;/td&gt;
-&lt;td&gt;cisco&lt;/td&gt;</p>
+<dt>Nokia:</dt><dd><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>router
+interface &quot;test&quot;
+address 10.0.0.1
+port 1/1/1
+no shutdown
+exit
+</pre></div>
+</div>
+</dd>
+<dt>Cisco:</dt><dd><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>conf t
+interface gigabitethernet1
+ip address 10.0.0.1 255.255.255.252
+no shut
+exit
+</pre></div>
+</div>
 </dd>
 </dl>
-<p>&lt;/tr&gt;
-&lt;tr&gt;</p>
+<p><strong>Настройка BGP</strong>:</p>
+<p>Juniper:</p>
 <blockquote>
-<div><p>&lt;td&gt;настройка интерфейса&lt;/td&gt;
-&lt;td&gt;configure&lt;div&gt;set interfaces ge-0/0/0 unit 0 family inet address 10.0.0.1/30&lt;/td&gt;
-&lt;td&gt;router&lt;div&gt;interface «test»&lt;div&gt;address 10.0.0.1/30&lt;div&gt;port 1/1/1&lt;div&gt;no shutdown&lt;div&gt;exit&lt;/td&gt;
-&lt;td&gt;conf t&lt;div&gt;interface gigabitethernet1&lt;div&gt;ip address 10.0.0.1&lt;span style=»font-size: 1rem;»&gt;255.255.255.252&lt;/span&gt;&lt;div&gt;no shut&lt;div&gt;exit&lt;/td&gt;</p>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>configure
+set routing-options router-id 10.0.0.1
+set routing-options autonomous-system 65000
+set protocols bgp group test type internal
+set protocols bgp group test peer-as 65000
+set protocols bgp group test neighbor 10.0.0.2 redistribute-connected
+set policy-options policy-statement redistribute-connected from protocol direct
+set policy-options policy-statement redistribute-connected then accept
+commit and-quit
+</pre></div>
+</div>
 </div></blockquote>
-<p>&lt;/tr&gt;
-&lt;tr&gt;</p>
-<blockquote>
-<div><p>&lt;td&gt;настройка bgp&lt;/td&gt;
-&lt;td&gt;set routing-options router-id 10.0.0.1&lt;div&gt;set routing-options autonomous-system 65000&lt;div&gt;set protocols bgp group test type internal&lt;div&gt;set protocols bgp group test peer-as 65000&lt;div&gt;set protocols bgp group test neighbor 10.0.0.2&lt;span style=»font-size: 1rem;»&gt;export redistribute-connected&lt;/span&gt;&lt;div&gt;set policy-options policy-statement&lt;span style=»font-size: 1rem;»&gt;redistribute-connected from protocol direct&lt;/span&gt;&lt;div&gt;set policy-options policy-statement&lt;span style=»font-size: 1rem;»&gt;redistribute-connected then accept&lt;/span&gt;&lt;div&gt;commit and-quit&lt;/td&gt;
-&lt;td&gt;&lt;div&gt;autonomous-system 6500&lt;div&gt;router-id 10.0.0.1&lt;div&gt;&lt;br&gt;&lt;div&gt;bgp&lt;div&gt;group «ibgp»&lt;div&gt; type internal&lt;div&gt; neighbor 10.10.10.2 exit&lt;/td&gt;
-&lt;td&gt;&lt;div&gt;router bgp 65000&lt;div&gt;bgp router-id 10.0.0.1&lt;div&gt;neighbor 10.0.0.2&lt;div&gt;remote-as 65000&lt;div&gt;redistribute connectedexit&lt;/td&gt;</p>
-</div></blockquote>
-<p>&lt;/tr&gt;</p>
+<dl>
+<dt>Nokia:</dt><dd><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>router
+autonomous-system 6500
+router-id 10.0.0.1
+bgp group &quot;ibgp&quot;
+ type internal
+ neighbor 10.10.10.2
+exit
+</pre></div>
+</div>
+</dd>
+<dt>Cisco:</dt><dd><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>conf t
+router bgp 65000
+ bgp router-id 10.0.0.1
+ neighbor 10.0.0.2 remote-as 65000
+ redistribute connected
+exit
+</pre></div>
+</div>
 </dd>
 </dl>
-<p>&lt;/table&gt;</p>
+</div></blockquote>
 <p>Сложность ведь не в транспорте и не в интерфейсе, а в модели данных. Сделать у каждого вендора Configuration State Management - одноразовая решаемая (а много где и решённая) задача. А вот договориться между всеми производителями, как должна выглядеть модель - так же сложно, как и любая другая задача, где людям нужно договориться.</p>
 <blockquote>
 <div><div class="figure align-center">

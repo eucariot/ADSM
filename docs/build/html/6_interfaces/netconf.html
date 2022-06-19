@@ -286,88 +286,34 @@ realized on top of a simple Remote Procedure Call (RPC) layer.
 <p>Итак, в качестве транспорта NETCONF использует SSH. На самом деле, там есть и другие протоколы: SSH, SOAP, BEEP, TLS - но мы их опустим - SSH стал де-факто стандартом.</p>
 <p>Каждый NETCONF запрос содержит элемент (или сообщение):</p>
 <ul>
-<li><p>&amp;lt;rpc&amp;gt; - это собственно запрос на вызов процедуры с необходимыми параметрами.</p></li>
-<li><p>&amp;lt;rpc-reply&amp;gt; - ответ на RPC.</p>
+<li><p>&lt;rpc&gt; - это собственно запрос на вызов процедуры с необходимыми параметрами.</p></li>
+<li><p>&lt;rpc-reply&gt; - ответ на RPC.</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>&amp;lt;rpc-error&amp;gt; - очевидно, ответная ошибка, когда RPC некорректен.</p></li>
-<li><p>&amp;lt;ok&amp;gt; - rpc корректен и отработал.</p></li>
+<li><p>&lt;rpc-error&gt; - очевидно, ответная ошибка, когда RPC некорректен.</p></li>
+<li><p>&lt;ok&gt; - rpc корректен и отработал.</p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p>&amp;lt;notification&amp;gt; - сообщение о событии, инициированное сетевой коробкой - аналог трапа в snmp. (из <a class="reference external" href="https://www.ietf.org/rfc/rfc6241.txt">RFC6241</a>)</p></li>
+<li><p>&lt;notification&gt; - сообщение о событии, инициированное сетевой коробкой - аналог трапа в snmp. (из <a class="reference external" href="https://www.ietf.org/rfc/rfc6241.txt">RFC6241</a>)</p></li>
 </ul>
 <p>Это всё сообщения, внутри которых определённым образом сформированные XML.</p>
 <div class="line-block">
 <div class="line">Внутри сообщения определяется какая операция (действие) исполняется.</div>
-<div class="line">В таблице ниже полный их список, определённый в RFC:</div>
+<div class="line">Ниже полный их список, определённый в RFC:</div>
 </div>
-<p>!!!
-&lt;table&gt;</p>
-<blockquote>
-<div><dl class="simple">
-<dt>&lt;tr&gt;</dt><dd><p>&lt;td&gt;operation&lt;/td&gt;
-&lt;td&gt;description&lt;/td&gt;</p>
-</dd>
-</dl>
-<p>&lt;/tr&gt;
-&lt;tr&gt;</p>
-<blockquote>
-<div><p>&lt;td&gt;`&amp;lt;get&amp;gt;`&lt;/td&gt;
-&lt;td&gt;&lt;div&gt;retrieve running configuration and device state information&lt;/td&gt;</p>
-</div></blockquote>
-<p>&lt;/tr&gt;
-&lt;tr&gt;</p>
-<blockquote>
-<div><p>&lt;td&gt;`&amp;lt;get-config&amp;gt;`&lt;/td&gt;
-&lt;td&gt;&lt;div&gt;&lt;span style=»font-size: 1rem;»&gt;retrieve all or part of a specified configuration datastore&lt;/span&gt;&lt;/td&gt;</p>
-</div></blockquote>
-<p>&lt;/tr&gt;
-&lt;tr&gt;</p>
-<blockquote>
-<div><p>&lt;td&gt;`&amp;lt;edit-config&amp;gt;`&lt;/td&gt;
-&lt;td&gt;&lt;span style=»font-size: 1rem;»&gt;edit a configuration datastore by creating, deleting, merging or replacing content&lt;/span&gt;&lt;/td&gt;</p>
-</div></blockquote>
-<p>&lt;/tr&gt;
-&lt;tr&gt;</p>
-<blockquote>
-<div><p>&lt;td&gt;`&amp;lt;copy-config&amp;gt;`&lt;/td&gt;
-&lt;td&gt;copy an entire configuration datastore to another configuration datastore&lt;/td&gt;</p>
-</div></blockquote>
-<p>&lt;/tr&gt;
-&lt;tr&gt;</p>
-<blockquote>
-<div><p>&lt;td&gt;`&amp;lt;delete-config&amp;gt;`&lt;/td&gt;
-&lt;td&gt;&lt;span style=»font-size: 1rem;»&gt;delete a configuration datastore&lt;/span&gt;&lt;/td&gt;</p>
-</div></blockquote>
-<p>&lt;/tr&gt;
-&lt;tr&gt;</p>
-<blockquote>
-<div><p>&lt;td&gt;`&amp;lt;lock&amp;gt;`&lt;/td&gt;
-&lt;td&gt;&lt;span style=»font-size: 1rem;»&gt;lock an entire configuration datastore of a device&lt;/span&gt;&lt;/td&gt;</p>
-</div></blockquote>
-<p>&lt;/tr&gt;
-&lt;tr&gt;</p>
-<blockquote>
-<div><p>&lt;td&gt;`&amp;lt;unlock&amp;gt;`&lt;/td&gt;
-&lt;td&gt;&lt;div&gt;&lt;span style=»font-size: 1rem;»&gt;release a configuration datastore lock previously obtained with the &amp;lt;lock&amp;gt; operation&lt;/span&gt;&lt;/td&gt;</p>
-</div></blockquote>
-<p>&lt;/tr&gt;
-&lt;tr&gt;</p>
-<blockquote>
-<div><p>&lt;td&gt;`&amp;lt;close-session&amp;gt;`&lt;/td&gt;
-&lt;td&gt;&lt;span style=»font-size: 1rem;»&gt;request graceful termination of a netconf session&lt;/span&gt;&lt;/td&gt;</p>
-</div></blockquote>
-<p>&lt;/tr&gt;
-&lt;tr&gt;</p>
-<blockquote>
-<div><p>&lt;td&gt;`&amp;lt;kill-session&amp;gt;`&lt;/td&gt;
-&lt;td&gt;force the termination of a netconf session&lt;/td&gt;</p>
-</div></blockquote>
-<p>&lt;/tr&gt;</p>
-</div></blockquote>
-<p>&lt;/table&gt;</p>
-<p>Каждый вендор может расширять список операций хоть до бесконечности. Так, у кого-то, например, есть <cite>&lt;copy-config&gt;</cite>.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;get&gt;</span></code> - retrieve running configuration and device state information</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;get-config&gt;</span></code> - retrieve all or part of a specified configuration datastore</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;edit-config&gt;</span></code> - edit a configuration datastore by creating, deleting, merging or replacing content</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;copy-config&gt;</span></code> - copy an entire configuration datastore to another configuration datastore</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;delete-config&gt;</span></code> - delete a configuration datastore</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;lock&gt;</span></code> - lock an entire configuration datastore of a device</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;unlock&gt;</span></code> - release a configuration datastore lock previously obtained with the &lt;lock&gt; operation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;close-session&gt;</span></code> - request graceful termination of a netconf session</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;kill-session&gt;</span></code> - force the termination of a netconf session</p></li>
+</ul>
+<p>Каждый вендор может расширять список операций хоть до бесконечности. Так, у кого-то, например, есть <code class="docutils literal notranslate"><span class="pre">&lt;copy-config&gt;</span></code>.</p>
 <div class="line-block">
 <div class="line">И далее уже сам контент. Это самая сложная часть.</div>
 <div class="line">Но забегая вперёд - он никак не формализован, не описан, и, возможно, это величайшая претензия к нетконф, как стандарту, позволившему благую идею превратить в очередного зомби.</div>

@@ -101,7 +101,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#grpc">gRPC</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#ping">Пишем ping!</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#grpc-client">gRPC Client</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id1">gRPC-сервер</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">gRPC-сервер</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#gnmi">gNMI</a><ul>
@@ -198,7 +198,7 @@
 <div class="section" id="grpc">
 <h2>gRPC<a class="headerlink" href="#grpc" title="Ссылка на этот заголовок">¶</a></h2>
 <div class="line-block">
-<div class="line">Без теории - за ней прошу в первую статью!!!</div>
+<div class="line">Без теории - за ней прошу в <a class="reference external" href="#Часть5.Историясетевойавтоматизации">пятую часть АДСМ</a>.</div>
 <div class="line">В любом случае после голой теории вот только такие ощущения:</div>
 </div>
 <blockquote>
@@ -227,10 +227,10 @@
 </div>
 </div></blockquote>
 <div class="line-block">
-<div class="line">Сначала определяем сервис - <cite>Ping</cite>. А в нём есть метод - <cite>SendPingReply</cite> - это собственно и есть RPC - та самая процедура, которую мы дёрнем удалённо - процедура отправить <cite>Ping Reply</cite>.</div>
-<div class="line">В качестве атрибута она принимает параметр <cite>PingRequest</cite>, а вернёт ответ <cite>PingReply</cite>.</div>
+<div class="line">Сначала определяем сервис - <code class="docutils literal notranslate"><span class="pre">Ping</span></code>. А в нём есть метод - <code class="docutils literal notranslate"><span class="pre">SendPingReply</span></code> - это собственно и есть RPC - та самая процедура, которую мы дёрнем удалённо - процедура отправить <code class="docutils literal notranslate"><span class="pre">Ping</span> <span class="pre">Reply</span></code>.</div>
+<div class="line">В качестве атрибута она принимает параметр <cite>PingRequest</cite>, а вернёт ответ <code class="docutils literal notranslate"><span class="pre">PingReply</span></code>.</div>
 </div>
-<p>А что такое эти <cite>PingRequest</cite> и <cite>PingReply</cite>??</p>
+<p>А что такое эти <code class="docutils literal notranslate"><span class="pre">PingRequest</span></code> и <code class="docutils literal notranslate"><span class="pre">PingReply</span></code>??</p>
 <blockquote>
 <div><div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">message</span> <span class="nx">PingRequest</span> <span class="p">{</span>
   <span class="kt">string</span> <span class="nx">payload</span> <span class="p">=</span> <span class="mi">1</span><span class="p">;</span>
@@ -239,11 +239,11 @@
 </div>
 </div></blockquote>
 <div class="line-block">
-<div class="line"><cite>PingRequest</cite>  - это одно из пересылаемых сообщений между клиентом и сервером.</div>
-<div class="line">Так объявляется факт его существования, и его содержимое. В этом случае внутри сообщения передаётся одно поле <cite>payload</cite> типа <cite>string</cite>.</div>
-<div class="line"><cite>payload</cite> -  это произвольное имя, которое мы можем выбрать, как хотим.</div>
-<div class="line"><cite>string</cite> - определение типа.</div>
-<div class="line"><cite>1</cite> - позиция поля в сообщении - для нас не имеет значения.</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">PingRequest</span></code>  - это одно из пересылаемых сообщений между клиентом и сервером.</div>
+<div class="line">Так объявляется факт его существования, и его содержимое. В этом случае внутри сообщения передаётся одно поле <code class="docutils literal notranslate"><span class="pre">payload</span></code> типа <code class="docutils literal notranslate"><span class="pre">string</span></code>.</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">payload</span></code> -  это произвольное имя, которое мы можем выбрать, как хотим.</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">string</span></code> - определение типа.</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">1</span></code> - позиция поля в сообщении - для нас не имеет значения.</div>
 </div>
 <blockquote>
 <div><div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">message</span> <span class="nx">PingReply</span> <span class="p">{</span>
@@ -281,7 +281,7 @@
 </div></blockquote>
 <p>То есть именно вот так и выглядит спецификация, описывающая схему данных на обеих сторонах. И сервер и клиент будут использовать один и тот же proto-файл и всегда знать, как разобрать то, что отправила другая сторона. Даже если они написаны на разных языках.</p>
 <div class="line-block">
-<div class="line">Сохраняем как <cite>protos/ping.proto</cite> - он будет один для всех.</div>
+<div class="line">Сохраняем как <code class="docutils literal notranslate"><span class="pre">protos/ping.proto</span></code> - он будет один для всех.</div>
 <div class="line">Ну ладно спецификация есть. И что с ней теперь делать?</div>
 </div>
 <p>А теперь мы напишем пинг-клиент на Python, а пинг-сервер на Go.</p>
@@ -290,9 +290,9 @@
 <h3>gRPC Client<a class="headerlink" href="#grpc-client" title="Ссылка на этот заголовок">¶</a></h3>
 <p><strong>Сгенерированный Код</strong></p>
 <div class="line-block">
-<div class="line">Создадим директорию <cite>python-client</cite>.</div>
+<div class="line">Создадим директорию <code class="docutils literal notranslate"><span class="pre">python-client</span></code>.</div>
 <div class="line">Далее на основе спецификации сгенерируем код.</div>
-<div class="line">Для этого нужно будет установить <cite>grpcio-tools</cite>.</div>
+<div class="line">Для этого нужно будет установить <code class="docutils literal notranslate"><span class="pre">grpcio-tools</span></code>.</div>
 </div>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install grpcio-tools
@@ -365,8 +365,8 @@
 <p>Если запустить его сейчас, клиент вернёт <code class="docutils literal notranslate"><span class="pre">StatusCode.UNAVAILABLE</span></code> - сервера пока нет, порт 12345 никто не слушает.</p>
 <p>Давайте теперь писать</p>
 </div>
-<div class="section" id="id1">
-<h3>gRPC-сервер<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="section" id="id2">
+<h3>gRPC-сервер<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h3>
 <p>на Go. Я его развернул на облачной виртуалочке, поэтому какое-то время он будет доступен и читателям.</p>
 <p>Всё, что делает сервер - получает какую-то строку в <code class="docutils literal notranslate"><span class="pre">payload</span></code>, добавляет к нему <em>«-pong»</em> и возвращает это клиенту.</p>
 <p><strong>Сгенерированный Код</strong></p>

@@ -191,7 +191,7 @@ Pyang
               |     |  +--rw ip?              oc-inet:ipv4-address
               |     |  +--rw prefix-length?   uint8
 
-Вот и он во всей красе. И тут видно, что это аугментация к модели `/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface`.
+Вот и он во всей красе. И тут видно, что это аугментация к модели ``/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface``.
 
 А что такое `oc-if`?
 
@@ -208,14 +208,14 @@ Pyang
        pyang -p yang/oc/public/release/models/ yang/oc/public/release/models/interfaces/openconfig-interfaces.yang
 
 
-| Ключ `-f` позволяет конвертировать в разные форматы: `tree`, `yin`, `yang`, `jstree`, `uml` и другие.
-| Для нас интереснее всего `tree` и `uml`, потому что вот такие крутые картинки можно рисовать для визуалов
+| Ключ ``-f`` позволяет конвертировать в разные форматы: ``tree``, ``yin``, ``yang``, ``jstree``, ``uml`` и другие.
+| Для нас интереснее всего ``tree`` и ``uml``, потому что вот такие крутые картинки можно рисовать для визуалов
 
     .. figure:: https://fs.linkmeup.ru/images/adsm/5/openconfig-interfaces.png
            :width: 800
            :align: center
     
-    *Чтобы конвертировать uml в png можно воспользоваться пакетом plantuml*. `Ссылка на картинку побольше <https://fs.linkmeup.ru/images/adsm/5/openconfig-interfaces.png>`_
+    Чтобы конвертировать uml в png можно воспользоваться пакетом plantuml. `Ссылка на картинку побольше <https://fs.linkmeup.ru/images/adsm/5/openconfig-interfaces.png>`_
 
 С помощью pyang, конечно, можно работать не только с моделями OpenConfig, но и с любыми другими, написанными на языке YANG.
 
@@ -237,7 +237,7 @@ Pyang
   
 В общем, собираем с репы по коммиту. 
 
-| Замечательная новость в том, что все коробки, заявляющие своё соответствие RFC6022 должны уметь возвращать всю YANG-схему по запросу с операцией `<get_schema>`.
+| Замечательная новость в том, что все коробки, заявляющие своё соответствие RFC6022 должны уметь возвращать всю YANG-схему по запросу с операцией ``<get_schema>``.
 | Отвратительная новость в том, что не все вендоры эту операцию поддерживают.
 
 Что нужно знать про YANG?

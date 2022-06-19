@@ -3,14 +3,14 @@ RESTCONF
 
 *Буйные 10-е и забыли*
 
-    .. code-block:: text
+   .. code-block:: text
 
        The workshop recommends, with strong consensus from the operators
        and rough consensus from the protocol developers, that the
        IETF/IRTF should not spend resources on developing HTML-based or
        HTTP-based methods for configuration management.
 
-   `RFC3535. Recommendation 6 <https://datatracker.ietf.org/doc/html/rfc3535#section-6>`_.
+   `RFC3535. Recommendation 6 <https://datatracker.ietf.org/doc/html/rfc3535#section-6>`_
 
 | SSH - это хорошо. Но на сетевую автоматизацию случился спрос, а за ним наплыв сил разработчиков. А вот эти разработчики хорошо шарят в REST, но на курле крутили все эти наши SSH и парсинг текста.
 | В компаниях, где начинают заниматься автоматизацией сети, обычно уже есть свой штат разработчиков, инструменты, практики. И они в лучшем случае рассматривают сеть, как ещё одни сервера, а то и ещё один сервис.

@@ -40,26 +40,71 @@ Native
 | Так почему мы делаем это сотней разных способов?
 
 
-<table>
-    <tr>
-        <td></td>
-        <td>juniper</td>
-        <td>nokia</td>
-        <td>cisco</td>
-    </tr>
-    <tr>
-        <td>настройка интерфейса</td>
-        <td>configure<div>set interfaces ge-0/0/0 unit 0 family inet address 10.0.0.1/30</td>
-        <td>router<div>interface "test"<div>address 10.0.0.1/30<div>port 1/1/1<div>no shutdown<div>exit</td>
-        <td>conf t<div>interface gigabitethernet1<div>ip address 10.0.0.1<span style="font-size: 1rem;">255.255.255.252</span><div>no shut<div>exit</td>
-    </tr>
-    <tr>
-        <td>настройка bgp</td>
-        <td>set routing-options router-id 10.0.0.1<div>set routing-options autonomous-system 65000<div>set protocols bgp group test type internal<div>set protocols bgp group test peer-as 65000<div>set protocols bgp group test neighbor 10.0.0.2<span style="font-size: 1rem;">export redistribute-connected</span><div>set policy-options policy-statement<span style="font-size: 1rem;">redistribute-connected from protocol direct</span><div>set policy-options policy-statement<span style="font-size: 1rem;">redistribute-connected then accept</span><div>commit and-quit</td>
-        <td><div>autonomous-system 6500<div>router-id 10.0.0.1<div><br><div>bgp<div>group "ibgp"<div> type internal<div> neighbor 10.10.10.2 exit</td>
-        <td><div>router bgp 65000<div>bgp router-id 10.0.0.1<div>neighbor 10.0.0.2<div>remote-as 65000<div>redistribute connectedexit</td>
-    </tr>
-</table>
+    **Настройка интерфейса**:
+
+    Juniper:
+    
+        .. code-block:: text
+
+           configure
+           set interfaces ge-0/0/0 unit 0 family inet address 10.0.0.1/30
+           commit and-quit
+    
+    Nokia: 
+        .. code-block:: text
+
+           router
+           interface "test"
+           address 10.0.0.1
+           port 1/1/1
+           no shutdown
+           exit
+           
+    Cisco:
+        .. code-block:: text
+
+           conf t
+           interface gigabitethernet1
+           ip address 10.0.0.1 255.255.255.252
+           no shut
+           exit
+
+    **Настройка BGP**:
+
+    Juniper:
+    
+        .. code-block:: text
+
+           configure
+           set routing-options router-id 10.0.0.1
+           set routing-options autonomous-system 65000
+           set protocols bgp group test type internal
+           set protocols bgp group test peer-as 65000
+           set protocols bgp group test neighbor 10.0.0.2 redistribute-connected
+           set policy-options policy-statement redistribute-connected from protocol direct
+           set policy-options policy-statement redistribute-connected then accept
+           commit and-quit
+    
+    Nokia: 
+        .. code-block:: text
+
+           router
+           autonomous-system 6500
+           router-id 10.0.0.1
+           bgp group "ibgp"
+            type internal
+            neighbor 10.10.10.2
+           exit
+           
+    Cisco:
+        .. code-block:: text
+
+           conf t
+           router bgp 65000
+            bgp router-id 10.0.0.1
+            neighbor 10.0.0.2 remote-as 65000
+            redistribute connected
+           exit
 
 
 Сложность ведь не в транспорте и не в интерфейсе, а в модели данных. Сделать у каждого вендора Configuration State Management - одноразовая решаемая (а много где и решённая) задача. А вот договориться между всеми производителями, как должна выглядеть модель - так же сложно, как и любая другая задача, где людям нужно договориться.

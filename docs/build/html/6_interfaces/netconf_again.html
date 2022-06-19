@@ -37,7 +37,7 @@
     <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
     <link rel="search" title="Поиск" href="../search.html" />
     <link rel="next" title="RESTCONF" href="restconf.html" />
-    <link rel="prev" title="&amp;lt;XML&amp;gt;" href="xml.html" /> 
+    <link rel="prev" title="&lt;XML&gt;" href="xml.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -93,22 +93,22 @@
 <li class="toctree-l2"><a class="reference internal" href="cli.html">CLI - Command Line Interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rpc.html">Концепция RPC - Russian Pravoslavnaya Church</a></li>
 <li class="toctree-l2"><a class="reference internal" href="netconf.html">NETCONF</a></li>
-<li class="toctree-l2"><a class="reference internal" href="xml.html">&amp;lt;XML&amp;gt;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xml.html">&lt;XML&gt;</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">NETCONF Again</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id1">Действия, операции</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#lt-get-gt">&amp;lt;get&amp;gt;</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#lt-filter-gt">&amp;lt;filter&amp;gt;</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#lt-get-config-gt">&amp;lt;get-config&amp;gt;</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#get">&lt;get&gt;</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#filter">&lt;filter&gt;</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#get-config">&lt;get-config&gt;</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#configuration-datastores">Configuration Datastores</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#lt-edit-config-gt">&amp;lt;edit-config&amp;gt;</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#edit-config">Практика edit-config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edit-config">&lt;edit-config&gt;</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Практика edit-config</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#operation-replace">Operation replace</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#lt-commit-gt">&amp;lt;commit&amp;gt;</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#lt-copy-config-gt">&amp;lt;copy-config&amp;gt;</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#lt-delete-config-gt">&amp;lt;delete-config&amp;gt;</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#lt-lock-unlock-gt">&amp;lt;lock/unlock&amp;gt;</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#lt-close-session-gt">&amp;lt;close-session&amp;gt;</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#lt-kill-session-gt">&amp;lt;kill-session&amp;gt;</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#commit">&lt;commit&gt;</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#copy-config">&lt;copy-config&gt;</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#delete-config">&lt;delete-config&gt;</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lock-unlock">&lt;lock/unlock&gt;</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#close-session">&lt;close-session&gt;</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kill-session">&lt;kill-session&gt;</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#netconf">Инструменты разработчика для NETCONF</a><ul>
@@ -118,9 +118,9 @@
 <li class="toctree-l4"><a class="reference internal" href="#scrapligo-scrapligo-netconf">Scrapligo и scrapligo-netconf</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">Как это использовать</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id7">Мониторинг</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id8">Выполнение отдельных операций</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Как это использовать</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id8">Мониторинг</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">Выполнение отдельных операций</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#configuration-management">Configuration Management</a></li>
 </ul>
 </li>
@@ -212,21 +212,21 @@
 <div class="line">Вот базовый неполный список операций NETCONF:</div>
 </div>
 <ul class="simple">
-<li><p>&amp;lt;get&amp;gt;</p></li>
-<li><p>&amp;lt;get-config&amp;gt;</p></li>
-<li><p>&amp;lt;edit-config&amp;gt;</p></li>
-<li><p>&amp;lt;copy-config&amp;gt;</p></li>
-<li><p>&amp;lt;delete-config&amp;gt;</p></li>
-<li><p>&amp;lt;lock&amp;gt;</p></li>
-<li><p>&amp;lt;unlock&amp;gt;</p></li>
-<li><p>&amp;lt;close-session&amp;gt;</p></li>
-<li><p>&amp;lt;kill-session&amp;gt;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;get&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;get-config&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;edit-config&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;copy-config&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;delete-config&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;lock&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;unlock&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;close-session&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;kill-session&gt;</span></code></p></li>
 </ul>
 <p>Но зачастую вендоры определяют свои собственные операции.</p>
 <div class="section" id="id1">
 <h2>Действия, операции<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h2>
-<div class="section" id="lt-get-gt">
-<h3>&amp;lt;get&amp;gt;<a class="headerlink" href="#lt-get-gt" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="section" id="get">
+<h3>&lt;get&gt;<a class="headerlink" href="#get" title="Ссылка на этот заголовок">¶</a></h3>
 <div class="line-block">
 <div class="line">Эта операция возвращает текущие (running) операционные и конфигурационные данные.</div>
 <div class="line">Выполните просто</div>
@@ -241,9 +241,9 @@
 </div></blockquote>
 <div class="line-block">
 <div class="line">И в ответ получите несколько экранов XML.</div>
-<div class="line">Ответ приходит в <cite>&lt;rpc-reply&gt;</cite>. В случае ошибки внутри <cite>&lt;rpc-reply&gt;</cite> сервер вернёт <cite>&lt;rpc-error&gt;</cite> с текстом ошибки.</div>
+<div class="line">Ответ приходит в <code class="docutils literal notranslate"><span class="pre">&lt;rpc-reply&gt;</span></code>. В случае ошибки внутри <code class="docutils literal notranslate"><span class="pre">&lt;rpc-reply&gt;</span></code> сервер вернёт <code class="docutils literal notranslate"><span class="pre">&lt;rpc-error&gt;</span></code> с текстом ошибки.</div>
 <div class="line">Для получения ошибки можно просто сформировать некорректный XML.</div>
-<div class="line">Например, забудем закрывающий тег <cite>&lt;/get&gt;</cite>:</div>
+<div class="line">Например, забудем закрывающий тег <code class="docutils literal notranslate"><span class="pre">&lt;/get&gt;</span></code>:</div>
 </div>
 <blockquote>
 <div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
@@ -255,7 +255,7 @@
 <span class="nt">&lt;error-type&gt;</span>protocol<span class="nt">&lt;/error-type&gt;</span>
 <span class="nt">&lt;error-tag&gt;</span>operation-failed<span class="nt">&lt;/error-tag&gt;</span>
 <span class="nt">&lt;error-severity&gt;</span>error<span class="nt">&lt;/error-severity&gt;</span>
-<span class="nt">&lt;error-message&gt;</span>syntax error, expecting <span class="ni">&amp;lt;</span>filter<span class="ni">&amp;gt;</span> or <span class="ni">&amp;lt;</span>/get<span class="ni">&amp;gt;</span><span class="nt">&lt;/error-message&gt;</span>
+<span class="nt">&lt;error-message&gt;</span>syntax error, expecting <span class="nt">&lt;filter&gt;</span> or <span class="nt">&lt;/get&gt;&lt;/error-message&gt;</span>
 <span class="nt">&lt;error-info&gt;</span>
 <span class="nt">&lt;bad-element&gt;</span>interfaces<span class="nt">&lt;/bad-element&gt;</span>
 <span class="nt">&lt;/error-info&gt;</span>
@@ -278,7 +278,7 @@
 <span class="nt">&lt;error-type&gt;</span>protocol<span class="nt">&lt;/error-type&gt;</span>
 <span class="nt">&lt;error-tag&gt;</span>operation-failed<span class="nt">&lt;/error-tag&gt;</span>
 <span class="nt">&lt;error-severity&gt;</span>error<span class="nt">&lt;/error-severity&gt;</span>
-<span class="nt">&lt;error-message&gt;</span>syntax error, expecting <span class="ni">&amp;lt;</span>filter<span class="ni">&amp;gt;</span> or <span class="ni">&amp;lt;</span>/get<span class="ni">&amp;gt;</span><span class="nt">&lt;/error-message&gt;</span>
+<span class="nt">&lt;error-message&gt;</span>syntax error, expecting <span class="nt">&lt;filter&gt;</span> or <span class="nt">&lt;/get&gt;&lt;/error-message&gt;</span>
 <span class="nt">&lt;error-info&gt;</span>
 <span class="nt">&lt;bad-element&gt;</span>interfaces<span class="nt">&lt;/bad-element&gt;</span>
 <span class="nt">&lt;/error-info&gt;</span>
@@ -288,8 +288,8 @@
 </div>
 </div></blockquote>
 <div class="line-block">
-<div class="line">В зависимости от вендора в ответе на <cite>&lt;get&gt;</cite> будет содержаться либо вообще всё, что вам может дать устройство - полный конфиг и вся информацию по состоянию, либо какую-то часть.</div>
-<div class="line">Так, Juniper возвращается конфиг и совсем немного данных сверху. Для того, чтобы забрать операционные данные нужно использовать специальные операции, например <cite>&lt;get-interface-information&gt;</cite>:</div>
+<div class="line">В зависимости от вендора в ответе на <code class="docutils literal notranslate"><span class="pre">&lt;get&gt;</span></code> будет содержаться либо вообще всё, что вам может дать устройство - полный конфиг и вся информацию по состоянию, либо какую-то часть.</div>
+<div class="line">Так, Juniper возвращается конфиг и совсем немного данных сверху. Для того, чтобы забрать операционные данные нужно использовать специальные операции, например <code class="docutils literal notranslate"><span class="pre">&lt;get-interface-information&gt;</span></code>:</div>
 </div>
 <blockquote>
 <div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc&gt;</span>
@@ -302,10 +302,10 @@
 <blockquote>
 <div><p>Этому, кстати, сложно найти объяснение. Довольно неудобно для каждой ветки операционных данных иметь собственный RPC. И более того, непонятно как это вообще описывается в моделях данных.</p>
 </div></blockquote>
-<p>Очевидно, это не всегда (никогда) удобно. Хотелось бы пофильтровать данные. NETCONF позволяет не просто отфильтровать результат, а указать NETCONF-серверу, какую именно часть клиент желает запросить. Для этого используется элемент <cite>&lt;filter&gt;</cite>.</p>
+<p>Очевидно, это не всегда (никогда) удобно. Хотелось бы пофильтровать данные. NETCONF позволяет не просто отфильтровать результат, а указать NETCONF-серверу, какую именно часть клиент желает запросить. Для этого используется элемент <code class="docutils literal notranslate"><span class="pre">&lt;filter&gt;</span></code>.</p>
 </div>
-<div class="section" id="lt-filter-gt">
-<h3>&amp;lt;filter&amp;gt;<a class="headerlink" href="#lt-filter-gt" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="section" id="filter">
+<h3>&lt;filter&gt;<a class="headerlink" href="#filter" title="Ссылка на этот заголовок">¶</a></h3>
 <div class="line-block">
 <div class="line">С его помощью можно указать какую именно часть информации вы хотите получить. Можно указывать атрибут фильтрации, поддерживаются subtree и xpath.</div>
 <div class="line">По умолчанию используется subtree, но обычно его задают явно, дабы избежать двусмысленности.</div>
@@ -575,22 +575,21 @@
 </div></blockquote>
 <p>Ещё немного про <a class="reference external" href="https://netdevops.me/2020/netconf-subtree-filtering-by-example/">subtree filtering</a>.</p>
 <div class="line-block">
-<div class="line">В случае Juniper <cite>&lt;get&gt;</cite> ничем практически не отличается от <cite>&lt;get-config&gt;</cite>. Для того, чтобы забрать операционные данные, нужно воспользоваться другими операциями - специфическими под каждую задачу.</div>
-<div class="line">Узнать их можно достаточно просто:</div>
-<div class="line"><cite>show version | display xml rpc</cite></div>
+<div class="line">В случае Juniper <code class="docutils literal notranslate"><span class="pre">&lt;get&gt;</span></code> ничем практически не отличается от <code class="docutils literal notranslate"><span class="pre">&lt;get-config&gt;</span></code>. Для того, чтобы забрать операционные данные, нужно воспользоваться другими операциями - специфическими под каждую задачу.</div>
+<div class="line">Узнать их можно достаточно просто: <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">version</span> <span class="pre">|</span> <span class="pre">display</span> <span class="pre">xml</span> <span class="pre">rpc</span></code></div>
 </div>
 <div class="line-block">
-<div class="line">С помощью операций <cite>&lt;get&gt;</cite> удобно забирать операционные данные с устройства. Например, для мониторинга. Или для отладки. Можно выбрать всех BGP-соседей в состоянии Idle, или все интерфейсы с ошибками, данные по маршрутам.</div>
+<div class="line">С помощью операций <code class="docutils literal notranslate"><span class="pre">&lt;get&gt;</span></code> удобно забирать операционные данные с устройства. Например, для мониторинга. Или для отладки. Можно выбрать всех BGP-соседей в состоянии Idle, или все интерфейсы с ошибками, данные по маршрутам.</div>
 <div class="line">Да, понятно, что для всего этого есть и более удобные способы, но всё же такой путь есть.</div>
 </div>
 </div>
-<div class="section" id="lt-get-config-gt">
-<h3>&amp;lt;get-config&amp;gt;<a class="headerlink" href="#lt-get-config-gt" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="section" id="get-config">
+<h3>&lt;get-config&gt;<a class="headerlink" href="#get-config" title="Ссылка на этот заголовок">¶</a></h3>
 <div class="line-block">
 <div class="line">Позволяет забрать конфигурацию устройства.</div>
-<div class="line">Могло показаться, что <cite>&lt;get-config&gt;</cite> - это поддерево <cite>&lt;get&gt;</cite>, но это всё-таки не так.</div>
+<div class="line">Могло показаться, что <code class="docutils literal notranslate"><span class="pre">&lt;get-config&gt;</span></code> - это поддерево <code class="docutils literal notranslate"><span class="pre">&lt;get&gt;</span></code>, но это всё-таки не так.</div>
 </div>
-<p>С помощью <cite>&lt;get-config&gt;</cite> можно указать из какого источника мы хотим получить конфигу - <cite>running</cite>, <cite>candidate</cite>, startup итд.</p>
+<p>С помощью <code class="docutils literal notranslate"><span class="pre">&lt;get-config&gt;</span></code> можно указать из какого источника мы хотим получить конфигу - <code class="docutils literal notranslate"><span class="pre">running</span></code>, <code class="docutils literal notranslate"><span class="pre">candidate</span></code>, startup итд.</p>
 <div class="line-block">
 <div class="line">Ну и можно быть уверенным, что в ответе будут только конфигурационные данные.</div>
 <div class="line">Хотя по своему опыту вам скажу, что вендоры тут могут отличаться изобретательностью, подмешивая оперданные к конфиге.</div>
@@ -608,7 +607,7 @@
 </pre></div>
 </div>
 </div></blockquote>
-<p><cite>&lt;get-config&gt;</cite> так же, как и <cite>&lt;get&gt;</cite> позволяет использовать элемент <cite>&lt;filter&gt;</cite>. Например:</p>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;get-config&gt;</span></code> так же, как и <code class="docutils literal notranslate"><span class="pre">&lt;get&gt;</span></code> позволяет использовать элемент <code class="docutils literal notranslate"><span class="pre">&lt;filter&gt;</span></code>. Например:</p>
 <blockquote>
 <div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;get-config&gt;</span>
@@ -639,41 +638,41 @@
 </pre></div>
 </div>
 </div></blockquote>
-<p>В запросе самые внимательные обратили внимание на элемент <cite>&lt;source&gt;</cite>.</p>
+<p>В запросе самые внимательные обратили внимание на элемент <code class="docutils literal notranslate"><span class="pre">&lt;source&gt;</span></code>.</p>
 </div>
 <div class="section" id="configuration-datastores">
 <h3>Configuration Datastores<a class="headerlink" href="#configuration-datastores" title="Ссылка на этот заголовок">¶</a></h3>
 <div class="line-block">
-<div class="line">Это место для хранения полной конфигурации. Хотя слово «хранения», возможно, и не очень точное. Обязательным!! является только <cite>&lt;running&gt;</cite> - это текущая актуальная конфигурация.</div>
-<div class="line">В зависимости от вендора и поддерживаемых капабилитей могут быть так же <cite>&lt;candidate&gt;</cite>, <cite>&lt;startup&gt;</cite> и какие-то другие.</div>
+<div class="line">Это место для хранения полной конфигурации. Хотя слово «хранения», возможно, и не очень точное. Обязательным является только <code class="docutils literal notranslate"><span class="pre">&lt;running&gt;</span></code> - это текущая актуальная конфигурация.</div>
+<div class="line">В зависимости от вендора и поддерживаемых капабилитей могут быть так же <code class="docutils literal notranslate"><span class="pre">&lt;candidate&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;startup&gt;</span></code> и какие-то другие.</div>
 </div>
-<p>Соответственно запросить конфигурацию можно из разных Datastores при их наличии, указывая соответствующий элемент внутри <cite>&lt;source&gt;</cite>.</p>
+<p>Соответственно запросить конфигурацию можно из разных Datastores при их наличии, указывая соответствующий элемент внутри <code class="docutils literal notranslate"><span class="pre">&lt;source&gt;</span></code>.</p>
 <div class="line-block">
-<div class="line">Как увидим далее, менять конфигурацию так же,  можно в разных datastores через <cite>&lt;target&gt;</cite>.</div>
-<div class="line">И тут разные вендоры ведут себя по-разному, кто-то разрешает менять сразу в <cite>&lt;running&gt;</cite>, а кто-то только <cite>&lt;candidate&gt;</cite> с последующим <cite>&lt;commit&gt;</cite>.</div>
+<div class="line">Как увидим далее, менять конфигурацию так же,  можно в разных datastores через <code class="docutils literal notranslate"><span class="pre">&lt;target&gt;</span></code>.</div>
+<div class="line">И тут разные вендоры ведут себя по-разному, кто-то разрешает менять сразу в <code class="docutils literal notranslate"><span class="pre">&lt;running&gt;</span></code>, а кто-то только <code class="docutils literal notranslate"><span class="pre">&lt;candidate&gt;</span></code> с последующим <code class="docutils literal notranslate"><span class="pre">&lt;commit&gt;</span></code>.</div>
 </div>
 </div>
-<div class="section" id="lt-edit-config-gt">
-<h3>&amp;lt;edit-config&amp;gt;<a class="headerlink" href="#lt-edit-config-gt" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="section" id="edit-config">
+<h3>&lt;edit-config&gt;<a class="headerlink" href="#edit-config" title="Ссылка на этот заголовок">¶</a></h3>
 <p>ЕЙ богу, самая интересная штука во всём NETCONF! Операция, с помощью которой можно привести конфигурацию к нужному состоянию. Серебряная пуля, панацея, окончательное решение конфигурационного вопроса. Ага, щаз!
 Идея в теории прекрасна: мы отправляем на устройство желаемую конфигурацию в виде XML, а оно само шуршит и считает, что нужно применить, а что удалить. Давайте идеальный случай и разберём сначала.</p>
 <div class="line-block">
-<div class="line"><cite>&lt;edit-config&gt;</cite> позволяет загрузить полную конфигурацию устройства или его часть в указанный datastore. При этом устройство сравнивает актуальную конфигурацию в datastore и передаваемую с клиента и предпринимает указанные действия.</div>
-<div class="line">А какие действия могут быть указаны? Это определяется атрибутом «operation» в любом из элементов поддерева <cite>&lt;configuration&gt;</cite>. Operation может встречаться несколько раз в XML и быть при этом разным. Атрибут может принимать следующие значения:</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">&lt;edit-config&gt;</span></code> позволяет загрузить полную конфигурацию устройства или его часть в указанный datastore. При этом устройство сравнивает актуальную конфигурацию в datastore и передаваемую с клиента и предпринимает указанные действия.</div>
+<div class="line">А какие действия могут быть указаны? Это определяется атрибутом «operation» в любом из элементов поддерева <code class="docutils literal notranslate"><span class="pre">&lt;configuration&gt;</span></code>. Operation может встречаться несколько раз в XML и быть при этом разным. Атрибут может принимать следующие значения:</div>
 </div>
 <ul class="simple">
 <li><p><strong>Merge</strong> - новая конфига вливается в старую - что необходимо заменить - заменяется, новое - добавляется, ничего не удаляется.</p></li>
 <li><p><strong>Replace</strong> - заменяет старую конфигурацию новой.</p></li>
-<li><p><strong>Create</strong> - создаёт блок конфигурации. Однако, если он уже существует, вернётся <cite>&lt;rpc-error&gt;</cite></p></li>
-<li><p><strong>Delete</strong> - удаляет блок конфигурации. Однако, если его не существует, вернётся <cite>&lt;rpc-error&gt;</cite></p></li>
+<li><p><strong>Create</strong> - создаёт блок конфигурации. Однако, если он уже существует, вернётся <code class="docutils literal notranslate"><span class="pre">&lt;rpc-error&gt;</span></code></p></li>
+<li><p><strong>Delete</strong> - удаляет блок конфигурации. Однако, если его не существует, вернётся <code class="docutils literal notranslate"><span class="pre">&lt;rpc-error&gt;</span></code></p></li>
 <li><p><strong>Remove</strong> - удаляет блок конфигурации. Однако, если его не существует, проигнорирует. Определён в RFC6241.</p></li>
 </ul>
-<p>Если тип операции не задан, то новая конфигурация будет вмёржена в старую. Задать операцию по умолчанию можно с помощью параметра <cite>&lt;default-operation&gt;</cite>: <cite>merge</cite>, <cite>replace</cite>, <cite>none</cite>.</p>
-<p>В дереве <cite>&lt;configuration&gt;</cite> задаётся собственно целевая конфигурация в виде XML.</p>
-<p>Безусловно, самая интересная операция внутри <cite>&lt;edit-config&gt;</cite> - это replace. Ведь она предполагает, что устройство возьмёт конфигурацию из RPC и заменит ею ту, что находится в datastore. А где-то там под капотом и крышкой блока цилиндров система сама просчитает дельту, которую нужно отправить на чипы.</p>
+<p>Если тип операции не задан, то новая конфигурация будет вмёржена в старую. Задать операцию по умолчанию можно с помощью параметра <code class="docutils literal notranslate"><span class="pre">&lt;default-operation&gt;</span></code>: <code class="docutils literal notranslate"><span class="pre">merge</span></code>, <code class="docutils literal notranslate"><span class="pre">replace</span></code>, <code class="docutils literal notranslate"><span class="pre">none</span></code>.</p>
+<p>В дереве <code class="docutils literal notranslate"><span class="pre">&lt;configuration&gt;</span></code> задаётся собственно целевая конфигурация в виде XML.</p>
+<p>Безусловно, самая интересная операция внутри <code class="docutils literal notranslate"><span class="pre">&lt;edit-config&gt;</span></code> - это replace. Ведь она предполагает, что устройство возьмёт конфигурацию из RPC и заменит ею ту, что находится в datastore. А где-то там под капотом и крышкой блока цилиндров система сама просчитает дельту, которую нужно отправить на чипы.</p>
 </div>
-<div class="section" id="edit-config">
-<h3>Практика edit-config<a class="headerlink" href="#edit-config" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="section" id="id2">
+<h3>Практика edit-config<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Давайте сначала что-то простое: поменяет hostname:</p>
 <blockquote>
 <div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
@@ -798,8 +797,8 @@
 </pre></div>
 </div>
 </div></blockquote>
-<p>На Juniper доступны в NETCONF те же функции коммитов, что и в CLI. Например, <cite>commit confirmed</cite> и <cite>confirmed-timeout</cite>.</p>
-<p>А теперь что-то посложнее и с операцией <cite>replace</cite>: заменим список BGP-пиров:</p>
+<p>На Juniper доступны в NETCONF те же функции коммитов, что и в CLI. Например, <code class="docutils literal notranslate"><span class="pre">commit</span> <span class="pre">confirmed</span></code> и <code class="docutils literal notranslate"><span class="pre">confirmed-timeout</span></code>.</p>
+<p>А теперь что-то посложнее и с операцией <code class="docutils literal notranslate"><span class="pre">replace</span></code>: заменим список BGP-пиров:</p>
 <blockquote>
 <div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;edit-config&gt;</span>
@@ -1013,47 +1012,47 @@
 </div></blockquote>
 <div class="line-block">
 <div class="line">Вот он новенький пир, и старые на месте.</div>
-<div class="line">То есть достаточно очевидна разница между работой <cite>replace</cite> и <cite>merge</cite>.</div>
+<div class="line">То есть достаточно очевидна разница между работой <code class="docutils literal notranslate"><span class="pre">replace</span></code> и <code class="docutils literal notranslate"><span class="pre">merge</span></code>.</div>
 </div>
 </div>
 <div class="section" id="operation-replace">
 <h3>Operation replace<a class="headerlink" href="#operation-replace" title="Ссылка на этот заголовок">¶</a></h3>
 <div class="line-block">
-<div class="line">С <cite>replace</cite> следует иметь в виду некоторые нюансы. Например, что нужно передавать полную конфигурацию того или иного сервиса или функциональности - не просто новые параметры - ведь железка натурально заменит то, что было,  тем, что прилетело. Едва ли вы хотите создав один интерфейс в OSPF Area, удалить остальные?</div>
+<div class="line">С <code class="docutils literal notranslate"><span class="pre">replace</span></code> следует иметь в виду некоторые нюансы. Например, что нужно передавать полную конфигурацию того или иного сервиса или функциональности - не просто новые параметры - ведь железка натурально заменит то, что было,  тем, что прилетело. Едва ли вы хотите создав один интерфейс в OSPF Area, удалить остальные?</div>
 <div class="line">Некоторые сущности не могут быть удалены, такие, например, как физические интерфейсы. Поэтому при формировании соответствующего блока конфигурации нужно быть аккуратнее - в целевой конфигурации должны все они присутствовать, иначе в лучшем случае вернётся <cite>&lt;rpc-error&gt;</cite>, а в худшем вы чего-то поудаляете.</div>
 </div>
 <p>Использовать <cite>replace</cite> можно как на уровне отдельных частей конфигурации, так и на верхнем уровне, требуя заменить всё поддерево.</p>
 <p>Однако ещё один нюанс заключается в том, что в зависимости от реализации вычисление дельты может занять много ресурсов CPU. Поэтому, если собираетесь кинуть диф на 13 000 строк политик BGP, то дважды подумайте и трижды оттестируйте, что после этого происходит с коробкой.</p>
 </div>
-<div class="section" id="lt-commit-gt">
-<h3>&amp;lt;commit&amp;gt;<a class="headerlink" href="#lt-commit-gt" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="section" id="commit">
+<h3>&lt;commit&gt;<a class="headerlink" href="#commit" title="Ссылка на этот заголовок">¶</a></h3>
 <div class="line-block">
 <div class="line">Ещё одно свидетельство того, что модель NETCONF скалькирована с API Juniper - это возможность commit’a candidate-конфигурации в running. Доступна она, конечно, только в том случае, если при обмене capability сервер сообщил, что поддерживает candidate datastore.</div>
-<div class="line"><cite>&lt;commit&gt;</cite> не замещает running на candidate, как это делает <cite>&lt;copy-config&gt;</cite>, а выполняет именно применение конфигурационной дельты, как это происходит в CLI.</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">&lt;commit&gt;</span></code> не замещает running на candidate, как это делает <code class="docutils literal notranslate"><span class="pre">&lt;copy-config&gt;</span></code>, а выполняет именно применение конфигурационной дельты, как это происходит в CLI.</div>
 </div>
-<p>Как и в CLI у <cite>commit</cite> может быть параметр <cite>confirmed</cite>, заставляющий откатить изменения, если commit не был подтверждён. За это отвечает отдельная capability: <cite>confirmed-commit</cite>.</p>
-<p><cite>&lt;commit&gt;</cite> не входит в число базовых операций, поскольку как раз зависит от поддерживаемых возможностей сервера.</p>
+<p>Как и в CLI у <code class="docutils literal notranslate"><span class="pre">commit</span></code> может быть параметр <code class="docutils literal notranslate"><span class="pre">confirmed</span></code>, заставляющий откатить изменения, если commit не был подтверждён. За это отвечает отдельная capability: <code class="docutils literal notranslate"><span class="pre">confirmed-commit</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;commit&gt;</span></code> не входит в число базовых операций, поскольку как раз зависит от поддерживаемых возможностей сервера.</p>
 </div>
-<div class="section" id="lt-copy-config-gt">
-<h3>&amp;lt;copy-config&amp;gt;<a class="headerlink" href="#lt-copy-config-gt" title="Ссылка на этот заголовок">¶</a></h3>
-<p>Операция заменяет одну конфигурацию другой. Имеет два параметра: <cite>source</cite> - откуда - и <cite>target</cite> - куда.
+<div class="section" id="copy-config">
+<h3>&lt;copy-config&gt;<a class="headerlink" href="#copy-config" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Операция заменяет одну конфигурацию другой. Имеет два параметра: <code class="docutils literal notranslate"><span class="pre">source</span></code> - откуда - и <code class="docutils literal notranslate"><span class="pre">target</span></code> - куда.
 Может использоваться как для применения новой конфигурации на коробку, так и для бэкапа активной.
-Если коробка поддерживает capability <cite>:url</cite>, то в качестве <cite>source</cite> и/или <cite>target</cite> может быть указан URL.</p>
+Если коробка поддерживает capability <code class="docutils literal notranslate"><span class="pre">:url</span></code>, то в качестве <code class="docutils literal notranslate"><span class="pre">source</span></code> и/или <code class="docutils literal notranslate"><span class="pre">target</span></code> может быть указан URL.</p>
 </div>
-<div class="section" id="lt-delete-config-gt">
-<h3>&amp;lt;delete-config&amp;gt;<a class="headerlink" href="#lt-delete-config-gt" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="section" id="delete-config">
+<h3>&lt;delete-config&gt;<a class="headerlink" href="#delete-config" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Очевидно, удаляет конфигурацию из target datastore. Без хитростей.</p>
 </div>
-<div class="section" id="lt-lock-unlock-gt">
-<h3>&amp;lt;lock/unlock&amp;gt;<a class="headerlink" href="#lt-lock-unlock-gt" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="section" id="lock-unlock">
+<h3>&lt;lock/unlock&gt;<a class="headerlink" href="#lock-unlock" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Аналогично Juniper CLI ставит блок на target datastore от совместного редактирования, чтобы не было конфликта. Причём блок должен работать как на NETCONF, так и на другие способы изменения конфигурации - SNMP, CLI, gRPC итд.</p>
 </div>
-<div class="section" id="lt-close-session-gt">
-<h3>&amp;lt;close-session&amp;gt;<a class="headerlink" href="#lt-close-session-gt" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="section" id="close-session">
+<h3>&lt;close-session&gt;<a class="headerlink" href="#close-session" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Аккуратно закрывает существующую NETCONF-сессию, снимает локи, высвобождает ресурсы.</p>
 </div>
-<div class="section" id="lt-kill-session-gt">
-<h3>&amp;lt;kill-session&amp;gt;<a class="headerlink" href="#lt-kill-session-gt" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="section" id="kill-session">
+<h3>&lt;kill-session&gt;<a class="headerlink" href="#kill-session" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Грубо разрывает сессиию, но снимает локи. Если сервер получил такую операцию в тот момент, когда он дожидается confirmed commit, он должен отменить его и откатить изменения к состоянию, как было до установки сессии.</p>
 </div>
 </div>
@@ -1063,10 +1062,10 @@
 <div class="line">Ну вот как будто бы необходимый базис по NETCONF набрали.</div>
 <div class="line">Я в этой статье не ставлю перед собой задачу выстроить какую-то систему автоматизации. Просто хочу показать разные интерфейсы в теории и на практике.</div>
 </div>
-<p>И я думаю, к этому моменту вам уже очевидно, что отправка XML через SSH с ручным проставлением Framing Marker (<cite>]]&gt;]]&gt;</cite>) - не самый удобный способ. Давайте посмотрим на существующие библиотеки.</p>
+<p>И я думаю, к этому моменту вам уже очевидно, что отправка XML через SSH с ручным проставлением Framing Marker (<code class="docutils literal notranslate"><span class="pre">]]&gt;]]&gt;</span></code>) - не самый удобный способ. Давайте посмотрим на существующие библиотеки.</p>
 <div class="section" id="netconf-console">
 <h3>netconf-console<a class="headerlink" href="#netconf-console" title="Ссылка на этот заголовок">¶</a></h3>
-<p>Прежде чем писать какой-то код, обычно стоит проверить всё руками. Но вот руками крафтить XML и проставлять framing marker’ы тоскливо. Тут отца русской автоматизации спасёт <cite>netconf-console</cite> - главный и, возможно, единственный CLI-инструмент для работы с NETCONF.</p>
+<p>Прежде чем писать какой-то код, обычно стоит проверить всё руками. Но вот руками крафтить XML и проставлять framing marker’ы тоскливо. Тут отца русской автоматизации спасёт <code class="docutils literal notranslate"><span class="pre">netconf-console</span></code> - главный и, возможно, единственный CLI-инструмент для работы с NETCONF.</p>
 <p>Может работать в режиме команды:</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>netconf-console --host <span class="m">192</span>.168.1.2 --port <span class="m">22</span> -u eucariot -p password --get-config
@@ -1105,7 +1104,7 @@ netconf&gt; hello
 </pre></div>
 </div>
 <p>Дабы уберечь читателя от многочасовых мук с отладкой аунтентификации, небольшая подсказка тут.
-Текущая версия <cite>paramiko</cite> на момент написания статьи (&gt;=2.9.0), которую подтягивает <cite>ncclient</cite>, в ряде случае не может работать с OpenSSH-ключами и падает с ошибкой «Authentication failed». Рекомендую в этом случае устанавливать 2.8.0.
+Текущая версия <code class="docutils literal notranslate"><span class="pre">paramiko</span></code> на момент написания статьи (&gt;=2.9.0), которую подтягивает <code class="docutils literal notranslate"><span class="pre">ncclient</span></code>, в ряде случае не может работать с OpenSSH-ключами и падает с ошибкой «Authentication failed». Рекомендую в этом случае устанавливать 2.8.0.
 На гитхабе открыта куча issue на эту тему. И, кажется, его даже <a class="reference external" href="https://github.com/paramiko/paramiko/issues/2017">починили</a>, но я не проверял.
 И вроде бы даже есть <a class="reference external" href="https://localcoder.org/paramiko-not-a-valid-rsa-private-key-file">решение</a>, но и это я не проверял.</p>
 </div></blockquote>
@@ -1188,7 +1187,7 @@ netconf&gt; hello
 </div>
 <p>При работе с сетевыми коробками по NETCONF xmltodict, пожалуй, самая практичная библиотека, преобразующая XML-данные в объект Python. Она использует C-шный парсер <a class="reference external" href="https://docs.python.org/3/library/pyexpat.html">pyexpat</a>, так что недостатков у такого подхода фактически нет.</p>
 </div></blockquote>
-<p>Точно так же можно обновить конфигурацию в два действия: <cite>&lt;edit-config&gt;</cite> в <cite>&lt;candidate&gt;</cite> и <cite>&lt;commit&gt;</cite>:</p>
+<p>Точно так же можно обновить конфигурацию в два действия: <code class="docutils literal notranslate"><span class="pre">&lt;edit-config&gt;</span></code> в <code class="docutils literal notranslate"><span class="pre">&lt;candidate&gt;</span></code> и <code class="docutils literal notranslate"><span class="pre">&lt;commit&gt;</span></code>:</p>
 <blockquote>
 <div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ncclient</span> <span class="kn">import</span> <span class="n">manager</span>
 <span class="kn">import</span> <span class="nn">xmltodict</span>
@@ -1268,10 +1267,10 @@ netconf&gt; hello
 </div>
 </div>
 </div>
-<div class="section" id="id6">
-<h2>Как это использовать<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h2>
 <div class="section" id="id7">
-<h3>Мониторинг<a class="headerlink" href="#id7" title="Ссылка на этот заголовок">¶</a></h3>
+<h2>Как это использовать<a class="headerlink" href="#id7" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="id8">
+<h3>Мониторинг<a class="headerlink" href="#id8" title="Ссылка на этот заголовок">¶</a></h3>
 <p>NETCONF предоставляет возможность собирать операционные данные:</p>
 <ul class="simple">
 <li><p>Состояния протоколов (OPSF, BGP-пиринги)</p></li>
@@ -1293,8 +1292,8 @@ netconf&gt; hello
 <li><p>Гипотетическая возможность оформить подписку на события в системе</p></li>
 </ul>
 </div>
-<div class="section" id="id8">
-<h3>Выполнение отдельных операций<a class="headerlink" href="#id8" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="section" id="id9">
+<h3>Выполнение отдельных операций<a class="headerlink" href="#id9" title="Ссылка на этот заголовок">¶</a></h3>
 <div class="line-block">
 <div class="line">Используя NETCONF, можно выполнять какие-то конкретные задачи: собрать данные с сети или изменить какую-то часть конфигурации.</div>
 <div class="line">Например, вы хотите периодически собирать MAC-адреса с сети или список коммитов.</div>
@@ -1368,7 +1367,7 @@ netconf&gt; hello
         <a href="restconf.html" class="btn btn-neutral float-right" title="RESTCONF" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="xml.html" class="btn btn-neutral float-left" title="&amp;lt;XML&amp;gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="xml.html" class="btn btn-neutral float-left" title="&lt;XML&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

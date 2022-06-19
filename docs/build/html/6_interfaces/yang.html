@@ -93,7 +93,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cli.html">CLI - Command Line Interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rpc.html">Концепция RPC - Russian Pravoslavnaya Church</a></li>
 <li class="toctree-l2"><a class="reference internal" href="netconf.html">NETCONF</a></li>
-<li class="toctree-l2"><a class="reference internal" href="xml.html">&amp;lt;XML&amp;gt;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xml.html">&lt;XML&gt;</a></li>
 <li class="toctree-l2"><a class="reference internal" href="netconf_again.html">NETCONF Again</a></li>
 <li class="toctree-l2"><a class="reference internal" href="restconf.html">RESTCONF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="callhome.html">Call-Home</a></li>
@@ -366,7 +366,7 @@ module: openconfig-if-ip
 </pre></div>
 </div>
 </div></blockquote>
-<p>Вот и он во всей красе. И тут видно, что это аугментация к модели <cite>/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface</cite>.</p>
+<p>Вот и он во всей красе. И тут видно, что это аугментация к модели <code class="docutils literal notranslate"><span class="pre">/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface</span></code>.</p>
 <p>А что такое <cite>oc-if</cite>?</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>less yang/oc/public/release/models/interfaces/openconfig-interfaces.yang <span class="p">|</span> grep <span class="s1">&#39;^ *prefix&#39;</span>
@@ -384,14 +384,14 @@ prefix <span class="s2">&quot;oc-if&quot;</span><span class="p">;</span>
 </div>
 </div></blockquote>
 <div class="line-block">
-<div class="line">Ключ <cite>-f</cite> позволяет конвертировать в разные форматы: <cite>tree</cite>, <cite>yin</cite>, <cite>yang</cite>, <cite>jstree</cite>, <cite>uml</cite> и другие.</div>
-<div class="line">Для нас интереснее всего <cite>tree</cite> и <cite>uml</cite>, потому что вот такие крутые картинки можно рисовать для визуалов</div>
+<div class="line">Ключ <code class="docutils literal notranslate"><span class="pre">-f</span></code> позволяет конвертировать в разные форматы: <code class="docutils literal notranslate"><span class="pre">tree</span></code>, <code class="docutils literal notranslate"><span class="pre">yin</span></code>, <code class="docutils literal notranslate"><span class="pre">yang</span></code>, <code class="docutils literal notranslate"><span class="pre">jstree</span></code>, <code class="docutils literal notranslate"><span class="pre">uml</span></code> и другие.</div>
+<div class="line">Для нас интереснее всего <code class="docutils literal notranslate"><span class="pre">tree</span></code> и <code class="docutils literal notranslate"><span class="pre">uml</span></code>, потому что вот такие крутые картинки можно рисовать для визуалов</div>
 </div>
 <blockquote>
 <div><div class="figure align-center">
 <a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/5/openconfig-interfaces.png"><img alt="https://fs.linkmeup.ru/images/adsm/5/openconfig-interfaces.png" src="https://fs.linkmeup.ru/images/adsm/5/openconfig-interfaces.png" style="width: 800px;" /></a>
 </div>
-<p><em>Чтобы конвертировать uml в png можно воспользоваться пакетом plantuml</em>. <a class="reference external" href="https://fs.linkmeup.ru/images/adsm/5/openconfig-interfaces.png">Ссылка на картинку побольше</a></p>
+<p>Чтобы конвертировать uml в png можно воспользоваться пакетом plantuml. <a class="reference external" href="https://fs.linkmeup.ru/images/adsm/5/openconfig-interfaces.png">Ссылка на картинку побольше</a></p>
 </div></blockquote>
 <p>С помощью pyang, конечно, можно работать не только с моделями OpenConfig, но и с любыми другими, написанными на языке YANG.</p>
 <p><a class="reference external" href="https://www.ietf.org/proceedings/90/slides/slides-90-edu-yang-0.pdf">Место, где неплохо описан pyang</a>.</p>
@@ -406,7 +406,7 @@ prefix <span class="s2">&quot;oc-if&quot;</span><span class="p">;</span>
 </ul>
 <p>В общем, собираем с репы по коммиту.</p>
 <div class="line-block">
-<div class="line">Замечательная новость в том, что все коробки, заявляющие своё соответствие RFC6022 должны уметь возвращать всю YANG-схему по запросу с операцией <cite>&lt;get_schema&gt;</cite>.</div>
+<div class="line">Замечательная новость в том, что все коробки, заявляющие своё соответствие RFC6022 должны уметь возвращать всю YANG-схему по запросу с операцией <code class="docutils literal notranslate"><span class="pre">&lt;get_schema&gt;</span></code>.</div>
 <div class="line">Отвратительная новость в том, что не все вендоры эту операцию поддерживают.</div>
 </div>
 <div class="section" id="id6">

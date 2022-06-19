@@ -121,51 +121,17 @@ NETCONF и его команды
 Это всё сообщения, внутри которых определённым образом сформированные XML. 
 
 | Внутри сообщения определяется какая операция (действие) исполняется.
-| В таблице ниже полный их список, определённый в RFC:
+| Ниже полный их список, определённый в RFC:
 
-
-    .. table:: 
-
-       ============  =============
-         operation    description
-       ============  =============
-       ``<get>``      retrieve running configuration and device state information
-        ``<get-config>``  retrieve all or part of a specified configuration datastore
-       =====  =====
-
-
-
-
-dsfsdf
-    <tr>
-        <td>`<edit-config>`</td>
-        <td><span style="font-size: 1rem;">edit a configuration datastore by creating, deleting, merging or replacing content</span></td>
-    </tr>
-    <tr>
-        <td>`<copy-config>`</td>
-        <td>copy an entire configuration datastore to another configuration datastore</td>
-    </tr>
-    <tr>
-        <td>`<delete-config>`</td>
-        <td><span style="font-size: 1rem;">delete a configuration datastore</span></td>
-    </tr>
-    <tr>
-        <td>`<lock>`</td>
-        <td><span style="font-size: 1rem;">lock an entire configuration datastore of a device</span></td>
-    </tr>
-    <tr>
-        <td>`<unlock>`</td>
-        <td><div><span style="font-size: 1rem;">release a configuration datastore lock previously obtained with the <lock> operation</span></td>
-    </tr>
-    <tr>
-        <td>`<close-session>`</td>
-        <td><span style="font-size: 1rem;">request graceful termination of a netconf session</span></td>
-    </tr>
-    <tr>
-        <td>`<kill-session>`</td>
-        <td>force the termination of a netconf session</td>
-    </tr>
-</table>
+* ``<get>`` - retrieve running configuration and device state information
+* ``<get-config>`` - retrieve all or part of a specified configuration datastore
+* ``<edit-config>`` - edit a configuration datastore by creating, deleting, merging or replacing content
+* ``<copy-config>`` - copy an entire configuration datastore to another configuration datastore
+* ``<delete-config>`` - delete a configuration datastore
+* ``<lock>`` - lock an entire configuration datastore of a device
+* ``<unlock>`` - release a configuration datastore lock previously obtained with the <lock> operation
+* ``<close-session>`` - request graceful termination of a netconf session
+* ``<kill-session>`` - force the termination of a netconf session
 
 Каждый вендор может расширять список операций хоть до бесконечности. Так, у кого-то, например, есть ``<copy-config>``.
 

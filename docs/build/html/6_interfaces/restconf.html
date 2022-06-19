@@ -282,7 +282,7 @@ Connection to bcn-spine-1.arista <span class="m">6020</span> port <span class="o
 </pre></div>
 </div>
 </div></blockquote>
-<p>Так мы извлекли информацию про интерфейс <cite>Management1</cite>.</p>
+<p>Так мы извлекли информацию про интерфейс <code class="docutils literal notranslate"><span class="pre">Management1</span></code>.</p>
 <p>А вот так можно получить данные по BGP:</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -k -s GET <span class="s1">&#39;https://bcn-spine-1.arista:6020/restconf/data/network-instances/network-instance/config/protocols&#39;</span> <span class="se">\</span>
@@ -298,14 +298,14 @@ Connection to bcn-spine-1.arista <span class="m">6020</span> port <span class="o
 </div>
 </div></blockquote>
 <ul class="simple">
-<li><p><strong>&amp;lt;ADDRESS&amp;gt;</strong> - адрес RESTCONF-сервера.</p></li>
-<li><p><strong>&amp;lt;ROOT&amp;lt;</strong> - Точка входа для запросов RESTCONF. Можно найти тут : <a class="reference external" href="https://&amp;lt;ADDRESS&amp;gt;/.well-known/">https://&amp;lt;ADDRESS&amp;gt;/.well-known/</a></p></li>
+<li><p><strong>&lt;ADDRESS&gt;</strong> - адрес RESTCONF-сервера.</p></li>
+<li><p><strong>&lt;ROOT&gt;</strong> - Точка входа для запросов RESTCONF. Можно найти тут : <a class="reference external" href="https:/">https:/</a>/&lt;ADDRESS&gt;/.well-known/</p></li>
 <li><p><strong>data</strong> - прям так и остаётся</p></li>
-<li><p><strong>&amp;lt;[YANG MODULE:]CONTAINER&amp;gt;</strong> - Базовый контейнер YANG. Наличие YANG Module - не обязательно.</p></li>
-<li><p><strong>&amp;lt;LEAF&amp;gt;</strong> - Отдельный элемент в контейнере</p></li>
-<li><p><strong>&amp;lt;OPTIONS&amp;gt;</strong> - Опциональные параметры, влияющие на результат.</p></li>
+<li><p><strong>&lt;[YANG MODULE:]CONTAINER&gt;</strong> - Базовый контейнер YANG. Наличие YANG Module - не обязательно.</p></li>
+<li><p><strong>&lt;LEAF&gt;</strong> - Отдельный элемент в контейнере</p></li>
+<li><p><strong>&lt;OPTIONS&gt;</strong> - Опциональные параметры, влияющие на результат.</p></li>
 </ul>
-<p>Пробуем выяснить <cite>&lt;ROOT&gt;</cite>:</p>
+<p>Пробуем выяснить <code class="docutils literal notranslate"><span class="pre">&lt;ROOT&gt;</span></code>:</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -k https://bcn-spine-1.arista:6020/.well-known/host-meta
 &lt;XRD <span class="nv">xmlns</span><span class="o">=</span>’http://docs.oasis-open.org/ns/xri/xrd-1.0’&gt;
