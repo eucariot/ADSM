@@ -457,11 +457,11 @@ realized on top of a simple Remote Procedure Call (RPC) layer.
 </pre></div>
 </div>
 </div></blockquote>
-<p>Чего почти нигде не пишут, но что очень важно: если вы пробуете взаимодействовать с коробкой по нетконф руками, то нужно обязательно вручную отослать такую последовательность <cite>]]&gt;]]&gt;</cite>, сообщающую, что ввод закончен. Она называется <strong>Framing Marker</strong> или <strong>Message Separator Sequence</strong>.</p>
+<p>Чего почти нигде не пишут, но что очень важно: если вы пробуете взаимодействовать с коробкой по нетконф руками, то нужно обязательно вручную отослать такую последовательность <code class="docutils literal notranslate"><span class="pre">]]&gt;]]&gt;</span></code>, сообщающую, что ввод закончен. Она называется <strong>Framing Marker</strong> или <strong>Message Separator Sequence</strong>.</p>
 <blockquote>
 <div><div class="line-block">
-<div class="line">Есть важный нюанс, описанный в <a class="reference external" href="https://www.ietf.org/rfc/rfc6242.txt">RFC6242</a>, <cite>]]&gt;]]&gt;</cite> - это старый <strong>End-of-Message Framing Marker</strong>, который был выбран из соображений, что такая последовательность не должна встречаться в well-formed XML. Однако жизнь показала, что она встречается. Поэтому в NETCONF 1.1 придумали новый механизм, который делит данные на блоки - чанки - и нумерует их. Так он и называется: <strong>Chunked Framing Mechanism</strong>.</div>
-<div class="line">Каждый чанк данных начинается с <cite>##X</cite>, где <cite>X</cite> - это число октетов в нём.</div>
+<div class="line">Есть важный нюанс, описанный в <a class="reference external" href="https://www.ietf.org/rfc/rfc6242.txt">RFC6242</a>, <code class="docutils literal notranslate"><span class="pre">]]&gt;]]&gt;</span></code> - это старый <strong>End-of-Message Framing Marker</strong>, который был выбран из соображений, что такая последовательность не должна встречаться в well-formed XML. Однако жизнь показала, что она встречается. Поэтому в NETCONF 1.1 придумали новый механизм, который делит данные на блоки - чанки - и нумерует их. Так он и называется: <strong>Chunked Framing Mechanism</strong>.</div>
+<div class="line">Каждый чанк данных начинается с <code class="docutils literal notranslate"><span class="pre">##X</span></code>, где <code class="docutils literal notranslate"><span class="pre">X</span></code> - это число октетов в нём.</div>
 <div class="line">Это одно из фундаментальных отличий между 1.0 и 1.1 :). Другие <a class="reference external" href="https://support.yumaworks.com/support/solutions/articles/1000227848-what-are-the-differences-between-netconf-1-0-and-1-1-">менее значительны</a>.</div>
 </div>
 </div></blockquote>
@@ -497,8 +497,8 @@ realized on top of a simple Remote Procedure Call (RPC) layer.
 </pre></div>
 </div>
 </div></blockquote>
-<p>Мы отправили элемент <cite>&lt;rpc&gt;</cite>, в котором запросили <cite>&lt;running&gt;</cite>-конфигурацию с помощью операцию <cite>&lt;get-config&gt;</cite>. И ещё на сервере отфильтровали по интересной ветке.</p>
-<p>А в ответ пришёл <cite>&lt;rpc-reply&gt;</cite> с ответом. И в запросе, и в ответе можете найти <cite>message-id</cite> - по ним можно отслеживать на что именно ответ - ведь режим работы NETCONF асинхронный и можно засылать следующее сообщение, пока предыдущее ещё не было обработано.</p>
+<p>Мы отправили элемент <code class="docutils literal notranslate"><span class="pre">&lt;rpc&gt;</span></code>, в котором запросили <code class="docutils literal notranslate"><span class="pre">&lt;running&gt;</span></code>-конфигурацию с помощью операцию <code class="docutils literal notranslate"><span class="pre">&lt;get-config&gt;</span></code>. И ещё на сервере отфильтровали по интересной ветке.</p>
+<p>А в ответ пришёл <code class="docutils literal notranslate"><span class="pre">&lt;rpc-reply&gt;</span></code> с ответом. И в запросе, и в ответе можете найти <code class="docutils literal notranslate"><span class="pre">message-id</span></code> - по ним можно отслеживать на что именно ответ - ведь режим работы NETCONF асинхронный и можно засылать следующее сообщение, пока предыдущее ещё не было обработано.</p>
 <div class="line-block">
 <div class="line">Здесь вы видите некоторую структуру XML. Её легко можно скормить XML-парсеру, который превратит его в JSON или python dict или что угодно другое, с чем удобно работать в скриптах и программах. И далее извлечь по ключам нужные данные.</div>
 <div class="line">Но почему XML? За что? Как вообще с этим быть?</div>
