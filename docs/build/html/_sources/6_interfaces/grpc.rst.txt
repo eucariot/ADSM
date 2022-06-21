@@ -20,7 +20,7 @@ gRPC
            :width: 800
            :align: center
 
-*Есть, правда, и более `последовательная инструкция <https://fs.linkmeup.ru/images/adsm/5/owl-2.jpeg>`_.*
+    Есть, правда, и более `последовательная инструкция <https://fs.linkmeup.ru/images/adsm/5/owl-2.jpeg>`_.
 
 Хотя точно стоит сказать о том, что gRPC использует **Protocol Buffers** (или **коротко protobuf**). Термин этот довольно нагруженный:
 
@@ -370,7 +370,7 @@ gNMI
            :width: 1000
            :align: center
 
-    `Побольше <https://fs.linkmeup.ru/images/adsm/5/gnmi_0.7.0_map.pdf>`_
+    `Картинка побольше <https://fs.linkmeup.ru/images/adsm/5/gnmi_0.7.0_map.pdf>`_
 
 Здесь каждый RPC расписан на сообщения и типы данных, и указаны ссылки на прото-спеки и документацию.
 Не могу сказать, что это удобное место для того, чтобы начать знакомиться с gNMI, но вы точно к нему ещё много раз вернётесь, если сядете на gNMI.
@@ -394,7 +394,7 @@ gNMIc
 
 Теперь надо настроить узел.
 
-    .. code-block:: bash
+    .. code-block:: text
 
        interface Management1
           ip address 192.168.1.11/24

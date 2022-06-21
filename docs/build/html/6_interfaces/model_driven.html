@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Заключение &mdash; документация ADSM 0.1.0</title>
+  <title>Model Driven Programmability &mdash; документация ADSM 0.1.0</title>
   
 
   
@@ -36,7 +36,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
     <link rel="search" title="Поиск" href="../search.html" />
-    <link rel="prev" title="Полезные ссылки" href="links.html" /> 
+    <link rel="next" title="Всё вместе" href="onemoretime.html" />
+    <link rel="prev" title="YANG" href="yang.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -99,13 +100,10 @@
 <li class="toctree-l2"><a class="reference internal" href="grpc.html">gRPC/gNMI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="models.html">Модели данных</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yang.html">YANG</a></li>
-<li class="toctree-l2"><a class="reference internal" href="model_driven.html">Model Driven Programmability</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Model Driven Programmability</a></li>
 <li class="toctree-l2"><a class="reference internal" href="onemoretime.html">Всё вместе</a></li>
 <li class="toctree-l2"><a class="reference internal" href="links.html">Полезные ссылки</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Заключение</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id3">Благодарности</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.html">Заключение</a></li>
 </ul>
 </li>
 </ul>
@@ -155,13 +153,13 @@
         
           <li><a href="index.html">Часть 6. Интерфейсы взаимодействия с сетевым устройством</a> &raquo;</li>
         
-      <li>Заключение</li>
+      <li>Model Driven Programmability</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/6_interfaces/conclusion.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/6_interfaces/model_driven.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -174,18 +172,43 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="id1">
-<h1>Заключение<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
-<p>Думаю, что хорошее заключение было в <a class="reference external" href="https://adsm.readthedocs.io/ru/latest/5_history/index.html">пятой части книги</a>, к которой я и отсылаю читателя.
-| Путь нас ожидает неблизкий. Туман медленно рассеивается, открывая новые развилки дорожек, из которых нужно выбирать перспективную.
-| Но вот что следует держать в голове. Нам обо всём этом рассказывают на конференциях и пишут в длинных статьях как о свершившемся факте, в то время, как многие вещи всё ещё не работают, а в конце обычно есть приписка <em>«Adding support of OpenConfig gNMI paves the way for future network automation»</em>.</p>
-<div class="section" id="id3">
-<h2>Благодарности<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://netdevops.me/">Роману Додину</a> Роману Додину за дельные комментарии как по теоретической, так и по практической частям. А так же за полезный блог и инструменты. <a class="reference external" href="https://github.com/hellt">GitHub</a>.</p></li>
-<li><p><a class="reference external" href="https://www.linkedin.com/mwlite/in/horseinthesky">Кириллу Плетнёву</a> за наведение порядка с NETCONF и YANG - язык, модели, спецификации, форматы данных. И за уместные и остроумные замечания по языкам и библиотекам. <a class="reference external" href="https://github.com/horseinthesky">GitHub</a>, <a class="reference external" href="https://m.facebook.com/profile.php?id=100000214935640">fb</a>.</p></li>
-<li><p><a class="reference external" href="https://www.linkedin.com/in/alexander-limonov-802a8399/">Александру Лимонову</a> за несколько идеологических замечаний и исправлений фактических ошибок.</p></li>
-</ul>
+  <div class="section" id="model-driven-programmability">
+<h1>Model Driven Programmability<a class="headerlink" href="#model-driven-programmability" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Так что же это такое? Ведомая моделью программируемость? Теперь, после двух статей, нам хватит пары минут, чтобы разобраться что это такое.</p>
+<p>Давайте вернёмся к <a class="reference external" href="https://adsm.readthedocs.io/ru/latest/4_lifecycle/index.html">4-й части АДСМ</a>, где я использовал позаимствованную у Дмитрия Тесля картинку.</p>
+<blockquote>
+<div><div class="figure align-default">
+<img alt="https://dteslya.engineer/images/2020-10-netdevops-pipeline.png" src="https://dteslya.engineer/images/2020-10-netdevops-pipeline.png" />
+</div>
+<p><a class="reference external" href="https://dteslya.engineer/network_automaiton_101/">Источник: dteslya.engineer/network_automaiton_101</a></p>
+</div></blockquote>
+<p>Она ведь очень понятная? Inventory, Git с шаблонами конфигурации, рендер, валидация, применение.</p>
+<div class="line-block">
+<div class="line">Где закопаны два мешка с человеко-неделями? Под шаблонами с генераторами и под системами применения конфигурации.</div>
+<div class="line">Со вторым пытаются бороться NETCONF, RESTCONF, gNMI.</div>
+<div class="line">А с первым - модели.</div>
+</div>
+<p>Проблема в том, что шаблоны мы составляем руками на основе изучения документации, интерфейса коробки и действуем методом проб и ошибок, вообще-то. Если нужна проверка типов, диапазонов, если меняется иерархия - будьте добры сами всё это написать и обработать. И, окончив, уехать в сумасшедший дом, учить друзей джинджа-программированию.</p>
+<p>Model Driven меняет картину следующим образом:</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/5/model-driven.png"><img alt="https://fs.linkmeup.ru/images/adsm/5/model-driven.png" src="https://fs.linkmeup.ru/images/adsm/5/model-driven.png" style="width: 800px;" /></a>
+</div>
+<p><em>Не могу найти, откуда брал эту картинку.</em></p>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Здесь шаблоны конфигурации заменяются на YANG-модель (в данном случае OpenConfig).</div>
+<div class="line">Из инвентарки (топологии) и этих моделей рендерится конфиг, который с помощью RPC (тут gRPC) прогружается на коробку.</div>
+</div>
+<p>Model Driven означает тут, что мы</p>
+<div class="line-block">
+<div class="line">А) не думаем (или думаем меньше) про иерархию, типы данных. Перестаём мыслить тегами XML.</div>
+<div class="line">Б) Модель определяет, как будет выглядеть конфигурация, как с ней работать.</div>
+<div class="line">В) Использование точно такой же модели на устройстве гарантирует, что отправленное нами, будет принято и валидно на той стороне, коль скоро оно валидно на этой.</div>
+</div>
+<div class="line-block">
+<div class="line">Иными словами именно модель управляет тем, как мы и железо будет работать с конфигурацией.</div>
+<div class="line">Вот и вся суть.</div>
 </div>
 </div>
 
@@ -197,8 +220,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="onemoretime.html" class="btn btn-neutral float-right" title="Всё вместе" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="links.html" class="btn btn-neutral float-left" title="Полезные ссылки" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="yang.html" class="btn btn-neutral float-left" title="YANG" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

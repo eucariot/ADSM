@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
     <link rel="search" title="Поиск" href="../search.html" />
-    <link rel="next" title="Всё вместе" href="onemoretime.html" />
+    <link rel="next" title="Model Driven Programmability" href="model_driven.html" />
     <link rel="prev" title="Модели данных" href="models.html" /> 
 </head>
 
@@ -107,7 +107,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#model-driven-programmability">Model Driven Programmability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_driven.html">Model Driven Programmability</a></li>
 <li class="toctree-l2"><a class="reference internal" href="onemoretime.html">Всё вместе</a></li>
 <li class="toctree-l2"><a class="reference internal" href="links.html">Полезные ссылки</a></li>
 <li class="toctree-l2"><a class="reference internal" href="conclusion.html">Заключение</a></li>
@@ -424,45 +424,6 @@ prefix <span class="s2">&quot;oc-if&quot;</span><span class="p">;</span>
 </div>
 </div>
 </div>
-<div class="section" id="model-driven-programmability">
-<h1>Model Driven Programmability<a class="headerlink" href="#model-driven-programmability" title="Ссылка на этот заголовок">¶</a></h1>
-<p>Так что же это такое? Ведомая моделью программируемость? Теперь, после двух статей, нам хватит пары минут, чтобы разобраться что это такое.</p>
-<p>Давайте вернёмся к <a class="reference external" href="https://linkmeup.ru/blog/1275/">4-й части АДСМ</a>, где я использовал позаимствованную у Дмитрия Тесля картинку.</p>
-<blockquote>
-<div><div class="figure align-default">
-<img alt="https://dteslya.engineer/images/2020-10-netdevops-pipeline.png" src="https://dteslya.engineer/images/2020-10-netdevops-pipeline.png" />
-</div>
-<p><em>`Источник: dteslya.engineer/network_automaiton_101 &lt;https://dteslya.engineer/network_automaiton_101/&gt;`_</em></p>
-</div></blockquote>
-<p>Она ведь очень понятная? Inventory, Git с шаблонами конфигурации, рендер, валидация, применение.</p>
-<div class="line-block">
-<div class="line">Где закопаны два мешка с человеко-неделями? Под шаблонами с генераторами и под системами применения конфигурации.</div>
-<div class="line">Со вторым пытаются бороться NETCONF, RESTCONF, gNMI.</div>
-<div class="line">А с первым - модели.</div>
-</div>
-<p>Проблема в том, что шаблоны мы составляем руками на основе изучения документации, интерфейса коробки и действуем методом проб и ошибок, вообще-то. Если нужна проверка типов, диапазонов, если меняется иерархия - будьте добры сами всё это написать и обработать. И, окончив, уехать в сумасшедший дом, учить друзей джинджа-программированию.</p>
-<p>Model Driven меняет картину следующим образом:</p>
-<blockquote>
-<div><div class="figure align-center">
-<a class="reference internal image-reference" href="https://fs.linkmeup.ru/images/adsm/5/model-driven.png"><img alt="https://fs.linkmeup.ru/images/adsm/5/model-driven.png" src="https://fs.linkmeup.ru/images/adsm/5/model-driven.png" style="width: 800px;" /></a>
-</div>
-<p><em>Не могу найти, откуда брал эту картинку.</em></p>
-</div></blockquote>
-<div class="line-block">
-<div class="line">Здесь шаблоны конфигурации заменяются на YANG-модель (в данном случае OpenConfig).</div>
-<div class="line">Из инвентарки (топологии) и этих моделей рендерится конфиг, который с помощью RPC (тут gRPC) прогружается на коробку.</div>
-</div>
-<p>Model Driven означает тут, что мы</p>
-<div class="line-block">
-<div class="line">А) не думаем (или думаем меньше) про иерархию, типы данных. Перестаём мыслить тегами XML.</div>
-<div class="line">Б) Модель определяет, как будет выглядеть конфигурация, как с ней работать.</div>
-<div class="line">В) Использование точно такой же модели на устройстве гарантирует, что отправленное нами, будет принято и валидно на той стороне, коль скоро оно валидно на этой.</div>
-</div>
-<div class="line-block">
-<div class="line">Иными словами именно модель управляет тем, как мы и железо будет работать с конфигурацией.</div>
-<div class="line">Вот и вся суть.</div>
-</div>
-</div>
 
 
            </div>
@@ -472,7 +433,7 @@ prefix <span class="s2">&quot;oc-if&quot;</span><span class="p">;</span>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="onemoretime.html" class="btn btn-neutral float-right" title="Всё вместе" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="model_driven.html" class="btn btn-neutral float-right" title="Model Driven Programmability" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="models.html" class="btn btn-neutral float-left" title="Модели данных" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

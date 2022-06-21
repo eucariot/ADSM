@@ -2,9 +2,9 @@
 ===============
 
 
-* ` <https://linkmeup.ru/blog/1261/">Как я собирал лабу для данной статьи
+* `Как я собирал лабу для данной статьи <https://linkmeup.ru/blog/1261/>`_
   
-* ` <https://github.com/eucariot/ADSM/blob/master/docs/source/5_interfaces/materials/>`_Репозиторий с примерами кода из этой статьи
+* `Репозиторий с примерами кода из этой статьи <https://github.com/eucariot/ADSM/blob/master/docs/source/5_interfaces/materials/>`_
   
 * Главные RFC:
       
@@ -50,8 +50,8 @@
   
 * `Блог Романа Додина <https://netdevops.me/>`_ в общем. И в частности:
       
-    * `Пример взаимодействия с Arista через gNMI gNMIc <https://netdevops.me/2020/gnmic-gnmi-cli-client-and-collector/>`_  
-    * ` <https://netdevops.me/2020/arista-veos-gnmi-tutorial/>`_  
+    * `gNMIc <https://netdevops.me/2020/gnmic-gnmi-cli-client-and-collector/>`_  
+    * `Пример взаимодействия с Arista через gNMI  <https://netdevops.me/2020/arista-veos-gnmi-tutorial/>`_  
 
 * `Блог Антона Карнелюка <https://karneliuk.com/>`_ в общем. И в частности:
       
@@ -62,7 +62,7 @@
   
 * `Блог Михаила Кашина <https://networkop.co.uk/>`_ в общем. И в частности:
       
-    * ` <https://networkop.co.uk/blog/2017/01/25/netconf-intro/>`_  
+    * `Getting Started With NETCONF and YANG on Cisco IOS XE <https://networkop.co.uk/blog/2017/01/25/netconf-intro/>`_  
 
 * `Репозиторий с PyangBind <https://github.com/robshakir/pyangbind>`_, позволяющим генерировать классы Python из YANG-моделей
   
