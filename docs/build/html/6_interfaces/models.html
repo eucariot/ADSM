@@ -182,6 +182,20 @@
             
   <div class="section" id="id1">
 <h1>Модели данных<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="line-block">
+<div class="line">Обратили, кстати, внимание, что в примерах выше в вызовах не было ничего специфичного для вендора?</div>
+<div class="line">На самом деле некая неявная привязка есть - это пути, они могли бы отличаться для Аристы и Хуавэя. Но внимание на слово «openconfig» в этих путях. Что это? Что за Открытый конфиг?</div>
+</div>
+<div class="line-block">
+<div class="line">Сложность с автоматизацией сети - она ведь в чём? В том, что прежде чем отправлять конфигурацию на устройство, человек должен сесть и прям-таки разобраться в структуре CLI или XML и руками накидать шаблоны для конфигурации.</div>
+<div class="line">Даже просто для того, чтобы настроить IP-адрес на интерфейсе, нужно знать иерархию секций конфигурации или конкретное поддерево XML.</div>
+</div>
+<div class="line-block">
+<div class="line">А ещё выяснить, в каком формате надо передавать адрес: <code class="docutils literal notranslate"><span class="pre">fe80::1/64</span></code>, <code class="docutils literal notranslate"><span class="pre">fe80::1</span> <span class="pre">64</span></code>, <code class="docutils literal notranslate"><span class="pre">fe80::1</span> <span class="pre">link-local</span></code>, <code class="docutils literal notranslate"><span class="pre">address:</span> <span class="pre">fe80::1,</span> <span class="pre">mask:</span> <span class="pre">64</span></code>, <code class="docutils literal notranslate"><span class="pre">FE8:0:0:0:0:0:0:1</span></code>, <code class="docutils literal notranslate"><span class="pre">0000111111101000</span> <span class="pre">0000000000000000</span> <span class="pre">0000000000000000</span> <span class="pre">0000000000000000</span> <span class="pre">0000000000000000</span> <span class="pre">0000000000000000</span> <span class="pre">0000000000000000</span> <span class="pre">0000000000000001</span></code> или там вообще не поддерживается IPv6. И надо ли сначала как-то энейблить IPv6, а MTU заимствуется с интерфейса или для IPv6 отдельный?</div>
+<div class="line">И так для каждого вендора по отдельности. Знаете, сетевых автоматизаторов спасает только то, что они до этого лет 10 ели на завтрак циски да джуниперы - и как свои два пальца знают все тонкости CLI.</div>
+<div class="line">Оно же их и губит.</div>
+</div>
+<p>NETCONF поел овса из-за того, что не предложил никакой стандартизации для моделирования данных. Именно поэтому вендоры успели наплодить своих собственных, несовместимых моделей, про которые мы и поговорим ниже.</p>
 <p>Собственно то, в какой иерархии представлена конфигурация - и есть модель данных. Говорится об этом или нет, но такая модель есть всегда и у любого интерфейса. Она может быть плоской или иерархической, может быть простой или запутанной. Если бы её не было, то вы бы просто не смогли настроить устройство, а команды конфигурации могли бы видоизвиняться случайным образом. Говорят, в Router OS 7 подвезли такую функцию.</p>
 <div class="line-block">
 <div class="line">Так, мы знаем, что например, в случае Juniper нужно войти в контекст <code class="docutils literal notranslate"><span class="pre">system-&gt;login</span></code>, чтобы настроить нового пользователя, а формат команды будет <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">&lt;USERNAME&gt;</span> <span class="pre">&lt;OTHER</span> <span class="pre">PARAMETERS&gt;</span></code>.</div>

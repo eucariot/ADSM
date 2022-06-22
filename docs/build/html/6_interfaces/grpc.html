@@ -110,6 +110,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#gnoi">gNOI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#telemetry">Telemetry</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="models.html">Модели данных</a></li>
@@ -198,7 +199,7 @@
 <div class="section" id="grpc">
 <h2>gRPC<a class="headerlink" href="#grpc" title="Ссылка на этот заголовок">¶</a></h2>
 <div class="line-block">
-<div class="line">Без теории - за ней прошу в <a class="reference external" href="#Часть5.Историясетевойавтоматизации">пятую часть АДСМ</a>.</div>
+<div class="line">Без теории - за ней прошу в <a class="reference external" href="https://adsm.readthedocs.io/ru/latest/5_history/index.html">пятую часть АДСМ</a>.</div>
 <div class="line">В любом случае после голой теории вот только такие ощущения:</div>
 </div>
 <blockquote>
@@ -492,7 +493,7 @@ Ping response received: piu-pong <span class="nv">time</span><span class="o">=</
 </div>
 </div></blockquote>
 <p>Вот тут уже видно почти все наши объекты, которые передаются между клиентом и сервером.
-<a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/5_interfaces/materials/dumps/grpc.pcap">pcap-файл</a>.</p>
+<a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/6_interfaces/materials/dumps/grpc.pcap">pcap-файл</a>.</p>
 <p>Кайф!!</p>
 <p>Давайте ещё раз проговорим, что мы сделали.</p>
 <ol class="arabic simple">
@@ -502,7 +503,7 @@ Ping response received: piu-pong <span class="nv">time</span><span class="o">=</
 <li><p>Клиент сделал вызов удалённого метода на сервере. Список доступных методов мы знаем из proto-файла.</p></li>
 <li><p>Сервер вернул результат работы процедуры клиенту.</p></li>
 </ol>
-<p><a class="reference external" href="https://github.com/eucariot/ADSM/tree/master/docs/source/5_interfaces/materials/grpc-ping">Весь код в репозитории</a>.</p>
+<p><a class="reference external" href="https://github.com/eucariot/ADSM/tree/master/docs/source/6_interfaces/materials/grpc-ping">Весь код в репозитории</a>.</p>
 <p>Итак, разобрались с gRPC. Ну, будем так считать, по крайней мере.</p>
 <p>Внутри гугла gRPC удалось адаптировать даже к задачам сети. То есть gRPC стал единым интерфейсом взаимодействия между разными компонентами во всей компании (или одним из - мы не знаем).</p>
 </div>
@@ -996,7 +997,7 @@ supported encodings:
 </pre></div>
 </div>
 </div></blockquote>
-<p>В <a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/5_interfaces/materials/scripts/gnmiclient_set_bgp.py">репе ADSM</a> можно найти пример по изменению BGP peer-as.</p>
+<p>В <a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/6_interfaces/materials/scripts/gnmiclient_set_bgp.py">репе ADSM</a> можно найти пример по изменению BGP peer-as.</p>
 <div class="line-block">
 <div class="line">gNMIc и pyGNMI - это всего лишь частные инструменты для работы через gNMI. Ничто не мешает вам самим реализовать набор методов удобным образом.</div>
 <div class="line">Важно здесь заметить то, что у gNMI нет концепции Data Stores и как следствие функционала коммитов конфигурации - мы работаем с сервисом.</div>
@@ -1024,20 +1025,23 @@ supported encodings:
 </div>
 <p>На самом деле там на сегодняшний день уже <a class="reference external" href="https://github.com/openconfig/gnoi">достаточно внушительный список операций</a>.</p>
 <p>А ещё по аналогии с gNMIc существует и <a class="reference external" href="https://gnoic.kmrd.dev/">gNOIc</a>.</p>
+</div>
+<div class="section" id="telemetry">
+<h2>Telemetry<a class="headerlink" href="#telemetry" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Начнем с того что под словом «телеметрия» каждый вендор может понимать свое. У Huawei своя реализация поверх gRPC (местами даже платная!), у Cisco есть Model-driven Telemetry (например <a class="reference external" href="https://github.com/influxdata/telegraf/tree/master/plugins/inputs/cisco_telemetry_mdt">Cisco Model-Driven Telemetry (MDT) Input Plugin</a>), у Juniper тоже есть своя реализация - <a class="reference external" href="https://www.juniper.net/documentation/us/en/software/junos/interfaces-telemetry/interfaces-telemetry.pdf">JTI</a>. Последние два еще параллельно поддерживают gNMI.</p>
 <div class="line-block">
-<div class="line">Обратили, кстати, внимание, что здесь в вызовах не было ничего специфичного для Аристы?</div>
-<div class="line">На самом деле некая неявная привязка есть - это пути, они могли бы отличаться для Аристы и Хуавэя. Но внимание на слово «openconfig» в этих путях. Что это? Что за Открытый конфиг?</div>
+<div class="line">Отсюда уже возникает некоторая путаница, с которой разберёмся пониже. Главное - суть одна - устройство само рассылает данные тем клиентам, которые оформили подписку на обновления. Таким образом система мониторинга не тратит такты и RTT на опрос (polling), а всего лишь получает данные на свой интерфейс.</div>
+<div class="line">И если частота опроса ограничена единицами-десятками раз в минуту, то стриминг телеметрии вообще нет - устройство может слать хоть по каждому обновлению.</div>
+<div class="line">Тут, конечно, нужно быть аккуратным с машстабированием - в случае опроса мы сами управляем тем, сколько данных нужно обработать системой. Объём работы всегда предсказуемый и линейно зависит от числа опрашиваемых узлов. Видим увеличение нагрузки - добавляем ещё экземпляров попрошаек и шардируем нагрузку.</div>
+<div class="line">И всё иначе в случае стриминга телеметрии - тут узлы сети могу напихать в коллектор столько, что он не в состоянии обработать. Думать про масштабирование и отказоустойчивость тут придётся до усиленного потовыделения.</div>
 </div>
 <div class="line-block">
-<div class="line">Сложность с автоматизацией сети - она ведь в чём? В том, что прежде чем отправлять конфигурацию на устройство, человек должен сесть и прям-таки разобраться в структуре CLI или XML и руками накидать шаблоны для конфигурации.</div>
-<div class="line">Даже просто для того, чтобы настроить IP-адрес на интерфейсе, нужно знать иерархию секций конфигурации или конкретное поддерево XML.</div>
+<div class="line">Перечисленные выше вендорские телеметрии поддерживают “сжатый формат” протобафов - когда данные представлены в виде структуры, зависимой от вендора, модели и ПО. Для декодирования таких данных нужен специальный вендорский прото-файл. Например, <a class="reference external" href="https://github.com/Juniper/telemetry/blob/master/18.3/18.3R1/protos/port.proto">такой</a>. В gNMI же данные в универсальном виде. Это хорошо с точки зрения discovery, так как для запроса нужно найти только путь подписки, но сильно сказывается на размере данных и отсутствии структуры данных (<a href="#id14"><span class="problematic" id="id15">*</span></a>теоретически можно вывести из моделей).</div>
+<div class="line">gNMI чересчур свободен в выборе типа кодирования данных. Можно и Proto и ASCII и даже два вида JSON.</div>
 </div>
-<div class="line-block">
-<div class="line">А ещё выяснить, в каком формате надо передавать адрес: <code class="docutils literal notranslate"><span class="pre">fe80::1/64</span></code>, <code class="docutils literal notranslate"><span class="pre">fe80::1</span> <span class="pre">64</span></code>, <code class="docutils literal notranslate"><span class="pre">fe80::1</span> <span class="pre">link-local</span></code>, <code class="docutils literal notranslate"><span class="pre">address:</span> <span class="pre">fe80::1,</span> <span class="pre">mask:</span> <span class="pre">64</span></code>, <code class="docutils literal notranslate"><span class="pre">FE8:0:0:0:0:0:0:1</span></code>, <code class="docutils literal notranslate"><span class="pre">0000111111101000</span> <span class="pre">0000000000000000</span> <span class="pre">0000000000000000</span> <span class="pre">0000000000000000</span> <span class="pre">0000000000000000</span> <span class="pre">0000000000000000</span> <span class="pre">0000000000000000</span> <span class="pre">0000000000000001</span></code> или там вообще не поддерживается IPv6. И надо ли сначала как-то энейблить IPv6, а MTU заимствуется с интерфейса или для IPv6 отдельный?</div>
-<div class="line">И так для каждого вендора по отдельности. Знаете, сетевых автоматизаторов спасает только то, что они до этого лет 10 ели на завтрак циски да джуниперы - и как свои два пальца знают все тонкости CLI.</div>
-<div class="line">Оно же их и губит.</div>
-</div>
-<p>NETCONF поел овса из-за того, что не предложил никакой стандартизации для моделирования данных. Именно поэтому вендоры успели наплодить своих собственных, несовместимых моделей, про которые мы и поговорим ниже.</p>
+<p>Не предусмотрена “дешевая” отправка. У джуна и у аристы есть отправка протобафов в UDP. Это очень дешево для устройства и коллектора и даже может быть реализовано прям на линейной карте (мониторинг микробёрстов, например). При столь частой отправке обновлений разовые потери UDP не страшны.
+| Что сделано классно в gNMI, так это возможность подписаться только на изменения. Рисовать графики только по изменениям так себе идея конечно, но в gNMI можно реализовать такой сценарий: подписываешься на определенные данные, получаешь все значения и записываешь их в свой кеш. Дальше получаешь изменения и опционально периодические полные срезы. Теперь можно периодически отсылать весь кеш в БД и рисовать аккуратные графики.</p>
+<p>Если говорить в целом про сбор метрик, то есть смысл использовать то, что поддерживается вендором в первую очередь. SNMP - надежный как швейцарские часы, тонны библиотек для работы с ним, MIBы устоялись и его не стыдно использовать даже в 2022. gNMI крутой, но реализация может подкачать - неизбежны детские болячки типа отсутствия поддержки IPv6 и требования админских прав для получения метрик.</p>
 </div>
 </div>
 
