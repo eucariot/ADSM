@@ -109,7 +109,7 @@
 <li class="toctree-l2"><a class="reference internal" href="grpc.html">gRPC/gNMI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="models.html">Модели данных</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yang.html">YANG</a></li>
-<li class="toctree-l2"><a class="reference internal" href="yang.html#model-driven-programmability">Model Driven Programmability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_driven.html">Model Driven Programmability</a></li>
 <li class="toctree-l2"><a class="reference internal" href="onemoretime.html">Всё вместе</a></li>
 <li class="toctree-l2"><a class="reference internal" href="links.html">Полезные ссылки</a></li>
 <li class="toctree-l2"><a class="reference internal" href="conclusion.html">Заключение</a></li>
@@ -286,16 +286,16 @@ realized on top of a simple Remote Procedure Call (RPC) layer.
 <p>Итак, в качестве транспорта NETCONF использует SSH. На самом деле, там есть и другие протоколы: SSH, SOAP, BEEP, TLS - но мы их опустим - SSH стал де-факто стандартом.</p>
 <p>Каждый NETCONF запрос содержит элемент (или сообщение):</p>
 <ul>
-<li><p>&lt;rpc&gt; - это собственно запрос на вызов процедуры с необходимыми параметрами.</p></li>
-<li><p>&lt;rpc-reply&gt; - ответ на RPC.</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;rpc&gt;</span></code> - это собственно запрос на вызов процедуры с необходимыми параметрами.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;rpc-reply&gt;</span></code> - ответ на RPC.</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>&lt;rpc-error&gt; - очевидно, ответная ошибка, когда RPC некорректен.</p></li>
-<li><p>&lt;ok&gt; - rpc корректен и отработал.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;rpc-error&gt;</span></code> - очевидно, ответная ошибка, когда RPC некорректен.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;ok&gt;</span></code> - rpc корректен и отработал.</p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p>&lt;notification&gt; - сообщение о событии, инициированное сетевой коробкой - аналог трапа в snmp. (из <a class="reference external" href="https://www.ietf.org/rfc/rfc6241.txt">RFC6241</a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;notification&gt;</span></code> - сообщение о событии, инициированное сетевой коробкой - аналог трапа в snmp. (из <a class="reference external" href="https://www.ietf.org/rfc/rfc6241.txt">RFC6241</a>)</p></li>
 </ul>
 <p>Это всё сообщения, внутри которых определённым образом сформированные XML.</p>
 <div class="line-block">
@@ -436,11 +436,11 @@ realized on top of a simple Remote Procedure Call (RPC) layer.
 </li>
 </ul>
 <div class="line-block">
-<div class="line">Формат названия capability строго регламентирован: <cite>urn:ietf:params:netconf:capability:{name}:1.0</cite>.</div>
+<div class="line">Формат названия capability строго регламентирован: <code class="docutils literal notranslate"><span class="pre">urn:ietf:params:netconf:capability:{name}:1.0</span></code>.</div>
 <div class="line">Последние два значения - это имя и версия - и только они могут меняться.</div>
-<div class="line">Так <cite>urn:ietf:params:netconf:base:1.1</cite> - это имя базовой капабилити для версии 1.1.</div>
+<div class="line">Так <code class="docutils literal notranslate"><span class="pre">urn:ietf:params:netconf:base:1.1</span></code> - это имя базовой капабилити для версии 1.1.</div>
 </div>
-<p>В ответ на <cite>&lt;hello&gt;</cite> сервера клиент в свою очередь должен послать свои capability:</p>
+<p>В ответ на <code class="docutils literal notranslate"><span class="pre">&lt;hello&gt;</span></code> сервера клиент в свою очередь должен послать свои capability:</p>
 <blockquote>
 <div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;hello&gt;</span>
  <span class="nt">&lt;capabilities&gt;</span>

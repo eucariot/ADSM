@@ -29,11 +29,11 @@ RESTCONF
   
 2. Разрешаем доступ на устройство по порту 6020 - правим `control-plane acl`
       
-    Смотрим то, что разрешено сейчас - это readonly acl.
+   Смотрим то, что разрешено сейчас - это readonly acl.
 
-        .. code-block:: text
+    .. code-block:: text
 
-           show ip access-lists default-control-plane-acl
+       show ip access-lists default-control-plane-acl
 
  
 3. Копируем правила и создаём копию ACL. Добавляем правило, разрешающее доступ по порту 6020  
@@ -120,7 +120,7 @@ RESTCONF
        https://<ADDRESS>/<ROOT>/data/<[YANG-MODULE]:CONTAINER>/<LEAF>/[?<OPTIONS>]
 
 * **<ADDRESS>** - адрес RESTCONF-сервера.
-* **<ROOT>** - Точка входа для запросов RESTCONF. Можно найти тут : https://<ADDRESS>/.well-known/
+* **<ROOT>** - Точка входа для запросов RESTCONF. Можно найти тут: ``https://<ADDRESS>/.well-known/``
 * **data** - прям так и остаётся
 * **<[YANG MODULE:]CONTAINER>** - Базовый контейнер YANG. Наличие YANG Module - не обязательно. 
 * **<LEAF>** - Отдельный элемент в контейнере

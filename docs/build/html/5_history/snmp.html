@@ -173,8 +173,10 @@
   <div class="section" id="snmp-simple-management-short-term">
 <h1>SNMP - и не simple, и не management, и не short term<a class="headerlink" href="#snmp-simple-management-short-term" title="Ссылка на этот заголовок">¶</a></h1>
 <p><em>Бунтарские 80-е - лихие 90-е.</em></p>
-<p>Это была достаточно смелая и, в некотором смысле, успешная попытка создать единый стандарт взаимодействия с сетевым устройством.
-| В 80-е годы было уже вполне понятно, что сети - бурнорастущая отрасль, в которой уже сейчас хаотически складываются подходы к управлению.</p>
+<div class="line-block">
+<div class="line">Это была достаточно смелая и, в некотором смысле, успешная попытка создать единый стандарт взаимодействия с сетевым устройством.</div>
+<div class="line">В 80-е годы было уже вполне понятно, что сети - бурнорастущая отрасль, в которой уже сейчас хаотически складываются подходы к управлению.</div>
+</div>
 <p>И вот умники в <strong>IAB</strong> (<em>Internet Activities Board</em>) крепко призадумались и 21-го марта 1988 года, собравшись в тогдашнем зуме (без шуток, не офлайн), постановили много важного стратегического про будущее систем управления интернетом. Ох они тогда напридумывали!</p>
 <p>Результаты встречи они сели, записали и превратили в <a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc1052">RFC1052</a> .</p>
 <p>Они уже тогда действительно проектировали штуки, которые должны были не дать превратиться системам управления в то, во что они всё же превратились.</p>
@@ -193,7 +195,7 @@ community, the vendor community and the user community.
 </div>
 </div></blockquote>
 <p>Но работа закипела. RFC выходил за RFC. А количество рабочих групп не оставляло шансов для провала.</p>
-<p>Что любопытно, так это то, что SNMP по их задумке был <strong>временным протоколом</strong>, решающим насущные нужды вендоров и операторов в перспективе нескольких лет. А в дальнейшем все должны были перейти на ISO CMIP/CMIS (<a class="reference external" href="https://www.ietf.org/rfc/rfc1095.txt">RFC1095</a> <a class="reference external" href="https://www.ietf.org/rfc/rfc1189.txt">RFC1189</a>). Общими для них оставались MIB (<a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc1066">RFC1066</a>) - спецификации, описывающие формат данных.</p>
+<p>Что любопытно, так это то, что SNMP по их задумке был <strong>временным протоколом</strong>, решающим насущные нужды вендоров и операторов в перспективе нескольких лет. А в дальнейшем все должны были перейти на ISO CMIP/CMIS (<a class="reference external" href="https://www.ietf.org/rfc/rfc1095.txt">RFC1095</a>, <a class="reference external" href="https://www.ietf.org/rfc/rfc1189.txt">RFC1189</a>). Общими для них оставались MIB (<a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc1066">RFC1066</a>) - спецификации, описывающие формат данных.</p>
 <blockquote>
 <div><div class="line-block">
 <div class="line">Уверен, что уже тогда не всем эта идея пришлась по душе.</div>
@@ -204,7 +206,7 @@ community, the vendor community and the user community.
 <div class="line"><strong>CMIP/CMIS</strong> - <em>Common Management Information Services/Common Management Information Protocol</em> - это такая же несостоявшаяся вещь, как OSI. Здорово всё напланировали, но временный SNMP заполонил всю планету.</div>
 <div class="line">Есть и другие слова, выдуманные в те дни, которые мы сейчас нигде в обиходе не используем: <em>HEMS, SGMP, NETVIEW, TNM, LANMANAGER, Network Computing Forum «Fat Document»</em>…</div>
 </div>
-<p>SNMP именно потому и был Simple, что на горизонте маячил Common. И его планировали держать «Simple», пока не откажутся. А вовсе не потому что он сам по себе был прост. Кажется, нам, как цивилизации, ещё повезло, что на смену SNMP не пришло что-то не столь Simple.</p>
+<p>SNMP именно потому и был <em>Simple</em>, что на горизонте маячил <em>Common</em>. И его планировали держать «Simple», пока не откажутся. А вовсе не потому что он сам по себе был прост. Кажется, нам, как цивилизации, ещё повезло, что на смену SNMP не пришло что-то не столь Simple.</p>
 <div class="line-block">
 <div class="line">Итак, SNMP победил, если это можно считать победой. А другие рабочие группы распустили.</div>
 <div class="line">MIB - являл собой спецификацию, говорящую как системе управления, так и сетевому устройству, как собирать и интерпретировать SNMP-сообщения.</div>

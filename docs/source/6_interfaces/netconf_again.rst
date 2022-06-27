@@ -1122,7 +1122,7 @@ Configuration Management
 
 #. NETCONF-сервер на коробке получает RPC и вычисляет конфигурационный патч, который фактически применит. То есть он находит разницу между целевой конфигурацией в RPC и текущей в ``<running>``. Применяет эту конфигурацию.
 
-Как бы это могло выглядеть я уже показывал в `предыдущем выпуске АДСМ <https://linkmeup.ru/blog/1275/>`_.
+Как бы это могло выглядеть я уже показывал в `предыдущем выпуске АДСМ <https://adsm.readthedocs.io/ru/latest/4_lifecycle/index.html>`_.
 
     .. figure:: https://dteslya.engineer/images/2020-10-netdevops-pipeline.png
 
