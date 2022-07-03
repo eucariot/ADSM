@@ -31,46 +31,46 @@ RESTCONF
       
    Смотрим то, что разрешено сейчас - это readonly acl.
 
-    .. code-block:: text
+        .. code-block:: text
 
-       show ip access-lists default-control-plane-acl
+           show ip access-lists default-control-plane-acl
 
  
-3. Копируем правила и создаём копию ACL. Добавляем правило, разрешающее доступ по порту 6020  
+   Копируем правила и создаём копию ACL. Добавляем правило, разрешающее доступ по порту 6020  
 
-    .. code-block:: text
+        .. code-block:: text
 
-       ip access-list control-plane-acl-with-restconf
-       9 permit tcp any any eq 6020
-       30 permit udp any any eq bfd ttl eq 255
-       40 permit udp any any eq bfd-echo ttl eq 254
-       50 permit udp any any eq multihop-bfd
-       60 permit udp any any eq micro-bfd
-       70 permit ospf any any
-       80 permit tcp any any eq ssh telnet www snmp bgp https msdp ldp
-       90 permit udp any any eq bootps bootpc snmp rip ntp ldp
-       100 permit tcp any any eq mlag ttl eq 255
-       110 permit udp any any eq mlag ttl eq 255
-       120 permit vrrp any any
-       130 permit ahp any any
-       140 permit pim any any
-       150 permit igmp any any
-       160 permit tcp any any range 5900 5910
-       170 permit tcp any any range 50000 50100
-       180 permit udp any any range 51000 51100
-       190 permit tcp any any eq 3333
-       200 permit tcp any any eq nat ttl eq 255
-       210 permit tcp any eq bgp any
-       220 permit rsvp any any
+           ip access-list control-plane-acl-with-restconf
+           9 permit tcp any any eq 6020
+           30 permit udp any any eq bfd ttl eq 255
+           40 permit udp any any eq bfd-echo ttl eq 254
+           50 permit udp any any eq multihop-bfd
+           60 permit udp any any eq micro-bfd
+           70 permit ospf any any
+           80 permit tcp any any eq ssh telnet www snmp bgp https msdp ldp
+           90 permit udp any any eq bootps bootpc snmp rip ntp ldp
+           100 permit tcp any any eq mlag ttl eq 255
+           110 permit udp any any eq mlag ttl eq 255
+           120 permit vrrp any any
+           130 permit ahp any any
+           140 permit pim any any
+           150 permit igmp any any
+           160 permit tcp any any range 5900 5910
+           170 permit tcp any any range 50000 50100
+           180 permit udp any any range 51000 51100
+           190 permit tcp any any eq 3333
+           200 permit tcp any any eq nat ttl eq 255
+           210 permit tcp any eq bgp any
+           220 permit rsvp any any
   
-4. Применяем ACL на Control-Plane
+   Применяем ACL на Control-Plane
 
-    .. code-block:: text
+        .. code-block:: text
 
-       control-plane
-          ip access-group control-plane-acl-with-restconf in
+           control-plane
+              ip access-group control-plane-acl-with-restconf in
   
-5. Включаем сервис RESTCONF
+3. Включаем сервис RESTCONF
 
     .. code-block:: text
 
@@ -78,7 +78,7 @@ RESTCONF
            transport https test
            ssl profile restconf
   
-6. Настраиваем SSL
+4. Настраиваем SSL
 
     .. code-block:: text
 
@@ -86,7 +86,7 @@ RESTCONF
            ssl profile restconf
            certificate restconf.crt key restconf.key
 
-7. Вы божественны
+5. Вы божественны
 
 Теперь проверяем, что порт открыт
 
@@ -167,4 +167,4 @@ RESTCONF
 
 Просто жаль сил, вложенных в этот протокол. Потому что на пятки ему наступает gRPC/gNMI.
 
-На самостоятельное изучение: `RESTCONF intro with Postman - Part 1 <https://blog.wimwauters.com/networkprogrammability/2020-04-02_restconf_introduction_part1>`_
+На самостоятельное изучение: `RESTCONF intro with Postman - Part 1 <https://blog.wimwauters.com/networkprogrammability/2020-04-02_restconf_introduction_part1>`_.

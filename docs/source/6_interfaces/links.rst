@@ -58,7 +58,7 @@
     * OpenConfig. Part 1. `How open is OpenConfig <https://karneliuk.com/2018/07/openconfig-w-o-and-w-ansible-for-arista-eos-cisco-ios-xr-and-nokia-sr-os-part-1-interfaces/>`_  
     * `Серия Automation <https://karneliuk.com/category/automation/>`_  
     * | `Pygnmi блог-пост <https://karneliuk.com/2020/10/pygnmi-2-how-to-use-pygnmi/>`_ и `репо <https://github.com/akarneliuk/pygnmi/tree/master/examples/pure_python>`_.  
-        | Но на сайте поехала вёрстка - до чего-то приходится докапываться самому.
+      | Но на сайте поехала вёрстка - до чего-то приходится докапываться самому.
   
 * `Блог Михаила Кашина <https://networkop.co.uk/>`_ в общем. И в частности:
       

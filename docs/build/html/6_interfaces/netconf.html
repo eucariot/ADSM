@@ -196,7 +196,7 @@
 <div class="line-block">
 <div class="line">В 1996 был основан Juniper Networks, в недрах которого создали легендарный М40 и лучший в мире интерфейс командной строки. До сих пор никто не сделал ничего лучшего - все только повторяют.</div>
 <div class="line">Операционка, предоставляющая клиенту обычный текстовый интерфейс, на самом деле перекладывает команды в XML, который фактически является интерфейсом для управления устройством.</div>
-<div class="line">Если вы сейчас к любой show-команде на джуне добавите <cite>| display xml</cite>, то увидите ответ в формате XML</div>
+<div class="line">Если вы сейчас к любой show-команде на джуне добавите <code class="docutils literal notranslate"><span class="pre">|</span> <span class="pre">display</span> <span class="pre">xml</span></code>, то увидите ответ в формате XML</div>
 </div>
 <blockquote>
 <div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span>eucariot@kzn-spine-0&gt; show system uptime | display xml
@@ -241,7 +241,7 @@
 </pre></div>
 </div>
 </div></blockquote>
-<p>В корне вы можете видеть <cite>&lt;rpc-reply&gt;</cite>, что означает, что был какой-то <cite>&lt;rpc&gt;</cite>-request. И вот так вы можете увидеть, каким RPC-запросом можно получить такие данные:</p>
+<p>В корне вы можете видеть <code class="docutils literal notranslate"><span class="pre">&lt;rpc-reply&gt;</span></code>, что означает, что был какой-то <code class="docutils literal notranslate"><span class="pre">&lt;rpc&gt;</span></code>-request. И вот так вы можете увидеть, каким RPC-запросом можно получить такие данные:</p>
 <blockquote>
 <div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span>eucariot@kzn-spine-0&gt; show version | display xml rpc
 <span class="nt">&lt;rpc-reply</span> <span class="na">xmlns:junos=</span><span class="s">&quot;http://xml.juniper.net/junos/18.3R3/junos&quot;</span><span class="nt">&gt;</span>
@@ -258,7 +258,7 @@
 </pre></div>
 </div>
 </div></blockquote>
-<p>Так вот, их CLI и способ взаимодействия его с системой оказался настолько естественным и удачным, что его и положили в основу стандарта. Не без участия Juniper Networks, конечно же, появился <a class="reference external" href="https://www.ietf.org/rfc/rfc4741.txt">RFC4741</a>. Будем честны, один только джунипер там и постарался. И то тут, то там будут проскакивать его куски, начиная с <cite>commit confirmed</cite> и заканчивая <cite>candidate config</cite>.</p>
+<p>Так вот, их CLI и способ взаимодействия его с системой оказался настолько естественным и удачным, что его и положили в основу стандарта. Не без участия Juniper Networks, конечно же, появился <a class="reference external" href="https://www.ietf.org/rfc/rfc4741.txt">RFC4741</a>. Будем честны, один только джунипер там и постарался. И то тут, то там будут проскакивать его куски, начиная с <code class="docutils literal notranslate"><span class="pre">commit</span> <span class="pre">confirmed</span></code> и заканчивая <code class="docutils literal notranslate"><span class="pre">candidate</span> <span class="pre">config</span></code>.</p>
 <p>Вот как NETCONF был определён в 2006-м году:</p>
 <blockquote>
 <div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Abstract

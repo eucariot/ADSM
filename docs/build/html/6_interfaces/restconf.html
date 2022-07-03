@@ -208,8 +208,7 @@ certificate:restconf.crt generated
 </pre></div>
 </div>
 </div></blockquote>
-</li>
-<li><p>Копируем правила и создаём копию ACL. Добавляем правило, разрешающее доступ по порту 6020</p>
+<p>Копируем правила и создаём копию ACL. Добавляем правило, разрешающее доступ по порту 6020</p>
 <blockquote>
 <div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ip access-list control-plane-acl-with-restconf
 9 permit tcp any any eq 6020
@@ -236,8 +235,7 @@ certificate:restconf.crt generated
 </pre></div>
 </div>
 </div></blockquote>
-</li>
-<li><p>Применяем ACL на Control-Plane</p>
+<p>Применяем ACL на Control-Plane</p>
 <blockquote>
 <div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>control-plane
    ip access-group control-plane-acl-with-restconf in
@@ -345,7 +343,7 @@ Connection to bcn-spine-1.arista <span class="m">6020</span> port <span class="o
 <div class="line">При этом CRUD не очень гладко ложится на RPC-подход, да и в идее держать открытым на сетевом железе HTTP есть что-то противоестественное, согласитесь?</div>
 </div>
 <p>Просто жаль сил, вложенных в этот протокол. Потому что на пятки ему наступает gRPC/gNMI.</p>
-<p>На самостоятельное изучение: <a class="reference external" href="https://blog.wimwauters.com/networkprogrammability/2020-04-02_restconf_introduction_part1">RESTCONF intro with Postman - Part 1</a></p>
+<p>На самостоятельное изучение: <a class="reference external" href="https://blog.wimwauters.com/networkprogrammability/2020-04-02_restconf_introduction_part1">RESTCONF intro with Postman - Part 1</a>.</p>
 </div>
 
 

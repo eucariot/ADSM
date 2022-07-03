@@ -53,7 +53,7 @@ YANG, а точнее модели, написанные на нём, не ст�
 
 | И мне не очень. Чтобы такое читать, надо всё же разбираться с самим языком.
 | Нам лень.
-| Поэтому воспользуемся помощью библиотеки pyang.
+| Поэтому воспользуемся помощью библиотеки ``pyang``.
 
 
 Pyang
@@ -76,7 +76,8 @@ Pyang
 
     .. code-block:: bash
 
-       pyang -f tree -p yang/oc/public/release/models/ yang/oc/public/release/models/interfaces/openconfig-interfaces.yang
+       pyang -f tree -p yang/oc/public/release/models/ \
+             yang/oc/public/release/models/interfaces/openconfig-interfaces.yang
 
 И дальше вываливается много текста:
 
@@ -179,7 +180,9 @@ Pyang
 
     .. code-block:: bash
 
-       pyang -f tree  -p yang/oc/public/release/models/ yang/oc/public/release/models/interfaces/openconfig-if-ip.yang | head -n 10
+       pyang -f tree  -p yang/oc/public/release/models/ \
+             yang/oc/public/release/models/interfaces/openconfig-if-ip.yang | head -n 10
+       
        module: openconfig-if-ip
 
          augment /oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface:
@@ -205,7 +208,8 @@ Pyang
 
     .. code-block:: bash
 
-       pyang -p yang/oc/public/release/models/ yang/oc/public/release/models/interfaces/openconfig-interfaces.yang
+       pyang -p yang/oc/public/release/models/ \
+             yang/oc/public/release/models/interfaces/openconfig-interfaces.yang
 
 
 | Ключ ``-f`` позволяет конвертировать в разные форматы: ``tree``, ``yin``, ``yang``, ``jstree``, ``uml`` и другие.

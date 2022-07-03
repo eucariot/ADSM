@@ -289,7 +289,7 @@
 </div></blockquote>
 <div class="line-block">
 <div class="line">В зависимости от вендора в ответе на <code class="docutils literal notranslate"><span class="pre">&lt;get&gt;</span></code> будет содержаться либо вообще всё, что вам может дать устройство - полный конфиг и вся информацию по состоянию, либо какую-то часть.</div>
-<div class="line">Так, Juniper возвращается конфиг и совсем немного данных сверху. Для того, чтобы забрать операционные данные нужно использовать специальные операции, например <code class="docutils literal notranslate"><span class="pre">&lt;get-interface-information&gt;</span></code>:</div>
+<div class="line">Так, Juniper возвращает конфиг и совсем немного данных сверху. Для того, чтобы забрать операционные данные, нужно использовать специальные операции, например <code class="docutils literal notranslate"><span class="pre">&lt;get-interface-information&gt;</span></code>:</div>
 </div>
 <blockquote>
 <div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc&gt;</span>
@@ -350,7 +350,7 @@
 </pre></div>
 </div>
 </div></blockquote>
-<p>Вот таким запросом можно вытащить операционные данные по всем интерфейсам</p>
+<p>Вот таким запросом можно вытащить конфигурационные данные по всем интерфейсам</p>
 <blockquote>
 <div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;get&gt;</span>
@@ -500,14 +500,14 @@
             <span class="nt">&lt;name&gt;</span>ge-0/0/0<span class="nt">&lt;/name&gt;</span>
             <span class="nt">&lt;description&gt;</span>kzn-leaf-0<span class="nt">&lt;/description&gt;</span>
             <span class="nt">&lt;unit&gt;</span>
-                       <span class="nt">&lt;name&gt;</span>0<span class="nt">&lt;/name&gt;</span>
-                       <span class="nt">&lt;family&gt;</span>
-                    <span class="nt">&lt;inet&gt;</span>
-                               <span class="nt">&lt;address&gt;</span>
-                            <span class="nt">&lt;name&gt;</span>169.254.0.1/31<span class="nt">&lt;/name&gt;</span>
-                               <span class="nt">&lt;/address&gt;</span>
-                    <span class="nt">&lt;/inet&gt;</span>
-                       <span class="nt">&lt;/family&gt;</span>
+                 <span class="nt">&lt;name&gt;</span>0<span class="nt">&lt;/name&gt;</span>
+                 <span class="nt">&lt;family&gt;</span>
+                     <span class="nt">&lt;inet&gt;</span>
+                         <span class="nt">&lt;address&gt;</span>
+                             <span class="nt">&lt;name&gt;</span>169.254.0.1/31<span class="nt">&lt;/name&gt;</span>
+                         <span class="nt">&lt;/address&gt;</span>
+                     <span class="nt">&lt;/inet&gt;</span>
+                 <span class="nt">&lt;/family&gt;</span>
             <span class="nt">&lt;/unit&gt;</span>
         <span class="nt">&lt;/interface&gt;</span>
     <span class="nt">&lt;/interfaces&gt;</span>
@@ -527,10 +527,7 @@
 </pre></div>
 </div>
 </div></blockquote>
-<div class="line-block">
-<div class="line">Соответственно можно совместить запрос конкретного интерфейса и только тех его полей, которые интересны.</div>
-<div class="line">В одном get-запросе можно выбрать несколько удовлетворяющих деревьев.</div>
-</div>
+<p>Соответственно можно совместить запрос конкретного интерфейса и только тех его полей, которые интересны.</p>
 <blockquote>
 <div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rpc</span> <span class="na">message-id=</span><span class="s">&quot;100&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;get&gt;</span>
@@ -576,9 +573,8 @@
 <p>Ещё немного про <a class="reference external" href="https://netdevops.me/2020/netconf-subtree-filtering-by-example/">subtree filtering</a>.</p>
 <div class="line-block">
 <div class="line">В случае Juniper <code class="docutils literal notranslate"><span class="pre">&lt;get&gt;</span></code> ничем практически не отличается от <code class="docutils literal notranslate"><span class="pre">&lt;get-config&gt;</span></code>. Для того, чтобы забрать операционные данные, нужно воспользоваться другими операциями - специфическими под каждую задачу.</div>
-<div class="line">Узнать их можно достаточно просто:</div>
+<div class="line">Узнать их можно достаточно просто: <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">version</span> <span class="pre">|</span> <span class="pre">display</span> <span class="pre">xml</span> <span class="pre">rpc</span></code></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">version</span> <span class="pre">|</span> <span class="pre">display</span> <span class="pre">xml</span> <span class="pre">rpc</span></code></p>
 <div class="line-block">
 <div class="line">С помощью операций <code class="docutils literal notranslate"><span class="pre">&lt;get&gt;</span></code> удобно забирать операционные данные с устройства. Например, для мониторинга. Или для отладки. Можно выбрать всех BGP-соседей в состоянии Idle, или все интерфейсы с ошибками, данные по маршрутам.</div>
 <div class="line">Да, понятно, что для всего этого есть и более удобные способы, но всё же такой путь есть.</div>
@@ -590,7 +586,7 @@
 <div class="line">Позволяет забрать конфигурацию устройства.</div>
 <div class="line">Могло показаться, что <code class="docutils literal notranslate"><span class="pre">&lt;get-config&gt;</span></code> - это поддерево <code class="docutils literal notranslate"><span class="pre">&lt;get&gt;</span></code>, но это всё-таки не так.</div>
 </div>
-<p>С помощью <code class="docutils literal notranslate"><span class="pre">&lt;get-config&gt;</span></code> можно указать из какого источника мы хотим получить конфигу - <code class="docutils literal notranslate"><span class="pre">running</span></code>, <code class="docutils literal notranslate"><span class="pre">candidate</span></code>, startup итд.</p>
+<p>С помощью <code class="docutils literal notranslate"><span class="pre">&lt;get-config&gt;</span></code> можно указать из какого источника мы хотим получить конфигу - <code class="docutils literal notranslate"><span class="pre">running</span></code>, <code class="docutils literal notranslate"><span class="pre">candidate</span></code>, <code class="docutils literal notranslate"><span class="pre">startup</span></code> итд.</p>
 <div class="line-block">
 <div class="line">Ну и можно быть уверенным, что в ответе будут только конфигурационные данные.</div>
 <div class="line">Хотя по своему опыту вам скажу, что вендоры тут могут отличаться изобретательностью, подмешивая оперданные к конфиге.</div>
@@ -659,7 +655,7 @@
 Идея в теории прекрасна: мы отправляем на устройство желаемую конфигурацию в виде XML, а оно само шуршит и считает, что нужно применить, а что удалить. Давайте идеальный случай и разберём сначала.</p>
 <div class="line-block">
 <div class="line"><code class="docutils literal notranslate"><span class="pre">&lt;edit-config&gt;</span></code> позволяет загрузить полную конфигурацию устройства или его часть в указанный datastore. При этом устройство сравнивает актуальную конфигурацию в datastore и передаваемую с клиента и предпринимает указанные действия.</div>
-<div class="line">А какие действия могут быть указаны? Это определяется атрибутом «operation» в любом из элементов поддерева <code class="docutils literal notranslate"><span class="pre">&lt;configuration&gt;</span></code>. Operation может встречаться несколько раз в XML и быть при этом разным. Атрибут может принимать следующие значения:</div>
+<div class="line">А какие действия могут быть указаны? Это определяется атрибутом <code class="docutils literal notranslate"><span class="pre">operation</span></code> в любом из элементов поддерева <code class="docutils literal notranslate"><span class="pre">&lt;configuration&gt;</span></code>. Operation может встречаться несколько раз в XML и быть при этом разным. Атрибут может принимать следующие значения:</div>
 </div>
 <ul class="simple">
 <li><p><strong>Merge</strong> - новая конфига вливается в старую - что необходимо заменить - заменяется, новое - добавляется, ничего не удаляется.</p></li>

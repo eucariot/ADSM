@@ -228,7 +228,7 @@
 <div class="line-block">
 <div class="line">И мне не очень. Чтобы такое читать, надо всё же разбираться с самим языком.</div>
 <div class="line">Нам лень.</div>
-<div class="line">Поэтому воспользуемся помощью библиотеки pyang.</div>
+<div class="line">Поэтому воспользуемся помощью библиотеки <code class="docutils literal notranslate"><span class="pre">pyang</span></code>.</div>
 </div>
 </div>
 <div class="section" id="pyang">
@@ -247,7 +247,8 @@
 </div></blockquote>
 <p>И дадим вот такую команду:</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyang -f tree -p yang/oc/public/release/models/ yang/oc/public/release/models/interfaces/openconfig-interfaces.yang
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyang -f tree -p yang/oc/public/release/models/ <span class="se">\</span>
+      yang/oc/public/release/models/interfaces/openconfig-interfaces.yang
 </pre></div>
 </div>
 </div></blockquote>
@@ -352,7 +353,9 @@
 <div class="line">Взглянем ещё раз на директорию. И повторим pyang:</div>
 </div>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyang -f tree  -p yang/oc/public/release/models/ yang/oc/public/release/models/interfaces/openconfig-if-ip.yang <span class="p">|</span> head -n <span class="m">10</span>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyang -f tree  -p yang/oc/public/release/models/ <span class="se">\</span>
+      yang/oc/public/release/models/interfaces/openconfig-if-ip.yang <span class="p">|</span> head -n <span class="m">10</span>
+
 module: openconfig-if-ip
 
   augment /oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface:
@@ -379,7 +382,8 @@ prefix <span class="s2">&quot;oc-if&quot;</span><span class="p">;</span>
 <div class="line">Так можно просто проверить корректность</div>
 </div>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyang -p yang/oc/public/release/models/ yang/oc/public/release/models/interfaces/openconfig-interfaces.yang
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyang -p yang/oc/public/release/models/ <span class="se">\</span>
+      yang/oc/public/release/models/interfaces/openconfig-interfaces.yang
 </pre></div>
 </div>
 </div></blockquote>
